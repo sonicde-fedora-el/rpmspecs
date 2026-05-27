@@ -1,0 +1,62 @@
+name: Build RPMs
+
+on:
+  push:
+    paths:
+      - "**.spec"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: almalinux10
+    strategy:
+      fail-fast: false
+      matrix:
+        spec:
+          - sonic-interface-libraries.spec
+          - sonic-win.spec
+          - sonic-workspace.spec
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: |
+          dnf install -y \
+            rpm-build \
+            rpmdevtools \
+            dnf-plugins-core \
+            curl
+
+      - name: Setup RPM build tree
+        run: rpmdev-setuptree
+
+      - name: Install build dependencies for ${{ matrix.spec }}
+        run: |
+          dnf builddep -y ${{ matrix.spec }}
+
+      - name: Download sources for ${{ matrix.spec }}
+        run: |
+          spectool -g -R ${{ matrix.spec }}
+
+      - name: Build RPM from ${{ matrix.spec }}
+        run: |
+          rpmbuild -ba \
+            --define "_topdir ${HOME}/rpmbuild" \
+            ${{ matrix.spec }}
+
+      - name: Upload RPMs to Forgejo Package Registry
+        run: |
+          FORGEJO_URL="${{ env.GITHUB_SERVER_URL }}"
+          OWNER="${{ github.repository_owner }}"
+          TOKEN="${{ secrets.PACKAGE_TOKEN }}"
+
+          find "${HOME}/rpmbuild/RPMS" -name "*.rpm" | while read rpm; do
+            FILENAME=$(basename "$rpm")
+            echo "Uploading $FILENAME ..."
+            curl --fail-with-body \
+              --user "${OWNER}:${TOKEN}" \
+              --upload-file "$rpm" \
+              "${FORGEJO_URL}/api/packages/${OWNER}/rpm/upload"
+          done
