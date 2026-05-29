@@ -1,0 +1,1864 @@
+/home/xlibre/rpmbuild/BUILDROOT/sonic-win-6.6.4-2.el10.x86_64/
+├── etc
+│   └── xdg
+│       └── Xwayland-session.d
+└── usr
+    ├── bin
+    │   └── kwin_x11
+    ├── include
+    │   └── kwin-x11
+    │       ├── activities.h
+    │       ├── appmenu.h
+    │       ├── atoms.h
+    │       ├── client_machine.h
+    │       ├── compositor.h
+    │       ├── config-kwin.h
+    │       ├── core
+    │       │   ├── colorlut3d.h
+    │       │   ├── colorpipeline.h
+    │       │   ├── colorpipelinestage.h
+    │       │   ├── colorspace.h
+    │       │   ├── colortransformation.h
+    │       │   ├── drmdevice.h
+    │       │   ├── gbmgraphicsbufferallocator.h
+    │       │   ├── graphicsbufferallocator.h
+    │       │   ├── graphicsbuffer.h
+    │       │   ├── graphicsbufferview.h
+    │       │   ├── iccprofile.h
+    │       │   ├── inputbackend.h
+    │       │   ├── inputdevice.h
+    │       │   ├── outputbackend.h
+    │       │   ├── outputconfiguration.h
+    │       │   ├── output.h
+    │       │   ├── outputlayer.h
+    │       │   ├── overlaywindow.h
+    │       │   ├── pixelgrid.h
+    │       │   ├── renderbackend.h
+    │       │   ├── renderjournal.h
+    │       │   ├── renderlayerdelegate.h
+    │       │   ├── renderlayer.h
+    │       │   ├── renderloop.h
+    │       │   ├── renderloop_p.h
+    │       │   ├── rendertarget.h
+    │       │   ├── renderviewport.h
+    │       │   ├── session_consolekit.h
+    │       │   ├── session.h
+    │       │   ├── session_logind.h
+    │       │   ├── session_noop.h
+    │       │   └── shmgraphicsbufferallocator.h
+    │       ├── cursor.h
+    │       ├── cursorsource.h
+    │       ├── dbusinterface.h
+    │       ├── debug_console.h
+    │       ├── effect
+    │       │   ├── animationeffect.h
+    │       │   ├── effect.h
+    │       │   ├── effecthandler.h
+    │       │   ├── effecttogglablestate.h
+    │       │   ├── effectwindow.h
+    │       │   ├── globals.h
+    │       │   ├── offscreeneffect.h
+    │       │   ├── offscreenquickview.h
+    │       │   ├── quickeffect.h
+    │       │   ├── timeline.h
+    │       │   └── xcb.h
+    │       ├── focuschain.h
+    │       ├── ftrace.h
+    │       ├── gestures.h
+    │       ├── globalshortcuts.h
+    │       ├── group.h
+    │       ├── idledetector.h
+    │       ├── input_event.h
+    │       ├── input_event_spy.h
+    │       ├── input.h
+    │       ├── internalwindow.h
+    │       ├── keyboard_input.h
+    │       ├── keyboard_layout.h
+    │       ├── keyboard_layout_switching.h
+    │       ├── keyboard_repeat.h
+    │       ├── killwindow.h
+    │       ├── kscreenintegration.h
+    │       ├── kwin_export.h
+    │       ├── lidswitchtracker.h
+    │       ├── main.h
+    │       ├── mousebuttons.h
+    │       ├── netinfo.h
+    │       ├── onscreennotification.h
+    │       ├── opengl
+    │       │   ├── abstract_opengl_context_attribute_builder.h
+    │       │   ├── egl_context_attribute_builder.h
+    │       │   ├── eglcontext.h
+    │       │   ├── egldisplay.h
+    │       │   ├── eglimagetexture.h
+    │       │   ├── eglnativefence.h
+    │       │   ├── eglswapchain.h
+    │       │   ├── eglutils_p.h
+    │       │   ├── glframebuffer.h
+    │       │   ├── gllut3D.h
+    │       │   ├── gllut.h
+    │       │   ├── glplatform.h
+    │       │   ├── glrendertimequery.h
+    │       │   ├── glshader.h
+    │       │   ├── glshadermanager.h
+    │       │   ├── gltexture.h
+    │       │   ├── gltexture_p.h
+    │       │   ├── glutils.h
+    │       │   ├── glvertexbuffer.h
+    │       │   └── openglcontext.h
+    │       ├── options.h
+    │       ├── osd.h
+    │       ├── outline.h
+    │       ├── outputconfigurationstore.h
+    │       ├── placeholderoutput.h
+    │       ├── placement.h
+    │       ├── placementtracker.h
+    │       ├── plugin.h
+    │       ├── pluginmanager.h
+    │       ├── pointer_input.h
+    │       ├── rulebooksettings.h
+    │       ├── rules.h
+    │       ├── scene
+    │       │   ├── borderoutline.h
+    │       │   ├── borderradius.h
+    │       │   ├── cursordelegate_opengl.h
+    │       │   ├── cursoritem.h
+    │       │   ├── cursorscene.h
+    │       │   ├── decorationitem.h
+    │       │   ├── dndiconitem.h
+    │       │   ├── imageitem.h
+    │       │   ├── itemgeometry.h
+    │       │   ├── item.h
+    │       │   ├── itemrenderer.h
+    │       │   ├── itemrenderer_opengl.h
+    │       │   ├── outlinedborderitem.h
+    │       │   ├── rootitem.h
+    │       │   ├── scene.h
+    │       │   ├── shadowitem.h
+    │       │   ├── surfaceitem.h
+    │       │   ├── surfaceitem_internal.h
+    │       │   ├── surfaceitem_x11.h
+    │       │   ├── windowitem.h
+    │       │   ├── workspacescene.h
+    │       │   └── workspacescene_opengl.h
+    │       ├── screenedge.h
+    │       ├── screenlockerwatcher.h
+    │       ├── shadow.h
+    │       ├── sm.h
+    │       ├── tablet_input.h
+    │       ├── tabletmodemanager.h
+    │       ├── touch_input.h
+    │       ├── useractions.h
+    │       ├── utils
+    │       │   ├── common.h
+    │       │   ├── c_ptr.h
+    │       │   ├── cursortheme.h
+    │       │   ├── damagejournal.h
+    │       │   ├── drm_format_helper.h
+    │       │   ├── edid.h
+    │       │   ├── executable_path.h
+    │       │   ├── filedescriptor.h
+    │       │   ├── kernel.h
+    │       │   ├── memorymap.h
+    │       │   ├── orientationsensor.h
+    │       │   ├── ramfile.h
+    │       │   ├── realtime.h
+    │       │   ├── resource.h
+    │       │   ├── serviceutils.h
+    │       │   ├── softwarevsyncmonitor.h
+    │       │   ├── version.h
+    │       │   ├── vsyncmonitor.h
+    │       │   └── xcbutils.h
+    │       ├── virtualdesktopsdbustypes.h
+    │       ├── virtualdesktops.h
+    │       ├── virtualkeyboard_dbus.h
+    │       ├── window.h
+    │       ├── workspace.h
+    │       ├── x11eventfilter.h
+    │       ├── x11window.h
+    │       └── xkb.h
+    ├── lib
+    │   └── systemd
+    │       └── user
+    │           └── plasma-kwin_x11.service
+    ├── lib64
+    │   ├── cmake
+    │   │   ├── KWinX11
+    │   │   │   ├── KWinX11Config.cmake
+    │   │   │   ├── KWinX11ConfigVersion.cmake
+    │   │   │   ├── KWinX11Targets.cmake
+    │   │   │   └── KWinX11Targets-release.cmake
+    │   │   └── KWinX11DBusInterface
+    │   │       └── KWinX11DBusInterfaceConfig.cmake
+    │   ├── kconf_update_bin
+    │   │   ├── kwin5_update_default_rules_x11
+    │   │   ├── kwin-6.0-delete-desktop-switching-shortcuts-x11
+    │   │   ├── kwin-6.0-remove-breeze-tabbox-default-x11
+    │   │   ├── kwin-6.0-reset-active-mouse-screen-x11
+    │   │   ├── kwin-6.1-remove-gridview-expose-shortcuts-x11
+    │   │   └── kwin-6.5-showpaint-changes-x11
+    │   ├── libkcmkwincommon-x11.so.6 -> libkcmkwincommon-x11.so.6.6.4
+    │   ├── libkcmkwincommon-x11.so.6.6.4
+    │   ├── libkwin-x11.so -> libkwin-x11.so.6
+    │   ├── libkwin-x11.so.6 -> libkwin-x11.so.6.6.4
+    │   ├── libkwin-x11.so.6.6.4
+    │   └── qt6
+    │       ├── plugins
+    │       │   ├── kf6
+    │       │   │   └── packagestructure
+    │       │   │       ├── kwin_aurorae_x11.so
+    │       │   │       ├── kwin_decoration_x11.so
+    │       │   │       ├── kwin_effect_x11.so
+    │       │   │       ├── kwin_scripts_x11.so
+    │       │   │       └── kwin_windowswitcher_x11.so
+    │       │   ├── kwin-x11
+    │       │   │   ├── effects
+    │       │   │   │   └── configs
+    │       │   │   │       ├── kcm_kwin4_genericscripted.so
+    │       │   │   │       ├── kwin_blur_config.so
+    │       │   │   │       ├── kwin_diminactive_config.so
+    │       │   │   │       ├── kwin_glide_config.so
+    │       │   │   │       ├── kwin_magiclamp_config.so
+    │       │   │   │       ├── kwin_mouseclick_config.so
+    │       │   │   │       ├── kwin_mousemark_config.so
+    │       │   │   │       ├── kwin_overview_config.so
+    │       │   │   │       ├── kwin_slide_config.so
+    │       │   │   │       ├── kwin_thumbnailaside_config.so
+    │       │   │   │       ├── kwin_tileseditor_config.so
+    │       │   │   │       ├── kwin_trackmouse_config.so
+    │       │   │   │       ├── kwin_windowview_config.so
+    │       │   │   │       └── kwin_wobblywindows_config.so
+    │       │   │   └── plugins
+    │       │   │       ├── krunnerintegration.so
+    │       │   │       └── nightlight.so
+    │       │   └── plasma
+    │       │       └── kcms
+    │       │           ├── systemsettings
+    │       │           │   ├── kcm_animations_x11.so
+    │       │           │   ├── kcm_kwindecoration_x11.so
+    │       │           │   ├── kcm_kwin_effects_x11.so
+    │       │           │   ├── kcm_kwinrules_x11.so
+    │       │           │   ├── kcm_kwin_scripts_x11.so
+    │       │           │   └── kcm_kwin_virtualdesktops_x11.so
+    │       │           └── systemsettings_qwidgets
+    │       │               ├── kcm_kwinoptions_x11.so
+    │       │               ├── kcm_kwinscreenedges_x11.so
+    │       │               ├── kcm_kwintabbox_x11.so
+    │       │               ├── kcm_kwintouchscreen_x11.so
+    │       │               └── kwincompositing.so
+    │       └── qml
+    │           └── org
+    │               └── kde
+    │                   └── kwin_x11
+    │                       └── private
+    │                           ├── effects
+    │                           │   ├── effectsplugin.qmltypes
+    │                           │   ├── kde-qmlmodule.version
+    │                           │   ├── libeffectsplugin.so
+    │                           │   ├── qmldir
+    │                           │   ├── WindowHeapDelegate.qml
+    │                           │   └── WindowHeap.qml
+    │                           └── kdecoration
+    │                               ├── kdecorationprivatedeclarative.qmltypes
+    │                               ├── kde-qmlmodule.version
+    │                               ├── libkdecorationprivatedeclarative.so
+    │                               └── qmldir
+    ├── libexec
+    │   ├── kwin-applywindowdecoration-x11
+    │   └── kwin_killer_helper_x11
+    └── share
+        ├── applications
+        │   ├── kcm_animations_x11.desktop
+        │   ├── kcm_kwindecoration_x11.desktop
+        │   ├── kcm_kwin_effects_x11.desktop
+        │   ├── kcm_kwinoptions_x11.desktop
+        │   ├── kcm_kwinrules_x11.desktop
+        │   ├── kcm_kwin_scripts_x11.desktop
+        │   ├── kcm_kwintabbox_x11.desktop
+        │   ├── kcm_kwin_virtualdesktops_x11.desktop
+        │   ├── kwincompositing.desktop
+        │   └── org.kde.kwin_x11.killer.desktop
+        ├── dbus-1
+        │   └── interfaces
+        │       ├── kwin_x11_org.kde.kwin.Compositing.xml
+        │       ├── kwin_x11_org.kde.kwin.Effects.xml
+        │       ├── kwin_x11_org.kde.kwin.InputDevice.xml
+        │       ├── kwin_x11_org.kde.KWin.NightLight.xml
+        │       ├── kwin_x11_org.kde.KWin.Plugins.xml
+        │       ├── kwin_x11_org.kde.KWin.TabletModeManager.xml
+        │       ├── kwin_x11_org.kde.KWin.VirtualDesktopManager.xml
+        │       ├── kwin_x11_org.kde.kwin.VirtualKeyboard.xml
+        │       └── kwin_x11_org.kde.KWin.xml
+        ├── doc
+        │   └── HTML
+        │       ├── ca
+        │       │   └── kcontrol
+        │       │       ├── desktop-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwindecoration-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwineffects-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinscreenedges-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintabbox-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintouchscreen-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinvirtualkeyboard-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── windowbehaviour-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       └── windowspecific-x11
+        │       │           ├── index.cache.bz2
+        │       │           └── index.docbook
+        │       ├── en
+        │       │   └── kcontrol
+        │       │       ├── desktop-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwindecoration-x11
+        │       │       │   ├── button.png
+        │       │       │   ├── configure.png
+        │       │       │   ├── decoration.png
+        │       │       │   ├── index.cache.bz2
+        │       │       │   ├── index.docbook
+        │       │       │   └── main.png
+        │       │       ├── kwineffects-x11
+        │       │       │   ├── configure-effects.png
+        │       │       │   ├── dialog-information.png
+        │       │       │   ├── index.cache.bz2
+        │       │       │   ├── index.docbook
+        │       │       │   └── video.png
+        │       │       ├── kwinscreenedges-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintabbox-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   ├── index.docbook
+        │       │       │   └── taskswitcher.png
+        │       │       ├── kwintouchscreen-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinvirtualkeyboard-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── windowbehaviour-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       └── windowspecific-x11
+        │       │           ├── akgregator-info.png
+        │       │           ├── akregator-attributes.png
+        │       │           ├── akregator-fav.png
+        │       │           ├── config-win-behavior.png
+        │       │           ├── emacs-attribute.png
+        │       │           ├── emacs-info.png
+        │       │           ├── Face-smile.png
+        │       │           ├── focus-stealing-pop2top-attribute.png
+        │       │           ├── index.cache.bz2
+        │       │           ├── index.docbook
+        │       │           ├── knotes-attribute.png
+        │       │           ├── knotes-info.png
+        │       │           ├── kopete-attribute-2.png
+        │       │           ├── kopete-chat-attribute.png
+        │       │           ├── kopete-chat-info.png
+        │       │           ├── kopete-info.png
+        │       │           ├── kwin-detect-window.png
+        │       │           ├── kwin-kopete-rules.png
+        │       │           ├── kwin-rule-editor.png
+        │       │           ├── kwin-rules-main-n-akregator.png
+        │       │           ├── kwin-rules-main.png
+        │       │           ├── kwin-rules-ordering.png
+        │       │           ├── kwin-window-attributes.png
+        │       │           ├── kwin-window-matching.png
+        │       │           ├── pager-4-desktops.png
+        │       │           ├── tbird-compose-attribute.png
+        │       │           ├── tbird-compose-info.png
+        │       │           ├── tbird-main-attribute.png
+        │       │           ├── tbird-main-info.png
+        │       │           ├── tbird-reminder-attribute-2.png
+        │       │           ├── tbird-reminder-info.png
+        │       │           ├── window-matching-emacs.png
+        │       │           ├── window-matching-init.png
+        │       │           ├── window-matching-knotes.png
+        │       │           ├── window-matching-kopete-chat.png
+        │       │           ├── window-matching-kopete.png
+        │       │           ├── window-matching-ready-akregator.png
+        │       │           ├── window-matching-tbird-compose.png
+        │       │           ├── window-matching-tbird-main.png
+        │       │           └── window-matching-tbird-reminder.png
+        │       ├── es
+        │       │   └── kcontrol
+        │       │       ├── desktop-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwindecoration-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwineffects-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinscreenedges-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintouchscreen-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       └── kwinvirtualkeyboard-x11
+        │       │           ├── index.cache.bz2
+        │       │           └── index.docbook
+        │       ├── it
+        │       │   └── kcontrol
+        │       │       ├── desktop-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwindecoration-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwineffects-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinscreenedges-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintabbox-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintouchscreen-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinvirtualkeyboard-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── windowbehaviour-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       └── windowspecific-x11
+        │       │           ├── index.cache.bz2
+        │       │           └── index.docbook
+        │       ├── nl
+        │       │   └── kcontrol
+        │       │       ├── desktop-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwindecoration-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwineffects-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinscreenedges-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintabbox-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintouchscreen-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinvirtualkeyboard-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── windowbehaviour-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       └── windowspecific-x11
+        │       │           ├── index.cache.bz2
+        │       │           └── index.docbook
+        │       ├── pt_BR
+        │       │   └── kcontrol
+        │       │       ├── desktop-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwindecoration-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwineffects-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinscreenedges-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintabbox-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintouchscreen-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinvirtualkeyboard-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── windowbehaviour-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       └── windowspecific-x11
+        │       │           ├── index.cache.bz2
+        │       │           └── index.docbook
+        │       ├── tr
+        │       │   └── kcontrol
+        │       │       ├── desktop-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwindecoration-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwineffects-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinscreenedges-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintabbox-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwintouchscreen-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── kwinvirtualkeyboard-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       ├── windowbehaviour-x11
+        │       │       │   ├── index.cache.bz2
+        │       │       │   └── index.docbook
+        │       │       └── windowspecific-x11
+        │       │           ├── index.cache.bz2
+        │       │           └── index.docbook
+        │       └── uk
+        │           └── kcontrol
+        │               ├── desktop-x11
+        │               │   ├── index.cache.bz2
+        │               │   └── index.docbook
+        │               ├── kwindecoration-x11
+        │               │   ├── index.cache.bz2
+        │               │   └── index.docbook
+        │               ├── kwineffects-x11
+        │               │   ├── index.cache.bz2
+        │               │   └── index.docbook
+        │               ├── kwinscreenedges-x11
+        │               │   ├── index.cache.bz2
+        │               │   └── index.docbook
+        │               ├── kwintabbox-x11
+        │               │   ├── index.cache.bz2
+        │               │   └── index.docbook
+        │               ├── kwintouchscreen-x11
+        │               │   ├── index.cache.bz2
+        │               │   └── index.docbook
+        │               ├── kwinvirtualkeyboard-x11
+        │               │   ├── index.cache.bz2
+        │               │   └── index.docbook
+        │               ├── windowbehaviour-x11
+        │               │   ├── index.cache.bz2
+        │               │   └── index.docbook
+        │               └── windowspecific-x11
+        │                   ├── index.cache.bz2
+        │                   └── index.docbook
+        ├── icons
+        │   └── hicolor
+        │       ├── 16x16
+        │       │   └── apps
+        │       │       └── kwin-x11.png
+        │       ├── 32x32
+        │       │   └── apps
+        │       │       └── kwin-x11.png
+        │       ├── 48x48
+        │       │   └── apps
+        │       │       └── kwin-x11.png
+        │       └── scalable
+        │           └── apps
+        │               └── kwin-x11.svgz
+        ├── kconf_update
+        │   └── kwin-x11.upd
+        ├── knotifications6
+        │   └── kwin-x11.notifyrc
+        ├── knsrcfiles
+        │   ├── kwineffect-x11.knsrc
+        │   ├── kwinscripts-x11.knsrc
+        │   ├── kwinswitcher-x11.knsrc
+        │   └── window-decorations-x11.knsrc
+        ├── krunner
+        │   └── dbusplugins
+        │       └── kwin-runner-windows-x11.desktop
+        ├── kwin-x11
+        │   ├── builtin-effects
+        │   │   ├── blendchanges.json
+        │   │   ├── blur.json
+        │   │   ├── colorblindnesscorrection.json
+        │   │   ├── colorpicker.json
+        │   │   ├── contrast.json
+        │   │   ├── diminactive.json
+        │   │   ├── fallapart.json
+        │   │   ├── glide.json
+        │   │   ├── highlightwindow.json
+        │   │   ├── invert.json
+        │   │   ├── kscreen.json
+        │   │   ├── magiclamp.json
+        │   │   ├── magnifier.json
+        │   │   ├── mouseclick.json
+        │   │   ├── mousemark.json
+        │   │   ├── outputlocator.json
+        │   │   ├── overview.json
+        │   │   ├── screenedge.json
+        │   │   ├── screenshot.json
+        │   │   ├── sheet.json
+        │   │   ├── showfps.json
+        │   │   ├── showpaint.json
+        │   │   ├── slideback.json
+        │   │   ├── slide.json
+        │   │   ├── slidingpopups.json
+        │   │   ├── startupfeedback.json
+        │   │   ├── systembell.json
+        │   │   ├── thumbnailaside.json
+        │   │   ├── tileseditor.json
+        │   │   ├── trackmouse.json
+        │   │   ├── windowview.json
+        │   │   ├── wobblywindows.json
+        │   │   └── zoom.json
+        │   ├── effects
+        │   │   ├── dialogparent
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── dimscreen
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── eyeonscreen
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── fade
+        │   │   │   ├── contents
+        │   │   │   │   ├── code
+        │   │   │   │   │   └── main.js
+        │   │   │   │   └── config
+        │   │   │   │       └── main.xml
+        │   │   │   └── metadata.json
+        │   │   ├── fadedesktop
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── fadingpopups
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── frozenapp
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── fullscreen
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── login
+        │   │   │   ├── contents
+        │   │   │   │   ├── code
+        │   │   │   │   │   └── main.js
+        │   │   │   │   ├── config
+        │   │   │   │   │   └── main.xml
+        │   │   │   │   └── ui
+        │   │   │   │       └── config.ui
+        │   │   │   └── metadata.json
+        │   │   ├── logout
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── maximize
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── outputlocator
+        │   │   │   └── qml
+        │   │   │       └── OutputLabel.qml
+        │   │   ├── scale
+        │   │   │   ├── contents
+        │   │   │   │   ├── code
+        │   │   │   │   │   └── main.js
+        │   │   │   │   ├── config
+        │   │   │   │   │   └── main.xml
+        │   │   │   │   └── ui
+        │   │   │   │       └── config.ui
+        │   │   │   └── metadata.json
+        │   │   ├── sessionquit
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── showfps
+        │   │   │   └── qml
+        │   │   │       ├── main-fallback.qml
+        │   │   │       └── main.qml
+        │   │   ├── squash
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── tileseditor
+        │   │   │   └── qml
+        │   │   │       ├── layouts.svg
+        │   │   │       ├── main.qml
+        │   │   │       ├── ResizeCorner.qml
+        │   │   │       ├── ResizeHandle.qml
+        │   │   │       └── TileDelegate.qml
+        │   │   ├── translucency
+        │   │   │   ├── contents
+        │   │   │   │   ├── code
+        │   │   │   │   │   └── main.js
+        │   │   │   │   ├── config
+        │   │   │   │   │   └── main.xml
+        │   │   │   │   └── ui
+        │   │   │   │       └── config.ui
+        │   │   │   └── metadata.json
+        │   │   ├── windowaperture
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   └── windowview
+        │   │       └── qml
+        │   │           └── main.qml
+        │   ├── frames
+        │   │   └── plasma
+        │   │       ├── frame_none.qml
+        │   │       ├── frame_styled.qml
+        │   │       └── frame_unstyled.qml
+        │   ├── kcm_kwintabbox
+        │   │   ├── desktop.png
+        │   │   ├── dolphin.png
+        │   │   ├── falkon.png
+        │   │   ├── kmail.png
+        │   │   └── systemsettings.png
+        │   ├── onscreennotification
+        │   │   └── plasma
+        │   │       ├── dummydata
+        │   │       │   └── osd.qml
+        │   │       └── main.qml
+        │   ├── outline
+        │   │   └── plasma
+        │   │       └── outline.qml
+        │   ├── scripts
+        │   │   ├── desktopchangeosd
+        │   │   │   ├── contents
+        │   │   │   │   └── ui
+        │   │   │   │       ├── main.qml
+        │   │   │   │       └── osd.qml
+        │   │   │   └── metadata.json
+        │   │   ├── minimizeall
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   ├── synchronizeskipswitcher
+        │   │   │   ├── contents
+        │   │   │   │   └── code
+        │   │   │   │       └── main.js
+        │   │   │   └── metadata.json
+        │   │   └── videowall
+        │   │       ├── contents
+        │   │       │   ├── code
+        │   │       │   │   └── main.js
+        │   │       │   ├── config
+        │   │       │   │   └── main.xml
+        │   │       │   └── ui
+        │   │       │       └── config.ui
+        │   │       └── metadata.json
+        │   ├── tabbox
+        │   │   └── thumbnail_grid
+        │   │       ├── contents
+        │   │       │   └── ui
+        │   │       │       └── main.qml
+        │   │       └── metadata.json
+        │   ├── tm_inner.png
+        │   └── tm_outer.png
+        ├── locale
+        │   ├── af
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ar
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── as
+        │   │   └── LC_MESSAGES
+        │   │       └── kwin_x11.mo
+        │   ├── ast
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── az
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── be
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── be@latin
+        │   │   └── LC_MESSAGES
+        │   │       └── kwin_x11.mo
+        │   ├── bg
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── bn
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── bn_IN
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── br
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── bs
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ca
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ca@valencia
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── cs
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── csb
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── cy
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── da
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── de
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── el
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── en_GB
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── eo
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── es
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── et
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── eu
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── fa
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── fi
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── fr
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── fy
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ga
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── gl
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── gu
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── he
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── hi
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── hne
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── hr
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── hsb
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── hu
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ia
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── id
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── is
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── it
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ja
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ka
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── kk
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── km
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── kn
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ko
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ku
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── lt
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── lv
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── mai
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── mk
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ml
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── mr
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ms
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── nb
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── nds
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ne
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── nl
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── nn
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── oc
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── or
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── pa
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── pl
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── pt
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── pt_BR
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ro
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ru
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── sa
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── se
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── si
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── sk
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── sl
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── sq
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── sr
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── sr@ijekavian
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── sr@ijekavianlatin
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── sr@latin
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── sv
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ta
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── te
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── tg
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── th
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── tok
+        │   │   └── LC_MESSAGES
+        │   │       └── kcm_kwinrules_x11.mo
+        │   ├── tr
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── ug
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── uk
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── uz
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── uz@cyrillic
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── vi
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── wa
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── xh
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   ├── zh_CN
+        │   │   └── LC_MESSAGES
+        │   │       ├── kcm_animations_x11.mo
+        │   │       ├── kcmkwincommon_x11.mo
+        │   │       ├── kcmkwincompositing_x11.mo
+        │   │       ├── kcm_kwindecoration_x11.mo
+        │   │       ├── kcm_kwin_effects_x11.mo
+        │   │       ├── kcm_kwinrules_x11.mo
+        │   │       ├── kcmkwinscreenedges_x11.mo
+        │   │       ├── kcm_kwin_scripts_x11.mo
+        │   │       ├── kcm_kwintabbox_x11.mo
+        │   │       ├── kcm_kwin_virtualdesktops_x11.mo
+        │   │       ├── kcmkwm_x11.mo
+        │   │       └── kwin_x11.mo
+        │   └── zh_TW
+        │       └── LC_MESSAGES
+        │           ├── kcm_animations_x11.mo
+        │           ├── kcmkwincommon_x11.mo
+        │           ├── kcmkwincompositing_x11.mo
+        │           ├── kcm_kwindecoration_x11.mo
+        │           ├── kcm_kwin_effects_x11.mo
+        │           ├── kcm_kwinrules_x11.mo
+        │           ├── kcmkwinscreenedges_x11.mo
+        │           ├── kcm_kwin_scripts_x11.mo
+        │           ├── kcm_kwintabbox_x11.mo
+        │           ├── kcm_kwin_virtualdesktops_x11.mo
+        │           ├── kcmkwm_x11.mo
+        │           └── kwin_x11.mo
+        └── qlogging-categories6
+            └── org_kde_kwin_x11.categories
+
+432 directories, 1430 files

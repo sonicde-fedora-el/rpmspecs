@@ -1,0 +1,16 @@
+kf6-kglobalaccel,sonic-frameworks-keybind,ok
+kf6-kwindowsystem,sonic-frameworks-windowsystem,ok
+libksysguard,sonic-sysguard-library,ok
+kinfocenter,sonic-system-info,maybe rebuild with lang oldname
+libkscreen,sonic-screen-library,ok
+kglobalacceld,sonic-keybind-daemon,ok
+libplasma,sonic-interface-libraries,ok
+kscreen,sonic-screen,maybe rebuild with lang oldname
+kscreenlocker,sonic-screenlocker,! patch version number to 6.6.4
+kwin,sonic-win,ok
+plasma-workspace,sonic-workspace,ok
+plasma-login-manager,sonic-login-manager,postponed
+
+---
+
+plasma-desktop,sonic-desktop-interface

@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: almalinux10
+    runs-on: almalinux-10
     strategy:
       fail-fast: false
       matrix:
@@ -26,33 +26,64 @@ jobs:
           dnf install -y \
             rpm-build \
             rpmdevtools \
-            dnf-plugins-core \
+            mock \
             curl
+
+      - name: Add runner user to mock group
+        run: usermod -aG mock $(whoami) || true
 
       - name: Setup RPM build tree
         run: rpmdev-setuptree
 
-      - name: Install build dependencies for ${{ matrix.spec }}
-        run: |
-          dnf builddep -y ${{ matrix.spec }}
-
       - name: Download sources for ${{ matrix.spec }}
         run: |
-          spectool -g -R ${{ matrix.spec }}
+          spectool -g -C ~/rpmbuild/SOURCES/ ${{ matrix.spec }}
 
-      - name: Build RPM from ${{ matrix.spec }}
+      - name: Build SRPM from ${{ matrix.spec }}
         run: |
-          rpmbuild -ba \
+          rpmbuild -bs \
             --define "_topdir ${HOME}/rpmbuild" \
+            --define "_disable_source_fetch 0" \
             ${{ matrix.spec }}
+          PKGNAME=$(rpmspec -q --srpm --queryformat "%{NAME}-%{VERSION}-%{RELEASE}.src.rpm" ${{ matrix.spec }})
+          echo "SRPM_PATH=${HOME}/rpmbuild/SRPMS/${PKGNAME}" >> "$GITHUB_ENV"
+
+      - name: Build RPM with mock
+        run: |
+          cat > /etc/mock/custom.cfg <<'MOCKEOF'
+          include('/etc/mock/alma+epel-10-x86_64.cfg')
+          config_opts['root'] = 'custom'
+          config_opts['yum.conf'] += """
+          [sonicde-rpm]
+          name=SonicDE RPM
+          baseurl=https://pc-rytteren.dk/forge/api/packages/anders/rpm
+          enabled=1
+          gpgcheck=0
+
+          [xlibre-xserver]
+          name=Copr xlibre-xserver
+          baseurl=https://download.copr.fedorainfracloud.org/results/@xlibre/xlibre-xserver/rhel+epel-10-$basearch/
+          type=rpm-md
+          skip_if_unavailable=True
+          gpgcheck=1
+          gpgkey=https://download.copr.fedorainfracloud.org/results/@xlibre/xlibre-xserver/pubkey.gpg
+          repo_gpgcheck=0
+          enabled=1
+          """
+          MOCKEOF
+
+          mock --root custom --scrub=all || true
+          mock --root custom --init
+          mock --root custom --chroot 'groupadd -g 135 mock 2>/dev/null || true; useradd -u 135 -g 135 -d /builddir -s /bin/bash mockbuild 2>/dev/null || true'
+          mock --root custom --resultdir "${HOME}/mock-results" --no-clean --rebuild "${{ env.SRPM_PATH }}"
 
       - name: Upload RPMs to Forgejo Package Registry
         run: |
-          FORGEJO_URL="${{ env.GITHUB_SERVER_URL }}"
+          FORGEJO_URL="${{ github.server_url }}"
           OWNER="${{ github.repository_owner }}"
           TOKEN="${{ secrets.PACKAGE_TOKEN }}"
 
-          find "${HOME}/rpmbuild/RPMS" -name "*.rpm" | while read rpm; do
+          find "${HOME}/mock-results" -name "*.rpm" ! -name "*.src.rpm" | while read rpm; do
             FILENAME=$(basename "$rpm")
             echo "Uploading $FILENAME ..."
             curl --fail-with-body \
@@ -60,3 +91,9 @@ jobs:
               --upload-file "$rpm" \
               "${FORGEJO_URL}/api/packages/${OWNER}/rpm/upload"
           done
+
+      - name: Clean up build artifacts
+        if: always()
+        run: |
+          rm -rf "${HOME}/mock-results"
+          rm -rf "${HOME}/rpmbuild/SRPMS"
