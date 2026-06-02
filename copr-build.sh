@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-COPR="andersrh/sonicDE"
+COPR="@SonicDE/SonicDE-EL10"
 GIT_URL="https://pc-rytteren.dk/forge/anders/SonicDE-rpmspecs.git"
-BRANCH="10_2"
+BRANCH="master"
 METHOD="rpkg"
 
 # Build order tiers (sequential within tier for dependency safety)
