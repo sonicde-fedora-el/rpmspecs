@@ -7,7 +7,7 @@
 Name:    sonic-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.6.4
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -285,7 +285,7 @@ BuildRequires: pkgconfig(iso-codes)
 Requires: iso-codes
 
 # Split of Xorg session into subpackage
-Obsoletes: plasma-workspace <= %{plasma_version}
+Obsoletes: plasma-workspace < %{version}-%{release}
 
 # khotkeys was dropped
 Obsoletes: khotkeys < 6
@@ -306,6 +306,8 @@ Conflicts:  plasma-workspace-x11
 Conflicts:  plasma-workspace
 Provides:   sonic-workspace = %{version}-%{release}
 Provides:   sonic-workspace%{?_isa} = %{version}-%{release}
+Provides:   plasma-workspace = %{version}-%{release}
+Provides:   plasma-workspace%{?_isa} = %{version}-%{release}
 
 %description
 Plasma 6 libraries and runtime components
@@ -313,6 +315,9 @@ Plasma 6 libraries and runtime components
 %package common
 Summary: Common files for %{name}
 Conflicts:  plasma-workspace-x11-common
+Conflicts:  plasma-workspace-common
+Provides:   plasma-workspace-common = %{version}-%{release}
+Obsoletes:  plasma-workspace-common < %{version}-%{release}
 %description common
 %{name}.
 
@@ -321,6 +326,8 @@ Summary: Runtime libkworkspace6 library
 # when spilt occurred
 Obsoletes: plasma-workspace < 5.4.2-2
 Obsoletes: libkworkspace5 < %{version}-%{release}
+Provides:  libkworkspace6 = %{version}-%{release}
+Provides:  libkworkspace6%{?_isa} = %{version}-%{release}
 Requires:  %{name}-common = %{version}-%{release}
 %description -n libkworkspace6
 %{summary}.
@@ -335,6 +342,8 @@ Obsoletes: plasma-workspace < 5.4.2-2
 Requires:  %{name}-common = %{version}-%{release}
 # consider splitting out plasma_packagestructure content later
 Provides: plasma-packagestructure = %{version}-%{release}
+Provides: plasma-workspace-libs = %{version}-%{release}
+Provides: plasma-workspace-libs%{?_isa} = %{version}-%{release}
 Conflicts:  plasma-workspace-x11-libs
 Conflicts:  plasma-workspace-libs
 Obsoletes:  plasma-workspace-libs < %{version}-%{release}
@@ -345,6 +354,8 @@ Obsoletes:  plasma-workspace-libs < %{version}-%{release}
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       libkworkspace6%{?_isa} = %{version}-%{release}
+Provides:       plasma-workspace-devel = %{version}-%{release}
+Provides:       plasma-workspace-devel%{?_isa} = %{version}-%{release}
 Conflicts:  plasma-workspace-x11-devel
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -398,7 +409,7 @@ Requires: %{name} = %{version}-%{release}
 # lockscreen look-and-feel imports qml: QtQuick.VirtualKeyboard
 Requires: qt6-qtvirtualkeyboard
 # when switched to noarch
-Obsoletes: plasma-lookandfeel-fedora < 5.8.0-5
+Obsoletes: plasma-lookandfeel-fedora < %{version}-%{release}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1356890
 Obsoletes: f22-kde-theme < 22.4
 Obsoletes: f23-kde-theme < 23.1
