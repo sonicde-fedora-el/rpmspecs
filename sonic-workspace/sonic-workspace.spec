@@ -7,7 +7,7 @@
 Name:    sonic-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.6.4
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -314,8 +314,6 @@ Plasma 6 libraries and runtime components
 
 %package common
 Summary: Common files for %{name}
-Conflicts:  plasma-workspace-x11-common
-Conflicts:  plasma-workspace-common
 Provides:   plasma-workspace-common = %{version}-%{release}
 Obsoletes:  plasma-workspace-common < %{version}-%{release}
 %description common
@@ -344,8 +342,6 @@ Requires:  %{name}-common = %{version}-%{release}
 Provides: plasma-packagestructure = %{version}-%{release}
 Provides: plasma-workspace-libs = %{version}-%{release}
 Provides: plasma-workspace-libs%{?_isa} = %{version}-%{release}
-Conflicts:  plasma-workspace-x11-libs
-Conflicts:  plasma-workspace-libs
 Obsoletes:  plasma-workspace-libs < %{version}-%{release}
 %description libs
 %{summary}.
@@ -356,7 +352,6 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       libkworkspace6%{?_isa} = %{version}-%{release}
 Provides:       plasma-workspace-devel = %{version}-%{release}
 Provides:       plasma-workspace-devel%{?_isa} = %{version}-%{release}
-Conflicts:  plasma-workspace-x11-devel
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -367,7 +362,6 @@ Summary:        Documentation and user manuals for %{name}
 License:        LicenseRef-Callaway-GFDL
 # switch to noarch
 Obsoletes:      plasma-workspace-doc < 5.3.1-2
-Conflicts:  plasma-workspace-x11-doc
 Requires:       %{name}-common = %{version}-%{release}
 BuildArch: noarch
 %description    doc
@@ -408,6 +402,7 @@ Summary:  Fedora look-and-feel for Plasma
 Requires: %{name} = %{version}-%{release}
 # lockscreen look-and-feel imports qml: QtQuick.VirtualKeyboard
 Requires: qt6-qtvirtualkeyboard
+Provides: plasma-lookandfeel-fedora = %{version}-%{release}
 # when switched to noarch
 Obsoletes: plasma-lookandfeel-fedora < %{version}-%{release}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1356890
