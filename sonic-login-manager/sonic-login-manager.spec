@@ -2,7 +2,7 @@
 
 Name:           sonic-login-manager
 Version:        6.6.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager for SonicDE
 
@@ -211,6 +211,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Tue Jun 30 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.6.4-13
+- Add SELinux policy dependency to label plasmalogin binaries as xdm_exec_t
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

@@ -1,0 +1,7 @@
+# Label the plasmalogin daemon and helper binaries as X display manager
+# executables so they run in the xdm_t domain on SELinux enforcing systems.
+
+/usr/bin/plasmalogin                                    --  system_u:object_r:xdm_exec_t:s0
+/usr/libexec/plasmalogin-helper                         --  system_u:object_r:xdm_exec_t:s0
+/usr/libexec/plasmalogin-helper-start-x11user           --  system_u:object_r:xdm_exec_t:s0
+/usr/libexec/plasma-login-greeter                       --  system_u:object_r:xdm_exec_t:s0

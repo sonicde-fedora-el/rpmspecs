@@ -1,12 +1,10 @@
 module plasmalogin-selinux 1.0;
 
 require {
-    type unconfined_t;
     type xdm_exec_t;
-    class file { entrypoint execute };
 }
 
-# Allow the plasmalogin process to execute the X11 user helper binary
-# which is labeled as xdm_exec_t. This is needed when the plasmalogin
-# daemon is not running in the xdm_t domain on SELinux enforcing systems.
-allow unconfined_t xdm_exec_t:file { entrypoint execute };
+# File context rules for plasmalogin binaries are defined in the
+# accompanying .fc file. Labeling the daemon and helper binaries as
+# xdm_exec_t lets systemd transition plasmalogin into the xdm_t domain,
+# which already has the required permissions to run X11 user sessions.
