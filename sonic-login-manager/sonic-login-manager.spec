@@ -2,7 +2,7 @@
 
 Name:           sonic-login-manager
 Version:        6.6.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager for SonicDE
 
@@ -75,6 +75,7 @@ Requires:       kf6-kimageformats%{?_isa}
 
 %if %{with x11}
 Requires:       xorg-x11-xinit
+Requires:       sonic-login-manager-selinux
 %endif
 %{?systemd_requires}
 
