@@ -37,3 +37,7 @@ sudo dnf remove sddm && \
 Step 5: Reboot your system
 
 Now reboot your system. When it starts the display manager, then in the left corner make sure to choose Plasma (X11) as the session type.
+
+
+> [!warning]
+> Beware that since SonicDE has started to remove Wayland code, the Wayland session may not work after installing it even though it is listed as an option in the display manager.
