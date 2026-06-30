@@ -9,6 +9,9 @@ Follow the installation instructions on the [XLibre for Fedora and EL Github pag
 
 Step 2: Enable the repository
 
+> [!warning]
+> Beware that since SonicDE has started to remove Wayland code, the Wayland session may not work after installing it even though it is listed as an option in the display manager. At this moment, we don't yet have instructions on how to go back to KDE Plasma, so proceed at your own risk.
+
 Add the SonicDE repository to your system:
 
 ```shell
@@ -37,7 +40,3 @@ sudo dnf remove sddm && \
 Step 5: Reboot your system
 
 Now reboot your system. When it starts the display manager, then in the left corner make sure to choose Plasma (X11) as the session type.
-
-
-> [!warning]
-> Beware that since SonicDE has started to remove Wayland code, the Wayland session may not work after installing it even though it is listed as an option in the display manager.
