@@ -211,6 +211,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Tue Jun 30 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.6.4-12
+- Add SELinux policy module to allow plasmalogin to launch X11 user sessions
+- Remove with_X11 condition since we will always be using X11
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 
