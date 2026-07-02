@@ -1,0 +1,39 @@
+From: Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com>
+Date: Thu, 2 Jul 2026 10:47:00 -0300
+Subject: [PATCH] desktoppackage: disable panel floating/opacity animations
+
+Disable the floating and opacity transitions so the panel changes state instantly and stays fluid.
+This fixes the UI lag, when switching virtual desktops.
+
+References: https://bugs.kde.org/show_bug.cgi?id=484501 and https://github.com/orgs/Sonic-DE/discussions/20
+---
+ desktoppackage/contents/views/Panel.qml | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/desktoppackage/contents/views/Panel.qml b/desktoppackage/contents/views/Panel.qml
+--- a/desktoppackage/contents/views/Panel.qml
++++ b/desktoppackage/contents/views/Panel.qml
+@@ -133,19 +133,15 @@
+     }
+ 
+     // Floatingness is a value in [0, 1] that's multiplied to the floating margin; 0: not floating, 1: floating, between 0 and 1: animation between the two states
+-    readonly property int floatingnessAnimationDuration: Kirigami.Units.longDuration
++    // Disable the panel geometry animation: animated resizes of the panel
++    // window cause synchronous compositor work that stalls the desktop during
++    // virtual-desktop switches.
++    readonly property int floatingnessAnimationDuration: 0
+     property double floatingnessTarget: 0.0 // The animation is handled in panelview.cpp for efficiency
+     property double floatingness: 0.0
+ 
+     // PanelOpacity is a value in [0, 1] that's used as the opacity of the opaque elements over the transparent ones; values between 0 and 1 are used for animations
+     property double panelOpacity
+-    Behavior on panelOpacity {
+-        NumberAnimation {
+-            duration: Kirigami.Units.longDuration
+-            easing.type: Easing.OutCubic
+-        }
+-    }
+-
+     KSvg.FrameSvgItem {
+         id: translucentItem
+         visible: root.floatingness === 0 && root.panelOpacity !== 1
