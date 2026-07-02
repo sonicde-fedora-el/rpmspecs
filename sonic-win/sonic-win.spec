@@ -4,7 +4,7 @@
 
 Name:    sonic-win
 Version: 6.6.4
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -18,6 +18,7 @@ URL:           https://github.com/Sonic-DE/%{name}
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 ## upstream patches
+Patch0:        sonic-win-6.6.4-strut-throttle.patch
 
 ## proposed patches
 
@@ -297,6 +298,10 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 
 
 %changelog
+* Thu Jul 02 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.6.4-12
+- Batch strut-triggered workspace rearranges to reduce stutter during panel
+  state transitions.
+
 * Sun Apr 12 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-2
 - Added evdev as BR for controller support (#22)
 

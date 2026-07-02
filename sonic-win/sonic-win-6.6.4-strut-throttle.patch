@@ -1,0 +1,42 @@
+From: Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com>
+Date: Thu, 02 Jul 2026 12:00:00 +0000
+Subject: [PATCH] Batch strut-triggered workspace rearranges to reduce stutter
+
+When a panel animates between floating and docked states it can change
+its strut several times in quick succession. KWin handled those by
+calling Workspace::rearrange() immediately, which recalculates work areas
+and calls checkWorkspacePosition() on every client. That O(n) work on
+every strut update causes visible stutter on X11 when other animations
+are running.
+
+Use the existing scheduleRearrange() path instead and bump its timer
+from 0 ms to 50 ms so rapid strut changes are coalesced into a single
+re-layout. This keeps the work area correct while reducing the amount
+of synchronous work done during panel transitions.
+---
+ src/events.cpp    | 2 +-
+ src/workspace.cpp | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+--- a/src/events.cpp	2026-04-08 10:00:41.000000000 -0300
++++ b/src/events.cpp	2026-07-02 12:20:39.184413094 -0300
+@@ -398,7 +398,7 @@
+         }
+         if ((dirtyProperties & NET::WMStrut) != 0
+             || (dirtyProperties2 & NET::WM2ExtendedStrut) != 0) {
+-            workspace()->rearrange();
++            workspace()->scheduleRearrange();
+         }
+         if ((dirtyProperties & NET::WMIcon) != 0) {
+             getIcons();
+--- a/src/workspace.cpp	2026-04-08 10:00:41.000000000 -0300
++++ b/src/workspace.cpp	2026-07-02 12:20:49.966586529 -0300
+@@ -2178,7 +2178,7 @@
+ 
+ void Workspace::scheduleRearrange()
+ {
+-    m_rearrangeTimer.start(0);
++    m_rearrangeTimer.start(50);
+ }
+ 
+ void Workspace::rearrange()

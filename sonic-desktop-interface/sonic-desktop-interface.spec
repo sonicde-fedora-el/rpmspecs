@@ -11,7 +11,7 @@
 Name:    sonic-desktop-interface
 Summary: Plasma Desktop shell
 Version: 6.6.4
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%{name}
@@ -34,11 +34,6 @@ Source20:       breeze-fedora-0.3.tar.gz
 # Hide virtual keyboard indicator on sddm.
 # Do not remove this as it breaks Fedora's QA policy
 Patch101:       hide-virtual-keyboard-indicator-on-sddm.patch
-
-# Disable panel floating/opacity animations. Animated panel resizes cause
-# synchronous compositor work that stalls the desktop when switching virtual
-# desktops, so make the panel state changes instant instead.
-Patch102:       sonic-desktop-interface-6.6.4-x11-panel-lag.patch
 
 ## upstreamable patches
 
@@ -398,6 +393,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Thu Jul 02 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.6.4-13
+- Revert previous workaround and fix issue in Sonic-Win and Sonic-Workspace instead.
+
 * Thu Jul 02 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.6.4-12
 - Disable panel floating/opacity animations to avoid stutter when the panel
   changes state (e.g. switching virtual desktops).
