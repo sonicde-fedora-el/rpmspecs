@@ -7,7 +7,7 @@
 Name:    sonic-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.6.4
-Release: 15%{?dist}
+Release: 14%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -37,7 +37,6 @@ Source40:       ssh-agent.conf
 Source41:       spice-vdagent.conf
 
 ## upstream patches
-Patch0:        sonic-workspace-6.6.4-mask-throttle.patch
 
 ## upstreamable Patches
 
@@ -46,6 +45,10 @@ Patch0:        sonic-workspace-6.6.4-mask-throttle.patch
 Patch106:       plasma-workspace-5.27.80-enable-open-terminal-action.patch
 # default to enable the lock/logout actions
 Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
+
+# Handle zero-duration floating panel animation now that the QML side disables
+# the animation entirely.
+Patch108:       sonic-workspace-6.6.4-x11-panel-lag.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -691,11 +694,6 @@ fi
 
 
 %changelog
-* Thu Jul 02 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.6.4-15
-- Reduce per-frame compositor work during panel floating animation:
-  throttle blur/contrast mask updates and avoid setGeometry/slideWindow
-  calls on every animation frame.
-
 * Thu Jul 02 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.6.4-14
 - Handle zero-duration floating panel animation so the panel can switch states
   instantly without stutter.
