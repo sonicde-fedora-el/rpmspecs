@@ -1,3 +1,5 @@
+![SonicDE on Enterprise Linux](./docs/img/screenshot.jpg)
+
 # SonicDE for Enterprise Linux 10
 
 This third-party repository provides [SonicDE](https://sonicde.org) source and binary packages for [Enterprise Linux](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux)-based distributions. SonicDE, or the Sonic Desktop Environment, aims to preserve and improve the X11-specific aspects of KDE. You can learn more about SonicDE at [sonicde.org](https://sonicde.org/).
