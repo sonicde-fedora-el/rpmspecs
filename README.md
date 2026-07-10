@@ -4,15 +4,23 @@
 
 This third-party repository provides [SonicDE](https://sonicde.org) source and binary packages for [Enterprise Linux](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux)-based distributions. SonicDE, or the Sonic Desktop Environment, aims to preserve and improve the X11-specific aspects of KDE. You can learn more about SonicDE at [sonicde.org](https://sonicde.org/).
 
-The packages of this repository are known to work with [AlmaLinux](https://almalinux.org/), [Red Hat Enterprise Linux (RHEL)](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux), [Oracle Linux](https://www.oracle.com/linux), and [Rocky Linux](https://rockylinux.org).
+The packages of this repository are known to work with [AlmaLinux](https://almalinux.org/) and [Red Hat Enterprise Linux (RHEL)](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux). They also should on [Oracle Linux](https://www.oracle.com/linux) and [Rocky Linux](https://rockylinux.org).
 
 ## Installing SonicDE Manually
 
 ### Choosing an X11 Display Server
 
-Since EL10 doesn't have any X11 server by default or in the official repos, you need to install one. We recommend using the XLibre X11 server. Follow the installation instructions on the [XLibre for Fedora and EL Github page](https://github.com/xlibre-fedora-el/rpmspecs).
+Since EL10 doesn't have any X11 server by default or in the official repos, you need to install one. We recommend using the XLibre X11 server. Follow the installation instructions on the [XLibre for Fedora and EL GitHub page](https://github.com/xlibre-fedora-el/rpmspecs).
 
-### Enabling the Repository
+### Installing KDE
+
+When coming from the standard GNOME desktop, it's beneficial to install KDE first before installing SonicDE. To do so, follow the [Getting started with EPEL - Fedora Docs](https://docs.fedoraproject.org/en-US/epel/getting-started/). Then [install the "KDE Plasma Workspaces"](https://docs.fedoraproject.org/en-US/kde/getkde) group from the EPEL:
+
+```shell
+sudo dnf groupinstall "KDE Plasma Workspaces"
+```
+
+### Enabling the SonicDE Copr Repository
 
 > [!warning]
 > Beware that SonicDE has removed the Wayland parts, so the Wayland session may not work after installing it even though it is listed as an option in the display manager. You may not be able to start KDE Wayland anymore. Proceed at your own risk.
@@ -36,9 +44,23 @@ sudo dnf install --allowerasing xorg-x11-xinit xkbcomp xinput xrandr \
     sonic-screen-library sonic-sysguard-library
 ```
 
+As the [GNOME Display Manager (GDM)](https://en.wikipedia.org/wiki/GNOME_Display_Manager) has no X11 support compiled in, you need to switch to the [Simple Desktop Display Manager (SDDM)](https://en.wikipedia.org/wiki/Simple_Desktop_Display_Manager) from the EPEL repository or an X11-capable alternative:
+
+```shell
+sudo dnf install sddm
+sudo systemctl enable --force sddm.service
+```
+
 ### Rebooting Your System
 
 Now reboot your system. At the login screen choose "Plasma (X11)" as the session type. Log in with your credentials, start the program System Settings and verify that you’re running SonicDE on the “About this System” page. You do? Congratulations!
+
+If your system only shows a blinking cursor after the reboot, switch to a [text console](https://wiki.archlinux.org/title/Linux_console) via, e.g., Ctrl+Alt+F3, log in as your regular user and enter the following commands:
+
+```shell
+sudo dnf reinstall sddm
+sudo systemctl restart sddm
+```
 
 ## Getting in Contact
 
