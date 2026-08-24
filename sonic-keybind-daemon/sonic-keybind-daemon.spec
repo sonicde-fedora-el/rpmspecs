@@ -4,21 +4,21 @@
 #Name:    kglobalacceld
 Name:    sonic-keybind-daemon
 Summary: Daemon providing Global Keyboard Shortcut functionality
-Version: 6.6.4
+Version: 6.7.4
 Release: 1%{?dist}
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
-#URL:     https://invent.kde.org/plasma/%{name}
+#URL:     https://invent.kde.org/plasma/%%{name}
 URL:           https://github.com/Sonic-DE/%{name}
 
-#Source0:  https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-#Source1:  https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
+#Source0:  https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
+#Source1:  https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  extra-cmake-modules
+BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-rpm-macros
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtbase-gui
@@ -80,6 +80,9 @@ Conflicts: kglobalacceld-devel
 %{_libdir}/cmake/KGlobalAccelD/
 
 %changelog
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
+- Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

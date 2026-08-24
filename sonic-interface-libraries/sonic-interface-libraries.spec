@@ -3,8 +3,8 @@
 
 #Name:    libplasma
 Name:    sonic-interface-libraries
-Version: 6.6.4
-Release: 2%{?dist}
+Version: 6.7.4
+Release: 1%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
@@ -12,13 +12,13 @@ License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-
 #URL:     https://invent.kde.org/plasma/libplasma
 URL:           https://github.com/Sonic-DE/%{name}
 
-#Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-#Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
+#Source0: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
+#Source1: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  extra-cmake-modules
+BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-rpm-macros
 
 # Qt
 BuildRequires:  cmake(Qt6Quick)
@@ -138,6 +138,9 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
+- Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

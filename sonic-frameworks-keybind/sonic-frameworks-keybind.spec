@@ -3,25 +3,25 @@
 
 %global framework kglobalaccel
 
-#Name:    kf6-%{framework}
+#Name:    kf6-%%{framework}
 Name:    sonic-frameworks-keybind
-Version: 6.25.0
+Version: 6.29.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module for global shortcuts
 
 # The following are in the LICENSES folder but go unused: LGPL-2.1-only, LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
 License: CC0-1.0 AND LGPL-2.0-or-later
-#URL:     https://invent.kde.org/frameworks/%{framework}
-#Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
-#Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
+#URL:     https://invent.kde.org/frameworks/%%{framework}
+#Source0: https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz
+#Source1: https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz.sig
 
 URL:            https://github.com/Sonic-DE/sonic-frameworks-keybind
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  extra-cmake-modules >= %{version}
+BuildRequires:  sonic-frameworks-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-rpm-macros
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6Crash)
@@ -106,6 +106,9 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
+- Update to SonicDE 6.29.0 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
 - 6.25.0
 

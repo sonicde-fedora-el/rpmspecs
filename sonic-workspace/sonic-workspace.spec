@@ -6,16 +6,16 @@
 
 Name:    sonic-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.6.4
-Release: 16%{?dist}
+Version: 6.7.4.6
+Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
-#URL:     https://invent.kde.org/plasma/%{name}
+#URL:     https://invent.kde.org/plasma/%%{name}
 URL:           https://github.com/Sonic-DE/%{name}
 
-#Source0: https://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
-#Source1: https://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
+#Source0: https://download.kde.org/%%{stable_kf6}/plasma/%%{maj_ver_kf6}.%%{min_ver_kf6}.%%{bug_ver_kf6}/%%{name}-%%{version}.tar.xz
+#Source1: https://download.kde.org/%%{stable_kf6}/plasma/%%{maj_ver_kf6}.%%{min_ver_kf6}.%%{bug_ver_kf6}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 Source11:       startkderc
@@ -99,12 +99,12 @@ BuildRequires:  cmake(Qt6Positioning)
 BuildRequires:  cmake(Qt6ShaderTools)
 BuildRequires:  polkit-qt6-1-devel
 BuildRequires:  libcanberra-devel
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-rpm-macros
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  systemd
 
-BuildRequires:  extra-cmake-modules
+BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  cmake(KF6Baloo)
 BuildRequires:  cmake(KF6Archive)
 BuildRequires:  cmake(KF6KCMUtils)
@@ -167,7 +167,7 @@ BuildRequires:  pkgconfig(libxcrypt)
 
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  plasma-wayland-protocols-devel
-BuildRequires:  plasma-breeze-devel >= %{majmin_ver_kf6}
+BuildRequires:  sonic-breeze-devel >= %{majmin_ver_kf6}
 
 BuildRequires:  chrpath
 BuildRequires:  desktop-file-utils
@@ -177,40 +177,40 @@ BuildRequires:  cmake(AppStreamQt) >= 1.0.0
 # when kded_desktopnotifier.so moved here
 Conflicts:      kio-extras < 5.4.0
 
-Recommends:     plasma-welcome
+Recommends:     sonic-welcome-center
 
 Recommends:     %{name}-geolocation = %{version}-%{release}
 Suggests:       imsettings-qt
 
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       libkworkspace6%{?_isa} = %{version}-%{release}
+Requires:       sonic-workspace-libs%{?_isa} = %{version}-%{release}
 # for selinux settings
 Requires:       (policycoreutils if selinux-policy)
 
 Requires:       kactivitymanagerd%{?_isa}
 Requires:       ksystemstats%{?_isa}
-Requires:       kf6-baloo
-Requires:       kf6-kded
-Requires:       kf6-kdoctools
+Requires:       sonic-frameworks-file-search
+Requires:       sonic-daemon
+Requires:       sonic-frameworks-doctools
 Requires:       sonic-frameworks-keybind
-Requires:       kf6-kquickcharts
-Requires:       kf6-kirigami
-Requires:       kf6-kirigami-addons
-BuildRequires:  kf6-kirigami-addons
+Requires:       sonic-frameworks-quick-charts
+Requires:       sonic-frameworks-quick-ui
+Requires:       sonic-frameworks-quick-ui-addons
+BuildRequires:  sonic-frameworks-quick-ui-addons
 Requires:       kio-extras
 BuildRequires:  kio-extras
 Requires:       kio-fuse
 BuildRequires:  kio-fuse
 
 # The new volume control for PulseAudio
-Recommends:       plasma-pa
+Recommends:       sonic-audio-applet-pulse
 
 # Without the platformtheme plugins we get broken fonts
-Requires:       kf6-frameworkintegration
+Requires:       sonic-frameworks-qt-integration
 
 # For krunner
-Recommends:       plasma-milou
+Recommends:       sonic-file-search-ui
 
 # https://pagure.io/fedora-kde/SIG/issue/303
 Recommends: kde-inotify-survey
@@ -349,7 +349,7 @@ Obsoletes:  plasma-workspace-libs < %{version}-%{release}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       libkworkspace6%{?_isa} = %{version}-%{release}
+Requires:       sonic-workspace-libs%{?_isa} = %{version}-%{release}
 Provides:       plasma-workspace-devel = %{version}-%{release}
 Provides:       plasma-workspace-devel%{?_isa} = %{version}-%{release}
 %description    devel
@@ -377,7 +377,7 @@ Documentation and user manuals for %{name}.
 #
 #Requires:       plasma-keyboard
 #Supplements:    (sddm and plasma-workspace)
-#%if ! (0%{?fedora} && 0%{?fedora} < 38)
+#%if ! (0%%{?fedora} && 0%%{?fedora} < 38)
 ## Replace sddm-x11 with sddm-wayland-plasma
 ### N.B.: If sddm gets updated in F36/F37, this will need to be bumped
 #Obsoletes:      sddm-x11 < 0.19.0^git20230404.e652433-2
@@ -390,7 +390,7 @@ Documentation and user manuals for %{name}.
 
 %package        x11
 Summary:        SonicDE X11 session
-#Requires:       %{name}%{?_isa} = %{version}-%{release}
+#Requires:       %%{name}%%{?_isa} = %%{version}-%%{release}
 Requires:       xlibre-xserver-Xorg
 Conflicts:      plasma-workspace-x11
 
@@ -449,17 +449,17 @@ EOL
 %install
 %cmake_install
 
-#chrpath --delete %{buildroot}%{_kf6_qtplugindir}/phonon_platform/kde.so
+#chrpath --delete %%{buildroot}%%{_kf6_qtplugindir}/phonon_platform/kde.so
 
 ## General startplasma symlink
-#ln -sr %{buildroot}%{_kf6_bindir}/startplasma-wayland %{buildroot}%{_kf6_bindir}/startplasma
+#ln -sr %%{buildroot}%%{_kf6_bindir}/startplasma-wayland %%{buildroot}%%{_kf6_bindir}/startplasma
 
 ## Drop (Wayland) qualifier from plasma.desktop
-#sed -E 's| \(.*\)||g' -i %{buildroot}%{_datadir}/wayland-sessions/plasma.desktop
+#sed -E 's| \(.*\)||g' -i %%{buildroot}%%{_datadir}/wayland-sessions/plasma.desktop
 
 # move sddm configuration snippet to the right place
-#mkdir -p %{buildroot}%{_prefix}/lib/sddm
-#mv %{buildroot}%{_sysconfdir}/sddm.conf.d %{buildroot}%{_prefix}/lib/sddm
+#mkdir -p %%{buildroot}%%{_prefix}/lib/sddm
+#mv %%{buildroot}%%{_sysconfdir}/sddm.conf.d %%{buildroot}%%{_prefix}/lib/sddm
 
 ## customize plasma-lookandfeel-fedora defaults
 # from [Wallpaper] Image=Next to Image=Fedora
@@ -584,7 +584,7 @@ fi
 %{_userunitdir}/plasma-core.target.d/spice-vdagent.conf
 %endif
 %{_userunitdir}/plasma-workspace.target
-#%{_userunitdir}/plasma-workspace-wayland.target
+#%%{_userunitdir}/plasma-workspace-wayland.target
 %{_userunitdir}/plasma-workspace-x11.target
 %dir %{_userunitdir}/plasma-workspace@.target.d/
 %{_libdir}/kconf_update_bin/plasma6.3-update-clipboard-database-2-to-3
@@ -598,8 +598,8 @@ fi
 %config(noreplace) %{_sysconfdir}/pam.d/kde-fingerprint
 %config(noreplace) %{_sysconfdir}/pam.d/kde-smartcard
 ## Plasma Wayland
-#%{_kf6_bindir}/startplasma
-#%{_kf6_bindir}/startplasma-wayland
+#%%{_kf6_bindir}/startplasma
+#%%{_kf6_bindir}/startplasma-wayland
 %{_datadir}/wayland-sessions/plasma.desktop
 
 %files doc -f %{name}-doc.lang
@@ -678,7 +678,7 @@ fi
 %{_libdir}/libklookandfeel.so
 
 #%files -n sddm-wayland-plasma
-#%{_prefix}/lib/sddm/sddm.conf.d/plasma-wayland.conf
+#%%{_prefix}/lib/sddm/sddm.conf.d/plasma-wayland.conf
 
 %files x11
 %defattr(-,root,root,-)
@@ -690,6 +690,9 @@ fi
 
 
 %changelog
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.6-1
+- Update to SonicDE 6.7.4.6 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

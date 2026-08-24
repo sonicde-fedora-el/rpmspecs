@@ -10,15 +10,15 @@
 
 Name:    sonic-desktop-interface
 Summary: Plasma Desktop shell
-Version: 6.6.4
-Release: 13%{?dist}
+Version: 6.7.4.2
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
-#URL:     https://invent.kde.org/plasma/%{name}
+#URL:     https://invent.kde.org/plasma/%%{name}
 URL:           https://github.com/Sonic-DE/%{name}
 
-#Source0: https://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
-#Source1: https://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
+#Source0: https://download.kde.org/%%{stable_kf6}/plasma/%%{maj_ver_kf6}.%%{min_ver_kf6}.%%{bug_ver_kf6}/%%{name}-%%{version}.tar.xz
+#Source1: https://download.kde.org/%%{stable_kf6}/plasma/%%{maj_ver_kf6}.%%{min_ver_kf6}.%%{bug_ver_kf6}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 # breeze fedora sddm theme components
@@ -64,8 +64,8 @@ BuildRequires:  ibus-devel
 BuildRequires:  scim-devel
 %endif
 
-BuildRequires:  kf6-rpm-macros
-BuildRequires:  extra-cmake-modules
+BuildRequires:  sonic-rpm-macros
+BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6KCMUtils)
@@ -93,7 +93,7 @@ BuildRequires:  cmake(KSysGuard)
 BuildRequires:  cmake(Plasma5Support)
 BuildRequires:  sonic-screenlocker-devel
 BuildRequires:  sonic-win-devel
-BuildRequires:  plasma-breeze-qt6
+BuildRequires:  sonic-breeze-qt6
 BuildRequires:  sonic-workspace-devel
 
 BuildRequires:  cmake(PlasmaActivities)
@@ -131,7 +131,7 @@ Provides:       kcm_touchpad = %{version}-%{release}
 Obsoletes:      kcm_touchpad < 5.3.0
 # for xserver-properties
 BuildRequires:  xorg-x11-server-devel
-Requires:       kf6-kded
+Requires:       sonic-daemon
 
 # for kcm_keyboard
 BuildRequires:  pkgconfig(libudev)
@@ -157,7 +157,7 @@ Requires:       xdg-utils >= 1.2.0~
 Requires:       kde-cli-tools
 
 # Qt Integration (brings in Breeze)
-Requires:       plasma-integration
+Requires:       sonic-qt-theme-bridge
 
 # Install systemsettings, full set of KIO slaves and write() notifications
 Requires:       plasma-systemsettings
@@ -171,11 +171,11 @@ Requires:       sonic-win
 Requires:       kmenuedit
 
 BuildRequires:  cmake(KF6Kirigami)
-Requires:       kf6-kirigami%{?_isa}
+Requires:       sonic-frameworks-quick-ui%{?_isa}
 BuildRequires:  cmake(KF6KirigamiAddons)
-Requires:       kf6-kirigami-addons%{?_isa}
-BuildRequires:  kf6-qqc2-desktop-style
-Requires:       kf6-qqc2-desktop-style%{?_isa}
+Requires:       sonic-frameworks-quick-ui-addons%{?_isa}
+BuildRequires:  sonic-frameworks-quick-desktop-style
+Requires:       sonic-frameworks-quick-desktop-style%{?_isa}
 BuildRequires:  kpipewire
 Requires:       kpipewire%{?_isa}
 BuildRequires:  signon-plugin-oauth2-devel
@@ -257,7 +257,7 @@ Requires:       sonic-workspace >= %{maj_ver_kf6}.%{min_ver_kf6}
 # /usr/share/backgrounds/default.{jxl,png}
 Requires:       desktop-backgrounds-compat
 # for jxl support
-Requires:       kf6-kimageformats
+Requires:       sonic-frameworks-image-formats
 BuildArch: noarch
 
 %description -n sddm-breeze
@@ -327,7 +327,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/*.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
 # due to missing xorg-libinput
-#%{_kf6_qtplugindir}/plasma/kcminit/kcm_touchpad_init.so
+#%%{_kf6_qtplugindir}/plasma/kcminit/kcm_touchpad_init.so
 %{_kf6_plugindir}/kded/*.so
 %{_kf6_plugindir}/krunner/krunner*.so
 %{_kf6_qmldir}/org/kde/plasma/activityswitcher
@@ -343,15 +343,15 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %endif
 %endif
 # due to missing xorg-libinput
-#%{_kf6_datadir}/kcmmouse/
-#%{_kf6_qtplugindir}/plasma/kcminit/kcm_mouse_init.so
+#%%{_kf6_datadir}/kcmmouse/
+#%%{_kf6_qtplugindir}/plasma/kcminit/kcm_mouse_init.so
 %{_datadir}/config.kcfg/*.kcfg
 %{_datadir}/kglobalaccel/org.kde.plasma.emojier.desktop
 # due to missing xorg-libinput
-#%{_datadir}/kglobalaccel/org.kde.touchpadshortcuts.desktop
+#%%{_datadir}/kglobalaccel/org.kde.touchpadshortcuts.desktop
 %{_datadir}/qlogging-categories6/*.categories
 # due to missing xorg-libinput
-#%{_kf6_datadir}/dbus-1/interfaces/org.kde.touchpad.xml
+#%%{_kf6_datadir}/dbus-1/interfaces/org.kde.touchpad.xml
 %{_kf6_datadir}/kcmkeys
 %{_kf6_datadir}/knsrcfiles/
 %{_kf6_datadir}/kcmsolidactions/
@@ -359,7 +359,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_kf6_datadir}/dbus-1/system.d/*.conf
 %{_kf6_datadir}/knotifications6/*.notifyrc
 # Non-existent for an unknown reason
-#%{_datadir}/icons/hicolor/*/*/*
+#%%{_datadir}/icons/hicolor/*/*/*
 %{_kf6_metainfodir}/*.xml
 %{_datadir}/applications/*.desktop
 %{_datadir}/dbus-1/system-services/*.service
@@ -393,6 +393,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.2-1
+- Update to SonicDE 6.7.4.2 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

@@ -1,40 +1,24 @@
 #!/bin/bash
 set -e
 
-COPR="@SonicDE/SonicDE-EL10"
-GIT_URL="https://pc-rytteren.dk/forge/anders/SonicDE-rpmspecs.git"
-BRANCH="master"
-METHOD="rpkg"
+COPR="${COPR:-@SonicDE/SonicDE-EL10}"
+GIT_URL="${GIT_URL:-https://pc-rytteren.dk/forge/anders/SonicDE-rpmspecs.git}"
+BRANCH="${BRANCH:-master}"
+METHOD="${METHOD:-rpkg}"
 
-# Build order tiers (sequential within tier for dependency safety)
-TIER1=(
-  sonic-silver-theme
-  sonic-frameworks-keybind
-  sonic-frameworks-windowsystem
-  sonic-keybind-daemon
-  sonic-sysguard-library
-  sonic-screen-library
-  sonic-interface-libraries
-  sonic-system-info
-  sonic-login-manager
-)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ORDER_FILE="$SCRIPT_DIR/build-order.txt"
 
-TIER2=(
-  sonic-screen
-  sonic-screenlocker
-)
+# All tier names present in build-order.txt, in order.
+tier_names() {
+  sed -n 's/^\[\(tier[0-9]\+\)\]$/\1/p' "$ORDER_FILE"
+}
 
-TIER3=(
-  sonic-win
-)
-
-TIER4=(
-  sonic-workspace
-)
-
-TIER5=(
-  sonic-desktop-interface
-)
+# Packages of a single tier.
+tier_packages() {
+  sed -n "/^\[$1\]$/,/^\[/p" "$ORDER_FILE" |
+    grep -v '^\[' | grep -v '^#' | grep -v '^$'
+}
 
 # Submit SCM build to Copr (blocks until completion by default)
 submit_scm() {
@@ -50,51 +34,48 @@ submit_scm() {
 
 # Submit tier in parallel
 submit_tier() {
-  local -n tier=$1
-  local tier_name=$2
+  local tier=$1
   local pids=()
 
   echo ""
   echo "========================================"
-  echo "  $tier_name"
+  echo "  $tier"
   echo "========================================"
 
-  for pkg in "${tier[@]}"; do
+  for pkg in $(tier_packages "$tier"); do
     submit_scm "$pkg" &
     pids+=($!)
   done
 
-  # Wait for all builds in this tier
   for pid in "${pids[@]}"; do
-    wait $pid || { echo "FEJL: Bygning fejlede i $tier_name"; exit 1; }
+    wait $pid || { echo "FEJL: Bygning fejlede i $tier"; exit 1; }
   done
-  echo "  $tier_name færdig"
+  echo "  $tier færdig"
 }
 
 usage() {
-  echo "Brug: $0 [tier1|tier2|tier3|tier4|tier5|all ...]"
-  echo "  tier1   - Byg Tier 1 pakker (uden afhængigheder)"
-  echo "  tier2   - Byg Tier 2 pakker"
-  echo "  tier3   - Byg Tier 3 pakker"
-  echo "  tier4   - Byg Tier 4 pakker"
-  echo "  tier5   - Byg Tier 5 pakker"
-  echo "  all     - Byg alle tiers (default hvis intet angivet)"
+  echo "Brug: $0 [tierN ...|all]"
+  echo "  tierN   - Byg pakkerne i den angivne tier fra build-order.txt"
+  echo "  all     - Byg alle tiers i rækkefølge (default hvis intet angivet)"
   echo ""
-  echo "Eksempler:"
-  echo "  $0 tier2         # Kør kun Tier 2"
-  echo "  $0 tier1 tier2   # Kør Tier 1 og 2"
+  echo "Tiers i $ORDER_FILE:"
+  for t in $(tier_names); do
+    echo "  $t ($(tier_packages "$t" | wc -l) pakker)"
+  done
+  echo ""
+  echo "Miljøvariabler: COPR, GIT_URL, BRANCH, METHOD"
   exit 1
 }
 
-# Determine which tiers to run
 if [ $# -eq 0 ]; then
   set -- all
 fi
 
-# Validate args
 for arg; do
   case "$arg" in
-    tier1|tier2|tier3|tier4|tier5|all) ;;
+    all) ;;
+    tier[0-9]*)
+      tier_names | grep -qx "$arg" || { echo "Ukendt tier: $arg"; usage; } ;;
     *) echo "Ukendt argument: $arg"; usage ;;
   esac
 done
@@ -106,20 +87,13 @@ echo "Branch: $BRANCH"
 echo ""
 
 for arg; do
-  case "$arg" in
-    tier1) submit_tier TIER1 "Tier 1" ;;
-    tier2) submit_tier TIER2 "Tier 2" ;;
-    tier3) submit_tier TIER3 "Tier 3" ;;
-    tier4) submit_tier TIER4 "Tier 4" ;;
-    tier5) submit_tier TIER5 "Tier 5" ;;
-    all)
-      submit_tier TIER1 "Tier 1"
-      submit_tier TIER2 "Tier 2"
-      submit_tier TIER3 "Tier 3"
-      submit_tier TIER4 "Tier 4"
-      submit_tier TIER5 "Tier 5"
-      ;;
-  esac
+  if [ "$arg" = all ]; then
+    for t in $(tier_names); do
+      submit_tier "$t"
+    done
+  else
+    submit_tier "$arg"
+  fi
 done
 
 echo ""

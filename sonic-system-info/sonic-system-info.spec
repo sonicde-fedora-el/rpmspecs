@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:    sonic-system-info
 
-Version: 6.6.4
+Version: 6.7.4
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -15,14 +15,14 @@ License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AN
 #URL:     https://invent.kde.org/plasma/%
 URL:           https://github.com/Sonic-DE/%{name}
 
-#Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-#Source1: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
+#Source0: http://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
+#Source1: http://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  qt6-qtbase-devel
 
-BuildRequires:  kf6-rpm-macros
-BuildRequires:  extra-cmake-modules
+BuildRequires:  sonic-rpm-macros
+BuildRequires:  sonic-frameworks-cmake-modules
 
 BuildRequires:  cmake(KF6Completion)
 BuildRequires:  cmake(KF6Config)
@@ -54,7 +54,7 @@ BuildRequires:  libraw1394-devel
 %endif
 
 BuildRequires: cmake(KF6Kirigami2)
-Requires: kf6-kirigami2%{?_isa}
+Requires: sonic-frameworks-quick-ui%{?_isa}
 
 # runtime query of usb.ids, oui.txt
 Requires: hwdata
@@ -100,7 +100,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kinfocenter.d
 desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.desktop
 # commented out until upstream fixes a duplicate entries problem
-#appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+#appstream-util validate-relax --nonet %%{buildroot}%%{_metainfodir}/*.appdata.xml
 
 %files -f %{name}.lang
 %{_datadir}/applications/kcm_energyinfo.desktop
@@ -121,6 +121,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.deskto
 %{_libexecdir}/kinfocenter-vulkan-helper
 
 %changelog
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
+- Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

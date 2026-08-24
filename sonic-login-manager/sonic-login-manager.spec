@@ -1,8 +1,8 @@
 
 
 Name:           sonic-login-manager
-Version:        6.6.4
-Release:        12%{?dist}
+Version:        6.7.4.4
+Release:        1%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager for SonicDE
 
@@ -14,7 +14,7 @@ Source10:       README.scripts
 # sysconfig snippet
 Source11:       plasmalogin.sysconfig
 # sysusers config file. note these are shipped in the upstream tarball
-# but we cannot use the files from the tarball for %pre scriptlet
+# but we cannot use the files from the tarball for %%pre scriptlet
 # generation, so we duplicate them as source files for that purpose;
 # this is an ugly hack that should be removed if it becomes possible.
 # see https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/TFDMAU7KLMSQTKPJELHSM6PFVXIZ56GK/
@@ -34,11 +34,12 @@ Provides:       service(graphical-login) = plasmalogin
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake >= 3.22
-BuildRequires:  extra-cmake-modules
+BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(systemd)
+BuildRequires:  pkgconfig(xau)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-xkb)
 BuildRequires:  cmake(Qt6Core)
@@ -60,7 +61,6 @@ BuildRequires:  cmake(KF6Auth)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6KirigamiPlatform)
 BuildRequires:  cmake(PlasmaQuick)
-BuildRequires:  cmake(LayerShellQt)
 BuildRequires:  cmake(LibKWorkspace)
 BuildRequires:  cmake(LibKLookAndFeel)
 BuildRequires:  cmake(KF6Screen)
@@ -68,10 +68,10 @@ BuildRequires:  cmake(KF6Screen)
 BuildRequires:  shadow-utils
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-rpm-macros
 
 # for jxl support
-Requires:       kf6-kimageformats%{?_isa}
+Requires:       sonic-frameworks-image-formats%{?_isa}
 
 Requires:       xorg-x11-xinit
 Requires:       sonic-login-manager-selinux
@@ -79,7 +79,7 @@ Requires:       sonic-login-manager-selinux
 %{?systemd_requires}
 
 Requires:      kf6-filesystem
-Requires:      kf6-kauth
+Requires:      sonic-frameworks-auth
 Requires(pre): shadow-utils
 
 Requires:      kde-settings-plasma
@@ -105,7 +105,7 @@ Requires: qt6-filesystem
 %{summary}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}
 
 
 %conf

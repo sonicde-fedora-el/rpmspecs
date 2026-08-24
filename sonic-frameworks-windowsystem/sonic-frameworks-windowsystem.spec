@@ -3,25 +3,25 @@
 
 %global		framework kwindowsystem
 
-#Name:		kf6-%{framework}
+#Name:		kf6-%%{framework}
 Name:       sonic-frameworks-windowsystem
-Version:	6.25.0
-Release:	1%{?dist}
+Version: 6.29.0
+Release: 1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module with classes for windows management
 License:	CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
-#URL:		https://invent.kde.org/frameworks/%{framework}
+#URL:		https://invent.kde.org/frameworks/%%{framework}
 URL:           https://github.com/Sonic-DE/sonic-frameworks-windowsystem
 
-#Source0:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
-#Source1:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
+#Source0:	https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz
+#Source1:	https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 # Upstream patches
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
-BuildRequires:	extra-cmake-modules >= %{version}
-BuildRequires:	kf6-rpm-macros
+BuildRequires:	sonic-frameworks-cmake-modules >= %{version}
+BuildRequires:	sonic-rpm-macros
 BuildRequires:	make
 BuildRequires:	qt6-qtbase-devel
 BuildRequires:	qt6-qttools-devel
@@ -94,7 +94,7 @@ Developer Documentation files for %{name} in HTML format
 %dir %{_kf6_plugindir}/kwindowsystem/
 %{_kf6_plugindir}/kwindowsystem/KF6WindowSystemX11Plugin.so
 %{_kf6_qmldir}/org/kde/kwindowsystem
-#%{_qt6_plugindir}/kf6/kwindowsystem/KF6WindowSystemKWaylandPlugin.so
+#%%{_qt6_plugindir}/kf6/kwindowsystem/KF6WindowSystemKWaylandPlugin.so
 
 %files devel
 %{_kf6_includedir}/KWindowSystem/
@@ -114,6 +114,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
+- Update to SonicDE 6.29.0 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
 - 6.25.0
 

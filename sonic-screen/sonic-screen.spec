@@ -8,20 +8,20 @@ ExcludeArch: %{ix86}
 
 Name:    sonic-screen
 Epoch:   1
-Version: 6.6.4
+Version: 6.7.4
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
-#URL:     https://invent.kde.org/plasma/%{name}
+#URL:     https://invent.kde.org/plasma/%%{name}
 URL:           https://github.com/Sonic-DE/%{name}
 
-#Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-#Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
+#Source0: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
+#Source1: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  extra-cmake-modules
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-frameworks-cmake-modules
+BuildRequires:  sonic-rpm-macros
 BuildRequires:  systemd-rpm-macros
 
 BuildRequires:  qt6-qtbase-devel
@@ -85,6 +85,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_userunitdir}/plasma-kscreen-osd.service
 
 %changelog
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
+- Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.4-1
 - 6.6.4
 

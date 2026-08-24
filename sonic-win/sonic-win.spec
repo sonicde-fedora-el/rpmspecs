@@ -3,8 +3,8 @@
 %define oldname kwin_x11
 
 Name:    sonic-win
-Version: 6.6.4
-Release: 13%{?dist}
+Version: 6.7.4.3
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -13,8 +13,8 @@ URL:           https://github.com/Sonic-DE/%{name}
 
 %global plasma_version %(echo %{version} | cut -d. -f1-3)
 
-#Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
-#Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
+#Source0: http://download.kde.org/%%{stable_kf6}/plasma/%%{maj_ver_kf6}.%%{min_ver_kf6}.%%{bug_ver_kf6}/%%{name}-%%{version}.tar.xz
+#Source1: http://download.kde.org/%%{stable_kf6}/plasma/%%{maj_ver_kf6}.%%{min_ver_kf6}.%%{bug_ver_kf6}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 ## upstream patches
@@ -23,8 +23,8 @@ Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.
 
 
 # Base
-BuildRequires:  extra-cmake-modules
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-frameworks-cmake-modules
+BuildRequires:  sonic-rpm-macros
 BuildRequires:  systemd-rpm-macros
 
 # Qt
@@ -103,7 +103,7 @@ BuildRequires:  cmake(KNightTime)
 
 BuildRequires:  cmake(KDecoration3)
 BuildRequires:  sonic-screenlocker-devel
-BuildRequires:  plasma-breeze-devel
+BuildRequires:  sonic-breeze-devel
 BuildRequires:  plasma-wayland-protocols-devel
 BuildRequires:  cmake(KGlobalAccelD)
 BuildRequires:  libdisplay-info-devel
@@ -120,8 +120,8 @@ BuildRequires:  pkgconfig(libcanberra)
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-common%{?_isa} = %{version}-%{release}
 Requires:       sonic-screenlocker%{?_isa}
-Requires:       kf6-kirigami2%{?_isa}
-Requires:       kf6-kdeclarative%{?_isa}
+Requires:       sonic-frameworks-quick-ui%{?_isa}
+Requires:       sonic-frameworks-qml-bridge%{?_isa}
 Requires:       sonic-interface-libraries%{?_isa} >= %{plasma_version}
 Requires:       qt6-qtmultimedia%{?_isa}
 Requires:       qt6-qtdeclarative%{?_isa}
@@ -137,18 +137,18 @@ Obsoletes:      kwin-gles-libs < 5
 # Split of X11 variant into subpackage
 Obsoletes: kwin < %{version}-%{release}
 
-#Requires:   kwin-wayland = %{version}-%{release}
+#Requires:   kwin-wayland = %%{version}-%%{release}
 
 # Merge -wayland subpackage
 Conflicts: kwin-wayland < 6.3.90
 Obsoletes: kwin-wayland < 6.3.90
-#Provides:  kwin-wayland = %{version}-%{release}
-#Provides:  kwin-wayland%{?_isa} = %{version}-%{release}
+#Provides:  kwin-wayland = %%{version}-%%{release}
+#Provides:  kwin-wayland%%{?_isa} = %%{version}-%%{release}
 
 # Obsolete kwin-wayland-nvidia package as this is now done automatically
 # by kwin-wayland
 Obsoletes:      kwin-wayland-nvidia < 5.20.2-2
-#Provides:       kwin-wayland-nvidia = %{version}-%{release}
+#Provides:       kwin-wayland-nvidia = %%{version}-%%{release}
 # Obsolete -x11 for Plasma 6
 %if 0%{?fedora}
 Obsoletes:      kwin-x11 < 5.92.0
@@ -157,7 +157,7 @@ Obsoletes:      kwin-x11 < %{version}-%{release}
 Conflicts:      kwin-x11 < %{version}-%{release}
 %endif
 %if ! 0%{?rhel} >= 10
-#Requires:       (kwayland-integration%{?_isa} if kf5-kwindowsystem%{?_isa})
+#Requires:       (kwayland-integration%%{?_isa} if kf5-kwindowsystem%%{?_isa})
 %endif
 %if ! 0%{?bootstrap}
 #BuildRequires:  xorg-x11-server-Xwayland
@@ -203,8 +203,8 @@ Conflicts: kwin-x11-libs
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-common%{?_isa} = %{version}-%{release}
-Requires:       kf6-kconfig-devel
-Requires:       kf6-kservice-devel
+Requires:       sonic-frameworks-settings-devel
+Requires:       sonic-frameworks-app-info-devel
 Requires:       sonic-frameworks-windowsystem
 Conflicts:      kde-workspace-devel < 5.0.0-1
 Conflicts: kwin-devel
@@ -241,12 +241,12 @@ cat %{name}.lang %{name}-doc.lang | sort | uniq -u > kwin6.lang
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 
 # temporary(?) hack to allow initial-setup to use /usr/bin/kwin too
-#ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
+#ln -sr %%{buildroot}%%{_kf6_bindir}/kwin_wayland %%{buildroot}%%{_bindir}/kwin
 
 
 %files
 %{_bindir}/kwin_x11
-#%{_bindir}/kwin_wayland_wrapper
+#%%{_bindir}/kwin_wayland_wrapper
 %{_datadir}/kwin-x11/
 %caps(cap_sys_nice=ep) %{_kf6_bindir}/kwin_x11
 %{_userunitdir}/plasma-kwin_x11.service
@@ -266,18 +266,18 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 %{_kf6_libdir}/kconf_update_bin/kwin-6.5-showpaint-changes-x11
 %{_libexecdir}/kwin-applywindowdecoration-x11
 %{_libexecdir}/kwin_killer_helper_x11
-#%{_libexecdir}/kwin-tabbox-preview
+#%%{_libexecdir}/kwin-tabbox-preview
 %{_datadir}/kconf_update/kwin-x11.upd
 %{_kf6_datadir}/knotifications6/kwin-x11.notifyrc
-#%{_kf6_datadir}/config.kcfg/kwin.kcfg
-#%{_kf6_datadir}/config.kcfg/kwindecorationsettings.kcfg
-#%{_kf6_datadir}/config.kcfg/virtualdesktopssettings.kcfg
-#%{_kf6_datadir}/config.kcfg/nightlightsettings.kcfg
+#%%{_kf6_datadir}/config.kcfg/kwin.kcfg
+#%%{_kf6_datadir}/config.kcfg/kwindecorationsettings.kcfg
+#%%{_kf6_datadir}/config.kcfg/virtualdesktopssettings.kcfg
+#%%{_kf6_datadir}/config.kcfg/nightlightsettings.kcfg
 %{_datadir}/icons/hicolor/*/apps/kwin-x11.*
 %{_datadir}/knsrcfiles/*.knsrc
 %{_datadir}/krunner/dbusplugins/kwin-runner-windows-x11.desktop
 %{_datadir}/applications/*.desktop
-#%{_bindir}/kwindowprop
+#%%{_bindir}/kwindowprop
 
 %files libs
 %{_kf6_datadir}/qlogging-categories6/org_kde_kwin_x11.categories
@@ -286,7 +286,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 
 %files devel
 %{_datadir}/dbus-1/interfaces/*.xml
-#%{_libdir}/cmake/KWinDBusInterface
+#%%{_libdir}/cmake/KWinDBusInterface
 %{_libdir}/cmake/KWinX11
 %{_libdir}/cmake/KWinX11DBusInterface
 %{_includedir}/kwin-x11
@@ -297,6 +297,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 
 
 %changelog
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.3-1
+- Update to SonicDE 6.7.4.3 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Sun Apr 12 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-2
 - Added evdev as BR for controller support (#22)
 
