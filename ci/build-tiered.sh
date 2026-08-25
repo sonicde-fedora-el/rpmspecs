@@ -13,6 +13,33 @@ SOURCES_DIR="${HOME}/rpmbuild/SOURCES"
 RESULTS_DIR="${HOME}/mock-results"
 MOCK_ROOT="${MOCK_ROOT:-sonicde}"
 
+# Forgejo upload config (optional - if not set, upload is skipped)
+FORGEJO_URL="${FORGEJO_URL:-}"
+FORGEJO_OWNER="${FORGEJO_OWNER:-}"
+FORGEJO_TOKEN="${FORGEJO_TOKEN:-}"
+
+upload_rpms() {
+    local pkg=$1
+    local result_dir=$2
+
+    if [ -z "$FORGEJO_URL" ] || [ -z "$FORGEJO_OWNER" ] || [ -z "$FORGEJO_TOKEN" ]; then
+        return 0
+    fi
+
+    for rpm in $(find "$result_dir" -name '*.rpm' ! -name '*.src.rpm'); do
+        local filename=$(basename "$rpm")
+        echo "  Uploading $filename to Forgejo..."
+        if curl --fail-with-body --silent --show-error \
+            --user "${FORGEJO_OWNER}:${FORGEJO_TOKEN}" \
+            --upload-file "$rpm" \
+            "${FORGEJO_URL}/api/packages/${FORGEJO_OWNER}/rpm/upload"; then
+            echo "  Uploaded: $filename"
+        else
+            echo "  WARNING: upload failed for $filename"
+        fi
+    done
+}
+
 mkdir -p "$RESULTS_DIR" "$SOURCES_DIR"
 
 TOTAL=$(python3 -c "import json; print(json.load(open('$PLAN_FILE'))['total'])")
@@ -77,6 +104,10 @@ for tier_idx in $(seq 0 $((NUM_TIERS - 1))); do
             mock --root "$MOCK_ROOT" --no-clean --install \
                 $(find "$pkg_result_dir" -name '*.rpm' ! -name '*.src.rpm') \
                 2>&1 | tail -3 || echo "  WARNING: could not install ${pkg} into chroot"
+
+            # Upload RPMs to Forgejo immediately so they're available even
+            # if a later package fails the build.
+            upload_rpms "$pkg" "$pkg_result_dir"
         else
             echo "  FAILED: ${pkg}"
             FAILED+=("$pkg")
