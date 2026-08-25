@@ -5,7 +5,7 @@
 
 Name:           silver-sddm
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sonic Silver login screen themes for SonicDE
 License:        GPL-2.0-or-later
 URL:            https://github.com/Sonic-DE/%{reponame}

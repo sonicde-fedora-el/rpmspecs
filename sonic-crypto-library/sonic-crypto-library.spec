@@ -22,7 +22,7 @@
 Name:           sonic-crypto-library
 Summary: Qt Cryptographic Architecture
 Version:        2.3.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License: LGPL-2.1-only
 #URL:     https://userbase.kde.org/QCA

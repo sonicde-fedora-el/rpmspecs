@@ -5,7 +5,7 @@
 
 Name:           sonic-qt-accounts-library
 Version:        1.17.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt 6 bindings for libaccounts-glib, as used by SonicDE
 License:        LGPL-2.1-only
 URL:            https://github.com/Sonic-DE/%{reponame}
