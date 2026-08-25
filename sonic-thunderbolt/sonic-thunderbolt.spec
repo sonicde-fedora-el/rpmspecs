@@ -70,7 +70,7 @@ kernel.
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_bolt.desktop
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README.md
 %license LICENSES/*
 %{_kf6_libdir}/libkbolt.so

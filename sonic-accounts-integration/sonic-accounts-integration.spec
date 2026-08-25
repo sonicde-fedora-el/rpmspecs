@@ -7,12 +7,9 @@
 # Upstream KDE project: kaccounts-integration
 %global oldname kaccounts-integration
 
-# EPEL10 does not have kf5
-%if 0%{?rhel} && 0%{?rhel} >= 10
+# SonicDE is a Qt6/KF6-only hard fork; no KF5 packages are shipped, so the
+# Qt5/KF5 compat build is never produced.
 %bcond_with kf5
-%else
-%bcond_without kf5
-%endif
 
 #Name:    kaccounts-integration
 Name:           sonic-accounts-integration
@@ -178,7 +175,7 @@ pushd %{oldname}_qt5
 popd
 %endif
 
-%files qt6 -f %{name}.lang
+%files qt6 -f %{oldname}.lang
 %doc README*
 %license LICENSES/*
 %{_kf6_datadir}/applications/kcm_kaccounts.desktop

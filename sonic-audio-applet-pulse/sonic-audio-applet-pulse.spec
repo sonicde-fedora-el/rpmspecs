@@ -84,7 +84,7 @@ Conflicts:      plasma-pa < %{version}-%{release}
 rm -fv %{buildroot}%{_kf6_libdir}/libplasma-volume.so
 
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*
 %{_kf6_qmldir}/org/kde/plasma/private/volume/
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_pulseaudio.so

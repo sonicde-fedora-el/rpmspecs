@@ -61,43 +61,7 @@ Conflicts:      plasma-workspace-wallpapers < %{version}-%{release}
 
 %files
 %license COPYING.LGPL3
-%{_datadir}/wallpapers/Altai/
-%{_datadir}/wallpapers/Autumn/
-%{_datadir}/wallpapers/BytheWater/
-%{_datadir}/wallpapers/Canopee/
-%{_datadir}/wallpapers/Cascade/
-%{_datadir}/wallpapers/Cluster/
-%{_datadir}/wallpapers/ColdRipple/
-%{_datadir}/wallpapers/ColorfulCups/
-%{_datadir}/wallpapers/DarkestHour/
-%{_datadir}/wallpapers/Elarun/
-%{_datadir}/wallpapers/EveningGlow/
-%{_datadir}/wallpapers/FallenLeaf/
-%{_datadir}/wallpapers/FlyingKonqui/
-%{_datadir}/wallpapers/Flow/
-%{_datadir}/wallpapers/Grey/
-%{_datadir}/wallpapers/Honeywave/
-%{_datadir}/wallpapers/IceCold/
-%{_datadir}/wallpapers/Kay/
-%{_datadir}/wallpapers/Kite/
-%{_datadir}/wallpapers/Kokkini/
-%{_datadir}/wallpapers/MilkyWay/
-%{_datadir}/wallpapers/Mountain/
-%{_datadir}/wallpapers/Nexus/
-%{_datadir}/wallpapers/Nuvole/
-%{_datadir}/wallpapers/OneStandsOut/
-%{_datadir}/wallpapers/Opal/
-%{_datadir}/wallpapers/PastelHills/
-%{_datadir}/wallpapers/Patak/
-%{_datadir}/wallpapers/Path/
-%{_datadir}/wallpapers/SafeLanding/
-%{_datadir}/wallpapers/ScarletTree/
-%{_datadir}/wallpapers/Shell/
-%{_datadir}/wallpapers/summer_1am/
-%{_datadir}/wallpapers/Volna/
-%{_datadir}/wallpapers/Coast/
-%{_datadir}/wallpapers/Orionids/
-%{_datadir}/wallpapers/Sub-Arctic/
+%{_datadir}/wallpapers/*/
 
 %changelog
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.1-1

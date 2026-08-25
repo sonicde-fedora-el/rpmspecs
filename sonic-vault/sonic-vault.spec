@@ -73,7 +73,7 @@ prying eyes even when the user is logged in.
 %cmake_install
 %find_lang %{oldname} --all-name
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*
 %{_kf6_plugindir}/kded/plasmavault.so
 %dir %{_qt6_plugindir}/plasma/applets/

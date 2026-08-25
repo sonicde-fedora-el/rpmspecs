@@ -88,8 +88,10 @@ Developer Documentation files for %{name} in HTML format
 %install
 %cmake_install_kf6
 %find_lang_kf6 libkirigami6_qt
+%find_lang_kf6 libkirigami2plugin_qt
+cat libkirigami6_qt.lang libkirigami2plugin_qt.lang > all.lang
 
-%files -f libkirigami6_qt.lang
+%files -f all.lang
 %doc README.md
 %dir %{_kf6_qmldir}/org/
 %dir %{_kf6_qmldir}/org/kde/
@@ -97,29 +99,29 @@ Developer Documentation files for %{name} in HTML format
 %{_kf6_qmldir}/org/kde/kirigami
 %{_datadir}/qlogging-categories6/kirigami.categories
 %{_kf6_libdir}/libKirigami.so.6
-%{_kf6_libdir}/libKirigami.so.%{version}
+%{_kf6_libdir}/libKirigami.so.6.*
 %{_kf6_libdir}/libKirigamiDelegates.so.6
-%{_kf6_libdir}/libKirigamiDelegates.so.%{version}
+%{_kf6_libdir}/libKirigamiDelegates.so.6.*
 %{_kf6_libdir}/libKirigamiDialogs.so.6
-%{_kf6_libdir}/libKirigamiDialogs.so.%{version}
+%{_kf6_libdir}/libKirigamiDialogs.so.6.*
 %{_kf6_libdir}/libKirigamiLayouts.so.6
-%{_kf6_libdir}/libKirigamiLayouts.so.%{version}
+%{_kf6_libdir}/libKirigamiLayouts.so.6.*
 %{_kf6_libdir}/libKirigamiLayoutsPrivate.so.6
-%{_kf6_libdir}/libKirigamiLayoutsPrivate.so.%{version}
+%{_kf6_libdir}/libKirigamiLayoutsPrivate.so.6.*
 %{_kf6_libdir}/libKirigamiPlatform.so.6
-%{_kf6_libdir}/libKirigamiPlatform.so.%{version}
+%{_kf6_libdir}/libKirigamiPlatform.so.6.*
 %{_kf6_libdir}/libKirigamiPrimitives.so.6
-%{_kf6_libdir}/libKirigamiPrimitives.so.%{version}
+%{_kf6_libdir}/libKirigamiPrimitives.so.6.*
 %{_kf6_libdir}/libKirigamiPrivate.so.6
-%{_kf6_libdir}/libKirigamiPrivate.so.%{version}
+%{_kf6_libdir}/libKirigamiPrivate.so.6.*
 %{_kf6_libdir}/libKirigamiPolyfill.so.6
-%{_kf6_libdir}/libKirigamiPolyfill.so.%{version}
+%{_kf6_libdir}/libKirigamiPolyfill.so.6.*
 %{_kf6_libdir}/libKirigamiTemplates.so.6
-%{_kf6_libdir}/libKirigamiTemplates.so.%{version}
+%{_kf6_libdir}/libKirigamiTemplates.so.6.*
 %{_kf6_libdir}/libKirigamiControls.so.6
-%{_kf6_libdir}/libKirigamiControls.so.%{version}
+%{_kf6_libdir}/libKirigamiControls.so.6.*
 %{_kf6_libdir}/libKirigamiForms*.so.6
-%{_kf6_libdir}/libKirigamiForms*.so.%{version}
+%{_kf6_libdir}/libKirigamiForms*.so.6.*
 
 %files devel
 %dir %{_kf6_datadir}/kdevappwizard/

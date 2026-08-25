@@ -242,7 +242,7 @@ Developer Documentation files for %{name} in HTML format
 %files core-libs
 %{_kf6_libdir}/libKF6KIOCore.so.*
 
-%files doc -f %{name}.lang
+%files doc -f %{oldname}.lang
 
 %files gui
 %{_kf6_libdir}/libKF6KIOGui.so.*

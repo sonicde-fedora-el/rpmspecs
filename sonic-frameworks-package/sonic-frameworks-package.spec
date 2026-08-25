@@ -23,7 +23,7 @@ URL:            https://github.com/Sonic-DE/%{reponame}
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{version}.tar.gz
 #Source1:        https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz.sig
 
-BuildRequires:  sonic-frameworks-cmake-modules >= %{version}
+BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  sonic-rpm-macros
@@ -85,7 +85,7 @@ Developer Documentation files for %{name} in HTML format
 mkdir -p %{buildroot}%{_kf6_qtplugindir}/kpackage/packagestructure/
 mkdir -p %{buildroot}%{_kf6_datadir}/kpackage/
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*

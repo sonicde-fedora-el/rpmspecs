@@ -95,7 +95,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevilwizard.desktop
 
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README
 %{_datadir}/mime/packages/bluedevil-mime.xml
 %{_kf6_bindir}/bluedevil-sendfile

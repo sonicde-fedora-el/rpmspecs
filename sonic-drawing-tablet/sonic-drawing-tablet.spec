@@ -86,7 +86,7 @@ with profile support to handle different button/pen layouts per profile.
 %find_lang %{oldname} --all-name --with-html
 
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc AUTHORS
 %license COPYING*
 %{_datadir}/dbus-1/interfaces/org.kde.Wacom*.xml

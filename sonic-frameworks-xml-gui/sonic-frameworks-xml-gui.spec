@@ -114,7 +114,7 @@ Developer Documentation files for %{name} in HTML format
 mkdir -p %{buildroot}%{_kf6_datadir}/kxmlgui5/
 %find_lang %{oldname} --all-name
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*

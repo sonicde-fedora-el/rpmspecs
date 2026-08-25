@@ -149,25 +149,25 @@ hardlink -c -v %{buildroot}%{_datadir}/icons/
 du -s .
 
 # %%ghost icon.cache
-touch %{buildroot}%{_kf6_datadir}/icons/{breeze,breeze-dark}/icon-theme.cache
+touch %{buildroot}%{_kf6_datadir}/icons/{silver,silver-dark}/icon-theme.cache
 
 %if 0%{?fedora}
-install -pm 0644 icons-fedora/apps/48/org.fedoraproject.AnacondaInstaller.svg %{buildroot}%{_kf6_datadir}/icons/breeze/apps/48
-ln -sr %{buildroot}%{_kf6_datadir}/icons/breeze/apps/48/org.fedoraproject.AnacondaInstaller.svg %{buildroot}%{_kf6_datadir}/icons/breeze-dark/apps/48/org.fedoraproject.AnacondaInstaller.svg
+install -pm 0644 icons-fedora/apps/48/org.fedoraproject.AnacondaInstaller.svg %{buildroot}%{_kf6_datadir}/icons/silver/apps/48
+ln -sr %{buildroot}%{_kf6_datadir}/icons/silver/apps/48/org.fedoraproject.AnacondaInstaller.svg %{buildroot}%{_kf6_datadir}/icons/silver-dark/apps/48/org.fedoraproject.AnacondaInstaller.svg
 %endif
 
 ## trigger-based scriptlets
-%transfiletriggerin -n breeze-icon-theme -- %{_datadir}/icons/breeze
-gtk-update-icon-cache --force %{_datadir}/icons/breeze &>/dev/null || :
+%transfiletriggerin -n breeze-icon-theme -- %{_datadir}/icons/silver
+gtk-update-icon-cache --force %{_datadir}/icons/silver &>/dev/null || :
 
-%transfiletriggerin -n breeze-icon-theme -- %{_datadir}/icons/breeze-dark
-gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
+%transfiletriggerin -n breeze-icon-theme -- %{_datadir}/icons/silver-dark
+gtk-update-icon-cache --force %{_datadir}/icons/silver-dark &>/dev/null || :
 
-%transfiletriggerpostun -n breeze-icon-theme -- %{_datadir}/icons/breeze
-gtk-update-icon-cache --force %{_datadir}/icons/breeze &>/dev/null || :
+%transfiletriggerpostun -n breeze-icon-theme -- %{_datadir}/icons/silver
+gtk-update-icon-cache --force %{_datadir}/icons/silver &>/dev/null || :
 
-%transfiletriggerpostun -n breeze-icon-theme -- %{_datadir}/icons/breeze-dark
-gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
+%transfiletriggerpostun -n breeze-icon-theme -- %{_datadir}/icons/silver-dark
+gtk-update-icon-cache --force %{_datadir}/icons/silver-dark &>/dev/null || :
 
 %endif
 
@@ -186,27 +186,27 @@ gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
 %files -n breeze-icon-theme
 %license COPYING-ICONS
 %doc README.md
-%ghost %{_datadir}/icons/breeze/icon-theme.cache
-%{_datadir}/icons/breeze/index.theme
-%{_datadir}/icons/breeze/*/
-%ghost %{_datadir}/icons/breeze-dark/icon-theme.cache
-%{_datadir}/icons/breeze-dark/index.theme
-%{_datadir}/icons/breeze-dark/*/
-%exclude %{_datadir}/icons/breeze/breeze-icons.rcc
+%ghost %{_datadir}/icons/silver/icon-theme.cache
+%{_datadir}/icons/silver/index.theme
+%{_datadir}/icons/silver/*/
+%ghost %{_datadir}/icons/silver-dark/icon-theme.cache
+%{_datadir}/icons/silver-dark/index.theme
+%{_datadir}/icons/silver-dark/*/
+%exclude %{_datadir}/icons/silver/silver-icons.rcc
 %if 0%{?fedora}
-%exclude %{_datadir}/icons/breeze*/apps/*/org.fedoraproject.AnacondaInstaller.svg
+%exclude %{_datadir}/icons/silver*/apps/*/org.fedoraproject.AnacondaInstaller.svg
 %endif
 
 %if 0%{?fedora}
 %files -n breeze-icon-theme-fedora
-%{_datadir}/icons/breeze*/apps/*/org.fedoraproject.AnacondaInstaller.svg
+%{_datadir}/icons/silver*/apps/*/org.fedoraproject.AnacondaInstaller.svg
 %endif
 
 %endif
 
 %if %{with install_rcc}
 %files -n breeze-icon-theme-rcc
-%{_datadir}/icons/breeze/breeze-icons.rcc
+%{_datadir}/icons/silver/silver-icons.rcc
 %endif
 
 %changelog

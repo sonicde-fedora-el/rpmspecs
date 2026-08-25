@@ -125,7 +125,7 @@ Conflicts:      krdp-devel < %{version}-%{release}
 %systemd_user_postun_with_reload app-org.kde.krdpserver.service
 %systemd_user_postun app-org.kde.krdpserver.service
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README.md
 %{_kf6_bindir}/krdpserver
 %{_kf6_datadir}/applications/kcm_krdpserver.desktop

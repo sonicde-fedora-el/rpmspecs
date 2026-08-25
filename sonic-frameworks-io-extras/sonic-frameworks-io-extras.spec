@@ -115,7 +115,7 @@ Conflicts:      kio-extras-devel < %{version}-%{release}
 %find_lang %{oldname} --all-name --with-html
 
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*
 
 %{_kf6_plugindir}/kded/

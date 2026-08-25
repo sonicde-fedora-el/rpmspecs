@@ -91,7 +91,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{oldname
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ksystemlog.appdata.xml
 
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES
 %{_kf6_bindir}/ksystemlog
 %{_kf6_datadir}/applications/org.kde.ksystemlog.desktop

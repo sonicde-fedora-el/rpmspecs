@@ -108,7 +108,7 @@ to interface with the Uncomplicated Firewall (UFW).
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml || :
 desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*.txt
 %{_libdir}/libkcm_firewall_core.so
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_firewall.so

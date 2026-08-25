@@ -503,7 +503,7 @@ fi
 %files common
 %license LICENSES
 
-%files -f %{name}.lang
+%files -f all.lang
 %{_libexecdir}/ksecretprompter
 %{_kf6_datadir}/applications/org.kde.baloorunner.desktop
 %{_kf6_datadir}/applications/org.kde.secretprompter.desktop

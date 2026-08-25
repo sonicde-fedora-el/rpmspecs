@@ -233,7 +233,7 @@ Conflicts: kwin-x11-doc
 %install
 %cmake_install
 
-%find_lang %{name} --with-html --all-name
+%find_lang kwin6 --with-html --all-name
 grep "%{_kf6_docdir}" %{name}.lang > %{name}-doc.lang
 cat %{name}.lang %{name}-doc.lang | sort | uniq -u > kwin6.lang
 
@@ -292,7 +292,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 %{_includedir}/kwin-x11
 %{_libdir}/libkwin-x11.so
 
-%files doc -f %{name}-doc.lang
+%files doc -f kwin6-doc.lang
 %license LICENSES/*.txt
 
 

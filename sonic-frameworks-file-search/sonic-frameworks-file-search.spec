@@ -138,7 +138,7 @@ cat kio6_tags.lang kio6_baloosearch.lang kio6_timeline.lang \
 cat baloo_file6.lang baloo_file_extractor6.lang \
     > %{oldname}-file.lang
 
-%files -f %{name}.lang
+%files -f baloodb6.lang
 %license LICENSES/*.txt
 %{_kf6_bindir}/baloosearch6
 %{_kf6_bindir}/balooshow6

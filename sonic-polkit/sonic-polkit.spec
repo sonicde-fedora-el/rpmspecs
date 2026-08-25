@@ -1,6 +1,9 @@
 # Generated for SonicDE from Fedora's polkit-qt-1.spec.
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-polkit fork, not from download.kde.org.
+# The SonicDE fork is Qt6-only (the upstream CMakeLists hardcodes
+# QT_MAJOR_VERSION=6 and requires Qt >= 6.5.0), so this spec no longer
+# builds the Qt5 variant that Fedora's polkit-qt-1 shipped.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
 %global reponame sonic-polkit
@@ -32,37 +35,21 @@ Conflicts:      polkit-qt-1 < %{version}-%{release}
 Polkit-qt is a library that lets developers use the PolicyKit API
 through a nice Qt-styled API.
 
-%package -n polkit-qt5-1
-Summary: PolicyKit Qt5 bindings
-BuildRequires:  pkgconfig(Qt5DBus)
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Widgets)
-Obsoletes: polkit-qt5 < 0.112.0-3
-Provides:  polkit-qt5 = %{version}-%{release}
-%description -n polkit-qt5-1
-Polkit-qt is a library that lets developers use the PolicyKit API
-through a nice Qt-styled API.
-
-%package -n polkit-qt5-1-devel
-Summary: Development files for PolicyKit Qt5 bindings
-Obsoletes: polkit-qt5-devel < 0.112.0-3
-Provides:  polkit-qt5-devel = %{version}-%{release}
-Requires: polkit-qt5-1%{?_isa} = %{version}-%{release}
-%description -n polkit-qt5-1-devel
-%{summary}.
-
 %package -n polkit-qt6-1
 Summary: PolicyKit Qt6 bindings
+BuildRequires:  pkgconfig(Qt6Core)
 BuildRequires:  pkgconfig(Qt6DBus)
 BuildRequires:  pkgconfig(Qt6Gui)
 BuildRequires:  pkgconfig(Qt6Widgets)
+Provides:  polkit-qt6-1 = %{version}-%{release}
 %description -n polkit-qt6-1
 Polkit-qt is a library that lets developers use the PolicyKit API
 through a nice Qt-styled API.
 
 %package -n polkit-qt6-1-devel
-Summary: Development files for PolicyKit Qt5 bindings
+Summary: Development files for PolicyKit Qt6 bindings
 Requires: polkit-qt6-1%{?_isa} = %{version}-%{release}
+Provides:  polkit-qt6-1-devel = %{version}-%{release}
 %description -n polkit-qt6-1-devel
 %{summary}.
 
@@ -71,38 +58,11 @@ Requires: polkit-qt6-1%{?_isa} = %{version}-%{release}
 
 
 %build
-%global _vpath_builddir %{_target_platform}-qt5
-%cmake -DBUILD_EXAMPLES:BOOL=OFF -DQT_MAJOR_VERSION=5
-%cmake_build
-
-%global _vpath_builddir %{_target_platform}-qt6
-%cmake -DBUILD_EXAMPLES:BOOL=OFF -DQT_MAJOR_VERSION=6
+%cmake -DBUILD_EXAMPLES:BOOL=OFF
 %cmake_build
 
 %install
-%global _vpath_builddir %{_target_platform}-qt5
 %cmake_install
-
-%global _vpath_builddir %{_target_platform}-qt6
-%cmake_install
-
-%files -n polkit-qt5-1
-%doc AUTHORS README
-%license LICENSES/*
-%{_libdir}/libpolkit-qt5-core-1.so.1*
-%{_libdir}/libpolkit-qt5-gui-1.so.1*
-%{_libdir}/libpolkit-qt5-agent-1.so.1*
-
-%files -n polkit-qt5-1-devel
-%{_includedir}/polkit-qt5-1/
-%{_libdir}/libpolkit-qt5-core-1.so
-%{_libdir}/libpolkit-qt5-gui-1.so
-%{_libdir}/libpolkit-qt5-agent-1.so
-%{_libdir}/pkgconfig/polkit-qt5-1.pc
-%{_libdir}/pkgconfig/polkit-qt5-core-1.pc
-%{_libdir}/pkgconfig/polkit-qt5-gui-1.pc
-%{_libdir}/pkgconfig/polkit-qt5-agent-1.pc
-%{_libdir}/cmake/PolkitQt5-1/
 
 %files -n polkit-qt6-1
 %doc AUTHORS README

@@ -92,7 +92,7 @@ Developer Documentation files for %{name} in HTML format
 mkdir -p %{buildroot}%{_kf6_datadir}/kservices6
 mkdir -p %{buildroot}%{_kf6_datadir}/kservicetypes6
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*

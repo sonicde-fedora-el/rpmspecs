@@ -106,7 +106,7 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/ktexteditor
 # Removing empty file
 rm -f %{buildroot}%{_kf6_datadir}/katepart5/script/README.md
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %dir %{_kf6_plugindir}/parts/
 %doc README.md
 %license LICENSES/*.txt

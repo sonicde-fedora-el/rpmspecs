@@ -93,7 +93,7 @@ Conflicts:      plasma-drkonqi < %{version}-%{release}
 install -p -D -m755 src/doc/examples/installdbgsymbols_fedora.sh \
     %{buildroot}%{_libexecdir}/installdbgsymbols.sh
 
-%find_lang all --with-html --with-qt --all-name
+%find_lang plasma-drkonqi --with-html --with-qt --all-name
 grep drkonqi.mo all.lang > plasma-drkonqi.lang
 
 %post

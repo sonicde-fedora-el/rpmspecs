@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-COPR="${COPR:-@SonicDE/SonicDE-EL10}"
+COPR="${COPR:-@SonicDE/SonicDE-EL10-dev}"
 GIT_URL="${GIT_URL:-https://pc-rytteren.dk/forge/anders/SonicDE-rpmspecs.git}"
-BRANCH="${BRANCH:-master}"
+BRANCH="${BRANCH:-hardfork}"
 METHOD="${METHOD:-rpkg}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

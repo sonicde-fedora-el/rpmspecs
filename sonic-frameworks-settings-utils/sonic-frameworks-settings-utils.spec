@@ -97,7 +97,7 @@ Developer Documentation files for %{name} in HTML format
 # create/own dirs
 mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_bindir}/kcmshell6

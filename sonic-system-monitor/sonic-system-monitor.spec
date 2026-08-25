@@ -80,7 +80,7 @@ resources.
 %cmake_install
 %find_lang %{oldname} --all-name --with-html
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*.txt
 %{_bindir}/plasma-systemmonitor
 %{_datadir}/applications/org.kde.plasma-systemmonitor.desktop

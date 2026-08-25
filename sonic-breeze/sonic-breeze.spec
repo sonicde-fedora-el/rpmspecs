@@ -8,12 +8,8 @@
 %global oldname plasma-breeze
 
 %global  base_name breeze
-# EPEL10 does not have kf5
-%if 0%{?rhel} && 0%{?rhel} >= 10
+# SonicDE is a Qt6/KF6-only hard fork; no KF5 packages are shipped.
 %bcond_with kf5
-%else
-%bcond_without kf5
-%endif
 
 #Name:    plasma-breeze
 Name:           sonic-breeze

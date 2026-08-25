@@ -97,7 +97,7 @@ Developer Documentation files for %{name} in HTML format
 
 %find_lang %{oldname} --all-name
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %dir %{_kf6_qmldir}/org/
 %dir %{_kf6_qmldir}/org/kde
 %doc README.md

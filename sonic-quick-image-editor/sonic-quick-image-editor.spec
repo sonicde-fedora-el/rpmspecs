@@ -67,14 +67,13 @@ applications that use %{name}-qt6.
 
 %files qt6
 %{_kf6_qmldir}/org/kde/kquickimageeditor
-%{_kf6_libdir}/libKQuickImageEditor.so.%{version}
+%{_kf6_libdir}/libKQuickImageEditor.so.0.*
 %{_kf6_libdir}/libKQuickImageEditor.so.1
 
 %files qt6-devel
 %{_kf6_libdir}/libKQuickImageEditor.so
 %{_kf6_libdir}/cmake/KQuickImageEditor
 %{_includedir}/KQuickImageEditor/
-%{_includedir}/kquickimageeditor/
 %{_kf6_archdatadir}/mkspecs/modules/qt_KQuickImageEditor.pri
 
 %changelog

@@ -34,7 +34,7 @@ BuildRequires:  cmake
 # For %%{_udevrulesdir}
 BuildRequires:  systemd
  
-Requires:       kf6-filesystem >= %{version}
+Requires:       kf6-filesystem
 Recommends:     bluez >= 5
  
 Provides:       kf6-bluez-qt = %{version}-%{release}

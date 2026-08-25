@@ -96,7 +96,7 @@ Developer Documentation files for %{name} in HTML format
 %find_lang %{oldname} --all-name
 mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*.txt
 %{_kf6_bindir}/kfilemetadata_dump6
 %{_kf6_datadir}/qlogging-categories6/%{framework}*

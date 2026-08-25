@@ -76,7 +76,7 @@ developing applications that use %{name}.
 
 %build
 %cmake_kf6 \
-  -DKIMAGEFORMATS_HEIF:BOOL=ON \
+  -DKIMAGEFORMATS_HEIF:BOOL=OFF \
   -DKIMAGEFORMATS_JXR:BOOL=ON
 %cmake_build
 

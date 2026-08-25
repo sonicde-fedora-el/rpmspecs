@@ -19,7 +19,7 @@ URL:            https://github.com/Sonic-DE/%{reponame}
 #Source0: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{version}.tar.gz
 #Source1: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
-Patch0:  %{name}-ffmpeg8.patch
+# ffmpeg8 compat patch not needed; the fork works with ffmpeg 7.x in EPEL10
 
 # Compile Tools
 BuildRequires:  cmake
@@ -101,7 +101,7 @@ developing applications that use %{name}.
 
 %find_lang %{oldname} --with-qt --all-name
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*
 %{_libdir}/libKPipeWire.so.6
 %{_libdir}/libKPipeWire.so.%{version}

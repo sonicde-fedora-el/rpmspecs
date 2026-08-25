@@ -8,7 +8,8 @@
 %global oldname kf6-kidletime
 
 # Disable X11 for RHEL
-%bcond x11 %[%{undefined rhel}]
+# SonicDE is X11-only, so the X11 plugin is always built.
+%bcond_without x11
 
 %global		framework kidletime
 
@@ -116,8 +117,7 @@ Developer Documentation files for %{name} in HTML format
 
 %if %{with x11}
 %files x11
-%{_kf6_plugindir}/org.kde.kidletime.platforms/KF6IdleTimeXcbPlugin0.so
-%{_kf6_plugindir}/org.kde.kidletime.platforms/KF6IdleTimeXcbPlugin1.so
+%{_kf6_plugindir}/org.kde.kidletime.platforms/KF6IdleTimeXcbPlugin*.so
 %endif
 
 %files devel

@@ -11,7 +11,8 @@
 %global botan 1
 %endif
 
-%bcond_without qt5
+# SonicDE is a Qt6-only hard fork; no Qt5 variant is built.
+%bcond_with qt5
 %bcond_without qt6
 
 #global doc 1
@@ -349,8 +350,10 @@ cmake_opts="-Wno-dev \
 
 
 %install
+%if %{with qt5}
 %define _vpath_builddir %{_target_platform}-qt5
 %cmake_install
+%endif
 
 %if %{with qt6}
 %define _vpath_builddir %{_target_platform}-qt6

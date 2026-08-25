@@ -80,7 +80,7 @@ https://community.kde.org/Plasma/Browser_Integration
 %find_lang %{oldname} --all-name
 
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*
 %config %{_sysconfdir}/chromium/native-messaging-hosts/org.kde.plasma.browser_integration.json
 %config %{_sysconfdir}/opt/chrome/native-messaging-hosts/org.kde.plasma.browser_integration.json

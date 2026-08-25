@@ -72,7 +72,7 @@ signs of imminent failure appear.
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_disks.desktop
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*.txt
 %{_libexecdir}/kf6/kauth/kded-smart-helper
 %{_qt6_plugindir}/plasma/kcms/kinfocenter/kcm_disks.so

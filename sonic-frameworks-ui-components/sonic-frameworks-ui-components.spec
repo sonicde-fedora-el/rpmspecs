@@ -95,7 +95,7 @@ Developer Documentation files for %{name} in HTML format
 # create/own parts plugin dir
 mkdir -p %{buildroot}%{_kf6_plugindir}/parts/
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README.md AUTHORS
 %license LICENSES/*.txt
 %{_kf6_libdir}/libKF6Parts.so.*

@@ -21,7 +21,6 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  kf5-rpm-macros
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  cmake(Qt6Gui)

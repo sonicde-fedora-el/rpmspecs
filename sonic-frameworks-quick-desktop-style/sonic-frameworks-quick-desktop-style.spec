@@ -61,7 +61,7 @@ between QWidget-based and QML-based apps.
 %cmake_install
 %find_lang %{oldname} --all-name --with-man --with-qt
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_libdir}/cmake/KF6QQC2DesktopStyle/

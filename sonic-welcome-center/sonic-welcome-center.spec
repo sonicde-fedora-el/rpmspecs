@@ -82,7 +82,7 @@ rm -fv %{buildroot}%{_kf6_libdir}/libplasma-welcome-publicplugin.a
 #appstream-util validate-relax --nonet %%{buildroot}%%{_kf6_metainfodir}/%%{orgname}.*.xml
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{orgname}.desktop
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/{BSD-3-Clause.txt,GPL-2.0-or-later.txt,FSFAP.txt}
 %doc README.md
 %{_kf6_bindir}/plasma-welcome

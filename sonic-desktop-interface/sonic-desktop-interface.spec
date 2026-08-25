@@ -280,7 +280,7 @@ BuildArch: noarch
 
 %install
 %cmake_install
-%find_lang %{name} --with-html --all-name
+%find_lang plasmadesktop6 --with-html --all-name
 
 grep "%{_kf6_docdir}" %{name}.lang > %{name}-doc.lang
 cat  %{name}.lang %{name}-doc.lang | sort | uniq -u > plasmadesktop6.lang
@@ -389,7 +389,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_libexecdir}/kimpanel-scim-panel
 %endif
 
-%files doc -f %{name}-doc.lang
+%files doc -f plasmadesktop6-doc.lang
 
 
 %changelog

@@ -85,7 +85,7 @@ Developer Documentation files for %{name} in HTML format
 
 %find_lang %{oldname} --all-name
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_libdir}/libKF6I18n.so.6

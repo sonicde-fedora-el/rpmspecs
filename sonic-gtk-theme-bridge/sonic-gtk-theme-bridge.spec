@@ -88,7 +88,7 @@ appearance of GTK apps in KDE.
 %{_kf6_plugindir}/kded/gtkconfig.so
 %{_libdir}/gtk-3.0/modules/libcolorreload-gtk-module.so
 %{_libdir}/gtk-3.0/modules/libwindow-decorations-gtk-module.so
-%{_datadir}/themes/Breeze/window_decorations.css
+%{_datadir}/themes/Silver/window_decorations.css
 %{_datadir}/kcm-gtk-module/
 %{_datadir}/qlogging-categories6/kde-gtk-config.categories
 

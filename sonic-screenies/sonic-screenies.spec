@@ -134,7 +134,7 @@ Conflicts:      spectacle < %{version}-%{release}
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.spectacle.appdata.xml ||:
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle.desktop
 
-%files -f %{name}.lang
+%files -f %{oldname}.lang
 %license LICENSES/*
 %{_kf6_bindir}/spectacle
 %{_kf6_datadir}/man/man1/spectacle.1*
