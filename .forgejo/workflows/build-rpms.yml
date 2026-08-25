@@ -91,30 +91,13 @@ jobs:
 
       - name: Build packages tier by tier
         if: steps.plan.outputs.total != '0'
+        env:
+          FORGEJO_URL: ${{ github.server_url }}
+          FORGEJO_OWNER: ${{ github.repository_owner }}
+          FORGEJO_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
         run: |
           echo "Building ${{ steps.plan.outputs.total }} packages..."
           bash ci/build-tiered.sh /tmp/build-plan.json
-
-      - name: Upload RPMs to Forgejo Package Registry
-        if: always() && steps.plan.outputs.total != '0'
-        run: |
-          FORGEJO_URL="${{ github.server_url }}"
-          OWNER="${{ github.repository_owner }}"
-          TOKEN="${{ secrets.PACKAGE_TOKEN }}"
-
-          if [ -z "$TOKEN" ]; then
-            echo "PACKAGE_TOKEN secret not set, skipping upload"
-            exit 0
-          fi
-
-          find ~/mock-results -name "*.rpm" ! -name "*.src.rpm" | while read rpm; do
-            FILENAME=$(basename "$rpm")
-            echo "Uploading $FILENAME ..."
-            curl --fail-with-body \
-              --user "${OWNER}:${TOKEN}" \
-              --upload-file "$rpm" \
-              "${FORGEJO_URL}/api/packages/${OWNER}/rpm/upload" || echo "  upload failed for $FILENAME"
-          done
 
       - name: Clean up
         if: always()
