@@ -1,0 +1,122 @@
+name: Build RPMs
+
+on:
+  push:
+    paths:
+      - "**.spec"
+      - "build-order.txt"
+      - "ci/**"
+      - ".forgejo/workflows/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: almalinux-10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install build tools
+        run: |
+          dnf install -y \
+            rpm-build \
+            rpmdevtools \
+            mock \
+            curl
+
+      - name: Compute build plan
+        id: plan
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Mode: manual trigger, full rebuild"
+            python3 ci/build-plan.py > /tmp/build-plan.json
+          elif [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            echo "Mode: new branch, full rebuild"
+            python3 ci/build-plan.py > /tmp/build-plan.json
+          else
+            echo "Mode: incremental (diff ${{ github.event.before }}..${{ github.sha }})"
+            python3 ci/build-plan.py "${{ github.event.before }}" "${{ github.sha }}" > /tmp/build-plan.json
+          fi
+
+          cat /tmp/build-plan.json | python3 -m json.tool
+          TOTAL=$(python3 -c "import json; print(json.load(open('/tmp/build-plan.json'))['total'])")
+          echo "total=${TOTAL}" >> "$GITHUB_OUTPUT"
+
+          if [ "$TOTAL" = "0" ]; then
+            echo "Nothing to build, exiting"
+            exit 0
+          fi
+
+      - name: Add runner user to mock group
+        if: steps.plan.outputs.total != '0'
+        run: usermod -aG mock $(whoami) || true
+
+      - name: Setup RPM build tree
+        if: steps.plan.outputs.total != '0'
+        run: rpmdev-setuptree
+
+      - name: Configure mock chroot
+        if: steps.plan.outputs.total != '0'
+        run: |
+          cat > /etc/mock/sonicde.cfg <<'MOCKEOF'
+          include('/etc/mock/alma+epel-10-x86_64.cfg')
+          config_opts['root'] = 'sonicde'
+          config_opts['yum.conf'] += """
+          [sonicde-rpm]
+          name=SonicDE RPM
+          baseurl=${{ github.server_url }}/api/packages/${{ github.repository_owner }}/rpm
+          enabled=1
+          gpgcheck=0
+
+          [xlibre-xserver]
+          name=Copr xlibre-xserver
+          baseurl=https://download.copr.fedorainfracloud.org/results/@xlibre/xlibre-xserver/rhel+epel-10-$basearch/
+          type=rpm-md
+          skip_if_unavailable=True
+          gpgcheck=1
+          gpgkey=https://download.copr.fedorainfracloud.org/results/@xlibre/xlibre-xserver/pubkey.gpg
+          repo_gpgcheck=0
+          enabled=1
+          """
+          MOCKEOF
+
+      - name: Initialize mock chroot
+        if: steps.plan.outputs.total != '0'
+        run: |
+          mock --root sonicde --scrub=chroot || true
+          mock --root sonicde --init
+          mock --root sonicde --chroot 'groupadd -g 135 mock 2>/dev/null || true; useradd -u 135 -g 135 -d /builddir -s /bin/bash mockbuild 2>/dev/null || true'
+
+      - name: Build packages tier by tier
+        if: steps.plan.outputs.total != '0'
+        run: |
+          echo "Building ${{ steps.plan.outputs.total }} packages..."
+          bash ci/build-tiered.sh /tmp/build-plan.json
+
+      - name: Upload RPMs to Forgejo Package Registry
+        if: always() && steps.plan.outputs.total != '0'
+        run: |
+          FORGEJO_URL="${{ github.server_url }}"
+          OWNER="${{ github.repository_owner }}"
+          TOKEN="${{ secrets.PACKAGE_TOKEN }}"
+
+          if [ -z "$TOKEN" ]; then
+            echo "PACKAGE_TOKEN secret not set, skipping upload"
+            exit 0
+          fi
+
+          find ~/mock-results -name "*.rpm" ! -name "*.src.rpm" | while read rpm; do
+            FILENAME=$(basename "$rpm")
+            echo "Uploading $FILENAME ..."
+            curl --fail-with-body \
+              --user "${OWNER}:${TOKEN}" \
+              --upload-file "$rpm" \
+              "${FORGEJO_URL}/api/packages/${OWNER}/rpm/upload" || echo "  upload failed for $FILENAME"
+          done
+
+      - name: Clean up
+        if: always()
+        run: |
+          rm -rf ~/mock-results ~/rpmbuild/SRPMS/*
