@@ -11,7 +11,7 @@
 Name:           sonic-plasma5-support-library
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -45,7 +45,7 @@ BuildRequires:  cmake(KF6NetworkManagerQt)
 BuildRequires:  cmake(KF6UnitConversion)
 BuildRequires:  cmake(KF6Holidays)
 BuildRequires:  cmake(PlasmaActivities)
-BuildRequires:  cmake(KSysGuard)
+BuildRequires:  sonic-sysguard-library-devel
 BuildRequires:  cmake(Plasma)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xfixes)
