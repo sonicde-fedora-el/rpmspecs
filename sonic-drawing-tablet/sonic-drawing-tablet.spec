@@ -54,7 +54,6 @@ BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: pkgconfig(libwacom)
 BuildRequires: pkgconfig(xcb-xinput)
 BuildRequires: pkgconfig(xi)
-BuildRequires: pkgconfig(xorg-wacom)
 BuildRequires: pkgconfig(xrandr)
 
 ExcludeArch: s390 s390x
@@ -72,6 +71,10 @@ with profile support to handle different button/pen layouts per profile.
 
 %prep
 %autosetup -n %{reponame}-%{version}
+sed -i '/pkg_check_modules(XORGWACOM/d' CMakeLists.txt
+sed -i 's/XORGWACOM_LIBRARIES//g' CMakeLists.txt
+sed -i 's|#include <xorg/wacom-properties.h>|#define WACOM_PROP_SERIALIDS "Wacom Serial IDs"\n#define WACOM_PROP_TABLET_AREA "Wacom Tablet Area"\n#define WACOM_PROP_TOOL_TYPE "Wacom Tool Type"\n#define WACOM_PROP_PRESSURE_THRESHOLD "Wacom Pressure Threshold"\n#define WACOM_PROP_SAMPLEGROUP "Wacom Sample and Group"\n#define WACOM_PROP_PRESSURECURVE "Wacom Pressure Curve"\n#define WACOM_PROP_BUTTONMODES "Wacom Button Modes"\n#define WACOM_PROP_BUTTONACTIONS "Wacom Button Actions"\n#define WACOM_PROP_WHEELBUTTONS "Wacom Wheel Buttons"\n#define WACOM_PROP_STRIPBUTTONS "Wacom Strip Buttons"\n#define WACOM_PROP_ROTATION "Wacom Rotation"\n#define WACOM_PROP_TOUCH "Wacom Enable Touch"\n#define WACOM_PROP_GESTURE_ENABLE "Wacom Enable Gesture"\n#define WACOM_PROP_HOVER "Wacom Hover Enable"\n#define WACOM_PROP_PROXIMITY_THRESHOLD "Wacom Proximity Threshold"\n#define WACOM_PROP_DEBUGLEVEL "Wacom Debug Level"|' src/common/x11input.cpp
+sed -i 's|#include <X11/Xwacomdefs.h>|/* #include <X11/Xwacomdefs.h> */|' src/common/x11input.cpp
 
 
 %build

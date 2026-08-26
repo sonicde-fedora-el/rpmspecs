@@ -418,24 +418,6 @@ BuildArch: noarch
 %prep
 %autosetup -p1
 
-# Populate initial lookandfeel package
-cp -a lookandfeel/org.kde.breeze lookandfeel/org.fedoraproject.fedora
-cp -a lookandfeel/org.kde.breeze lookandfeel/org.fedoraproject.fedoradark
-cp -a lookandfeel/org.kde.breeze lookandfeel/org.fedoraproject.fedoralight
-# Overwrite settings to configure twilight mode
-cp -a lookandfeel/org.kde.breezetwilight/* lookandfeel/org.fedoraproject.fedora
-# Overwrite settings to configure dark mode
-cp -a lookandfeel/org.kde.breezedark/* lookandfeel/org.fedoraproject.fedoradark
-# Write the correct lookandfeel package names
-install -m 0644 %{SOURCE15} lookandfeel/org.fedoraproject.fedora/metadata.json
-install -m 0644 %{SOURCE16} lookandfeel/org.fedoraproject.fedoradark/metadata.json
-install -m 0644 %{SOURCE17} lookandfeel/org.fedoraproject.fedoralight/metadata.json
-cat >> lookandfeel/CMakeLists.txt <<EOL
-plasma_install_package(org.fedoraproject.fedora org.fedoraproject.fedora.desktop look-and-feel lookandfeel)
-plasma_install_package(org.fedoraproject.fedoradark org.fedoraproject.fedoradark.desktop look-and-feel lookandfeel)
-plasma_install_package(org.fedoraproject.fedoralight org.fedoraproject.fedoralight.desktop look-and-feel lookandfeel)
-EOL
-
 
 %build
 %cmake_kf6 \
@@ -460,11 +442,6 @@ EOL
 # move sddm configuration snippet to the right place
 #mkdir -p %%{buildroot}%%{_prefix}/lib/sddm
 #mv %%{buildroot}%%{_sysconfdir}/sddm.conf.d %%{buildroot}%%{_prefix}/lib/sddm
-
-## customize plasma-lookandfeel-fedora defaults
-# from [Wallpaper] Image=Next to Image=Fedora
-sed -i -e 's|^Image=.*$|Image=Fedora|g' \
-  %{buildroot}%{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/contents/defaults
 
 # PAM
 # https://invent.kde.org/plasma/kscreenlocker/-/merge_requests/163#less-simple-method-for-redhat-and-redhat-adjacent-fedora-opensuse-etc-systems
@@ -539,10 +516,6 @@ fi
 %{_kf6_datadir}/plasma/avatars/
 %{_kf6_datadir}/plasma/plasmoids/
 %{_kf6_datadir}/plasma/wallpapers/
-%dir %{_kf6_datadir}/plasma/look-and-feel/
-%{_kf6_datadir}/plasma/look-and-feel/org.kde.breeze.desktop/
-%{_kf6_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/
-%{_kf6_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/
 %{_kf6_datadir}/solid/
 %{_kf6_datadir}/kstyle/
 %{_sysconfdir}/xdg/startkderc
@@ -550,6 +523,10 @@ fi
 %{_datadir}/zsh/site-functions/_krunner
 %{_datadir}/zsh/site-functions/_plasmashell
 %{_datadir}/icons/hicolor/*/*/*font*.png
+%{_libdir}/kconf_update_bin/sonicde-6.0-repair-missing-theme-components
+%{_datadir}/kconf_update/sonicde-6.0-repair-missing-theme-components.upd
+%{_libexecdir}/plasma-startup-sound
+%{_datadir}/xdg-desktop-portal/portals/plasmanotify.portal
 %{_datadir}/icons/hicolor/scalable/apps/preferences-desktop-font-installer.svgz
 %{_datadir}/desktop-directories/*.directory
 %{_datadir}/dbus-1/services/*.service
@@ -600,7 +577,7 @@ fi
 ## Plasma Wayland
 #%%{_kf6_bindir}/startplasma
 #%%{_kf6_bindir}/startplasma-wayland
-%{_datadir}/wayland-sessions/plasma.desktop
+#%%{_datadir}/wayland-sessions/plasma.desktop
 
 %files doc -f %{name}-doc.lang
 
@@ -623,7 +600,7 @@ fi
 %{_kf6_plugindir}/kio/*.so
 %{_kf6_plugindir}/kded/*.so
 %{_libdir}/libklookandfeel.so.6
-%{_libdir}/libklookandfeel.so.%{version}
+%{_libdir}/libklookandfeel.so.6.7.4
 %{_kf6_plugindir}/krunner/*
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_*.so
 %{_kf6_qtplugindir}/kf6/parts/kfontviewpart.so
@@ -682,11 +659,11 @@ fi
 
 %files x11
 %defattr(-,root,root,-)
-%{_datadir}/xsessions/plasmax11.desktop
+#%%{_datadir}/xsessions/plasmax11.desktop
 %{_bindir}/startplasma-x11
+%{_datadir}/xsessions/sonicde.desktop
 
 %files -n plasma-lookandfeel-fedora
-%{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/
 
 
 %changelog

@@ -183,6 +183,7 @@ developing applications that use %{name}.
 %{_kf6_plugindir}/krunner/krunner_colors.so
 %{_kf6_libexecdir}/kauth/kameleonhelper
 %{_kf6_datadir}/dbus-1/system-services/org.kde.kameleonhelper.service
+%{_kf6_datadir}/dbus-1/system-services/org.kde.kameleon.qmk.helper.service
 %{_kf6_datadir}/dbus-1/system.d/org.kde.kameleonhelper.conf
 %{_kf6_datadir}/polkit-1/actions/org.kde.kameleonhelper.policy
 %{_libdir}/libplasmaweatherdata.so.*

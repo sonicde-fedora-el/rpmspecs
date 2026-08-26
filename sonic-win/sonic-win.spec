@@ -234,8 +234,8 @@ Conflicts: kwin-x11-doc
 %cmake_install
 
 %find_lang kwin6 --with-html --all-name
-grep "%{_kf6_docdir}" %{name}.lang > %{name}-doc.lang
-cat %{name}.lang %{name}-doc.lang | sort | uniq -u > kwin6.lang
+grep "%{_kf6_docdir}" kwin6.lang > %{name}-doc.lang
+cat kwin6.lang %{name}-doc.lang | sort | uniq -u > kwin6-core.lang
 
 # co-own Xwayland-session.d folder
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
@@ -245,14 +245,16 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 
 
 %files
-%{_bindir}/kwin_x11
+#%%{_bindir}/kwin_x11
 #%%{_bindir}/kwin_wayland_wrapper
+%{_bindir}/sonic-win
 %{_datadir}/kwin-x11/
-%caps(cap_sys_nice=ep) %{_kf6_bindir}/kwin_x11
-%{_userunitdir}/plasma-kwin_x11.service
+#%%caps(cap_sys_nice=ep) %%{_kf6_bindir}/kwin_x11
+#%%{_userunitdir}/plasma-kwin_x11.service
+%{_userunitdir}/sonic-win.service
 %dir %{_sysconfdir}/xdg/Xwayland-session.d
 
-%files common -f kwin6.lang
+%files common -f kwin6-core.lang
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/*.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
 %{_kf6_qtplugindir}/kwin-x11/
@@ -292,7 +294,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 %{_includedir}/kwin-x11
 %{_libdir}/libkwin-x11.so
 
-%files doc -f kwin6-doc.lang
+%files doc -f %{name}-doc.lang
 %license LICENSES/*.txt
 
 

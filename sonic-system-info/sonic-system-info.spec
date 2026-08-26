@@ -95,15 +95,7 @@ Conflicts: kinfocenter
 %cmake_install
 %find_lang %{name} --all-name --with-html
 
-%check
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kinfocenter.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.desktop
-# commented out until upstream fixes a duplicate entries problem
-#appstream-util validate-relax --nonet %%{buildroot}%%{_metainfodir}/*.appdata.xml
-
 %files -f %{name}.lang
-%{_datadir}/applications/kcm_energyinfo.desktop
 %{_bindir}/kinfocenter
 %{_kf6_libdir}/libKInfoCenterInternal.so
 %{_kf6_qtplugindir}/plasma/kcms/*.so

@@ -158,14 +158,13 @@ popd
 %files -f breeze.lang
 %license LICENSES/*.txt
 %{_bindir}/breeze-settings6
-%{_bindir}/kcursorgen
 %{_kf6_datadir}/applications/breezestyleconfig.desktop
 %{_kf6_datadir}/applications/kcm_breezedecoration.desktop
 %dir %{_kf6_qtplugindir}/kstyle_config/
 %{_kf6_qtplugindir}/kstyle_config/breezestyleconfig.so
 %{_kf6_qtplugindir}/org.kde.kdecoration3.kcm/kcm_breezedecoration.so
 %{_kf6_qtplugindir}/org.kde.kdecoration3/org.kde.breeze.so
-%{_libdir}/cmake/Breeze/
+%{_libdir}/cmake/SonicBreeze/
 
 %if %{with kf5}
 %files qt5
@@ -177,6 +176,8 @@ popd
 
 %files common
 %{_datadir}/color-schemes/*.colors
+%{_datadir}/plasma/desktoptheme/
+%{_datadir}/plasma/look-and-feel/
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/icons/hicolor/*/apps/breeze-settings.*
 %dir %{_datadir}/QtCurve/

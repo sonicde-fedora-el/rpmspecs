@@ -94,7 +94,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n sonic-system-monitor-library-%{version}
 
 %build
 %cmake_kf6 -DENABLE_KAUTH_HELPER:BOOL=%{!?flatpak:ON}%{?flatpak:OFF}
@@ -106,6 +106,7 @@ developing applications that use %{name}.
 
 %files -f ksysguard_qt6.lang
 %license LICENSES
+%{_bindir}/ksysguard-identify
 %{_kf6_libdir}/libprocesscore.so.*
 %{_kf6_libdir}/libKSysGuardFormatter.so*
 %{_kf6_libdir}/libKSysGuardSensors.so*

@@ -15,7 +15,7 @@ Version:        6.7.4.1
 Release:        1%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
-Url:            https://invent.kde.org/plasma/%{name}
+Url:            https://github.com/Sonic-DE/%{reponame}
 
 #Source0:        https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{version}.tar.gz

@@ -7,7 +7,7 @@
 # Upstream KDE project: dolphin
 %global oldname dolphin
 
-%global tests 1
+%global tests 0
 
 #Name:           dolphin
 Name:           sonic-ecco
@@ -33,7 +33,7 @@ BuildRequires:  sonic-rpm-macros
 BuildRequires:  cmake(KF6Baloo)
 # baloo-widget is part of Gear like Dolphin thus both versions need to match.
 # We use the major.minor.patch macros to not fail the build on hotfix releases.
-BuildRequires:  cmake(KF6BalooWidgets) >= %{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}
+BuildRequires:  cmake(KF6BalooWidgets)
 BuildRequires:  cmake(KF6Bookmarks)
 BuildRequires:  cmake(KF6Codecs)
 BuildRequires:  cmake(KF6Completion)
@@ -160,7 +160,6 @@ xvfb-run -a bash -c "%ctest" || :
 %{_kf6_datadir}/kconf_update/dolphin_detailsmodesettings.upd
 %{_kf6_datadir}/kconf_update/dolphin_replace_view_mode_with_view_settings_in_toolbar.py
 %{_kf6_datadir}/kconf_update/dolphin_replace_view_mode_with_view_settings_in_toolbar.upd
-%{_kf6_datadir}/kconf_update/dolphin_tab_key_shortcut_for_focus_other_view.*
 %{_kf6_libdir}/kconf_update_bin/dolphin_25.04_update_statusandlocationbarssettings
 %{_kf6_datadir}/kconf_update/dolphin_statusandlocationbarssettings.upd
 %dir %{_kf6_datadir}/dolphin

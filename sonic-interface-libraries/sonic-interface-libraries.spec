@@ -132,10 +132,8 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_libdir}/cmake/PlasmaQuick/
 %{_libdir}/libPlasma.so
 %{_libdir}/libPlasmaQuick.so
-%{_qt6_docdir}/*.tags
- 
+
 %files doc
-%{_qt6_docdir}/*.qch
 
 %changelog
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1

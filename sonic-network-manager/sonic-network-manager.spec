@@ -239,6 +239,7 @@ Conflicts:      plasma-nm-iodine < %{version}-%{release}
 
 %prep
 %autosetup -p1 -n %{reponame}-%{version}
+sed -i 's/Qt6Keychain 0.16.0/Qt6Keychain/' CMakeLists.txt
 
 
 %build
