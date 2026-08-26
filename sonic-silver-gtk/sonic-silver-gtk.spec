@@ -106,24 +106,24 @@ Conflicts:      breeze-gtk-gtk4 < %{version}-%{release}
 %files common
 %license LICENSES/*.txt
 %doc README.md
-%dir %{_datadir}/themes/Breeze/
-%{_datadir}/themes/Breeze/assets/
-%{_datadir}/themes/Breeze/settings.ini
-%dir %{_datadir}/themes/Breeze-Dark/
-%{_datadir}/themes/Breeze-Dark/assets/
-%{_datadir}/themes/Breeze-Dark/settings.ini
+%dir %{_datadir}/themes/Silver/
+%{_datadir}/themes/Silver/assets/
+%{_datadir}/themes/Silver/settings.ini
+%dir %{_datadir}/themes/Silver-Dark/
+%{_datadir}/themes/Silver-Dark/assets/
+%{_datadir}/themes/Silver-Dark/settings.ini
 
 %files gtk2
-%{_datadir}/themes/Breeze/gtk-2.0/
-%{_datadir}/themes/Breeze-Dark/gtk-2.0/
+%{_datadir}/themes/Silver/gtk-2.0/
+%{_datadir}/themes/Silver-Dark/gtk-2.0/
 
 %files gtk3
-%{_datadir}/themes/Breeze/gtk-3.0/
-%{_datadir}/themes/Breeze-Dark/gtk-3.0/
+%{_datadir}/themes/Silver/gtk-3.0/
+%{_datadir}/themes/Silver-Dark/gtk-3.0/
 
 %files gtk4
-%{_datadir}/themes/Breeze/gtk-4.0/
-%{_datadir}/themes/Breeze-Dark/gtk-4.0/
+%{_datadir}/themes/Silver/gtk-4.0/
+%{_datadir}/themes/Silver-Dark/gtk-4.0/
 
 %changelog
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1

@@ -76,6 +76,7 @@ manipulate filesystems.
 
 %prep
 %autosetup -p1 -n %{reponame}-%{version}
+sed -i 's/set(KPMCORE_MIN_VERSION.*/set(KPMCORE_MIN_VERSION "25.12")/' CMakeLists.txt
 
 
 %build

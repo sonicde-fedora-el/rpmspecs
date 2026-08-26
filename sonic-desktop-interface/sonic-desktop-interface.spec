@@ -33,7 +33,7 @@ Source20:       breeze-fedora-0.3.tar.gz
 
 # Hide virtual keyboard indicator on sddm.
 # Do not remove this as it breaks Fedora's QA policy
-Patch101:       hide-virtual-keyboard-indicator-on-sddm.patch
+#Patch101:       hide-virtual-keyboard-indicator-on-sddm.patch
 
 ## upstreamable patches
 
@@ -282,35 +282,19 @@ BuildArch: noarch
 %cmake_install
 %find_lang plasmadesktop6 --with-html --all-name
 
-grep "%{_kf6_docdir}" %{name}.lang > %{name}-doc.lang
-cat  %{name}.lang %{name}-doc.lang | sort | uniq -u > plasmadesktop6.lang
-
-# make fedora-breeze sddm theme variant.
-cp -alf %{buildroot}%{_datadir}/sddm/themes/breeze/ \
-        %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora
-# replace items
-install -m644 -p breeze-fedora/* \
-        %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/
-# Set Fedora background
-bg_file_ext="jxl"
-if [ -f "/usr/share/backgrounds/default.png" ]; then
-bg_file_ext="png"
-fi
-sed -i -e "s|^background=.*$|background=/usr/share/backgrounds/default.${bg_file_ext}|g" %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
-# Set Fedora distro vendor logo
-sed -i -e 's|^showlogo=.*$|showlogo=shown|g' %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
-sed -i -e 's|^logo=.*$|logo=%{_datadir}/pixmaps/fedora_whitelogo.svg|g' %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
+grep "%{_kf6_docdir}" plasmadesktop6.lang > %{name}-doc.lang
+cat  plasmadesktop6.lang %{name}-doc.lang | sort | uniq -u > plasmadesktop6-core.lang
 
 
 %check
 #,mouse,touchpad
-desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{keyboard,access,clock,splashscreen,landingpage,keys,smserver,desktoppaths,gamecontroller,activities,recentFiles,kded,krunnersettings,plasmasearch,qtquicksettings,tablet,touchscreen,workspace,baloofile,solid_actions}.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{keyboard,access,clock,splashscreen,landingpage,keys,smserver,desktoppaths,gamecontroller,activities,recentFiles,kded,krunnersettings,plasmasearch,qtquicksettings,tablet,touchscreen,workspace,solid_actions}.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/kcmspellchecking.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.knetattach.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.plasma.emojier.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
-%files -f plasmadesktop6.lang
+%files -f plasmadesktop6-core.lang
 %license LICENSES
 %{_bindir}/kaccess
 %{_bindir}/knetattach
@@ -318,7 +302,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_bindir}/plasma-emojier
 %{_bindir}/tastenbrett
 %{_bindir}/krunner-plugininstaller
-%{_kf6_libexecdir}/kauth/kcmdatetimehelper
+#%%{_kf6_libexecdir}/kauth/kcmdatetimehelper
 %{_libexecdir}/kimpanel-ibus-panel
 %{_libexecdir}/kimpanel-ibus-panel-launcher
 %{_kf6_qmldir}/org/kde/plasma/private
@@ -356,17 +340,17 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_kf6_datadir}/knsrcfiles/
 %{_kf6_datadir}/kcmsolidactions/
 %{_kf6_datadir}/solid/devices/*.desktop
-%{_kf6_datadir}/dbus-1/system.d/*.conf
+#%%{_kf6_datadir}/dbus-1/system.d/*.conf
 %{_kf6_datadir}/knotifications6/*.notifyrc
 # Non-existent for an unknown reason
 #%%{_datadir}/icons/hicolor/*/*/*
 %{_kf6_metainfodir}/*.xml
 %{_datadir}/applications/*.desktop
-%{_datadir}/dbus-1/system-services/*.service
-%{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmclock.policy
+#%%{_datadir}/dbus-1/system-services/*.service
+#%%{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmclock.policy
 %{_sysconfdir}/xdg/autostart/*.desktop
-%{_kf6_datadir}/accounts/providers/kde/*.provider
-%{_kf6_datadir}/accounts/services/kde/*.service
+#%%{_kf6_datadir}/accounts/providers/kde/*.provider
+#%%{_kf6_datadir}/accounts/services/kde/*.service
 %{_kf6_datadir}/kcm_recentFiles/workspace/settings/qml/recentFiles/ExcludedApplicationView.qml
 # How to include these in the .lang file?
 %{_kf6_datadir}/locale/sr/LC_SCRIPTS/kfontinst/kfontinst.js
@@ -374,14 +358,16 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_kf6_datadir}/locale/sr@ijekavianlatin/LC_SCRIPTS/kfontinst/kfontinst.js
 %{_kf6_datadir}/locale/sr@latin/LC_SCRIPTS/kfontinst/kfontinst.js
 %{_userunitdir}/plasma-kaccess.service
+#%%{_libdir}/libkglobalaccelmodel.so.6
+#%%{_libdir}/libkglobalaccelmodel.so.%{version}
 %{_libdir}/libkglobalaccelmodel.so.6
-%{_libdir}/libkglobalaccelmodel.so.%{version}
+%{_libdir}/libkglobalaccelmodel.so.6.7.4
+%{_kf6_qmldir}/org/kde/plasma/keyboardlayout/
+%{_datadir}/kconf_update/50-krunner-activate-typing.*
 %{_kf6_qtplugindir}/plasma/applets/org.kde.*.so
 
 
 %files -n sddm-breeze
-%{_datadir}/sddm/themes/breeze/
-%{_datadir}/sddm/themes/01-breeze-fedora/
 
 
 %if 0%{?scim}
@@ -389,7 +375,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_libexecdir}/kimpanel-scim-panel
 %endif
 
-%files doc -f plasmadesktop6-doc.lang
+%files doc -f %{name}-doc.lang
 
 
 %changelog

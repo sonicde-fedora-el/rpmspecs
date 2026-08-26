@@ -138,7 +138,7 @@ cat kio6_tags.lang kio6_baloosearch.lang kio6_timeline.lang \
 cat baloo_file6.lang baloo_file_extractor6.lang \
     > %{oldname}-file.lang
 
-%files -f baloodb6.lang
+%files -f %{oldname}.lang
 %license LICENSES/*.txt
 %{_kf6_bindir}/baloosearch6
 %{_kf6_bindir}/balooshow6
@@ -146,7 +146,7 @@ cat baloo_file6.lang baloo_file_extractor6.lang \
 %{_kf6_datadir}/qlogging-categories6/%{framework}*
 %{_kf6_datadir}/config.kcfg/baloosettings.kcfg
 
-%files file -f %{name}-file.lang
+%files file -f %{oldname}-file.lang
 %config(noreplace) %{_kf6_sysconfdir}/xdg/autostart/baloo_file.desktop
 %{_userunitdir}/kde-baloo.service
 %{_libexecdir}/kf6/baloo_file

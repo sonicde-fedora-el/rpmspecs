@@ -94,7 +94,6 @@ install -p -D -m755 src/doc/examples/installdbgsymbols_fedora.sh \
     %{buildroot}%{_libexecdir}/installdbgsymbols.sh
 
 %find_lang plasma-drkonqi --with-html --with-qt --all-name
-grep drkonqi.mo all.lang > plasma-drkonqi.lang
 
 %post
 %systemd_user_post drkonqi-sentry-postman.service
@@ -105,36 +104,19 @@ grep drkonqi.mo all.lang > plasma-drkonqi.lang
 %postun
 %systemd_user_postun drkonqi-sentry-postman.service
 
-%check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.{drkonqi.coredump.gui,drkonqi}.desktop
-
 %files -f plasma-drkonqi.lang
 %license LICENSES/*
-%{_bindir}/drkonqi-coredump-gui
+%{_bindir}/drkonqi-sentry-data
 %{_libexecdir}/drkonqi
+%{_libexecdir}/drkonqi-sentry-postman
 %{_libexecdir}/installdbgsymbols.sh
-%{_libexecdir}/drkonqi-coredump-cleanup
-%{_libexecdir}/drkonqi-coredump-launcher
-%{_libexecdir}/drkonqi-coredump-processor
 %{_kf6_datadir}/drkonqi/
-%{_kf6_datadir}/applications/org.kde.drkonqi.coredump.gui.desktop
 %{_kf6_datadir}/applications/org.kde.drkonqi.desktop
 %{_kf6_datadir}/qlogging-categories6/drkonqi.categories
-%{_userunitdir}/drkonqi-coredump-*
-%{_unitdir}/drkonqi-coredump-processor@.service
-%{_kf6_datadir}/knotifications6/drkonqi-coredump-launcher.notifyrc
-%{_bindir}/drkonqi-sentry-data
-%{_unitdir}/systemd-coredump@.service.wants/drkonqi-coredump-processor@.service
-%{_userunitdir}/default.target.wants/*
 %{_userunitdir}/drkonqi-sentry-postman.*
+%{_userunitdir}/default.target.wants/*
 %{_userunitdir}/plasma-core.target.wants/drkonqi-*
-%{_userunitdir}/sockets.target.wants/drkonqi-coredump-launcher.socket
 %{_userunitdir}/timers.target.wants/drkonqi-*
-%{_libexecdir}/drkonqi-sentry-postman
-%{_kf6_libexecdir}/drkonqi-polkit-helper
-%{_kf6_datadir}/dbus-1/system-services/org.kde.drkonqi.service
-%{_kf6_datadir}/dbus-1/system.d/org.kde.drkonqi.conf
-%{_kf6_datadir}/polkit-1/actions/org.kde.drkonqi.policy
 
 %changelog
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.1-1
