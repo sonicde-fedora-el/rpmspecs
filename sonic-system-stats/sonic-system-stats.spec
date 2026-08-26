@@ -10,7 +10,7 @@
 #Name:    ksystemstats
 Name:           sonic-system-stats
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary: KSystemStats is a daemon that collects statistics about the running system.
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -49,7 +49,7 @@ BuildRequires:  systemd-devel
 BuildRequires:  pkgconfig(libpcap)
 BuildRequires:  libdrm-devel
 
-Provides:       ksystemstats = %{version}-%{release}
+Provides:       ksystemstats%{?_isa} = %{version}-%{release}
 Conflicts:      ksystemstats < %{version}-%{release}
 
 %description
@@ -58,7 +58,7 @@ KSystemStats is a daemon that collects statistics about the running system.
 %package devel
 Summary:  Developer files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides:       ksystemstats-devel = %{version}-%{release}
+Provides:       ksystemstats-devel%{?_isa} = %{version}-%{release}
 Conflicts:      ksystemstats-devel < %{version}-%{release}
 
 %description devel

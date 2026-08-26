@@ -17,7 +17,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-dr-robotnik
 Summary: DrKonqi crash handler for KF6/Plasma6
 Version:        6.7.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{base_name}
 URL:            https://github.com/Sonic-DE/%{reponame}
@@ -58,7 +58,7 @@ Requires:       sonic-frameworks-data-models
 Requires:       sonic-frameworks-settings-utils
 Requires:       python3dist(psutil)
 Requires:       python3dist(pygdbmi)
-Requires:       python3dist(sentry-sdk)
+Recommends:     python3dist(sentry-sdk)
 Requires:       systemd-udev
 Requires:       elfutils
 
