@@ -11,7 +11,7 @@
 Name:           sonic-pulseaudio-library
 Summary: Qt bindings for PulseAudio
 Version:        1.8.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
 #URL:     https://invent.kde.org/libraries/pulseaudio-qt
@@ -28,16 +28,16 @@ BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6DBus)
 
-Provides:       pulseaudio-qt = %{version}-%{release}
-Conflicts:      pulseaudio-qt < %{version}-%{release}
+Provides:       pulseaudio-qt%{?_isa} = %{version}-%{release}
+Obsoletes:      pulseaudio-qt < %{version}-%{release}
 
 %description
 Pulseaudio-Qt is a library providing Qt bindings to PulseAudio.
 
 %package qt6
 Summary: Qt6 bindings for PulseAudio
-Provides:       pulseaudio-qt-qt6 = %{version}-%{release}
-Conflicts:      pulseaudio-qt-qt6 < %{version}-%{release}
+Provides:       pulseaudio-qt-qt6%{?_isa} = %{version}-%{release}
+Obsoletes:      pulseaudio-qt-qt6 < %{version}-%{release}
 
 %description qt6
 %{summary}.
@@ -45,16 +45,16 @@ Conflicts:      pulseaudio-qt-qt6 < %{version}-%{release}
 %package qt6-devel
 Summary: Development files for %{name} (Qt6)
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
-Provides:       pulseaudio-qt-qt6-devel = %{version}-%{release}
-Conflicts:      pulseaudio-qt-qt6-devel < %{version}-%{release}
+Provides:       pulseaudio-qt-qt6-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      pulseaudio-qt-qt6-devel < %{version}-%{release}
 
 %description qt6-devel
 %{summary}.
 
 %package qt6-doc
 Summary: Developer Documentation files for %{name}
-Provides:       pulseaudio-qt-qt6-doc = %{version}-%{release}
-Conflicts:      pulseaudio-qt-qt6-doc < %{version}-%{release}
+Provides:       pulseaudio-qt-qt6-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      pulseaudio-qt-qt6-doc < %{version}-%{release}
 
 %description qt6-doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.

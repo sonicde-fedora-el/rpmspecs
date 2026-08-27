@@ -14,7 +14,7 @@
 #Name:    kaccounts-integration
 Name:           sonic-accounts-integration
 Version:        26.04.3
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later
 #URL:     https://invent.kde.org/network/%%{name}
@@ -73,8 +73,8 @@ BuildRequires:  cmake(SignOnQt5)
 # For AutoReq cmake-filesystem
 BuildRequires:  cmake
 
-Provides:       kaccounts-integration = %{version}-%{release}
-Conflicts:      kaccounts-integration < %{version}-%{release}
+Provides:       kaccounts-integration%{?_isa} = %{version}-%{release}
+Obsoletes:      kaccounts-integration < %{version}-%{release}
 
 %description
 Small system to administer web accounts for the sites and services
@@ -90,8 +90,8 @@ Provides:       sonic-accounts-integration = %{version}-%{release}
 # translations moved here
 Conflicts: kde-l10n < 17.03
 
-Provides:       kaccounts-integration-qt5 = %{version}-%{release}
-Conflicts:      kaccounts-integration-qt5 < %{version}-%{release}
+Provides:       kaccounts-integration-qt5%{?_isa} = %{version}-%{release}
+Obsoletes:      kaccounts-integration-qt5 < %{version}-%{release}
 
 %description    qt5
 Small system to administer web accounts for the sites and services
@@ -107,10 +107,10 @@ Requires:       cmake(SignOnQt5)
 Requires:       pkgconfig(libaccounts-glib)
 Requires:       intltool
 Obsoletes:      kaccounts-integration-devel < 24.01.75
-Provides:       kaccounts-integration-devel = %{version}-%{release}
+Provides:       kaccounts-integration-devel%{?_isa} = %{version}-%{release}
 
-Provides:       kaccounts-integration-qt5-devel = %{version}-%{release}
-Conflicts:      kaccounts-integration-qt5-devel < %{version}-%{release}
+Provides:       kaccounts-integration-qt5-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kaccounts-integration-qt5-devel < %{version}-%{release}
 
 %description    qt5-devel
 Headers, development libraries and documentation for %{name}.
@@ -119,8 +119,8 @@ Headers, development libraries and documentation for %{name}.
 %package        qt6
 Summary:        qt6 runtime for %{name}
 
-Provides:       kaccounts-integration-qt6 = %{version}-%{release}
-Conflicts:      kaccounts-integration-qt6 < %{version}-%{release}
+Provides:       kaccounts-integration-qt6%{?_isa} = %{version}-%{release}
+Obsoletes:      kaccounts-integration-qt6 < %{version}-%{release}
 
 %description    qt6
 Small system to administer web accounts for the sites and services
@@ -136,8 +136,8 @@ Requires:       cmake(SignOnQt6)
 Requires:       pkgconfig(libaccounts-glib)
 Requires:       intltool
 
-Provides:       kaccounts-integration-qt6-devel = %{version}-%{release}
-Conflicts:      kaccounts-integration-qt6-devel < %{version}-%{release}
+Provides:       kaccounts-integration-qt6-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kaccounts-integration-qt6-devel < %{version}-%{release}
 
 %description    qt6-devel
 Headers, development libraries and documentation for %{name}.

@@ -13,7 +13,7 @@
 #Name:            polkit-qt-1
 Name:           sonic-polkit
 Version:        0.201.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:         Qt bindings for PolicyKit
 
 License:         BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -28,8 +28,8 @@ BuildRequires:   gcc-c++
 BuildRequires:   pkgconfig(polkit-agent-1)
 BuildRequires:   pkgconfig(polkit-gobject-1)
 
-Provides:       polkit-qt-1 = %{version}-%{release}
-Conflicts:      polkit-qt-1 < %{version}-%{release}
+Provides:       polkit-qt-1%{?_isa} = %{version}-%{release}
+Obsoletes:      polkit-qt-1 < %{version}-%{release}
 
 %description
 Polkit-qt is a library that lets developers use the PolicyKit API

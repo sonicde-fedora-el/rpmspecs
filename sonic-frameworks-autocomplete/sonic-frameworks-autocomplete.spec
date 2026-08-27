@@ -12,7 +12,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-autocomplete
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon with auto completion widgets and classes
 # BSD-3-Clause is in the LICENSES folder but goes unused.
 License:        CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -32,8 +32,8 @@ BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6Codecs)
 
-Provides:       kf6-kcompletion = %{version}-%{release}
-Conflicts:      kf6-kcompletion < %{version}-%{release}
+Provides:       kf6-kcompletion%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcompletion < %{version}-%{release}
 
 %description
 KCompletion provides widgets with advanced completion support as well as a
@@ -44,8 +44,8 @@ lower-level completion class which can be used with your own widgets.
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       pkgconfig(Qt6Widgets)
-Provides:       kf6-kcompletion-devel = %{version}-%{release}
-Conflicts:      kf6-kcompletion-devel < %{version}-%{release}
+Provides:       kf6-kcompletion-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcompletion-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -54,8 +54,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kcompletion-doc = %{version}-%{release}
-Conflicts:      kf6-kcompletion-doc < %{version}-%{release}
+Provides:       kf6-kcompletion-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcompletion-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -63,8 +63,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kcompletion-html = %{version}-%{release}
-Conflicts:      kf6-kcompletion-html < %{version}-%{release}
+Provides:       kf6-kcompletion-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcompletion-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

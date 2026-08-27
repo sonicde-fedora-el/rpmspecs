@@ -12,7 +12,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-pseudo-terminal
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 module providing Pty abstraction
 
 License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -36,8 +36,8 @@ Requires:       kf6-filesystem
 # runtime calls %%_libexexdir/utempter/utempter
 Requires:       libutempter
 
-Provides:       kf6-kpty = %{version}-%{release}
-Conflicts:      kf6-kpty < %{version}-%{release}
+Provides:       kf6-kpty%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kpty < %{version}-%{release}
 
 %description
 KDE Frameworks 6 tier 2 module providing Pty abstraction.
@@ -46,8 +46,8 @@ KDE Frameworks 6 tier 2 module providing Pty abstraction.
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6CoreAddons)
-Provides:       kf6-kpty-devel = %{version}-%{release}
-Conflicts:      kf6-kpty-devel < %{version}-%{release}
+Provides:       kf6-kpty-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kpty-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -56,8 +56,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kpty-doc = %{version}-%{release}
-Conflicts:      kf6-kpty-doc < %{version}-%{release}
+Provides:       kf6-kpty-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kpty-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -65,8 +65,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kpty-html = %{version}-%{release}
-Conflicts:      kf6-kpty-html < %{version}-%{release}
+Provides:       kf6-kpty-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kpty-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

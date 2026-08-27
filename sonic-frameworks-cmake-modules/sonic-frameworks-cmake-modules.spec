@@ -20,7 +20,7 @@
 Name:           sonic-frameworks-cmake-modules
 Summary: Additional modules for CMake build system
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 # kde-modules/clang-format.cmake is MIT
 License: BSD-3-Clause AND BSD-2-Clause AND MIT
 #URL:     https://api.kde.org/ecm/
@@ -57,16 +57,16 @@ Requires: (kf5-rpm-macros if qt5-qtbase-devel)
 Requires: (sonic-rpm-macros if qt6-qtbase-devel)
 Recommends: appstream
 
-Provides:       extra-cmake-modules = %{version}-%{release}
-Conflicts:      extra-cmake-modules < %{version}-%{release}
+Provides:       extra-cmake-modules%{?_isa} = %{version}-%{release}
+Obsoletes:      extra-cmake-modules < %{version}-%{release}
 
 %description
 Additional modules for CMake build system needed by KDE Frameworks.
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
-Provides:       extra-cmake-modules-doc = %{version}-%{release}
-Conflicts:      extra-cmake-modules-doc < %{version}-%{release}
+Provides:       extra-cmake-modules-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      extra-cmake-modules-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.

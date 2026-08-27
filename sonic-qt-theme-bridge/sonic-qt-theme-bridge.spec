@@ -14,7 +14,7 @@
 Name:           sonic-qt-theme-bridge
 Summary: Qt Platform Theme integration plugin for Plasma
 Version:        6.7.4
-Release:        4%{?dist}
+Release:        6%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -87,8 +87,8 @@ Requires:       sonic-frameworks-quick-desktop-style%{?_isa}
 Requires:       font(notosans)
 Recommends:     font(hack)
 
-Provides:       plasma-integration = %{version}-%{release}
-Conflicts:      plasma-integration < %{version}-%{release}
+Provides:       plasma-integration%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-integration < %{version}-%{release}
 
 %description
 %{summary}.
@@ -98,8 +98,8 @@ Conflicts:      plasma-integration < %{version}-%{release}
 Summary:        Qt5 support for %{name}
 # The default QtQuick style
 Requires:       qqc2-desktop-style%{?_isa}
-Provides:       plasma-integration-qt5 = %{version}-%{release}
-Conflicts:      plasma-integration-qt5 < %{version}-%{release}
+Provides:       plasma-integration-qt5%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-integration-qt5 < %{version}-%{release}
 
 %description    qt5
 %{summary}.

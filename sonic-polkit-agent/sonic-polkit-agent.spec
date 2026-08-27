@@ -13,7 +13,7 @@
 Name:           sonic-polkit-agent
 Summary: PolicyKit integration for KDE Desktop
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: GPL-2.0-or-later AND CC0-1.0
 #URL:     https://invent.kde.org/plasma/%%{base_name}
@@ -46,16 +46,16 @@ BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  polkit-qt6-1-devel
 
 Provides: PolicyKit-authentication-agent = %{version}-%{release}
-Provides: polkit-kde-1 = %{version}-%{release}
-Provides: polkit-kde-agent-1 = %{version}-%{release}
+Provides: polkit-kde-1%{?_isa} = %{version}-%{release}
+Provides: polkit-kde-agent-1%{?_isa} = %{version}-%{release}
 
 Obsoletes: PolicyKit-kde < 4.5
 
 # Add explicit dependency on polkit, since polkit-libs were split out
 Requires: polkit
 
-Provides:       polkit-kde = %{version}-%{release}
-Conflicts:      polkit-kde < %{version}-%{release}
+Provides:       polkit-kde%{?_isa} = %{version}-%{release}
+Obsoletes:      polkit-kde < %{version}-%{release}
 
 %description
 Provides Policy Kit Authentication Agent that nicely fits to KDE.

@@ -3,7 +3,7 @@
 
 Name:		sonic-silver-theme
 Version:	6.7.4.2
-Release:	1%{?dist}
+Release:        2%{?dist}
 Summary:	Silver widget style, window decoration and theme for SonicDE
 URL:		https://github.com/Sonic-DE/%{reponame}
 Source0:	%{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{version}.tar.gz
@@ -36,9 +36,7 @@ BuildRequires:	cmake(KF6WindowSystem)
 
 # SonicDE replaces the Plasma Breeze theme packages.
 Provides:	breeze = %{version}-%{release}
-Conflicts:	breeze < %{version}-%{release}
 Provides:	breeze-cursor-theme = %{version}-%{release}
-Conflicts:	breeze-cursor-theme < %{version}-%{release}
 
 %description
 Silver is the default widget style, window decoration, color scheme, cursor
@@ -49,7 +47,6 @@ the Breeze theme of KDE Plasma.
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Provides:	breeze-devel%{?_isa} = %{version}-%{release}
-Conflicts:	breeze-devel < %{version}-%{release}
 
 %description devel
 This package contains the CMake configuration and header files needed to

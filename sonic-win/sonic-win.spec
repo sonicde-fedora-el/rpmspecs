@@ -4,7 +4,7 @@
 
 Name:    sonic-win
 Version: 6.7.4.3
-Release: 1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -140,7 +140,8 @@ Obsoletes: kwin < %{version}-%{release}
 #Requires:   kwin-wayland = %%{version}-%%{release}
 
 # Merge -wayland subpackage
-Conflicts: kwin-wayland < 6.3.90
+Obsoletes:      kwin-wayland < 6.3.90
+Provides:       kwin-wayland = %{version}-%{release}
 Obsoletes: kwin-wayland < 6.3.90
 #Provides:  kwin-wayland = %%{version}-%%{release}
 #Provides:  kwin-wayland%%{?_isa} = %%{version}-%%{release}
@@ -154,7 +155,8 @@ Obsoletes:      kwin-wayland-nvidia < 5.20.2-2
 Obsoletes:      kwin-x11 < 5.92.0
 %else
 Obsoletes:      kwin-x11 < %{version}-%{release}
-Conflicts:      kwin-x11 < %{version}-%{release}
+Obsoletes:      kwin-x11 < %{version}-%{release}
+Provides:       kwin-x11 = %{version}-%{release}
 %endif
 %if ! 0%{?rhel} >= 10
 #Requires:       (kwayland-integration%%{?_isa} if kf5-kwindowsystem%%{?_isa})
@@ -169,8 +171,10 @@ Provides: kwin = %{version}-%{release}
 Provides: kwin%{?_isa} = %{version}-%{release}
 Provides: kwin-x11 = %{version}-%{release}
 Provides: kwin-x11%{?_isa} = %{version}-%{release}
-Conflicts: kwin
-Conflicts: kwin-x11
+Obsoletes:      kwin < %{version}-%{release}
+Provides:       kwin = %{version}-%{release}
+Obsoletes:      kwin-x11 < %{version}-%{release}
+Provides:       kwin-x11 = %{version}-%{release}
 
 %description
 %{summary}.
@@ -182,7 +186,8 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       kwayland%{?_isa}
 # Split of X11 variant into subpackage
 Obsoletes:      %{name}-common < 5.19.5-3
-Conflicts: kwin-common
+Obsoletes:      kwin-common < %{version}-%{release}
+Provides:       kwin-common = %{version}-%{release}
 Conflicts: kwin-x11-common
 %description    common
 %{summary}.
@@ -194,7 +199,8 @@ Conflicts:      kde-workspace-libs%{?_isa} < 4.11.14-2
 # kwin uses wl_display_set_default_max_buffer_size from wayland 1.23.0
 # https://bugzilla.redhat.com/show_bug.cgi?id=2312499
 Requires:       libwayland-server%{?_isa} >= 1.23.0
-Conflicts: kwin-libs
+Obsoletes:      kwin-libs < %{version}-%{release}
+Provides:       kwin-libs = %{version}-%{release}
 Conflicts: kwin-x11-libs
 %description    libs
 %{summary}.

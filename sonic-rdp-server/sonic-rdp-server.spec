@@ -18,7 +18,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-rdp-server
 Summary:        Desktop sharing using RDP
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
 #URL:            https://invent.kde.org/plasma/krdp
@@ -70,8 +70,8 @@ Obsoletes:      %{name}-server < 6.0.90
 Provides:       %{name}-server = %{version}-%{release}
 Provides:       %{name}-server%{?_isa} = %{version}-%{release}
 
-Provides:       krdp = %{version}-%{release}
-Conflicts:      krdp < %{version}-%{release}
+Provides:       krdp%{?_isa} = %{version}-%{release}
+Obsoletes:      krdp < %{version}-%{release}
 
 %description
 %{summary}.
@@ -83,8 +83,8 @@ Requires:       /usr/bin/winpr-makecert
 Conflicts:      %{name} < 6.0.90
 Conflicts:      %{name}-server < 6.0.90
 
-Provides:       krdp-libs = %{version}-%{release}
-Conflicts:      krdp-libs < %{version}-%{release}
+Provides:       krdp-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      krdp-libs < %{version}-%{release}
 
 %description libs
 %{summary}.
@@ -94,8 +94,8 @@ Conflicts:      krdp-libs < %{version}-%{release}
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-Provides:       krdp-devel = %{version}-%{release}
-Conflicts:      krdp-devel < %{version}-%{release}
+Provides:       krdp-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      krdp-devel < %{version}-%{release}
 
 %description devel
 %{summary}.

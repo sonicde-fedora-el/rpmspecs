@@ -17,7 +17,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-thunderbolt
 Summary: Plasma integration for controlling Thunderbolt devices
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{base_name}
@@ -44,8 +44,8 @@ BuildRequires:  desktop-file-utils
 
 Requires:       bolt
 
-Provides:       plasma-thunderbolt = %{version}-%{release}
-Conflicts:      plasma-thunderbolt < %{version}-%{release}
+Provides:       plasma-thunderbolt%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-thunderbolt < %{version}-%{release}
 
 %description
 Plasma Sytem Settings module and a KDED module to handle authorization of

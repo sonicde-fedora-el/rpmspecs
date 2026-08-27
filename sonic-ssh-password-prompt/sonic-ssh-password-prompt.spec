@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 #Name:    ksshaskpass
 Name:           sonic-ssh-password-prompt
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: A ssh-add helper that uses kwallet and kpassworddialog
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -37,8 +37,8 @@ BuildRequires:  cmake(KF6Wallet)
 BuildRequires:  pkgconfig(Qt6Core)
 BuildRequires:  cmake(Qt6Keychain)
 
-Provides:       ksshaskpass = %{version}-%{release}
-Conflicts:      ksshaskpass < %{version}-%{release}
+Provides:       ksshaskpass%{?_isa} = %{version}-%{release}
+Obsoletes:      ksshaskpass < %{version}-%{release}
 
 %description
 %{summary}.

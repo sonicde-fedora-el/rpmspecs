@@ -11,7 +11,7 @@
 Name:           xdg-desktop-portal-sonicde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        5%{?dist}
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -20,6 +20,7 @@ URL:            https://github.com/Sonic-DE/%{reponame}
 #Source0:        https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{version}.tar.gz
 #Source1:        https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
+Patch0:         spa-pod-align.patch
 
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
@@ -62,8 +63,8 @@ Requires:       xdg-desktop-portal
 Requires:       xdg-desktop-portal-gtk
 Supplements:    sonic-desktop-interface
 
-Provides:       xdg-desktop-portal-kde = %{version}-%{release}
-Conflicts:      xdg-desktop-portal-kde < %{version}-%{release}
+Provides:       xdg-desktop-portal-kde%{?_isa} = %{version}-%{release}
+Obsoletes:      xdg-desktop-portal-kde < %{version}-%{release}
 
 %description
 A backend implementation for xdg-desktop-portal that is using Qt/KF5 and various
@@ -88,13 +89,19 @@ pieces of KDE infrastructure.
 
 %files -f xdg-desktop-portal-kde.lang
 %license LICENSES/*
+%{_libexecdir}/xdg-desktop-portal-sonicde
 %{_libexecdir}/xdg-desktop-portal-kde
+%{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.sonicde.service
 %{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.kde.service
+%{_datadir}/xdg-desktop-portal/portals/sonicde.portal
 %{_datadir}/xdg-desktop-portal/portals/kde.portal
+%{_datadir}/applications/org.freedesktop.impl.portal.desktop.sonicde.desktop
 %{_datadir}/applications/org.freedesktop.impl.portal.desktop.kde.desktop
 %{_datadir}/knotifications6/xdg-desktop-portal-kde.notifyrc
 %{_datadir}/qlogging-categories6/xdp-kde.categories
+%{_userunitdir}/plasma-xdg-desktop-portal-sonicde.service
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
+%{_datadir}/xdg-desktop-portal/sonicde-portals.conf
 
 %changelog
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1

@@ -6,7 +6,7 @@
 #Name:    kf6-%%{framework}
 Name:    sonic-frameworks-keybind
 Version: 6.29.0
-Release: 1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module for global shortcuts
 
 # The following are in the LICENSES folder but go unused: LGPL-2.1-only, LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
@@ -38,7 +38,8 @@ BuildRequires:  libX11-devel
 BuildRequires:  libxcb-devel
 
 Requires:       kf6-filesystem
-Conflicts:      kf6-kglobalaccel
+Obsoletes:      kf6-kglobalaccel < %{version}-%{release}
+Provides:       kf6-kglobalaccel = %{version}-%{release}
 
 %description
 %{summary}.
@@ -47,7 +48,8 @@ Conflicts:      kf6-kglobalaccel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
-Conflicts:      kf6-kglobalaccel-devel
+Obsoletes:      kf6-kglobalaccel-devel < %{version}-%{release}
+Provides:       kf6-kglobalaccel-devel = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -55,14 +57,16 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts:      kf6-kglobalaccel-doc
+Obsoletes:      kf6-kglobalaccel-doc < %{version}-%{release}
+Provides:       kf6-kglobalaccel-doc = %{version}-%{release}
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts:      kf6-kglobalaccel-html
+Obsoletes:      kf6-kglobalaccel-html < %{version}-%{release}
+Provides:       kf6-kglobalaccel-html = %{version}-%{release}
 %description    html
 Developer Documentation files for %{name} in HTML format
 

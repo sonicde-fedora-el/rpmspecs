@@ -11,7 +11,7 @@
 Name:    sonic-desktop-interface
 Summary: Plasma Desktop shell
 Version: 6.7.4.2
-Release: 1%{?dist}
+Release:        7%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -154,21 +154,21 @@ Requires:       sonic-workspace
 
 # xdg-utils integration
 Requires:       xdg-utils >= 1.2.0~
-Requires:       kde-cli-tools
+Requires:       sonic-terminal-tools
 
 # Qt Integration (brings in Breeze)
 Requires:       sonic-qt-theme-bridge
 
 # Install systemsettings, full set of KIO slaves and write() notifications
-Requires:       plasma-systemsettings
+Recommends:      plasma-systemsettings
 Requires:       kio-extras
-Requires:       kwrited
+Requires:       sonic-write-daemon
 
 # Install KWin
 Requires:       sonic-win
 
 # kickoff -> edit applications (#1229393)
-Requires:       kmenuedit
+Requires:       sonic-launcher-menu-edit
 
 BuildRequires:  cmake(KF6Kirigami)
 Requires:       sonic-frameworks-quick-ui%{?_isa}
@@ -176,10 +176,10 @@ BuildRequires:  cmake(KF6KirigamiAddons)
 Requires:       sonic-frameworks-quick-ui-addons%{?_isa}
 BuildRequires:  sonic-frameworks-quick-desktop-style
 Requires:       sonic-frameworks-quick-desktop-style%{?_isa}
-BuildRequires:  kpipewire
+BuildRequires:  sonic-pipewire
 Requires:       kpipewire%{?_isa}
-BuildRequires:  signon-plugin-oauth2-devel
-Requires:       signon-plugin-oauth2%{?_isa}
+BuildRequires:  sonic-frameworks-sso-devel
+Recommends:      signon-plugin-oauth2%{?_isa}
 
 # applets/kickoff/KickoffSingleton.qml unconditionally imports org.kde.plasma.plasma5support
 Requires:       qt6qml(org.kde.plasma.plasma5support)
@@ -203,15 +203,18 @@ Obsoletes:      plasma-user-manager < 5.19.50
 Provides:       plasma-user-manager = %{version}-%{release}
 
 # kimpanel moved here from kdeplasma-addons-5.5.x
-Conflicts:      kdeplasma-addons < 5.6.0
+Obsoletes:      kdeplasma-addons < 5.6.0
+Provides:       kdeplasma-addons = %{version}-%{release}
 
 # kcm_activities.mo moved here (#1325724)
 Conflicts:      kde-l10n < 15.12.3-4
 
 # See https://pagure.io/fedora-kde/SIG/issue/455 for more information
-Conflicts:      kde-settings < 39.1-7
+Obsoletes:      kde-settings < 39.1-7
+Provides:       kde-settings = %{version}-%{release}
 
-Conflicts: plasma-desktop
+Obsoletes:      plasma-desktop < %{version}-%{release}
+Provides:       plasma-desktop = %{version}-%{release}
 Obsoletes: plasma-desktop < %{version}-%{release}
 
 %description

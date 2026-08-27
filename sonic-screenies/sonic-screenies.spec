@@ -20,7 +20,7 @@ Name:           sonic-screenies
 Summary: Screenshot capture utility
 Epoch:   1
 Version:        6.7.4.2
-Release:        1%{?dist}
+Release:        4%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -106,8 +106,8 @@ Obsoletes: ksnapshot <= 15.08.3
 # translations moved here
 Conflicts: kde-l10n < 17.03
 
-Provides:       spectacle = %{version}-%{release}
-Conflicts:      spectacle < %{version}-%{release}
+Provides:       spectacle%{?_isa} = %{version}-%{release}
+Obsoletes:      spectacle < 1:%{version}-%{release}
 
 %description
 %{summary}.

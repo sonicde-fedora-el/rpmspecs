@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-settings-ui
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for creating configuration dialogs
 
 # The following licenses are in LICENSES but go unused: BSD-3-Clause, MIT
@@ -43,8 +43,8 @@ BuildRequires:  pkgconfig(xkbcommon)
 
 Requires:  kf6-filesystem
 
-Provides:       kf6-kconfigwidgets = %{version}-%{release}
-Conflicts:      kf6-kconfigwidgets < %{version}-%{release}
+Provides:       kf6-kconfigwidgets%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kconfigwidgets < %{version}-%{release}
 
 %description
 KConfigWidgets provides easy-to-use classes to create configuration dialogs, as
@@ -58,8 +58,8 @@ Requires:       sonic-frameworks-text-codec-devel
 Requires:       cmake(KF6ColorScheme)
 Requires:       cmake(KF6Config)
 Requires:       cmake(KF6WidgetsAddons)
-Provides:       kf6-kconfigwidgets-devel = %{version}-%{release}
-Conflicts:      kf6-kconfigwidgets-devel < %{version}-%{release}
+Provides:       kf6-kconfigwidgets-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kconfigwidgets-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -68,8 +68,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kconfigwidgets-doc = %{version}-%{release}
-Conflicts:      kf6-kconfigwidgets-doc < %{version}-%{release}
+Provides:       kf6-kconfigwidgets-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kconfigwidgets-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -77,8 +77,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kconfigwidgets-html = %{version}-%{release}
-Conflicts:      kf6-kconfigwidgets-html < %{version}-%{release}
+Provides:       kf6-kconfigwidgets-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kconfigwidgets-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

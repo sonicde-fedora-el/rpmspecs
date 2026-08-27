@@ -12,7 +12,7 @@
 #Name:		kf6-%%{framework}
 Name:           sonic-frameworks-core-addons
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtCore
 License:	BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND MPL-1.1 AND LGPL-2.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-2.1-only WITH Qt-LGPL-exception-1.1
 #URL:		https://invent.kde.org/frameworks/%%{framework}
@@ -45,8 +45,8 @@ BuildRequires:  cmake(PySide6)
 
 Requires:       kf6-filesystem
 
-Provides:       kf6-kcoreaddons = %{version}-%{release}
-Conflicts:      kf6-kcoreaddons < %{version}-%{release}
+Provides:       kf6-kcoreaddons%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcoreaddons < %{version}-%{release}
 
 %description
 KCoreAddons provides classes built on top of QtCore to perform various tasks
@@ -57,7 +57,6 @@ replacement, accessing user information and many more.
 %package -n python3-%{name}
 Summary:    Qt for Python bindings for %{name}
 Provides:       python3-kf6-kcoreaddons = %{version}-%{release}
-Conflicts:      python3-kf6-kcoreaddons < %{version}-%{release}
 
 %description -n python3-%{name}
 The package contains the pyside6 bindings library for %{name}
@@ -66,8 +65,8 @@ The package contains the pyside6 bindings library for %{name}
 Summary:    Development files for %{name}
 Requires:   %{name} = %{version}-%{release}
 Requires:   qt6-qtbase-devel
-Provides:       kf6-kcoreaddons-devel = %{version}-%{release}
-Conflicts:      kf6-kcoreaddons-devel < %{version}-%{release}
+Provides:       kf6-kcoreaddons-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcoreaddons-devel < %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -77,8 +76,8 @@ developing applications that use %{name}.
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
 
-Provides:       kf6-kcoreaddons-doc = %{version}-%{release}
-Conflicts:      kf6-kcoreaddons-doc < %{version}-%{release}
+Provides:       kf6-kcoreaddons-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcoreaddons-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -86,8 +85,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kcoreaddons-html = %{version}-%{release}
-Conflicts:      kf6-kcoreaddons-html < %{version}-%{release}
+Provides:       kf6-kcoreaddons-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcoreaddons-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

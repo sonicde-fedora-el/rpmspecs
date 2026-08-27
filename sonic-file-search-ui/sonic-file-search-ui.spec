@@ -16,7 +16,7 @@ ExcludeArch: %{ix86}
 #Name:    plasma-%%{base_name}
 Name:           sonic-file-search-ui
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: A dedicated KDE search application built on top of Baloo
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -49,8 +49,8 @@ Requires:       kf6-filesystem
 Obsoletes:      kde-plasma-milou < 5.0.0
 Provides:       kde-plasma-milou = %{version}-%{release}
 
-Provides:       plasma-milou = %{version}-%{release}
-Conflicts:      plasma-milou < %{version}-%{release}
+Provides:       plasma-milou%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-milou < %{version}-%{release}
 
 %description
 %{summary}.

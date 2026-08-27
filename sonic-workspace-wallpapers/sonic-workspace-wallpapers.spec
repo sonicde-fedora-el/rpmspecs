@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 #Name:    plasma-workspace-wallpapers
 Name:           sonic-workspace-wallpapers
 Version:        6.7.4.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: Additional wallpapers for Plasma workspace
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License: LGPL-3.0-only
@@ -39,8 +39,8 @@ Conflicts:      kde-wallpapers < 15.08.3-10
 Obsoletes:      sonic-workspace-wallpapers < 5.2.0-2
 
 
-Provides:       plasma-workspace-wallpapers = %{version}-%{release}
-Conflicts:      plasma-workspace-wallpapers < %{version}-%{release}
+Provides:       plasma-workspace-wallpapers%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-workspace-wallpapers < %{version}-%{release}
 
 %description
 %{summary}.

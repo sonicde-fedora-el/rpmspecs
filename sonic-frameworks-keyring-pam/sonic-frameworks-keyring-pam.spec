@@ -18,7 +18,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-frameworks-keyring-pam
 Summary: PAM module for KWallet
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 License: LGPL-2.0-or-later
 #URL:     https://invent.kde.org/plasma/%%{base_name}.git
 URL:            https://github.com/Sonic-DE/%{reponame}
@@ -46,8 +46,8 @@ Requires: socat
 # pam module makes little sense without the actually kwallet service
 Requires: sonic-frameworks-keyring
 
-Provides:       pam-kwallet = %{version}-%{release}
-Conflicts:      pam-kwallet < %{version}-%{release}
+Provides:       pam-kwallet%{?_isa} = %{version}-%{release}
+Obsoletes:      pam-kwallet < %{version}-%{release}
 
 %description
 %{summary}.

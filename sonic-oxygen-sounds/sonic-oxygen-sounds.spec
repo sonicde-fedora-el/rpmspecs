@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 #Name:           oxygen-sounds
 Name:           sonic-oxygen-sounds
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        The Oxygen Sound Theme
 
 License:        LGPL-3.0-or-later AND CC0-1.0 AND CC-BY-3.0 AND BSD-2-Clause
@@ -35,8 +35,8 @@ BuildRequires:  qt6-qtbase-devel
 
 BuildArch:      noarch
 
-Provides:       oxygen-sounds = %{version}-%{release}
-Conflicts:      oxygen-sounds < %{version}-%{release}
+Provides:       oxygen-sounds%{?_isa} = %{version}-%{release}
+Obsoletes:      oxygen-sounds < %{version}-%{release}
 
 %description
 %{summary}.

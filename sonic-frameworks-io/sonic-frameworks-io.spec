@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-io
 Version:        6.29.0.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -89,8 +89,8 @@ Requires:       %{name}-gui%{?_isa} = %{version}-%{release}
 
 Requires: sonic-daemon
 
-Provides:       kf6-kio = %{version}-%{release}
-Conflicts:      kf6-kio < %{version}-%{release}
+Provides:       kf6-kio%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 3 solution for filesystem abstraction
@@ -109,8 +109,8 @@ Requires:       cmake(KF6Solid)
 Requires:       cmake(KF6XmlGui)
 Requires:       cmake(KF6WindowSystem)
 Requires:       qt6-qtbase-devel
-Provides:       kf6-kio-devel = %{version}-%{release}
-Conflicts:      kf6-kio-devel < %{version}-%{release}
+Provides:       kf6-kio-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -120,8 +120,8 @@ developing applications that use %{name}.
 Summary:        Documentation files for %{name}
 Requires:       %{name}-core = %{version}-%{release}
 BuildArch:      noarch
-Provides:       kf6-kio-doc = %{version}-%{release}
-Conflicts:      kf6-kio-doc < %{version}-%{release}
+Provides:       kf6-kio-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-doc < %{version}-%{release}
 
 %description    doc
 Documentation for %{name}.
@@ -133,8 +133,8 @@ Requires:       %{name}-core-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-doc = %{version}-%{release}
 Requires:       kf6-filesystem
 Recommends:     switcheroo-control
-Provides:       kf6-kio-core = %{version}-%{release}
-Conflicts:      kf6-kio-core < %{version}-%{release}
+Provides:       kf6-kio-core%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-core < %{version}-%{release}
 
 %description    core
 KIOCore library provides core non-GUI components for working with KIO.
@@ -142,8 +142,8 @@ KIOCore library provides core non-GUI components for working with KIO.
 %package        core-libs
 Summary:        Runtime libraries for KIO Core
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
-Provides:       kf6-kio-core-libs = %{version}-%{release}
-Conflicts:      kf6-kio-core-libs < %{version}-%{release}
+Provides:       kf6-kio-core-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-core-libs < %{version}-%{release}
 
 %description    core-libs
 %{summary}.
@@ -154,8 +154,8 @@ Summary:        Widgets for KIO Framework
 ## included here for completeness, even those -core already has a dependency.
 %{?kf6_kinit_requires}
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
-Provides:       kf6-kio-widgets = %{version}-%{release}
-Conflicts:      kf6-kio-widgets < %{version}-%{release}
+Provides:       kf6-kio-widgets%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-widgets < %{version}-%{release}
 
 %description    widgets
 KIOWidgets contains classes that provide generic job control, progress
@@ -164,8 +164,8 @@ reporting, etc.
 %package        widgets-libs
 Summary:        Runtime libraries for KIO Widgets library
 Requires:       %{name}-widgets%{?_isa} = %{version}-%{release}
-Provides:       kf6-kio-widgets-libs = %{version}-%{release}
-Conflicts:      kf6-kio-widgets-libs < %{version}-%{release}
+Provides:       kf6-kio-widgets-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-widgets-libs < %{version}-%{release}
 
 %description    widgets-libs
 %{summary}.
@@ -173,8 +173,8 @@ Conflicts:      kf6-kio-widgets-libs < %{version}-%{release}
 %package        file-widgets
 Summary:        Widgets for file-handling for KIO Framework
 Requires:       %{name}-widgets%{?_isa} = %{version}-%{release}
-Provides:       kf6-kio-file-widgets = %{version}-%{release}
-Conflicts:      kf6-kio-file-widgets < %{version}-%{release}
+Provides:       kf6-kio-file-widgets%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-file-widgets < %{version}-%{release}
 
 %description    file-widgets
 The KIOFileWidgets library provides the file selection dialog and
@@ -183,8 +183,8 @@ its components.
 %package        gui
 Summary:        Gui components for the KIO Framework
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
-Provides:       kf6-kio-gui = %{version}-%{release}
-Conflicts:      kf6-kio-gui < %{version}-%{release}
+Provides:       kf6-kio-gui%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-gui < %{version}-%{release}
 
 %description    gui
 %{summary}.
@@ -192,8 +192,8 @@ Conflicts:      kf6-kio-gui < %{version}-%{release}
 %package        qch-doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kio-qch-doc = %{version}-%{release}
-Conflicts:      kf6-kio-qch-doc < %{version}-%{release}
+Provides:       kf6-kio-qch-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-qch-doc < %{version}-%{release}
 
 %description    qch-doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -201,8 +201,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kio-html = %{version}-%{release}
-Conflicts:      kf6-kio-html < %{version}-%{release}
+Provides:       kf6-kio-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kio-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

@@ -11,7 +11,7 @@
 Name:           sonic-activities-stats
 Summary: Library to access the usage statistics data collected by the KDE activity manager
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0, GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -41,8 +41,8 @@ Provides:       kf6-kactivities-stats = 1:%{version}-%{release}
 # Renamed from kactivities-stats
 Obsoletes:      kactivities-stats < 5.27.81
 
-Provides:       plasma-activities-stats = %{version}-%{release}
-Conflicts:      plasma-activities-stats < %{version}-%{release}
+Provides:       plasma-activities-stats%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-activities-stats < %{version}-%{release}
 
 %description
 %{summary}.
@@ -53,8 +53,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: qt6-qtbase-devel
 Obsoletes:      kf6-kactivities-stats-devel < 1:%{version}-%{release}
 Provides:       kf6-kactivities-stats-devel = 1:%{version}-%{release}
-Provides:       plasma-activities-stats-devel = %{version}-%{release}
-Conflicts:      plasma-activities-stats-devel < %{version}-%{release}
+Provides:       plasma-activities-stats-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-activities-stats-devel < %{version}-%{release}
 
 %description devel
 %{summary}.
@@ -62,8 +62,8 @@ Conflicts:      plasma-activities-stats-devel < %{version}-%{release}
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       plasma-activities-stats-doc = %{version}-%{release}
-Conflicts:      plasma-activities-stats-doc < %{version}-%{release}
+Provides:       plasma-activities-stats-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-activities-stats-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.

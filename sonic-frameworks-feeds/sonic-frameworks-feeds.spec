@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-feeds
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: The Syndication Library
 
 # Qt-Commercial-exception-1.0 is also found in the LICENSES folder, but is unused except for tests which we don't use anyway
@@ -34,8 +34,8 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  cmake(KF6KIO)
 Requires:  kf6-filesystem
 
-Provides:       kf6-syndication = %{version}-%{release}
-Conflicts:      kf6-syndication < %{version}-%{release}
+Provides:       kf6-syndication%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-syndication < %{version}-%{release}
 
 %description
 %{summary}.
@@ -43,8 +43,8 @@ Conflicts:      kf6-syndication < %{version}-%{release}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
-Provides:       kf6-syndication-devel = %{version}-%{release}
-Conflicts:      kf6-syndication-devel < %{version}-%{release}
+Provides:       kf6-syndication-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-syndication-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -53,8 +53,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-syndication-doc = %{version}-%{release}
-Conflicts:      kf6-syndication-doc < %{version}-%{release}
+Provides:       kf6-syndication-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-syndication-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -62,8 +62,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-syndication-html = %{version}-%{release}
-Conflicts:      kf6-syndication-html < %{version}-%{release}
+Provides:       kf6-syndication-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-syndication-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

@@ -11,7 +11,7 @@
 Name:           sonic-pipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -56,8 +56,8 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  qt6-qtwayland-devel
 
-Provides:       kpipewire = %{version}-%{release}
-Conflicts:      kpipewire < %{version}-%{release}
+Provides:       kpipewire%{?_isa} = %{version}-%{release}
+Obsoletes:      kpipewire < %{version}-%{release}
 
 %description
 It is developed in C++ and it's main use target is QML components.
@@ -76,12 +76,11 @@ Summary:        Development files for %{name}
 # This requires pipewire headers to be installed
 Requires:       pipewire-devel
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       kpipewire-devel = %{version}-%{release}
+Provides:       kpipewire-devel%{?_isa} = %{version}-%{release}
 Provides:       kpipewire-devel%{?_isa} = %{version}-%{release}
 Obsoletes:      kpipewire-devel <= 1:5.2.0
 
-Provides:       kpipewire-devel = %{version}-%{release}
-Conflicts:      kpipewire-devel < %{version}-%{release}
+Provides:       kpipewire-devel%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for

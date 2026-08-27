@@ -11,7 +11,7 @@
 Name:           sonic-browser-integration
 Summary: %{name} provides components necessary to integrate browsers into the Plasma Desktop
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -53,8 +53,8 @@ BuildRequires:  sonic-workspace-devel >= %{version}
 Supplements: (sonic-workspace and chromium)
 Supplements: (sonic-workspace and firefox)
 
-Provides:       plasma-browser-integration = %{version}-%{release}
-Conflicts:      plasma-browser-integration < %{version}-%{release}
+Provides:       plasma-browser-integration%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-browser-integration < %{version}-%{release}
 
 %description
 %{name} coupled with a browser plugin provides integration of the browser in the desktop.

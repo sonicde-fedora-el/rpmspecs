@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-qt-integration
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 4 workspace and cross-framework integration plugins
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/frameworks/%%{framework}
@@ -43,8 +43,8 @@ BuildRequires:  cmake(packagekitqt6)
 BuildRequires:  cmake(KF6ColorScheme)
 Requires:  kf6-filesystem
 
-Provides:       kf6-frameworkintegration = %{version}-%{release}
-Conflicts:      kf6-frameworkintegration < %{version}-%{release}
+Provides:       kf6-frameworkintegration%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-frameworkintegration < %{version}-%{release}
 
 %description
 Framework Integration is a set of plugins responsible for better integration of
@@ -55,8 +55,8 @@ Applications do not need to link to this directly.
 %package        libs
 Summary:        Runtime libraries for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       kf6-frameworkintegration-libs = %{version}-%{release}
-Conflicts:      kf6-frameworkintegration-libs < %{version}-%{release}
+Provides:       kf6-frameworkintegration-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-frameworkintegration-libs < %{version}-%{release}
 
 %description    libs
 %{summary}.
@@ -67,8 +67,8 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6IconThemes)
 Requires:       cmake(KF6ConfigWidgets)
 
-Provides:       kf6-frameworkintegration-devel = %{version}-%{release}
-Conflicts:      kf6-frameworkintegration-devel < %{version}-%{release}
+Provides:       kf6-frameworkintegration-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-frameworkintegration-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains files to develop for %{name}.
@@ -76,8 +76,8 @@ The %{name}-devel package contains files to develop for %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-frameworkintegration-doc = %{version}-%{release}
-Conflicts:      kf6-frameworkintegration-doc < %{version}-%{release}
+Provides:       kf6-frameworkintegration-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-frameworkintegration-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -85,8 +85,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-frameworkintegration-html = %{version}-%{release}
-Conflicts:      kf6-frameworkintegration-html < %{version}-%{release}
+Provides:       kf6-frameworkintegration-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-frameworkintegration-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

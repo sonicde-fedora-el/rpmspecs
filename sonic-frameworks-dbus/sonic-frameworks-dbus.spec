@@ -12,7 +12,7 @@
 #Name:			kf6-%%{framework}
 Name:           sonic-frameworks-dbus
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:		KDE Frameworks 6 Tier 1 addon with various classes on top of QtDBus
 License:		CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only
 #URL:			https://invent.kde.org/frameworks/%%{framework}
@@ -32,8 +32,8 @@ BuildRequires:		pkgconfig(xkbcommon)
 
 Requires:		kf6-filesystem
 
-Provides:       kf6-kdbusaddons = %{version}-%{release}
-Conflicts:      kf6-kdbusaddons < %{version}-%{release}
+Provides:       kf6-kdbusaddons%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdbusaddons < %{version}-%{release}
 
 %description
 KDBusAddons provides convenience classes on top of QtDBus, as well as an API to
@@ -43,8 +43,8 @@ create KDED modules.
 Summary:		Development files for %{name}
 Requires:		%{name} = %{version}-%{release}
 Requires:		qt6-qtbase-devel
-Provides:       kf6-kdbusaddons-devel = %{version}-%{release}
-Conflicts:      kf6-kdbusaddons-devel < %{version}-%{release}
+Provides:       kf6-kdbusaddons-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdbusaddons-devel < %{version}-%{release}
 
 %description		devel
 The %{name}-devel package contains libraries and header files for
@@ -53,8 +53,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kdbusaddons-doc = %{version}-%{release}
-Conflicts:      kf6-kdbusaddons-doc < %{version}-%{release}
+Provides:       kf6-kdbusaddons-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdbusaddons-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -62,8 +62,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kdbusaddons-html = %{version}-%{release}
-Conflicts:      kf6-kdbusaddons-html < %{version}-%{release}
+Provides:       kf6-kdbusaddons-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdbusaddons-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

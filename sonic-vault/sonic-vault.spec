@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-vault
 Summary: Plasma Vault offers strong encryption features in a user-friendly way
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -54,8 +54,8 @@ Recommends: cryfs
 Recommends: fuse-encfs
 Requires: gocryptfs
 
-Provides:       plasma-vault = %{version}-%{release}
-Conflicts:      plasma-vault < %{version}-%{release}
+Provides:       plasma-vault%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-vault < %{version}-%{release}
 
 %description
 Plasma Vault allows to lock and encrypt sets of documents and hide them from

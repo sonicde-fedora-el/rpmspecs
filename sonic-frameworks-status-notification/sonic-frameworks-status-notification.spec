@@ -12,7 +12,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-status-notification
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Implementation of Status Notifier Items
 
 License:        CC0-1.0 AND LGPL-2.0-or-later
@@ -43,8 +43,8 @@ BuildRequires:  cmake(PySide6)
 
 Requires:  kf6-filesystem
 
-Provides:       kf6-kstatusnotifieritem = %{version}-%{release}
-Conflicts:      kf6-kstatusnotifieritem < %{version}-%{release}
+Provides:       kf6-kstatusnotifieritem%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kstatusnotifieritem < %{version}-%{release}
 
 %description
 %summary.
@@ -52,7 +52,6 @@ Conflicts:      kf6-kstatusnotifieritem < %{version}-%{release}
 %package        -n python3-%{name}
 Summary:        Qt for Python bindings for %{name}
 Provides:       python3-kf6-kstatusnotifieritem = %{version}-%{release}
-Conflicts:      python3-kf6-kstatusnotifieritem < %{version}-%{release}
 
 %description    -n python3-%{name}
 The package contains the pyside6 bindings library for %{name}
@@ -60,8 +59,8 @@ The package contains the pyside6 bindings library for %{name}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       kf6-kstatusnotifieritem-devel = %{version}-%{release}
-Conflicts:      kf6-kstatusnotifieritem-devel < %{version}-%{release}
+Provides:       kf6-kstatusnotifieritem-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kstatusnotifieritem-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -70,8 +69,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kstatusnotifieritem-doc = %{version}-%{release}
-Conflicts:      kf6-kstatusnotifieritem-doc < %{version}-%{release}
+Provides:       kf6-kstatusnotifieritem-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kstatusnotifieritem-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -79,8 +78,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kstatusnotifieritem-html = %{version}-%{release}
-Conflicts:      kf6-kstatusnotifieritem-html < %{version}-%{release}
+Provides:       kf6-kstatusnotifieritem-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kstatusnotifieritem-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

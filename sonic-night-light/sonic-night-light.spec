@@ -11,7 +11,7 @@
 Name:           sonic-night-light
 Summary:        Helpers for scheduling the dark-light cycle
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License:        GPL-3.0-only AND BSD-3-Clause AND MIT AND GPL-2.0-only AND LGPL-2.1-only AND CC0-1.0 AND LGPL-3.0-only
 #URL:            https://invent.kde.org/plasma/%%{name}
@@ -41,8 +41,8 @@ BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6Holidays)
 BuildRequires:  cmake(KF6I18n)
 
-Provides:       knighttime = %{version}-%{release}
-Conflicts:      knighttime < %{version}-%{release}
+Provides:       knighttime%{?_isa} = %{version}-%{release}
+Obsoletes:      knighttime < %{version}-%{release}
 
 %description
 %{summary}.
@@ -50,8 +50,8 @@ Conflicts:      knighttime < %{version}-%{release}
 %package devel
 Summary:        Developer files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       knighttime-devel = %{version}-%{release}
-Conflicts:      knighttime-devel < %{version}-%{release}
+Provides:       knighttime-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      knighttime-devel < %{version}-%{release}
 
 %description devel
 %{summary}.
@@ -59,8 +59,8 @@ Conflicts:      knighttime-devel < %{version}-%{release}
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       knighttime-doc = %{version}-%{release}
-Conflicts:      knighttime-doc < %{version}-%{release}
+Provides:       knighttime-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      knighttime-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -68,8 +68,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       knighttime-html = %{version}-%{release}
-Conflicts:      knighttime-html < %{version}-%{release}
+Provides:       knighttime-html%{?_isa} = %{version}-%{release}
+Obsoletes:      knighttime-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

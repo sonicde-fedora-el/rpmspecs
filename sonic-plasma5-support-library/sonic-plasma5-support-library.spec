@@ -11,7 +11,7 @@
 Name:           sonic-plasma5-support-library
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
 Version:        6.7.4
-Release:        2%{?dist}
+Release:        4%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -61,8 +61,8 @@ Provides:  plasma-workspace-geolocation = %{version}-%{release}
 Obsoletes: plasma-workspace-geolocation-libs < 6.2.90-1
 Provides:  plasma-workspace-geolocation-libs = %{version}-%{release}
 
-Provides:       plasma5support = %{version}-%{release}
-Conflicts:      plasma5support < %{version}-%{release}
+Provides:       plasma5support%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma5support < %{version}-%{release}
 
 %description
 %{summary}.
@@ -75,8 +75,8 @@ Obsoletes:      kf6-plasma5support-devel < 1:%{version}-%{release}
 Provides:       kf6-plasma5support-devel = 1:%{version}-%{release}
 # Geolocation devel components were part of plasma-workspace-devel
 Conflicts: plasma-workspace-devel < 6.2.90-1
-Provides:       plasma5support-devel = %{version}-%{release}
-Conflicts:      plasma5support-devel < %{version}-%{release}
+Provides:       plasma5support-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma5support-devel < %{version}-%{release}
 
 %description    devel
 %{summary}.
@@ -84,8 +84,8 @@ Conflicts:      plasma5support-devel < %{version}-%{release}
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       plasma5support-doc = %{version}-%{release}
-Conflicts:      plasma5support-doc < %{version}-%{release}
+Provides:       plasma5support-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma5support-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.

@@ -11,7 +11,7 @@
 Name:           sonic-workspace-addons
 Summary: Additional Plasmoids for Plasma 6
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        4%{?dist}
 
 %global source_licenses %{shrink:
     BSD-3-Clause AND
@@ -92,7 +92,7 @@ BuildRequires:  cmake(SonicVia)
 BuildRequires:  pkgconfig(polkit-qt6-core-1)
 
 # for notes.svgz
-Requires:       kf6-plasma
+Requires:       sonic-interface-libraries
 
 # Quickshare applet runtime dep
 BuildRequires:  cmake(KF6Purpose)
@@ -104,8 +104,8 @@ Requires:       qt6-qtquick3d%{?_isa}
 Requires:       sonic-frameworks-data-models%{?_isa}
 Requires:       sonic-frameworks-quick-ui-addons%{?_isa}
 
-Provides:       kdeplasma-addons = %{version}-%{release}
-Conflicts:      kdeplasma-addons < %{version}-%{release}
+Provides:       kdeplasma-addons%{?_isa} = %{version}-%{release}
+Obsoletes:      kdeplasma-addons < %{version}-%{release}
 
 %description
 %{summary}.
@@ -129,8 +129,8 @@ Requires: %{name} = %{version}-%{release}
 #find_dependency(KF5CoreAddons "5.58.0")
 Requires: cmake(Qt6Gui)
 Requires: cmake(KF6CoreAddons)
-Provides:       kdeplasma-addons-devel = %{version}-%{release}
-Conflicts:      kdeplasma-addons-devel < %{version}-%{release}
+Provides:       kdeplasma-addons-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kdeplasma-addons-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for

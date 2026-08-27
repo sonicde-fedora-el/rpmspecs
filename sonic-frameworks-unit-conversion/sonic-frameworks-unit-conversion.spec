@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-unit-conversion
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 2 addon for unit conversions
 
 License: CC0-1.0 AND LGPL-2.0-or-later
@@ -41,8 +41,8 @@ BuildRequires:  cmake(PySide6)
 
 Requires:  kf6-filesystem
 
-Provides:       kf6-kunitconversion = %{version}-%{release}
-Conflicts:      kf6-kunitconversion < %{version}-%{release}
+Provides:       kf6-kunitconversion%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kunitconversion < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 2 addon for unit conversions.
@@ -50,7 +50,6 @@ KDE Frameworks 6 Tier 2 addon for unit conversions.
 %package        -n python3-%{name}
 Summary:        Qt for Python bindings for %{name}
 Provides:       python3-kf6-kunitconversion = %{version}-%{release}
-Conflicts:      python3-kf6-kunitconversion < %{version}-%{release}
 
 %description    -n python3-%{name}
 The package contains the pyside6 bindings library for %{name}
@@ -59,8 +58,8 @@ The package contains the pyside6 bindings library for %{name}
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
-Provides:       kf6-kunitconversion-devel = %{version}-%{release}
-Conflicts:      kf6-kunitconversion-devel < %{version}-%{release}
+Provides:       kf6-kunitconversion-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kunitconversion-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -69,8 +68,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kunitconversion-doc = %{version}-%{release}
-Conflicts:      kf6-kunitconversion-doc < %{version}-%{release}
+Provides:       kf6-kunitconversion-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kunitconversion-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -78,8 +77,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kunitconversion-html = %{version}-%{release}
-Conflicts:      kf6-kunitconversion-html < %{version}-%{release}
+Provides:       kf6-kunitconversion-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kunitconversion-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

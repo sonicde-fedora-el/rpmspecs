@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-qml-bridge
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for Qt declarative
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
@@ -44,8 +44,8 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtdeclarative-devel
 Requires:  kf6-filesystem
 
-Provides:       kf6-kdeclarative = %{version}-%{release}
-Conflicts:      kf6-kdeclarative < %{version}-%{release}
+Provides:       kf6-kdeclarative%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdeclarative < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 3 addon for Qt declarative
@@ -56,8 +56,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6Config)
 Requires:       cmake(KF6Package)
 Requires:       qt6-qtdeclarative-devel
-Provides:       kf6-kdeclarative-devel = %{version}-%{release}
-Conflicts:      kf6-kdeclarative-devel < %{version}-%{release}
+Provides:       kf6-kdeclarative-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdeclarative-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -66,8 +66,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kdeclarative-doc = %{version}-%{release}
-Conflicts:      kf6-kdeclarative-doc < %{version}-%{release}
+Provides:       kf6-kdeclarative-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdeclarative-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -75,8 +75,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kdeclarative-html = %{version}-%{release}
-Conflicts:      kf6-kdeclarative-html < %{version}-%{release}
+Provides:       kf6-kdeclarative-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdeclarative-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

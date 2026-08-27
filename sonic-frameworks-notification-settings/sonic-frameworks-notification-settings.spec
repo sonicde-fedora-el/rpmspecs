@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-notification-settings
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 module for KNotify configuration
 
 License: CC0-1.0 AND LGPL-2.0-only
@@ -40,8 +40,8 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  cmake(Qt6TextToSpeech)
 Requires:  kf6-filesystem
 
-Provides:       kf6-knotifyconfig = %{version}-%{release}
-Conflicts:      kf6-knotifyconfig < %{version}-%{release}
+Provides:       kf6-knotifyconfig%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-knotifyconfig < %{version}-%{release}
 
 %description
 %{summary}.
@@ -50,8 +50,8 @@ Conflicts:      kf6-knotifyconfig < %{version}-%{release}
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
-Provides:       kf6-knotifyconfig-devel = %{version}-%{release}
-Conflicts:      kf6-knotifyconfig-devel < %{version}-%{release}
+Provides:       kf6-knotifyconfig-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-knotifyconfig-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -60,8 +60,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-knotifyconfig-doc = %{version}-%{release}
-Conflicts:      kf6-knotifyconfig-doc < %{version}-%{release}
+Provides:       kf6-knotifyconfig-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-knotifyconfig-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -69,8 +69,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-knotifyconfig-html = %{version}-%{release}
-Conflicts:      kf6-knotifyconfig-html < %{version}-%{release}
+Provides:       kf6-knotifyconfig-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-knotifyconfig-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

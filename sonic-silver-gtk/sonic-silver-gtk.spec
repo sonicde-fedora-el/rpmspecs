@@ -10,7 +10,7 @@
 #Name:    breeze-gtk
 Name:           sonic-silver-gtk
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: Breeze widget theme for GTK
 
 License: BSD-3-Clause AND CC0-1.0
@@ -42,8 +42,8 @@ Requires: %{name}-gtk2 = %{version}-%{release}
 Requires: %{name}-gtk3 = %{version}-%{release}
 Requires: %{name}-gtk4 = %{version}-%{release}
 
-Provides:       breeze-gtk = %{version}-%{release}
-Conflicts:      breeze-gtk < %{version}-%{release}
+Provides:       breeze-gtk%{?_isa} = %{version}-%{release}
+Obsoletes:      breeze-gtk < %{version}-%{release}
 
 %description
 %{summary}.
@@ -52,8 +52,8 @@ Conflicts:      breeze-gtk < %{version}-%{release}
 Summary:        Breeze widget theme for GTK common files
 Conflicts:      sonic-silver-gtk < 5.20.2-2
 
-Provides:       breeze-gtk-common = %{version}-%{release}
-Conflicts:      breeze-gtk-common < %{version}-%{release}
+Provides:       breeze-gtk-common%{?_isa} = %{version}-%{release}
+Obsoletes:      breeze-gtk-common < %{version}-%{release}
 
 %description common
 %{summary}.
@@ -63,8 +63,8 @@ Summary:        Breeze widget theme for GTK 2
 Requires:       gtk2-engines
 Requires:       %{name}-common = %{version}-%{release}
 Supplements:    (sonic-breeze and gtk2)
-Provides:       breeze-gtk-gtk2 = %{version}-%{release}
-Conflicts:      breeze-gtk-gtk2 < %{version}-%{release}
+Provides:       breeze-gtk-gtk2%{?_isa} = %{version}-%{release}
+Obsoletes:      breeze-gtk-gtk2 < %{version}-%{release}
 
 %description gtk2
 %{summary}.
@@ -73,8 +73,8 @@ Conflicts:      breeze-gtk-gtk2 < %{version}-%{release}
 Summary:        Breeze widget theme for GTK 3
 Requires:       %{name}-common = %{version}-%{release}
 Supplements:    (sonic-breeze and gtk3)
-Provides:       breeze-gtk-gtk3 = %{version}-%{release}
-Conflicts:      breeze-gtk-gtk3 < %{version}-%{release}
+Provides:       breeze-gtk-gtk3%{?_isa} = %{version}-%{release}
+Obsoletes:      breeze-gtk-gtk3 < %{version}-%{release}
 
 %description gtk3
 %{summary}.
@@ -83,8 +83,8 @@ Conflicts:      breeze-gtk-gtk3 < %{version}-%{release}
 Summary:        Breeze widget theme for GTK 4
 Requires:       %{name}-common = %{version}-%{release}
 Supplements:    (sonic-breeze and gtk4)
-Provides:       breeze-gtk-gtk4 = %{version}-%{release}
-Conflicts:      breeze-gtk-gtk4 < %{version}-%{release}
+Provides:       breeze-gtk-gtk4%{?_isa} = %{version}-%{release}
+Obsoletes:      breeze-gtk-gtk4 < %{version}-%{release}
 
 %description gtk4
 %{summary}.

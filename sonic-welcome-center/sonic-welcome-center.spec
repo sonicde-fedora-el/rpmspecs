@@ -12,7 +12,7 @@
 #Name:           plasma-welcome
 Name:           sonic-welcome-center
 Version:        6.7.4.1
-Release:        1%{?dist}
+Release:        4%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
 Url:            https://github.com/Sonic-DE/%{reponame}
@@ -55,11 +55,11 @@ BuildRequires:  cmake(Plasma)
 
 Requires:       sonic-frameworks-user-feedback
 
-Provides:       plasma-welcome-app = %{version}-%{release}
+Provides:       plasma-welcome-app%{?_isa} = %{version}-%{release}
 Obsoletes:      plasma-welcome-app < 5.27.0-2
+Obsoletes:      plasma-welcome < %{version}-%{release}
 
-Provides:       plasma-welcome = %{version}-%{release}
-Conflicts:      plasma-welcome < %{version}-%{release}
+Provides:       plasma-welcome%{?_isa} = %{version}-%{release}
 
 %description
 A Friendly onboarding wizard for Plasma.

@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-network-manager
 Summary: Plasma for managing network connections
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -96,8 +96,8 @@ Obsoletes:      kde-plasma-networkmanagement-libs < 1:0.9.1.0
 Obsoletes:      kde-plasma-nm < 5.0.0-1
 Provides:       kde-plasma-nm = %{version}-%{release}
 
-Provides:       plasma-nm = %{version}-%{release}
-Conflicts:      plasma-nm < %{version}-%{release}
+Provides:       plasma-nm%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm < %{version}-%{release}
 
 %description
 Plasma applet and editor for managing your network connections in KDE 4 using
@@ -111,8 +111,8 @@ Requires:       NetworkManager-openvpn
 Obsoletes:      kde-plasma-networkmanagement-openvpn < 1:0.9.1.0
 Obsoletes:      kde-plasma-nm-openvpn < 5.0.0-1
 Provides:       kde-plasma-nm-openvpn = %{version}-%{release}
-Provides:       plasma-nm-openvpn = %{version}-%{release}
-Conflicts:      plasma-nm-openvpn < %{version}-%{release}
+Provides:       plasma-nm-openvpn%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-openvpn < %{version}-%{release}
 
 %description    openvpn
 %{summary}.
@@ -126,8 +126,8 @@ Obsoletes:      kde-plasma-networkmanagement-openconnect < 1:0.9.1.0
 Obsoletes:      kde-plasma-nm-openconnect < 5.0.0-1
 Provides:       kde-plasma-nm-openconnect = %{version}-%{release}
 Provides:       deprecated()
-Provides:       plasma-nm-openconnect = %{version}-%{release}
-Conflicts:      plasma-nm-openconnect < %{version}-%{release}
+Provides:       plasma-nm-openconnect%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-openconnect < %{version}-%{release}
 
 %description    openconnect
 %{summary}.
@@ -139,8 +139,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-openswan
 Obsoletes:      kde-plasma-nm-openswan < 5.0.0-1
 Provides:       kde-plasma-nm-openswan = %{version}-%{release}
-Provides:       plasma-nm-openswan = %{version}-%{release}
-Conflicts:      plasma-nm-openswan < %{version}-%{release}
+Provides:       plasma-nm-openswan%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-openswan < %{version}-%{release}
 
 %description    openswan
 %{summary}.
@@ -151,8 +151,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       strongswan
 Obsoletes:      kde-plasma-nm-strongswan < 5.0.0-1
 Provides:       kde-plasma-nm-strongswan = %{version}-%{release}
-Provides:       plasma-nm-strongswan = %{version}-%{release}
-Conflicts:      plasma-nm-strongswan < %{version}-%{release}
+Provides:       plasma-nm-strongswan%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-strongswan < %{version}-%{release}
 
 %description    strongswan
 %{summary}.
@@ -163,8 +163,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-l2tp
 Obsoletes:      kde-plasma-nm-l2tp < 5.0.0-1
 Provides:       kde-plasma-nm-l2tp = %{version}-%{release}
-Provides:       plasma-nm-l2tp = %{version}-%{release}
-Conflicts:      plasma-nm-l2tp < %{version}-%{release}
+Provides:       plasma-nm-l2tp%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-l2tp < %{version}-%{release}
 
 %description    l2tp
 %{summary}.
@@ -176,8 +176,8 @@ Requires:       NetworkManager-pptp
 Obsoletes:      kde-plasma-networkmanagement-pptp < 1:0.9.1.0
 Obsoletes:      kde-plasma-nm-pptp < 5.0.0-1
 Provides:       kde-plasma-nm-pptp = %{version}-%{release}
-Provides:       plasma-nm-pptp = %{version}-%{release}
-Conflicts:      plasma-nm-pptp < %{version}-%{release}
+Provides:       plasma-nm-pptp%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-pptp < %{version}-%{release}
 
 %description    pptp
 %{summary}.
@@ -186,8 +186,8 @@ Conflicts:      plasma-nm-pptp < %{version}-%{release}
 Summary:        SSTP support for %{name}
 Requires:       NetworkManager-sstp
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       plasma-nm-sstp = %{version}-%{release}
-Conflicts:      plasma-nm-sstp < %{version}-%{release}
+Provides:       plasma-nm-sstp%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-sstp < %{version}-%{release}
 
 %description    sstp
 %{summary}.
@@ -196,8 +196,8 @@ Conflicts:      plasma-nm-sstp < %{version}-%{release}
 Summary:        Fortigate SSL VPN support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-fortisslvpn
-Provides:       plasma-nm-fortisslvpn = %{version}-%{release}
-Conflicts:      plasma-nm-fortisslvpn < %{version}-%{release}
+Provides:       plasma-nm-fortisslvpn%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-fortisslvpn < %{version}-%{release}
 
 %description    fortisslvpn
 %{summary}.
@@ -210,8 +210,8 @@ Requires:       NetworkManager-vpnc
 Obsoletes:      kde-plasma-networkmanagement-vpnc < 1:0.9.1.0
 Obsoletes:      kde-plasma-nm-vpnc < 5.0.0-1
 Provides:       kde-plasma-nm-vpnc = %{version}-%{release}
-Provides:       plasma-nm-vpnc = %{version}-%{release}
-Conflicts:      plasma-nm-vpnc < %{version}-%{release}
+Provides:       plasma-nm-vpnc%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-vpnc < %{version}-%{release}
 
 %description    vpnc
 %{summary}.
@@ -220,8 +220,8 @@ Conflicts:      plasma-nm-vpnc < %{version}-%{release}
 Summary:        SSH suppor for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-ssh
-Provides:       plasma-nm-ssh = %{version}-%{release}
-Conflicts:      plasma-nm-ssh < %{version}-%{release}
+Provides:       plasma-nm-ssh%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-ssh < %{version}-%{release}
 
 %description    ssh
 %{summary}.
@@ -230,8 +230,8 @@ Conflicts:      plasma-nm-ssh < %{version}-%{release}
 Summary:        Iodine support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-iodine
-Provides:       plasma-nm-iodine = %{version}-%{release}
-Conflicts:      plasma-nm-iodine < %{version}-%{release}
+Provides:       plasma-nm-iodine%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-nm-iodine < %{version}-%{release}
 
 %description    iodine
 %{summary}.

@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-keyring
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for password management
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
@@ -58,8 +58,8 @@ Requires:       kf6-filesystem
 Requires:       pinentry-gui
 Requires:       qca-qt6-ossl%{?_isa}
 
-Provides:       kf6-kwallet = %{version}-%{release}
-Conflicts:      kf6-kwallet < %{version}-%{release}
+Provides:       kf6-kwallet%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kwallet < %{version}-%{release}
 
 %description
 KWallet is a secure and unified container for user passwords.
@@ -67,8 +67,8 @@ KWallet is a secure and unified container for user passwords.
 %package        libs
 Summary:        KWallet framework libraries
 Requires:       (%{name}%{?_isa} = %{version}-%{release} if systemd)
-Provides:       kf6-kwallet-libs = %{version}-%{release}
-Conflicts:      kf6-kwallet-libs < %{version}-%{release}
+Provides:       kf6-kwallet-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kwallet-libs < %{version}-%{release}
 
 %description    libs
 Provides API to access KWallet data from applications.
@@ -78,8 +78,8 @@ Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
 
-Provides:       kf6-kwallet-devel = %{version}-%{release}
-Conflicts:      kf6-kwallet-devel < %{version}-%{release}
+Provides:       kf6-kwallet-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kwallet-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -88,8 +88,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kwallet-doc = %{version}-%{release}
-Conflicts:      kf6-kwallet-doc < %{version}-%{release}
+Provides:       kf6-kwallet-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kwallet-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -97,8 +97,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kwallet-html = %{version}-%{release}
-Conflicts:      kf6-kwallet-html < %{version}-%{release}
+Provides:       kf6-kwallet-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kwallet-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

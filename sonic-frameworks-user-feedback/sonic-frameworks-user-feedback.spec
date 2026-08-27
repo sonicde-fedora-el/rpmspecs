@@ -13,7 +13,7 @@
 Name:           sonic-frameworks-user-feedback
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: MIT AND CC0-1.0 AND BSD-3-Clause
 #URL:     https://invent.kde.org/frameworks/%%{framework}
@@ -46,8 +46,8 @@ BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: bison
 BuildRequires: flex
 
-Provides:       kf6-kuserfeedback = %{version}-%{release}
-Conflicts:      kf6-kuserfeedback < %{version}-%{release}
+Provides:       kf6-kuserfeedback%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback < %{version}-%{release}
 
 %description
 %{summary}.
@@ -61,8 +61,8 @@ Obsoletes:      kuserfeedback-console < %{version}-%{release}
 Provides:       kuserfeedback-console = %{version}-%{release}
 Provides:       kuserfeedback-console%{?_isa} = %{version}-%{release}
 
-Provides:       kf6-kuserfeedback-console = %{version}-%{release}
-Conflicts:      kf6-kuserfeedback-console < %{version}-%{release}
+Provides:       kf6-kuserfeedback-console%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback-console < %{version}-%{release}
 
 %description    console
 Analytics and administration tool for UserFeedback servers.
@@ -73,8 +73,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(Qt6Network)
 Requires:       cmake(Qt6Widgets)
 
-Provides:       kf6-kuserfeedback-devel = %{version}-%{release}
-Conflicts:      kf6-kuserfeedback-devel < %{version}-%{release}
+Provides:       kf6-kuserfeedback-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -83,8 +83,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kuserfeedback-doc = %{version}-%{release}
-Conflicts:      kf6-kuserfeedback-doc < %{version}-%{release}
+Provides:       kf6-kuserfeedback-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -92,8 +92,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kuserfeedback-html = %{version}-%{release}
-Conflicts:      kf6-kuserfeedback-html < %{version}-%{release}
+Provides:       kf6-kuserfeedback-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

@@ -5,7 +5,7 @@
 Name:    sonic-keybind-daemon
 Summary: Daemon providing Global Keyboard Shortcut functionality
 Version: 6.7.4
-Release: 1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -42,7 +42,8 @@ BuildRequires:  pkgconfig(xcb-record)
 BuildRequires:  pkgconfig(xcb-xtest)
 BuildRequires:  systemd
 Requires:  kf6-filesystem
-Conflicts: kglobalacceld
+Obsoletes:      kglobalacceld < %{version}-%{release}
+Provides:       kglobalacceld = %{version}-%{release}
 
 %description
 %{summary}.
@@ -51,7 +52,8 @@ Conflicts: kglobalacceld
 Summary:        Developer files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
-Conflicts: kglobalacceld-devel
+Obsoletes:      kglobalacceld-devel < %{version}-%{release}
+Provides:       kglobalacceld-devel = %{version}-%{release}
 %description    devel
 %{summary}.
 

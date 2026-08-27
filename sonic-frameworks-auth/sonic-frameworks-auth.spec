@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-auth
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 module to perform actions as privileged user
 # LGPL-2.0-or-later is also in the project's LICENSES, but is unused according to reuse.
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later
@@ -36,8 +36,8 @@ BuildRequires:  cmake(KF6WindowSystem)
 
 Requires:  kf6-filesystem
 
-Provides:       kf6-kauth = %{version}-%{release}
-Conflicts:      kf6-kauth < %{version}-%{release}
+Provides:       kf6-kauth%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kauth < %{version}-%{release}
 
 %description
 %{summary}.
@@ -46,8 +46,8 @@ Conflicts:      kf6-kauth < %{version}-%{release}
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6CoreAddons)
-Provides:       kf6-kauth-devel = %{version}-%{release}
-Conflicts:      kf6-kauth-devel < %{version}-%{release}
+Provides:       kf6-kauth-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kauth-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -56,8 +56,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kauth-doc = %{version}-%{release}
-Conflicts:      kf6-kauth-doc < %{version}-%{release}
+Provides:       kf6-kauth-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kauth-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -65,8 +65,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kauth-html = %{version}-%{release}
-Conflicts:      kf6-kauth-html < %{version}-%{release}
+Provides:       kf6-kauth-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kauth-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

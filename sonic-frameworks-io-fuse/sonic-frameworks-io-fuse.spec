@@ -20,7 +20,7 @@
 #Name:           kio-fuse
 Name:           sonic-frameworks-io-fuse
 Version:        6.0.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        KIO FUSE
 
 License:        GPL-3.0-or-later
@@ -56,8 +56,8 @@ BuildRequires:  fuse3
 Requires:       systemd
 Requires:       dbus-common
 
-Provides:       kio-fuse = %{version}-%{release}
-Conflicts:      kio-fuse < %{version}-%{release}
+Provides:       kio-fuse%{?_isa} = %{version}-%{release}
+Obsoletes:      kio-fuse < %{version}-%{release}
 
 %description
 KioFuse works by acting as a bridge between KDE's KIO filesystem design and

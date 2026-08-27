@@ -13,7 +13,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-image-formats
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -52,8 +52,8 @@ Requires:       kf6-filesystem
 Recommends:     poppler-utils
 Recommends:     ghostscript
 
-Provides:       kf6-kimageformats = %{version}-%{release}
-Conflicts:      kf6-kimageformats < %{version}-%{release}
+Provides:       kf6-kimageformats%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kimageformats < %{version}-%{release}
 
 %description
 This framework provides additional image format plugins for QtGui.  As
@@ -64,8 +64,8 @@ image formats.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       kf6-kimageformats-devel = %{version}-%{release}
-Conflicts:      kf6-kimageformats-devel < %{version}-%{release}
+Provides:       kf6-kimageformats-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kimageformats-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for

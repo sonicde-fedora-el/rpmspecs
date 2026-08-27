@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-gtk-theme-bridge
 Summary: Configure the appearance of GTK apps in KDE
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -57,8 +57,8 @@ BuildRequires:  xsettingsd
 # avoid hard dep for now -- rex
 Recommends:     xsettingsd
 
-Provides:       kde-gtk-config = %{version}-%{release}
-Conflicts:      kde-gtk-config < %{version}-%{release}
+Provides:       kde-gtk-config%{?_isa} = %{version}-%{release}
+Obsoletes:      kde-gtk-config < %{version}-%{release}
 
 %description
 This is a System Settings configuration module for configuring the

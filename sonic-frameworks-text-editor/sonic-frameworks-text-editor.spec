@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-text-editor
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 with advanced embeddable text editor
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND MIT
@@ -46,8 +46,8 @@ BuildRequires:  pkgconfig(xkbcommon)
 Requires: kf6-filesystem
 Requires: git-core
 
-Provides:       kf6-ktexteditor = %{version}-%{release}
-Conflicts:      kf6-ktexteditor < %{version}-%{release}
+Provides:       kf6-ktexteditor%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ktexteditor < %{version}-%{release}
 
 %description
 KTextEditor provides a powerful text editor component that you can embed in your
@@ -65,8 +65,8 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       cmake(KF6Parts)
 Requires:       cmake(KF6SyntaxHighlighting)
 #Requires:       kf6-syntax-highlighting-devel
-Provides:       kf6-ktexteditor-devel = %{version}-%{release}
-Conflicts:      kf6-ktexteditor-devel < %{version}-%{release}
+Provides:       kf6-ktexteditor-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ktexteditor-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -75,8 +75,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-ktexteditor-doc = %{version}-%{release}
-Conflicts:      kf6-ktexteditor-doc < %{version}-%{release}
+Provides:       kf6-ktexteditor-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ktexteditor-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -84,8 +84,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-ktexteditor-html = %{version}-%{release}
-Conflicts:      kf6-ktexteditor-html < %{version}-%{release}
+Provides:       kf6-ktexteditor-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ktexteditor-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

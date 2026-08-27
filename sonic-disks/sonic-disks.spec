@@ -11,7 +11,7 @@
 Name:           sonic-disks
 Summary: Hard disk health monitoring for KDE Plasma
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-3.0-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -49,8 +49,8 @@ BuildRequires:  desktop-file-utils
 ExcludeArch:    %{ix86}
 %endif
 
-Provides:       plasma-disks = %{version}-%{release}
-Conflicts:      plasma-disks < %{version}-%{release}
+Provides:       plasma-disks%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-disks < %{version}-%{release}
 
 %description
 Plasma Disks monitors S.M.A.R.T. data of disks and alerts the user when

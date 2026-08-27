@@ -12,7 +12,7 @@
 #Name:		kf6-%%{framework}
 Name:           sonic-frameworks-spell-check
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 solution for spell checking
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 #URL:		https://invent.kde.org/frameworks/%%{framework}
@@ -46,8 +46,8 @@ BuildRequires:	pkgconfig(libvoikko)
 Requires:	kf6-filesystem
 Recommends:	%{name}-hunspell
 
-Provides:       kf6-sonnet = %{version}-%{release}
-Conflicts:      kf6-sonnet < %{version}-%{release}
+Provides:       kf6-sonnet%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-sonnet < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 1 solution for spell checking.
@@ -56,8 +56,8 @@ KDE Frameworks 6 Tier 1 solution for spell checking.
 %package	aspell
 Summary:	aspell plugin for %{name}
 Requires:	%{name} = %{version}-%{release}
-Provides:       kf6-sonnet-aspell = %{version}-%{release}
-Conflicts:      kf6-sonnet-aspell < %{version}-%{release}
+Provides:       kf6-sonnet-aspell%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-sonnet-aspell < %{version}-%{release}
 
 %description	aspell
 The %{name}-aspell package contains the aspell spellchecking
@@ -66,8 +66,8 @@ plugin for %{name}.
 %package	hunspell
 Summary:	hunspell plugin for %{name}
 Requires:	%{name} = %{version}-%{release}
-Provides:       kf6-sonnet-hunspell = %{version}-%{release}
-Conflicts:      kf6-sonnet-hunspell < %{version}-%{release}
+Provides:       kf6-sonnet-hunspell%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-sonnet-hunspell < %{version}-%{release}
 
 %description	hunspell
 The %{name}-hunspell package contains the hunspell spellchecking
@@ -79,8 +79,8 @@ Supplements:	(%{name} and langpacks-he)
 Requires:	%{name} = %{version}-%{release}
 Requires:	hunspell-he
 
-Provides:       kf6-sonnet-hspell = %{version}-%{release}
-Conflicts:      kf6-sonnet-hspell < %{version}-%{release}
+Provides:       kf6-sonnet-hspell%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-sonnet-hspell < %{version}-%{release}
 
 %description	hspell
 The %{name}-hspell package contains the Hebrew hspell spellchecking
@@ -90,8 +90,8 @@ plugin for %{name}.
 Summary:	voikko plugin for %{name}
 Supplements:	(%{name} and langpacks-fi)
 Requires:	%{name} = %{version}-%{release}
-Provides:       kf6-sonnet-voikko = %{version}-%{release}
-Conflicts:      kf6-sonnet-voikko < %{version}-%{release}
+Provides:       kf6-sonnet-voikko%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-sonnet-voikko < %{version}-%{release}
 
 %description	voikko
 The %{name}-voikko package contains the Finnish voikko spellchecking
@@ -102,8 +102,8 @@ plugin for %{name}.
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt6-qtbase-devel
-Provides:       kf6-sonnet-devel = %{version}-%{release}
-Conflicts:      kf6-sonnet-devel < %{version}-%{release}
+Provides:       kf6-sonnet-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-sonnet-devel < %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -112,8 +112,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-sonnet-doc = %{version}-%{release}
-Conflicts:      kf6-sonnet-doc < %{version}-%{release}
+Provides:       kf6-sonnet-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-sonnet-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -121,8 +121,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-sonnet-html = %{version}-%{release}
-Conflicts:      kf6-sonnet-html < %{version}-%{release}
+Provides:       kf6-sonnet-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-sonnet-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

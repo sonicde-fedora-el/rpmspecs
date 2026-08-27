@@ -19,7 +19,7 @@
 Name:           sonic-frameworks-silver-icons
 Summary: Breeze icon theme library
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 # skladnik.svg is CC-BY-SA-4.0
 # folder-edit-sign-encrypt.svg is LGPL-2.1-or-later
@@ -53,8 +53,8 @@ Requires: breeze-icon-theme = %{version}-%{release}
 Requires: breeze-icon-theme
 %endif
 
-Provides:       kf6-breeze-icons = %{version}-%{release}
-Conflicts:      kf6-breeze-icons < %{version}-%{release}
+Provides:       kf6-breeze-icons%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-breeze-icons < %{version}-%{release}
 
 %description
 %{summary}.
@@ -113,8 +113,8 @@ Requires:    %{name} = %{version}-%{release}
 # renamed for https://pagure.io/fedora-kde/SIG/issue/530
 Provides:    breeze-icon-theme-devel = %{version}-%{release}
 Obsoletes:   breeze-icon-theme-devel < 6.3.0-2
-Provides:       kf6-breeze-icons-devel = %{version}-%{release}
-Conflicts:      kf6-breeze-icons-devel < %{version}-%{release}
+Provides:       kf6-breeze-icons-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-breeze-icons-devel < %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files for

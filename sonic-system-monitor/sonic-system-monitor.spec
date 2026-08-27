@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 #Name:    plasma-systemmonitor
 Name:           sonic-system-monitor
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: An application for monitoring system resources
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -59,8 +59,8 @@ Requires: sonic-frameworks-quick-charts%{?_isa}
 
 Obsoletes: ksysguard < 5.23
 
-Provides:       plasma-systemmonitor = %{version}-%{release}
-Conflicts:      plasma-systemmonitor < %{version}-%{release}
+Provides:       plasma-systemmonitor%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-systemmonitor < %{version}-%{release}
 
 %description
 An interface for monitoring system sensors, process information and other system

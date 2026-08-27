@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-xml-gui
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for user-configurable main windows
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -54,8 +54,8 @@ BuildRequires:  cmake(PySide6)
 
 Requires:       kf6-filesystem
 
-Provides:       kf6-kxmlgui = %{version}-%{release}
-Conflicts:      kf6-kxmlgui < %{version}-%{release}
+Provides:       kf6-kxmlgui%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kxmlgui < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 3 solution for user-configurable main windows.
@@ -63,7 +63,6 @@ KDE Frameworks 6 Tier 3 solution for user-configurable main windows.
 %package        -n python3-%{name}
 Summary:        Qt for Python bindings for %{name}
 Provides:       python3-kf6-kxmlgui = %{version}-%{release}
-Conflicts:      python3-kf6-kxmlgui < %{version}-%{release}
 
 %description    -n python3-%{name}
 The package contains the pyside6 bindings library for %{name}
@@ -75,8 +74,8 @@ Requires:       cmake(KF6Config)
 Requires:       cmake(KF6ConfigWidgets)
 Requires:       cmake(KF6GuiAddons)
 Requires:       qt6-qtbase-devel
-Provides:       kf6-kxmlgui-devel = %{version}-%{release}
-Conflicts:      kf6-kxmlgui-devel < %{version}-%{release}
+Provides:       kf6-kxmlgui-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kxmlgui-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -85,8 +84,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kxmlgui-doc = %{version}-%{release}
-Conflicts:      kf6-kxmlgui-doc < %{version}-%{release}
+Provides:       kf6-kxmlgui-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kxmlgui-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -94,8 +93,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kxmlgui-html = %{version}-%{release}
-Conflicts:      kf6-kxmlgui-html < %{version}-%{release}
+Provides:       kf6-kxmlgui-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kxmlgui-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

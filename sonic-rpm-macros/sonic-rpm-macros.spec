@@ -10,7 +10,7 @@
 
 Name:           sonic-rpm-macros
 Version:        %{sonicde_frameworks_version}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        RPM macros for building SonicDE packages
 License:        BSD-3-Clause
 URL:            https://github.com/Sonic-DE
@@ -24,7 +24,7 @@ Requires:       qt6-rpm-macros >= 6
 Requires:       gcc-c++
 Requires:       doxygen
 Requires:       qt6-doc-devel
-Requires:       kde-qdoc-common
+Recommends:      kde-qdoc-common
 Requires:       cmake(Qt6ToolsTools)
 # Directory ownership only, no KDE code.
 Requires:       kf6-filesystem

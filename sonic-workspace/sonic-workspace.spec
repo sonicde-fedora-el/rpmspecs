@@ -7,7 +7,7 @@
 Name:    sonic-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.7.4.6
-Release: 1%{?dist}
+Release:        5%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -175,7 +175,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  cmake(AppStreamQt) >= 1.0.0
 
 # when kded_desktopnotifier.so moved here
-Conflicts:      kio-extras < 5.4.0
+Obsoletes:      kio-extras < 5.4.0
+Provides:       kio-extras = %{version}-%{release}
 
 Recommends:     sonic-welcome-center
 
@@ -199,9 +200,9 @@ Requires:       sonic-frameworks-quick-ui
 Requires:       sonic-frameworks-quick-ui-addons
 BuildRequires:  sonic-frameworks-quick-ui-addons
 Requires:       kio-extras
-BuildRequires:  kio-extras
-Requires:       kio-fuse
-BuildRequires:  kio-fuse
+BuildRequires:  sonic-frameworks-io-extras
+Requires:      sonic-frameworks-io-fuse
+BuildRequires:  sonic-frameworks-io-fuse
 
 # The new volume control for PulseAudio
 Recommends:       sonic-audio-applet-pulse
@@ -246,7 +247,7 @@ Requires:       /usr/bin/qtpaths-qt6
 
 Requires:       xrdb xprop
 
-Requires:       kde-settings-plasma
+Recommends:      kde-settings-plasma
 
 # Default look-and-feel theme
 Requires:       plasma-lookandfeel-fedora = %{version}-%{release}
@@ -257,10 +258,10 @@ Requires:       systemd
 Requires:       ocean-sound-theme
 
 # PolicyKit authentication agent
-Requires:        polkit-kde
+Requires:      sonic-polkit-agent
 
 # onscreen keyboard
-Requires:        plasma-keyboard%{?_isa}
+Recommends:      plasma-keyboard%{?_isa}
 
 # lockscreen look-and-feel imports qml: QtQuick.VirtualKeyboard
 Requires:        qt6-qtvirtualkeyboard
@@ -269,7 +270,7 @@ Requires:        (uresourced if systemd-oomd-defaults)
 
 # needed for task manager thumbnails under wayland and for things like
 # screenshare portal
-BuildRequires:  kpipewire-devel
+BuildRequires:  sonic-pipewire-devel
 
 # Require any plasmashell (plasma-desktop provides plasmashell(desktop))
 Provides:       plasmashell = %{version}
@@ -296,14 +297,16 @@ Requires:   sonic-win
 Requires:   qt6-qtwayland%{?_isa}
 # startplasmacompositor deps
 Requires:   qt6-qttools
-Requires:   xdg-desktop-portal-kde
+Requires:      xdg-desktop-portal-sonicde
 # Enables X11 apps to screenshare a Wayland environment
 Recommends: xwaylandvideobridge
 # Replace the old -wayland subpackage
 Obsoletes:  %{oldname}-wayland < 6.4.1-2
 Conflicts:  %{oldname}-wayland < 6.4.1-2
-Conflicts:  plasma-workspace-x11
-Conflicts:  plasma-workspace
+Obsoletes:      plasma-workspace-x11 < %{version}-%{release}
+Provides:       plasma-workspace-x11 = %{version}-%{release}
+Obsoletes:      plasma-workspace < %{version}-%{release}
+Provides:       plasma-workspace = %{version}-%{release}
 Provides:   sonic-workspace = %{version}-%{release}
 Provides:   sonic-workspace%{?_isa} = %{version}-%{release}
 Provides:   plasma-workspace = %{version}-%{release}
@@ -392,7 +395,8 @@ Documentation and user manuals for %{name}.
 Summary:        SonicDE X11 session
 #Requires:       %%{name}%%{?_isa} = %%{version}-%%{release}
 Requires:       xlibre-xserver-Xorg
-Conflicts:      plasma-workspace-x11
+Obsoletes:      plasma-workspace-x11 < %{version}-%{release}
+Provides:       plasma-workspace-x11 = %{version}-%{release}
 
 %description    x11
 SonicDE X11 session.

@@ -14,7 +14,7 @@
 #Name:    plasma-breeze
 Name:           sonic-breeze
 Version:        6.7.4.3
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
@@ -76,8 +76,8 @@ Requires:       %{name}-qt6
 # since we provide a cmake dev-like file
 Provides:       %{name}-devel = %{version}-%{release}
 
-Provides:       plasma-breeze = %{version}-%{release}
-Conflicts:      plasma-breeze < %{version}-%{release}
+Provides:       plasma-breeze%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-breeze < %{version}-%{release}
 
 %description
 %{summary}.
@@ -86,8 +86,8 @@ Conflicts:      plasma-breeze < %{version}-%{release}
 %package        qt6
 Summary:        Breeze application style for Qt6
 Requires:       %{name}-common = %{version}-%{release}
-Provides:       plasma-breeze-qt6 = %{version}-%{release}
-Conflicts:      plasma-breeze-qt6 < %{version}-%{release}
+Provides:       plasma-breeze-qt6%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-breeze-qt6 < %{version}-%{release}
 
 %description    qt6
 %{summary}.
@@ -96,8 +96,8 @@ Conflicts:      plasma-breeze-qt6 < %{version}-%{release}
 %package        qt5
 Summary:        Breeze application style for Qt5
 Requires:       %{name}-common = %{version}-%{release}
-Provides:       plasma-breeze-qt5 = %{version}-%{release}
-Conflicts:      plasma-breeze-qt5 < %{version}-%{release}
+Provides:       plasma-breeze-qt5%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-breeze-qt5 < %{version}-%{release}
 
 %description    qt5
 %{summary}.
@@ -106,8 +106,8 @@ Conflicts:      plasma-breeze-qt5 < %{version}-%{release}
 %package        common
 Summary:        Common files shared between Plasma 5 and Plasma 6 versions of the Breeze style
 BuildArch:      noarch
-Provides:       plasma-breeze-common = %{version}-%{release}
-Conflicts:      plasma-breeze-common < %{version}-%{release}
+Provides:       plasma-breeze-common%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-breeze-common < %{version}-%{release}
 
 %description    common
 %{summary}.

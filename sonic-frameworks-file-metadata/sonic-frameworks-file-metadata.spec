@@ -13,7 +13,7 @@
 Name:           sonic-frameworks-file-metadata
 Summary:        A Tier 2 KDE Framework for extracting file metadata
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:            https://invent.kde.org/frameworks/%%{framework}
@@ -48,8 +48,8 @@ BuildRequires:  pkgconfig(poppler-qt6)
 BuildRequires:  pkgconfig(taglib) >= 1.9
 BuildRequires:  pkgconfig(xkbcommon)
 
-Provides:       kf6-kfilemetadata = %{version}-%{release}
-Conflicts:      kf6-kfilemetadata < %{version}-%{release}
+Provides:       kf6-kfilemetadata%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kfilemetadata < %{version}-%{release}
 
 %description
 %{summary}.
@@ -58,8 +58,8 @@ Conflicts:      kf6-kfilemetadata < %{version}-%{release}
 Summary:        Developer files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
-Provides:       kf6-kfilemetadata-devel = %{version}-%{release}
-Conflicts:      kf6-kfilemetadata-devel < %{version}-%{release}
+Provides:       kf6-kfilemetadata-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kfilemetadata-devel < %{version}-%{release}
 
 %description devel
 %{summary}.
@@ -67,8 +67,8 @@ Conflicts:      kf6-kfilemetadata-devel < %{version}-%{release}
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kfilemetadata-doc = %{version}-%{release}
-Conflicts:      kf6-kfilemetadata-doc < %{version}-%{release}
+Provides:       kf6-kfilemetadata-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kfilemetadata-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -76,8 +76,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kfilemetadata-html = %{version}-%{release}
-Conflicts:      kf6-kfilemetadata-html < %{version}-%{release}
+Provides:       kf6-kfilemetadata-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kfilemetadata-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

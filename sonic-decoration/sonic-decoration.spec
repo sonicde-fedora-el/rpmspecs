@@ -11,7 +11,7 @@
 Name:           sonic-decoration
 Summary: A plugin-based library to create window decorations
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: LGPL-3.0-only AND LGPL-2.1-only AND CC0-1.0
 #URL:     https://invent.kde.org/plasma/kdecoration
@@ -33,8 +33,8 @@ BuildRequires: make
 
 Requires:       kf6-filesystem
 
-Provides:       kdecoration = %{version}-%{release}
-Conflicts:      kdecoration < %{version}-%{release}
+Provides:       kdecoration%{?_isa} = %{version}-%{release}
+Obsoletes:      kdecoration < %{version}-%{release}
 
 %description
 %{summary}.
@@ -42,8 +42,8 @@ Conflicts:      kdecoration < %{version}-%{release}
 %package devel
 Summary:  Developer files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides:       kdecoration-devel = %{version}-%{release}
-Conflicts:      kdecoration-devel < %{version}-%{release}
+Provides:       kdecoration-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kdecoration-devel < %{version}-%{release}
 
 %description devel
 %{summary}.

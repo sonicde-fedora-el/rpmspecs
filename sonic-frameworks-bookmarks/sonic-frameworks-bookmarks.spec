@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-bookmarks
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for bookmarks manipulation
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 #URL:     https://invent.kde.org/frameworks/%%{framework}
@@ -38,8 +38,8 @@ BuildRequires:  cmake(KF6XmlGui)
 
 Requires:  kf6-filesystem
 
-Provides:       kf6-kbookmarks = %{version}-%{release}
-Conflicts:      kf6-kbookmarks < %{version}-%{release}
+Provides:       kf6-kbookmarks%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kbookmarks < %{version}-%{release}
 
 %description
 KBookmarks lets you access and manipulate bookmarks stored using the
@@ -50,8 +50,8 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
 Requires:       cmake(KF6WidgetsAddons)
-Provides:       kf6-kbookmarks-devel = %{version}-%{release}
-Conflicts:      kf6-kbookmarks-devel < %{version}-%{release}
+Provides:       kf6-kbookmarks-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kbookmarks-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -60,8 +60,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kbookmarks-doc = %{version}-%{release}
-Conflicts:      kf6-kbookmarks-doc < %{version}-%{release}
+Provides:       kf6-kbookmarks-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kbookmarks-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -69,8 +69,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kbookmarks-html = %{version}-%{release}
-Conflicts:      kf6-kbookmarks-html < %{version}-%{release}
+Provides:       kf6-kbookmarks-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kbookmarks-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

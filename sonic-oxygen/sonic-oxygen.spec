@@ -19,7 +19,7 @@ ExcludeArch: %{ix86}
 #Name:    plasma-%%{base_name}
 Name:           sonic-oxygen
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: Plasma and Qt widget style and window decorations for Plasma
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -91,8 +91,8 @@ Obsoletes:      kwin-oxygen < 5.1.95-1
 Obsoletes:      sonic-oxygen < 5.1.1-2
 Conflicts:      sonic-desktop-interface < 5.16.90
 
-Provides:       plasma-oxygen = %{version}-%{release}
-Conflicts:      plasma-oxygen < %{version}-%{release}
+Provides:       plasma-oxygen%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-oxygen < %{version}-%{release}
 
 %description
 %{summary}.
@@ -102,8 +102,8 @@ Conflicts:      plasma-oxygen < %{version}-%{release}
 Summary:        Oxygen widget style for Qt 5
 Obsoletes:      qt5-style-oxygen < %{version}-%{release}
 Provides:       qt5-style-oxygen = %{version}-%{release}
-Provides:       plasma-oxygen-qt5 = %{version}-%{release}
-Conflicts:      plasma-oxygen-qt5 < %{version}-%{release}
+Provides:       plasma-oxygen-qt5%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-oxygen-qt5 < %{version}-%{release}
 
 %description    qt5
 %{summary}.
@@ -111,8 +111,8 @@ Conflicts:      plasma-oxygen-qt5 < %{version}-%{release}
 
 %package        qt6
 Summary:        Oxygen widget style for Qt 6
-Provides:       plasma-oxygen-qt6 = %{version}-%{release}
-Conflicts:      plasma-oxygen-qt6 < %{version}-%{release}
+Provides:       plasma-oxygen-qt6%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-oxygen-qt6 < %{version}-%{release}
 
 %description    qt6
 %{summary}.

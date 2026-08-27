@@ -19,7 +19,7 @@ ExcludeArch: %{ix86}
 #Name:    plasma-firewall
 Name:           sonic-firewall
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: Control Panel for your system firewall
 
 License: BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -52,8 +52,8 @@ Requires: sonic-frameworks-settings-utils%{?_isa}
 Requires: %{name}-backend = %{version}-%{release}
 Suggests: %{name}-firewalld
 
-Provides:       plasma-firewall = %{version}-%{release}
-Conflicts:      plasma-firewall < %{version}-%{release}
+Provides:       plasma-firewall%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-firewall < %{version}-%{release}
 
 %description
 %{summary}.
@@ -65,8 +65,8 @@ Provides: %{name}-backend = %{version}-%{release}
 Conflicts: %{name}-backend
 Requires: firewalld
 
-Provides:       plasma-firewall-firewalld = %{version}-%{release}
-Conflicts:      plasma-firewall-firewalld < %{version}-%{release}
+Provides:       plasma-firewall-firewalld%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-firewall-firewalld < %{version}-%{release}
 
 %description firewalld
 This package provides the backend code for Plasma Firewall
@@ -84,8 +84,8 @@ Requires: dbus-common
 # For polkit directories
 Requires: polkit
 
-Provides:       plasma-firewall-ufw = %{version}-%{release}
-Conflicts:      plasma-firewall-ufw < %{version}-%{release}
+Provides:       plasma-firewall-ufw%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-firewall-ufw < %{version}-%{release}
 
 %description ufw
 This package provides the backend code for Plasma Firewall

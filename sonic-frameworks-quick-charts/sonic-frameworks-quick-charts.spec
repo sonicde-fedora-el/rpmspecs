@@ -13,7 +13,7 @@
 Name:           sonic-frameworks-quick-charts
 Summary:	A QtQuick module providing high-performance charts
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License:	BSD-2-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
 #URL:		https://invent.kde.org/frameworks/%%{framework}
@@ -33,8 +33,8 @@ BuildRequires:	cmake(Qt6ShaderTools)
 BuildRequires:	make
 BuildRequires:	pkgconfig(xkbcommon)
 
-Provides:       kf6-kquickcharts = %{version}-%{release}
-Conflicts:      kf6-kquickcharts < %{version}-%{release}
+Provides:       kf6-kquickcharts%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kquickcharts < %{version}-%{release}
 
 %description
 The Quick Charts module provides a set of charts that can be used from QtQuick
@@ -47,8 +47,8 @@ quality.
 %package	devel
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
-Provides:       kf6-kquickcharts-devel = %{version}-%{release}
-Conflicts:      kf6-kquickcharts-devel < %{version}-%{release}
+Provides:       kf6-kquickcharts-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kquickcharts-devel < %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -57,8 +57,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kquickcharts-doc = %{version}-%{release}
-Conflicts:      kf6-kquickcharts-doc < %{version}-%{release}
+Provides:       kf6-kquickcharts-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kquickcharts-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -66,8 +66,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kquickcharts-html = %{version}-%{release}
-Conflicts:      kf6-kquickcharts-html < %{version}-%{release}
+Provides:       kf6-kquickcharts-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kquickcharts-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format
