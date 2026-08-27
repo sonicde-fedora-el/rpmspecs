@@ -13,7 +13,7 @@
 #Name:           signon
 Name:           sonic-frameworks-sso
 Version:        8.61.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
 License:        LGPL-2.1-only
@@ -35,6 +35,11 @@ Provides:       signond%{?_isa} = %{version}-%{release}
 Requires:       dbus
 
 Provides:       signon%{?_isa} = %{version}-%{release}
+# The EPEL signon package installs the same D-Bus service file and
+# /etc/signond.conf.  Our fork has different library sonames (.so.0
+# vs EPEL's .so.1), so signon-qt6 can still coexist, but the daemon
+# package itself cannot.
+Conflicts:      signon
 
 %description
 Single Sign-On is a framework for centrally storing authentication credentials
@@ -104,5 +109,8 @@ mkdir -p %{buildroot}%{_libdir}/signond/extensions/
 %{_libdir}/libsignon-plugins-common.so
 
 %changelog
+* Thu Aug 27 2026 SonicDE <dev@sonicde.org> - 8.61.2-6
+- Add Conflicts: signon to prevent D-Bus service file clash with EPEL signon
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 8.61.2-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora
