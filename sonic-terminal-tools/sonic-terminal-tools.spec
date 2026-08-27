@@ -10,7 +10,7 @@
 #Name:    kde-cli-tools
 Name:           sonic-terminal-tools
 Version:        6.7.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary: Tools based on KDE Frameworks 5 to better interact with the system
 
@@ -47,7 +47,7 @@ BuildRequires:  sonic-workspace-devel >= %{version}
 Requires:       sonic-workspace-libs%{?_isa} >= %{version}
 
 # upgrade path, from when this wasn't split out
-Requires:       kdesu = 1:%{version}-%{release}
+Requires:       kdesu >= 1:%{version}
 
 # unversioned utilitized landed here in 5.23.90, see also
 # https://phabricator.kde.org/T14763
@@ -66,6 +66,7 @@ Summary: Runs a program with elevated privileges
 Epoch: 1
 Conflicts: kde-runtime < 14.12.3-2
 Conflicts: kde-runtime-docs < 14.12.3-2
+Obsoletes:      kdesu < 1:6.7.4-2.el10
 %description -n kdesu
 %{summary}.
 
