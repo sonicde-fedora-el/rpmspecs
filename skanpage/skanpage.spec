@@ -1,6 +1,6 @@
 Name:     skanpage
 Version:        26.04.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:  Utility to scan images and multi-page documents
 License:  BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only
 
@@ -50,7 +50,7 @@ BuildRequires:  cmake(Leptonica)
 
 Requires: qt6-qtquickcontrols2
 Requires:      sonic-frameworks-quick-ui
-Requires: kquickimageeditor-qt6
+Requires: sonic-quick-image-editor-qt6
 
 Recommends: sane-backends-drivers-scanners
 
