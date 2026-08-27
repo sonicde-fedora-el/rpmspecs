@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kamera
 Summary: Digital camera support for KDE 
-Version: 25.12.3
-Release: 2%{?dist}
+Version: 26.04.3
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -69,7 +69,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
-* Thu Aug 27 2026 SonicDE <dev@sonicde.org> - 25.12.3-2
+* Thu Aug 27 2026 SonicDE <dev@sonicde.org> - 26.04.3-1
+- Update to 26.04.3
 - Change Requires from kde-cli-tools to sonic-terminal-tools
 
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
