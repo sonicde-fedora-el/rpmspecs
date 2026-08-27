@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 Name:    sonic-system-info
 
 Version: 6.7.4
-Release: 1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Info Center
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -76,7 +76,8 @@ Requires: libdisplay-info-tools
 
 # When kinfocenter was split out from kde-workspace
 Conflicts:      kde-workspace < 4.11.15-3
-Conflicts: kinfocenter
+Obsoletes:      kinfocenter < %{version}-%{release}
+Provides:       kinfocenter = %{version}-%{release}
 
 %description
 %{summary}.

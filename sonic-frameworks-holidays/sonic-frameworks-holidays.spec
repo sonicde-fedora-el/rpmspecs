@@ -12,7 +12,7 @@
 #Name:		kf6-%%{framework}
 Name:           sonic-frameworks-holidays
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:	The KHolidays Library
 
 License:	BSD-2-Clause AND CC0-1.0 AND GPL-3.0-or-later AND LGPL-2.0-or-later WITH Bison-exception-2.2
@@ -35,8 +35,8 @@ BuildRequires:	make
 BuildRequires:  flex
 BuildRequires:  bison
 
-Provides:       kf6-kholidays = %{version}-%{release}
-Conflicts:      kf6-kholidays < %{version}-%{release}
+Provides:       kf6-kholidays%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kholidays < %{version}-%{release}
 
 %description
 The KHolidays library provides a C++ API that determines holiday
@@ -45,8 +45,8 @@ and other special events for a geographical region.
 %package	devel
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
-Provides:       kf6-kholidays-devel = %{version}-%{release}
-Conflicts:      kf6-kholidays-devel < %{version}-%{release}
+Provides:       kf6-kholidays-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kholidays-devel < %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -55,8 +55,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kholidays-doc = %{version}-%{release}
-Conflicts:      kf6-kholidays-doc < %{version}-%{release}
+Provides:       kf6-kholidays-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kholidays-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -64,8 +64,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kholidays-html = %{version}-%{release}
-Conflicts:      kf6-kholidays-html < %{version}-%{release}
+Provides:       kf6-kholidays-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kholidays-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

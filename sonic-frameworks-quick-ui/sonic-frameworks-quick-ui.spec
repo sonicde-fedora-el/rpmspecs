@@ -12,7 +12,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-quick-ui
 Version:        6.29.0.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 #URL:            https://invent.kde.org/frameworks/%%{framework}
@@ -38,11 +38,11 @@ BuildRequires:  cmake(Qt6ShaderTools)
 
 # Renamed from kf6-kirigami2
 Obsoletes:      kf6-kirigami2 < 5.246.0
-Provides:       kf6-kirigami2 = %{version}-%{release}
+Provides:       kf6-kirigami2%{?_isa} = %{version}-%{release}
 Provides:       kf6-kirigami2%{?_isa} = %{version}-%{release}
 
-Provides:       kf6-kirigami = %{version}-%{release}
-Conflicts:      kf6-kirigami < %{version}-%{release}
+Provides:       kf6-kirigami%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kirigami < %{version}-%{release}
 
 %description
 %{summary}.
@@ -51,10 +51,10 @@ Conflicts:      kf6-kirigami < %{version}-%{release}
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Obsoletes:      kf6-kirigami2-devel < 5.246.0
-Provides:       kf6-kirigami2-devel = %{version}-%{release}
 Provides:       kf6-kirigami2-devel%{?_isa} = %{version}-%{release}
-Provides:       kf6-kirigami-devel = %{version}-%{release}
-Conflicts:      kf6-kirigami-devel < %{version}-%{release}
+Provides:       kf6-kirigami2-devel%{?_isa} = %{version}-%{release}
+Provides:       kf6-kirigami-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kirigami-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -63,8 +63,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kirigami-doc = %{version}-%{release}
-Conflicts:      kf6-kirigami-doc < %{version}-%{release}
+Provides:       kf6-kirigami-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kirigami-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -72,8 +72,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kirigami-html = %{version}-%{release}
-Conflicts:      kf6-kirigami-html < %{version}-%{release}
+Provides:       kf6-kirigami-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kirigami-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

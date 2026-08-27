@@ -11,7 +11,7 @@
 Name:           sonic-activity-manager-daemon
 Summary: Plasma service to manage user's activities
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -51,8 +51,8 @@ Obsoletes:      kactivities < 4.90.0
 Provides:       kactivities%{?_isa} = %{version}-%{release}
 Provides:       kactivities = %{version}-%{release}
 
-Provides:       kactivitymanagerd = %{version}-%{release}
-Conflicts:      kactivitymanagerd < %{version}-%{release}
+Provides:       kactivitymanagerd%{?_isa} = %{version}-%{release}
+Obsoletes:      kactivitymanagerd < %{version}-%{release}
 
 %description
 %{summary}.

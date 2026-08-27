@@ -10,7 +10,7 @@
 #Name:    kde-cli-tools
 Name:           sonic-terminal-tools
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 Summary: Tools based on KDE Frameworks 5 to better interact with the system
 
@@ -54,8 +54,8 @@ Requires:       kdesu = 1:%{version}-%{release}
 # https://invent.kde.org/plasma/kde-cli-tools/-/merge_requests/23
 Conflicts: kde-runtime < 17.08.3-23
 
-Provides:       kde-cli-tools = %{version}-%{release}
-Conflicts:      kde-cli-tools < %{version}-%{release}
+Provides:       kde-cli-tools%{?_isa} = %{version}-%{release}
+Obsoletes:      kde-cli-tools < %{version}-%{release}
 
 %description
 Provides several KDE and Plasma specific command line tools to allow

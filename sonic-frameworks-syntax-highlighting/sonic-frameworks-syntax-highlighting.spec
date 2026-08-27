@@ -12,7 +12,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-syntax-highlighting
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Syntax highlighting engine for Kate syntax definitions
 License:        MIT AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-or-later
 #URL:            https://invent.kde.org/frameworks/%%{framework}
@@ -40,8 +40,8 @@ BuildRequires:  pkgconfig(xerces-c)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Qml)
 
-Provides:       kf6-syntax-highlighting = %{version}-%{release}
-Conflicts:      kf6-syntax-highlighting < %{version}-%{release}
+Provides:       kf6-syntax-highlighting%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-syntax-highlighting < %{version}-%{release}
 
 %description
 %{summary}.
@@ -49,8 +49,8 @@ Conflicts:      kf6-syntax-highlighting < %{version}-%{release}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       kf6-syntax-highlighting-devel = %{version}-%{release}
-Conflicts:      kf6-syntax-highlighting-devel < %{version}-%{release}
+Provides:       kf6-syntax-highlighting-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-syntax-highlighting-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -59,8 +59,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-syntax-highlighting-doc = %{version}-%{release}
-Conflicts:      kf6-syntax-highlighting-doc < %{version}-%{release}
+Provides:       kf6-syntax-highlighting-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-syntax-highlighting-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -68,8 +68,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-syntax-highlighting-html = %{version}-%{release}
-Conflicts:      kf6-syntax-highlighting-html < %{version}-%{release}
+Provides:       kf6-syntax-highlighting-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-syntax-highlighting-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

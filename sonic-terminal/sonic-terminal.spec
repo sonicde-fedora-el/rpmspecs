@@ -19,7 +19,7 @@
 Name:           sonic-terminal
 Summary: KDE Terminal emulator
 Version:        26.04.3.1
-Release:        1%{?dist}
+Release:        4%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://www.kde.org/applications/system/konsole/
@@ -90,16 +90,16 @@ Requires: keditbookmarks
 
 Obsoletes: konsole5 < 24.01.75
 
-Provides:       konsole = %{version}-%{release}
-Conflicts:      konsole < %{version}-%{release}
+Provides:       konsole%{?_isa} = %{version}-%{release}
 
 %description
 %{summary}.
 
 %package part
 Summary: Konsole kpart plugin
-Provides:       konsole-part = %{version}-%{release}
-Conflicts:      konsole-part < %{version}-%{release}
+Provides:       konsole-part%{?_isa} = %{version}-%{release}
+Obsoletes:      konsole-part < %{version}-%{release}
+Obsoletes:      konsole < %{version}-%{release}
 
 %description part
 %{summary}.

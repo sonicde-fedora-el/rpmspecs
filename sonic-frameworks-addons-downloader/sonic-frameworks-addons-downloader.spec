@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-addons-downloader
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 module for downloading application assets
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/frameworks/%%{framework}
@@ -46,8 +46,8 @@ BuildRequires:  cmake(KF6Syndication)
 BuildRequires:  pkgconfig(xkbcommon)
 Requires:  kf6-filesystem
 
-Provides:       kf6-knewstuff = %{version}-%{release}
-Conflicts:      kf6-knewstuff < %{version}-%{release}
+Provides:       kf6-knewstuff%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-knewstuff < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 3 module for downloading and sharing additional
@@ -60,8 +60,8 @@ Requires:       cmake(KF6Attica)
 Requires:       cmake(KF6Service)
 Requires:       cmake(KF6XmlGui)
 Requires:       qt6-qtbase-devel
-Provides:       kf6-knewstuff-devel = %{version}-%{release}
-Conflicts:      kf6-knewstuff-devel < %{version}-%{release}
+Provides:       kf6-knewstuff-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-knewstuff-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -70,8 +70,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-knewstuff-doc = %{version}-%{release}
-Conflicts:      kf6-knewstuff-doc < %{version}-%{release}
+Provides:       kf6-knewstuff-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-knewstuff-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -79,8 +79,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-knewstuff-html = %{version}-%{release}
-Conflicts:      kf6-knewstuff-html < %{version}-%{release}
+Provides:       kf6-knewstuff-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-knewstuff-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

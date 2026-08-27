@@ -13,7 +13,7 @@
 Name:           sonic-frameworks-file-search
 Summary: A Tier 3 KDE Frameworks 6 module that provides indexing and search functionality
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND bzip2-1.0.6
 #URL:     https://invent.kde.org/frameworks/%%{framework}
@@ -50,8 +50,8 @@ BuildRequires:  qt6-qtdeclarative-devel
 # for systemd-related macros
 BuildRequires:  systemd
 
-Provides:       kf6-baloo = %{version}-%{release}
-Conflicts:      kf6-baloo < %{version}-%{release}
+Provides:       kf6-baloo%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-baloo < %{version}-%{release}
 
 %description
 %{summary}.
@@ -63,8 +63,8 @@ Requires:       cmake(KF6CoreAddons)
 Requires:       cmake(KF6FileMetaData)
 Requires:       qt6-qtbase-devel
 
-Provides:       kf6-baloo-devel = %{version}-%{release}
-Conflicts:      kf6-baloo-devel < %{version}-%{release}
+Provides:       kf6-baloo-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-baloo-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -74,16 +74,16 @@ developing applications that use %{name}.
 Summary:        File indexing and search for Baloo
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Obsoletes:      kf5-baloo-file < 6
-Provides:       kf6-baloo-file = %{version}-%{release}
-Conflicts:      kf6-baloo-file < %{version}-%{release}
+Provides:       kf6-baloo-file%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-baloo-file < %{version}-%{release}
 
 %description    file
 %{summary}.
 
 %package        libs
 Summary:        Runtime libraries for %{name}
-Provides:       kf6-baloo-libs = %{version}-%{release}
-Conflicts:      kf6-baloo-libs < %{version}-%{release}
+Provides:       kf6-baloo-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-baloo-libs < %{version}-%{release}
 
 %description    libs
 %{summary}.
@@ -91,8 +91,8 @@ Conflicts:      kf6-baloo-libs < %{version}-%{release}
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-baloo-doc = %{version}-%{release}
-Conflicts:      kf6-baloo-doc < %{version}-%{release}
+Provides:       kf6-baloo-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-baloo-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -100,8 +100,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-baloo-html = %{version}-%{release}
-Conflicts:      kf6-baloo-html < %{version}-%{release}
+Provides:       kf6-baloo-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-baloo-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

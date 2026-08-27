@@ -2,7 +2,7 @@
 
 Name:           sonic-login-manager
 Version:        6.7.4.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager for SonicDE
 
@@ -31,6 +31,8 @@ Source13:       plasmalogin.conf
 #Patch1002:      soniclogin-rpmostree-tmpfiles-hack.patch
 
 Provides:       service(graphical-login) = soniclogin
+Obsoletes:      plasma-login-manager < %{version}-%{release}
+Provides:       plasma-login-manager = %{version}-%{release}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake >= 3.22
@@ -82,11 +84,11 @@ Requires:      kf6-filesystem
 Requires:      sonic-frameworks-auth
 Requires(pre): shadow-utils
 
-Requires:      kde-settings-plasma
+Recommends:      kde-settings-plasma
 
 # Requires sonic window manager (X11 variant)
 Requires:      sonic-win%{?_isa}
-Requires:      (kcm-soniclogin%{?_isa} if plasma-systemsettings%{?_isa})
+Recommends:      plasma-systemsettings%{?_isa})
 
 %description
 Sonic Login Manager provides a display manager for SonicDE
@@ -97,9 +99,11 @@ wallpaper plugin integration and a System Settings module (KCM).
 Summary: KDE KCM for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: dbus-common
-Requires: plasma-systemsettings%{?_isa}
+Recommends:      plasma-systemsettings%{?_isa}
 Requires: polkit
 Requires: qt6-filesystem
+Obsoletes:      kcm-plasmalogin < %{version}-%{release}
+Provides:       kcm-plasmalogin = %{version}-%{release}
 
 %description -n kcm-soniclogin
 %{summary}.

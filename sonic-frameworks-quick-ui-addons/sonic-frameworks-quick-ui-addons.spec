@@ -12,7 +12,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-quick-ui-addons
 Version:        1.13.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://github.com/Sonic-DE/%{reponame}
@@ -61,15 +61,15 @@ Provides:  kf6-kirigami2-addons-treeview%{?_isa} = 1:%{version}-%{release}
 
 # The new name
 Obsoletes: kf6-kirigami-addons-dateandtime < 0.11.76-5
-Provides:  kf6-kirigami-addons-dateandtime = %{version}-%{release}
+Provides:  kf6-kirigami-addons-dateandtime%{?_isa} = %{version}-%{release}
 Provides:  kf6-kirigami-addons-dateandtime%{?_isa} = %{version}-%{release}
 
 Obsoletes: kf6-kirigami-addons-treeview < 0.11.76-5
-Provides:  kf6-kirigami-addons-treeview = %{version}-%{release}
+Provides:  kf6-kirigami-addons-treeview%{?_isa} = %{version}-%{release}
 Provides:  kf6-kirigami-addons-treeview%{?_isa} = %{version}-%{release}
 
-Provides:       kf6-kirigami-addons = %{version}-%{release}
-Conflicts:      kf6-kirigami-addons < %{version}-%{release}
+Provides:       kf6-kirigami-addons%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kirigami-addons < %{version}-%{release}
 
 %description
 A set of "widgets" i.e visual end user components along with a
@@ -82,8 +82,8 @@ or Plasma).
 Summary:   Development files for %{name}
 Requires:  %{name} = %{version}-%{release}
 Conflicts: sonic-frameworks-quick-ui-addons < 1.4.0
-Provides:       kf6-kirigami-addons-devel = %{version}-%{release}
-Conflicts:      kf6-kirigami-addons-devel < %{version}-%{release}
+Provides:       kf6-kirigami-addons-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kirigami-addons-devel < %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains CMake definitions, libraries

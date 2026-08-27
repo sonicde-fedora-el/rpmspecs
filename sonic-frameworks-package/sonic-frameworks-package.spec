@@ -12,7 +12,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-package
 Version:        6.29.0.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 library to load and install packages as plugins
 
 License:        CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -34,8 +34,8 @@ BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  qt6-qtbase-devel
 Requires:  kf6-filesystem
 
-Provides:       kf6-kpackage = %{version}-%{release}
-Conflicts:      kf6-kpackage < %{version}-%{release}
+Provides:       kf6-kpackage%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kpackage < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 2 library to load and install non-binary packages as
@@ -44,8 +44,8 @@ if they were plugins.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
-Provides:       kf6-kpackage-devel = %{version}-%{release}
-Conflicts:      kf6-kpackage-devel < %{version}-%{release}
+Provides:       kf6-kpackage-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kpackage-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -54,8 +54,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kpackage-doc = %{version}-%{release}
-Conflicts:      kf6-kpackage-doc < %{version}-%{release}
+Provides:       kf6-kpackage-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kpackage-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -63,8 +63,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kpackage-html = %{version}-%{release}
-Conflicts:      kf6-kpackage-html < %{version}-%{release}
+Provides:       kf6-kpackage-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kpackage-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

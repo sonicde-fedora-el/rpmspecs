@@ -13,7 +13,7 @@
 Name:           sonic-frameworks-app-info
 Summary: KDE Frameworks 6 Tier 3 solution for advanced plugin and service introspection
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 # The following licenses are in the LICENSES folder but go unused: GPL-2.0-only, GPL-2.0-or-later, GPL-3.0-only, LicenseRef-KDE-Accepted-GPL
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -41,8 +41,8 @@ BuildRequires:  qt6-qtbase-devel
 
 Requires:       kf6-filesystem
 
-Provides:       kf6-kservice = %{version}-%{release}
-Conflicts:      kf6-kservice < %{version}-%{release}
+Provides:       kf6-kservice%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kservice < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 3 solution for advanced plugin and service
@@ -53,8 +53,8 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6Config)
 Requires:       cmake(KF6CoreAddons)
-Provides:       kf6-kservice-devel = %{version}-%{release}
-Conflicts:      kf6-kservice-devel < %{version}-%{release}
+Provides:       kf6-kservice-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kservice-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -63,8 +63,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kservice-doc = %{version}-%{release}
-Conflicts:      kf6-kservice-doc < %{version}-%{release}
+Provides:       kf6-kservice-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kservice-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -72,8 +72,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kservice-html = %{version}-%{release}
-Conflicts:      kf6-kservice-html < %{version}-%{release}
+Provides:       kf6-kservice-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kservice-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

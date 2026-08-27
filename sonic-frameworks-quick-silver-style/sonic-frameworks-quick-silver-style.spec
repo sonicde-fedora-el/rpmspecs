@@ -10,7 +10,7 @@
 #Name:    qqc2-breeze-style
 Name:           sonic-frameworks-quick-silver-style
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: QtQuickControls2 breeze style
 
 License: CC0-1.0 and GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -42,8 +42,8 @@ BuildRequires:  qt6-qtdeclarative-devel
 Requires:       sonic-frameworks-quick-charts
 
 
-Provides:       qqc2-breeze-style = %{version}-%{release}
-Conflicts:      qqc2-breeze-style < %{version}-%{release}
+Provides:       qqc2-breeze-style%{?_isa} = %{version}-%{release}
+Obsoletes:      qqc2-breeze-style < %{version}-%{release}
 
 %description
 This is a pure Qt Quick/Kirigami Qt Quick Controls style.

@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-color-scheme
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: Classes to read and interact with KColorScheme
 License: BSD-2-Clause and CC0-1.0 and LGPL-2.0-or-later and LGPL-2.1-only and LGPL-3.0-only and (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/frameworks/%%{framework}
@@ -33,8 +33,8 @@ BuildRequires:  pkgconfig(xkbcommon)
 
 Requires:       kf6-filesystem
 
-Provides:       kf6-kcolorscheme = %{version}-%{release}
-Conflicts:      kf6-kcolorscheme < %{version}-%{release}
+Provides:       kf6-kcolorscheme%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcolorscheme < %{version}-%{release}
 
 %description
 %summary.
@@ -42,8 +42,8 @@ Conflicts:      kf6-kcolorscheme < %{version}-%{release}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
-Provides:       kf6-kcolorscheme-devel = %{version}-%{release}
-Conflicts:      kf6-kcolorscheme-devel < %{version}-%{release}
+Provides:       kf6-kcolorscheme-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcolorscheme-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -52,8 +52,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kcolorscheme-doc = %{version}-%{release}
-Conflicts:      kf6-kcolorscheme-doc < %{version}-%{release}
+Provides:       kf6-kcolorscheme-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcolorscheme-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -61,8 +61,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kcolorscheme-html = %{version}-%{release}
-Conflicts:      kf6-kcolorscheme-html < %{version}-%{release}
+Provides:       kf6-kcolorscheme-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcolorscheme-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

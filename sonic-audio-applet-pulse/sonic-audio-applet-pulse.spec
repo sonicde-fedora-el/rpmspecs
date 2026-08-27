@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 #Name:    plasma-pa
 Name:           sonic-audio-applet-pulse
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -61,8 +61,8 @@ Requires: sonic-frameworks-data-models
 Requires: pulseaudio-daemon
 
 
-Provides:       plasma-pa = %{version}-%{release}
-Conflicts:      plasma-pa < %{version}-%{release}
+Provides:       plasma-pa%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-pa < %{version}-%{release}
 
 %description
 %{summary}.

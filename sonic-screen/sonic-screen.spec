@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 Name:    sonic-screen
 Epoch:   1
 Version: 6.7.4
-Release: 1%{?dist}
+Release:        4%{?dist}
 Summary: KDE Display Management software
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -49,7 +49,8 @@ BuildRequires:  cmake(Plasma)
 BuildRequires:  pkgconfig(xcb-atom)
 BuildRequires:  pkgconfig(xi)
 
-Conflicts: kscreen
+Obsoletes:      kscreen < 1:%{version}-%{release}
+Provides:       kscreen = %{version}-%{release}
 
 %description
 KCM and KDED modules for managing displays in KDE.

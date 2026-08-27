@@ -1,0 +1,13 @@
+--- a/src/x11/pipewirestream.cpp
++++ b/src/x11/pipewirestream.cpp
+@@ -24,6 +24,10 @@
+ #include <spa/pod/builder.h>
+ #include <spa/utils/defs.h>
+ 
++#ifndef SPA_POD_ALIGN
++#define SPA_POD_ALIGN 8
++#endif
++
+ namespace {
+ constexpr uint32_t s_bufferCount = 3;
+ constexpr uint32_t s_defaultWidth = 1;

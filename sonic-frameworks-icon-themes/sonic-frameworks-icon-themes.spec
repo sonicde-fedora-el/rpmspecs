@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-icon-themes
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module with icon themes
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -46,8 +46,8 @@ BuildRequires:  pkgconfig(xkbcommon)
 
 Requires:       hicolor-icon-theme
 
-Provides:       kf6-kiconthemes = %{version}-%{release}
-Conflicts:      kf6-kiconthemes < %{version}-%{release}
+Provides:       kf6-kiconthemes%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kiconthemes < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 3 integration module with icon themes
@@ -56,8 +56,8 @@ KDE Frameworks 6 Tier 3 integration module with icon themes
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
-Provides:       kf6-kiconthemes-devel = %{version}-%{release}
-Conflicts:      kf6-kiconthemes-devel < %{version}-%{release}
+Provides:       kf6-kiconthemes-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kiconthemes-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -66,8 +66,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kiconthemes-doc = %{version}-%{release}
-Conflicts:      kf6-kiconthemes-doc < %{version}-%{release}
+Provides:       kf6-kiconthemes-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kiconthemes-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -75,8 +75,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kiconthemes-html = %{version}-%{release}
-Conflicts:      kf6-kiconthemes-html < %{version}-%{release}
+Provides:       kf6-kiconthemes-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kiconthemes-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

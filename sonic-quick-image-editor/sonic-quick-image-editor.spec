@@ -10,7 +10,7 @@
 #Name:    kquickimageeditor
 Name:           sonic-quick-image-editor
 Version:        0.6.2.1.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: QtQuick components providing basic image editing capabilities
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 #URL:     https://invent.kde.org/libraries/%%{name}
@@ -28,8 +28,8 @@ BuildRequires: cmake(KF6Config)
 
 BuildRequires: cmake(OpenCV)
 
-Provides:       kquickimageeditor = %{version}-%{release}
-Conflicts:      kquickimageeditor < %{version}-%{release}
+Provides:       kquickimageeditor%{?_isa} = %{version}-%{release}
+Obsoletes:      kquickimageeditor < %{version}-%{release}
 
 %description
 %{summary}
@@ -37,8 +37,8 @@ Conflicts:      kquickimageeditor < %{version}-%{release}
 %package qt6
 Summary: Qt6 QtQuick components providing basic image editing capabilities
 
-Provides:       kquickimageeditor-qt6 = %{version}-%{release}
-Conflicts:      kquickimageeditor-qt6 < %{version}-%{release}
+Provides:       kquickimageeditor-qt6%{?_isa} = %{version}-%{release}
+Obsoletes:      kquickimageeditor-qt6 < %{version}-%{release}
 
 %description qt6
 %{summary}
@@ -47,8 +47,8 @@ Conflicts:      kquickimageeditor-qt6 < %{version}-%{release}
 Summary: Development files for %{name}-qt6
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
 
-Provides:       kquickimageeditor-qt6-devel = %{version}-%{release}
-Conflicts:      kquickimageeditor-qt6-devel < %{version}-%{release}
+Provides:       kquickimageeditor-qt6-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kquickimageeditor-qt6-devel < %{version}-%{release}
 
 %description qt6-devel
 The %{name}-qt6-devel package contains cmake and mkspecs for developing

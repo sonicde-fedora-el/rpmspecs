@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-ui-components
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for KParts
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -44,8 +44,8 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  pkgconfig(xkbcommon)
 Requires:  kf6-filesystem
 
-Provides:       kf6-kparts = %{version}-%{release}
-Conflicts:      kf6-kparts < %{version}-%{release}
+Provides:       kf6-kparts%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kparts < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 3 solution for KParts
@@ -56,8 +56,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6KIO)
 Requires:       cmake(KF6TextWidgets)
 Requires:       cmake(KF6XmlGui)
-Provides:       kf6-kparts-devel = %{version}-%{release}
-Conflicts:      kf6-kparts-devel < %{version}-%{release}
+Provides:       kf6-kparts-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kparts-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -66,8 +66,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kparts-doc = %{version}-%{release}
-Conflicts:      kf6-kparts-doc < %{version}-%{release}
+Provides:       kf6-kparts-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kparts-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -75,8 +75,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kparts-html = %{version}-%{release}
-Conflicts:      kf6-kparts-html < %{version}-%{release}
+Provides:       kf6-kparts-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kparts-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

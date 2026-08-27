@@ -13,7 +13,7 @@
 Name:           sonic-frameworks-svg
 Summary: Components for handling SVGs
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 #URL:     https://invent.kde.org/frameworks/%%{framework}
@@ -41,8 +41,8 @@ BuildRequires: cmake(KF6GuiAddons)
 BuildRequires: cmake(KF6Kirigami2)
 BuildRequires: cmake(KF6ColorScheme)
 
-Provides:       kf6-ksvg = %{version}-%{release}
-Conflicts:      kf6-ksvg < %{version}-%{release}
+Provides:       kf6-ksvg%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ksvg < %{version}-%{release}
 
 %description
 %{summary}.
@@ -51,8 +51,8 @@ Conflicts:      kf6-ksvg < %{version}-%{release}
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-Provides:       kf6-ksvg-devel = %{version}-%{release}
-Conflicts:      kf6-ksvg-devel < %{version}-%{release}
+Provides:       kf6-ksvg-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ksvg-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -61,8 +61,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-ksvg-doc = %{version}-%{release}
-Conflicts:      kf6-ksvg-doc < %{version}-%{release}
+Provides:       kf6-ksvg-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ksvg-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -70,8 +70,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-ksvg-html = %{version}-%{release}
-Conflicts:      kf6-ksvg-html < %{version}-%{release}
+Provides:       kf6-ksvg-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ksvg-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

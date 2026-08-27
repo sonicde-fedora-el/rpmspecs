@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-crash-handler
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 2 addon for handling application crashes
 
 License: CC0-1.0 AND LGPL-2.0-or-later
@@ -33,8 +33,8 @@ BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  libX11-devel
 BuildRequires:  qt6-qtbase-devel
 
-Provides:       kf6-kcrash = %{version}-%{release}
-Conflicts:      kf6-kcrash < %{version}-%{release}
+Provides:       kf6-kcrash%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcrash < %{version}-%{release}
 
 %description
 KCrash provides support for intercepting and handling application crashes.
@@ -44,8 +44,8 @@ KCrash provides support for intercepting and handling application crashes.
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
-Provides:       kf6-kcrash-devel = %{version}-%{release}
-Conflicts:      kf6-kcrash-devel < %{version}-%{release}
+Provides:       kf6-kcrash-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcrash-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -54,8 +54,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kcrash-doc = %{version}-%{release}
-Conflicts:      kf6-kcrash-doc < %{version}-%{release}
+Provides:       kf6-kcrash-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcrash-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -63,8 +63,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kcrash-html = %{version}-%{release}
-Conflicts:      kf6-kcrash-html < %{version}-%{release}
+Provides:       kf6-kcrash-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcrash-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

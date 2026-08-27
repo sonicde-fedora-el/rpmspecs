@@ -6,7 +6,7 @@
 
 Name:           sonic-oxygen-icons
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Oxygen icon theme for SonicDE
 License:        LGPL-3.0-or-later
 URL:            https://github.com/Sonic-DE/%{reponame}

@@ -12,7 +12,7 @@
 #Name:		kf6-%%{framework}
 Name:           sonic-frameworks-internationalization
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon for localization
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND ODbl-1.0
 #URL:		https://invent.kde.org/frameworks/%%{framework}
@@ -36,8 +36,8 @@ BuildRequires:	pkgconfig(iso-codes)
 Requires:	iso-codes
 Requires:	kf6-filesystem
 
-Provides:       kf6-ki18n = %{version}-%{release}
-Conflicts:      kf6-ki18n < %{version}-%{release}
+Provides:       kf6-ki18n%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ki18n < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 1 addon for localization.
@@ -47,8 +47,8 @@ Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
 Requires:	gettext
 Requires:	python3
-Provides:       kf6-ki18n-devel = %{version}-%{release}
-Conflicts:      kf6-ki18n-devel < %{version}-%{release}
+Provides:       kf6-ki18n-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ki18n-devel < %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -57,8 +57,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-ki18n-doc = %{version}-%{release}
-Conflicts:      kf6-ki18n-doc < %{version}-%{release}
+Provides:       kf6-ki18n-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ki18n-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -66,8 +66,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-ki18n-html = %{version}-%{release}
-Conflicts:      kf6-ki18n-html < %{version}-%{release}
+Provides:       kf6-ki18n-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-ki18n-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

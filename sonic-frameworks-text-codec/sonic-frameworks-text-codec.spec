@@ -12,7 +12,7 @@
 #Name:		kf6-%%{framework}
 Name:           sonic-frameworks-text-codec
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with string manipulation methods
 License:	BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND MPL-1.1
 #URL:		https://invent.kde.org/frameworks/%%{framework}
@@ -32,8 +32,8 @@ BuildRequires:	qt6-qttools-devel
 
 Requires:	kf6-filesystem
 
-Provides:       kf6-kcodecs = %{version}-%{release}
-Conflicts:      kf6-kcodecs < %{version}-%{release}
+Provides:       kf6-kcodecs%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcodecs < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 1 addon with string manipulation methods.
@@ -42,8 +42,8 @@ KDE Frameworks 6 Tier 1 addon with string manipulation methods.
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt6-qtbase-devel
-Provides:       kf6-kcodecs-devel = %{version}-%{release}
-Conflicts:      kf6-kcodecs-devel < %{version}-%{release}
+Provides:       kf6-kcodecs-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcodecs-devel < %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -52,8 +52,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kcodecs-doc = %{version}-%{release}
-Conflicts:      kf6-kcodecs-doc < %{version}-%{release}
+Provides:       kf6-kcodecs-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcodecs-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -61,8 +61,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kcodecs-html = %{version}-%{release}
-Conflicts:      kf6-kcodecs-html < %{version}-%{release}
+Provides:       kf6-kcodecs-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kcodecs-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

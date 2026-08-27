@@ -6,7 +6,7 @@
 #Name:		kf6-%%{framework}
 Name:       sonic-frameworks-windowsystem
 Version: 6.29.0
-Release: 1%{?dist}
+Release:        3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module with classes for windows management
 License:	CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
 #URL:		https://invent.kde.org/frameworks/%%{framework}
@@ -43,7 +43,8 @@ BuildRequires:  pkgconfig(Qt6Core)
 BuildRequires:  pkgconfig(Qt6Gui)
 BuildRequires:  qt6-qtbase-private-devel
 Requires:	kf6-filesystem
-Conflicts:      kf6-kwindowsystem
+Obsoletes:      kf6-kwindowsystem < %{version}-%{release}
+Provides:       kf6-kwindowsystem = %{version}-%{release}
 
 %description
 KDE Frameworks Tier 1 integration module that provides classes for managing and
@@ -53,7 +54,8 @@ working with windows.
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt6-qtbase-devel
-Conflicts:      kf6-kwindowsystem-devel
+Obsoletes:      kf6-kwindowsystem-devel < %{version}-%{release}
+Provides:       kf6-kwindowsystem-devel = %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -62,14 +64,16 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts:      kf6-kwindowsystem-doc
+Obsoletes:      kf6-kwindowsystem-doc < %{version}-%{release}
+Provides:       kf6-kwindowsystem-doc = %{version}-%{release}
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts:      kf6-kwindowsystem-html
+Obsoletes:      kf6-kwindowsystem-html < %{version}-%{release}
+Provides:       kf6-kwindowsystem-html = %{version}-%{release}
 %description    html
 Developer Documentation files for %{name} in HTML format
 

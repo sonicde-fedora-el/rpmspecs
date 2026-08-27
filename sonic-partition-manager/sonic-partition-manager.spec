@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 #Name:           kde-partitionmanager
 Name:           sonic-partition-manager
 Version:        26.04.3
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Partition Manager
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND CC-BY-4.0 AND CC0-1.0 AND GFDL-1.2-or-later
@@ -58,8 +58,8 @@ BuildRequires:  cmake(KPMcore) >= %{kpmcoremin}
 
 Requires:       kf6-filesystem
 
-Provides:       kde-partitionmanager = %{version}-%{release}
-Conflicts:      kde-partitionmanager < %{version}-%{release}
+Provides:       kde-partitionmanager%{?_isa} = %{version}-%{release}
+Obsoletes:      kde-partitionmanager < %{version}-%{release}
 
 %description
 KDE Partition Manager is a utility program to help you manage the disk devices,

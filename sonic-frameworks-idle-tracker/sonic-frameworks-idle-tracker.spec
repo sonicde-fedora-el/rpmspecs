@@ -16,7 +16,7 @@
 #Name:		kf6-%%{framework}
 Name:           sonic-frameworks-idle-tracker
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module for idle time detection
 License:	CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 #URL:		https://invent.kde.org/frameworks/%%{framework}
@@ -39,8 +39,8 @@ Requires:	kf6-filesystem
 Recommends:	%{name}-x11%{?_isa} = %{version}-%{release}
 %endif
 
-Provides:       kf6-kidletime = %{version}-%{release}
-Conflicts:      kf6-kidletime < %{version}-%{release}
+Provides:       kf6-kidletime%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kidletime < %{version}-%{release}
 
 %description
 KDE Frameworks 6 Tier 1 integration module for idle time detection.
@@ -59,8 +59,8 @@ Conflicts:	%{name} < 6.6.0-1
 # X11 is deprecated and this will be removed eventually...
 Provides:	deprecated()
 
-Provides:       kf6-kidletime-x11 = %{version}-%{release}
-Conflicts:      kf6-kidletime-x11 < %{version}-%{release}
+Provides:       kf6-kidletime-x11%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kidletime-x11 < %{version}-%{release}
 
 %description	x11
 The %{name}-x11 package contains plugins for applications using
@@ -71,8 +71,8 @@ The %{name}-x11 package contains plugins for applications using
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt6-qtbase-devel
-Provides:       kf6-kidletime-devel = %{version}-%{release}
-Conflicts:      kf6-kidletime-devel < %{version}-%{release}
+Provides:       kf6-kidletime-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kidletime-devel < %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -81,8 +81,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kidletime-doc = %{version}-%{release}
-Conflicts:      kf6-kidletime-doc < %{version}-%{release}
+Provides:       kf6-kidletime-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kidletime-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -90,8 +90,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kidletime-html = %{version}-%{release}
-Conflicts:      kf6-kidletime-html < %{version}-%{release}
+Provides:       kf6-kidletime-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kidletime-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

@@ -11,7 +11,7 @@
 Name:           sonic-write-daemon
 Summary: KDE Write Daemon
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -36,8 +36,8 @@ Requires:       sonic-frameworks-notifications
 # TODO: Remove once kwrited is split from kde-workspace
 Conflicts:      kde-workspace < 5.0.0-1
 
-Provides:       kwrited = %{version}-%{release}
-Conflicts:      kwrited < %{version}-%{release}
+Provides:       kwrited%{?_isa} = %{version}-%{release}
+Obsoletes:      kwrited < %{version}-%{release}
 
 %description
 %{summary}.

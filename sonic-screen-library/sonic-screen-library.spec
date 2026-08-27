@@ -5,7 +5,7 @@
 Name:    sonic-screen-library
 Summary: KDE display configuration library
 Version: 6.7.4
-Release: 1%{?dist}
+Release:        3%{?dist}
 
 License: GPL-2.0-or-later
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -40,7 +40,8 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtwayland-devel
 BuildRequires:  cmake(Qt6WaylandClient)
 
-Conflicts: libkscreen
+Obsoletes:      libkscreen < %{version}-%{release}
+Provides:       libkscreen = %{version}-%{release}
 
 %description
 LibKScreen is a library that provides access to current configuration
@@ -49,7 +50,8 @@ of connected displays and ways to change the configuration.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Conflicts: libkscreen-devel
+Obsoletes:      libkscreen-devel < %{version}-%{release}
+Provides:       libkscreen-devel = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -57,7 +59,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts: libkscreen-doc
+Obsoletes:      libkscreen-doc < %{version}-%{release}
+Provides:       libkscreen-doc = %{version}-%{release}
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 

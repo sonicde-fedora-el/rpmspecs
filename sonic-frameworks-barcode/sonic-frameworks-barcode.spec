@@ -13,7 +13,7 @@
 Name:           sonic-frameworks-barcode
 Summary:	KDE Frameworks 6 Tier 1 barcode library
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 License:	BSD-3-Clause AND CC0-1.0 AND MIT
 #URL:		https://invent.kde.org/frameworks/%%{framework}
 URL:            https://github.com/Sonic-DE/%{reponame}
@@ -34,8 +34,8 @@ BuildRequires:	pkgconfig(libqrencode)
 
 Requires:	kf6-filesystem
 
-Provides:       kf6-prison = %{version}-%{release}
-Conflicts:      kf6-prison < %{version}-%{release}
+Provides:       kf6-prison%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-prison < %{version}-%{release}
 
 %description
 Prison is a Qt-based barcode abstraction layer/library that provides
@@ -44,8 +44,8 @@ an uniform access to generation of barcodes with data.
 %package	devel
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
-Provides:       kf6-prison-devel = %{version}-%{release}
-Conflicts:      kf6-prison-devel < %{version}-%{release}
+Provides:       kf6-prison-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-prison-devel < %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -54,8 +54,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-prison-doc = %{version}-%{release}
-Conflicts:      kf6-prison-doc < %{version}-%{release}
+Provides:       kf6-prison-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-prison-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -63,8 +63,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-prison-html = %{version}-%{release}
-Conflicts:      kf6-prison-html < %{version}-%{release}
+Provides:       kf6-prison-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-prison-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

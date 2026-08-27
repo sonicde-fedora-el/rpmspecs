@@ -10,7 +10,7 @@
 #Name:    kio-extras
 Name:           sonic-frameworks-io-extras
 Version:        26.04.3
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -77,16 +77,16 @@ BuildRequires:  taglib-devel > 1.11
 # This package provides plugins for KIO
 Supplements:    kf6-kio-core
 
-Provides:       kio-extras = %{version}-%{release}
-Conflicts:      kio-extras < %{version}-%{release}
+Provides:       kio-extras%{?_isa} = %{version}-%{release}
+Obsoletes:      kio-extras < %{version}-%{release}
 
 %description
 %{summary}.
 
 %package info
 Summary: Info kioslave
-Provides:       kio-extras-info = %{version}-%{release}
-Conflicts:      kio-extras-info < %{version}-%{release}
+Provides:       kio-extras-info%{?_isa} = %{version}-%{release}
+Obsoletes:      kio-extras-info < %{version}-%{release}
 
 %description info
 Kioslave for reading info pages.
@@ -94,8 +94,8 @@ Kioslave for reading info pages.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       kio-extras-devel = %{version}-%{release}
-Conflicts:      kio-extras-devel < %{version}-%{release}
+Provides:       kio-extras-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kio-extras-devel < %{version}-%{release}
 
 %description devel
 %{summary}.

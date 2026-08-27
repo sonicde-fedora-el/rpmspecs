@@ -11,7 +11,7 @@
 Name:           sonic-activities
 Summary: Core components for the KDE Activity concept
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -40,8 +40,8 @@ Provides:       kf6-kactivities = 1:%{version}-%{release}
 # Renamed from kactivities
 Obsoletes:      kactivities < 5.27.81
 
-Provides:       plasma-activities = %{version}-%{release}
-Conflicts:      plasma-activities < %{version}-%{release}
+Provides:       plasma-activities%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-activities < %{version}-%{release}
 
 %description
 KActivities provides the infrastructure needed to manage a user's activities,
@@ -56,8 +56,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
 Obsoletes:      kf6-kactivities-devel < 1:%{version}-%{release}
 Provides:       kf6-kactivities-devel = 1:%{version}-%{release}
-Provides:       plasma-activities-devel = %{version}-%{release}
-Conflicts:      plasma-activities-devel < %{version}-%{release}
+Provides:       plasma-activities-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-activities-devel < %{version}-%{release}
 
 %description    devel
 %{summary}.
@@ -65,8 +65,8 @@ Conflicts:      plasma-activities-devel < %{version}-%{release}
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       plasma-activities-doc = %{version}-%{release}
-Conflicts:      plasma-activities-doc < %{version}-%{release}
+Provides:       plasma-activities-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-activities-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.

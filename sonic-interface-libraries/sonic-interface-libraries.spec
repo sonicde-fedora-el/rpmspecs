@@ -4,7 +4,7 @@
 #Name:    libplasma
 Name:    sonic-interface-libraries
 Version: 6.7.4
-Release: 1%{?dist}
+Release:        3%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
@@ -66,7 +66,8 @@ Requires:       kf6-filesystem
 # Renamed from kf6-plasma
 Obsoletes:      kf6-plasma < 1:%{version}-%{release}
 Provides:       kf6-plasma = 1:%{version}-%{release}
-Conflicts: libplasma
+Obsoletes:      libplasma < %{version}-%{release}
+Provides:       libplasma = %{version}-%{release}
 
 %description
 %{summary}.
@@ -81,7 +82,8 @@ Requires:       cmake(KF6KirigamiPlatform)
 Requires:       cmake(KF6WindowSystem)
 Obsoletes:      kf6-plasma-devel < 1:%{version}-%{release}
 Provides:       kf6-plasma-devel = 1:%{version}-%{release}
-Conflicts: libplasma-devel
+Obsoletes:      libplasma-devel < %{version}-%{release}
+Provides:       libplasma-devel = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -89,7 +91,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts: libplasma-doc
+Obsoletes:      libplasma-doc < %{version}-%{release}
+Provides:       libplasma-doc = %{version}-%{release}
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 

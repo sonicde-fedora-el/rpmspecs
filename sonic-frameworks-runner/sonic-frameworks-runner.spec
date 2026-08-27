@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-runner
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution with parallelized query system
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -42,8 +42,8 @@ BuildRequires:  cmake(KF6ItemModels)
 
 Requires:  kf6-filesystem
 
-Provides:       kf6-krunner = %{version}-%{release}
-Conflicts:      kf6-krunner < %{version}-%{release}
+Provides:       kf6-krunner%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-krunner < %{version}-%{release}
 
 %description
 KRunner provides a parallelized query system extendable via plugins.
@@ -53,8 +53,8 @@ Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
 Requires:       cmake(KF6CoreAddons)
-Provides:       kf6-krunner-devel = %{version}-%{release}
-Conflicts:      kf6-krunner-devel < %{version}-%{release}
+Provides:       kf6-krunner-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-krunner-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -63,8 +63,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-krunner-doc = %{version}-%{release}
-Conflicts:      kf6-krunner-doc < %{version}-%{release}
+Provides:       kf6-krunner-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-krunner-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -72,8 +72,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-krunner-html = %{version}-%{release}
-Conflicts:      kf6-krunner-html < %{version}-%{release}
+Provides:       kf6-krunner-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-krunner-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

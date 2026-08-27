@@ -12,7 +12,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-device-integration
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 integration module that provides hardware information
 License:        LGPL-2.1-or-later AND LGPL-2.1-only AND CCO-1.0 AND BSD-3-Clause AND LGPL-3.0-only
 #URL:            https://solid.kde.org/
@@ -42,8 +42,8 @@ Recommends:     media-player-info
 Recommends:     udisks2
 Recommends:     upower
 
-Provides:       kf6-solid = %{version}-%{release}
-Conflicts:      kf6-solid < %{version}-%{release}
+Provides:       kf6-solid%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-solid < %{version}-%{release}
 
 %description
 Solid provides the following features for application developers:
@@ -55,8 +55,8 @@ Solid provides the following features for application developers:
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(Qt6Core)
-Provides:       kf6-solid-devel = %{version}-%{release}
-Conflicts:      kf6-solid-devel < %{version}-%{release}
+Provides:       kf6-solid-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-solid-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -65,8 +65,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-solid-doc = %{version}-%{release}
-Conflicts:      kf6-solid-doc < %{version}-%{release}
+Provides:       kf6-solid-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-solid-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -74,8 +74,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-solid-html = %{version}-%{release}
-Conflicts:      kf6-solid-html < %{version}-%{release}
+Provides:       kf6-solid-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-solid-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

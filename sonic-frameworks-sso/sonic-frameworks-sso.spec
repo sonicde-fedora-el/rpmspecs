@@ -13,7 +13,7 @@
 #Name:           signon
 Name:           sonic-frameworks-sso
 Version:        8.61.2
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
 License:        LGPL-2.1-only
@@ -28,15 +28,14 @@ BuildRequires:  gcc-c++
 BuildRequires:  qt6-qtbase-devel
 
 # upstream name: signond
-Provides:       signond = %{version}-%{release}
+Provides:       signond%{?_isa} = %{version}-%{release}
 
 # conflicting implementation: gsignond
-Conflicts:      gsignond
 
 Requires:       dbus
 
-Provides:       signon = %{version}-%{release}
-Conflicts:      signon < %{version}-%{release}
+Provides:       signon%{?_isa} = %{version}-%{release}
+Obsoletes:      signon < %{version}-%{release}
 
 %description
 Single Sign-On is a framework for centrally storing authentication credentials
@@ -47,8 +46,8 @@ client library for applications to communicate with this system.
 
 %package qt6
 Summary:        Single Sign On client library for Qt6-based applications
-Provides:       signon-qt6 = %{version}-%{release}
-Conflicts:      signon-qt6 < %{version}-%{release}
+Provides:       signon-qt6%{?_isa} = %{version}-%{release}
+Obsoletes:      signon-qt6 < %{version}-%{release}
 
 %description qt6
 %{summary}.
@@ -58,11 +57,11 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-qt6%{?_isa} = %{version}-%{release}
 # upstream name: signond
-Provides:       signond-devel = %{version}-%{release}
-Provides:       signon-devel = %{version}-%{release}
-Conflicts:      signon-devel < %{version}-%{release}
-Provides:       signon-qt6-devel = %{version}-%{release}
-Conflicts:      signon-qt6-devel < %{version}-%{release}
+Provides:       signond-devel%{?_isa} = %{version}-%{release}
+Provides:       signon-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      signon-devel < %{version}-%{release}
+Provides:       signon-qt6-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      signon-qt6-devel < %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files for

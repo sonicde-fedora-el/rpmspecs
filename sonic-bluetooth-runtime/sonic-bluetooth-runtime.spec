@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-bluetooth-runtime
 Summary: Bluetooth stack for KDE
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        4%{?dist}
 
 License: GPL-2.0-or-later
 #URL:     https://cgit.kde.org/%%{name}.git
@@ -68,9 +68,9 @@ Requires:       sonic-frameworks-quick-ui
 
 # When -autostart was removed
 Obsoletes:      bluedevil-autostart < 5.2.95
+Obsoletes:      bluedevil < %{version}-%{release}
 
-Provides:       bluedevil = %{version}-%{release}
-Conflicts:      bluedevil < %{version}-%{release}
+Provides:       bluedevil%{?_isa} = %{version}-%{release}
 
 %description
 BlueDevil is the bluetooth stack for KDE.

@@ -1,4 +1,5 @@
-# Build order for the SonicDE packages, derived from the BuildRequires of
+tiers: 16 packages: 137
+nicDE packages, derived from the BuildRequires of
 # every spec in this repository (see ci/generate-build-order.py).
 #
 # Packages inside one tier are independent and can be built in parallel;
@@ -6,6 +7,7 @@
 
 [tier1]
 SDL2
+libei
 silver-sddm
 sonic-crypto-library
 sonic-frameworks-sso

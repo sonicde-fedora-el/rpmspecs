@@ -13,7 +13,7 @@
 Name:           sonic-frameworks-bluetooth
 Summary:        A Qt wrapper for Bluez
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
  
 License:        CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 #URL:            https://invent.kde.org/frameworks/%%{framework}
@@ -37,8 +37,8 @@ BuildRequires:  systemd
 Requires:       kf6-filesystem
 Recommends:     bluez >= 5
  
-Provides:       kf6-bluez-qt = %{version}-%{release}
-Conflicts:      kf6-bluez-qt < %{version}-%{release}
+Provides:       kf6-bluez-qt%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-bluez-qt < %{version}-%{release}
 
 %description
 BluezQt is Qt-based library written handle all Bluetooth functionality.
@@ -48,8 +48,8 @@ Summary:        Development files for %{name}
 
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
-Provides:       kf6-bluez-qt-devel = %{version}-%{release}
-Conflicts:      kf6-bluez-qt-devel < %{version}-%{release}
+Provides:       kf6-bluez-qt-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-bluez-qt-devel < %{version}-%{release}
 
 %description    devel
 Development files for %{name}.
@@ -57,8 +57,8 @@ Development files for %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-bluez-qt-doc = %{version}-%{release}
-Conflicts:      kf6-bluez-qt-doc < %{version}-%{release}
+Provides:       kf6-bluez-qt-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-bluez-qt-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -66,8 +66,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-bluez-qt-html = %{version}-%{release}
-Conflicts:      kf6-bluez-qt-html < %{version}-%{release}
+Provides:       kf6-bluez-qt-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-bluez-qt-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

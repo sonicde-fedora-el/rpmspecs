@@ -5,7 +5,7 @@
 Name:    sonic-sysguard-library
 Summary: Library for managing processes running on the system
 Version: 6.7.4
-Release: 1%{?dist}
+Release:        3%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -55,13 +55,13 @@ BuildRequires:  zlib-devel
 
 Obsoletes:      kf5-ksysguard < 5.1.95
 Provides:       kf5-ksysguard = %{version}-%{release}
+Obsoletes:      libksysguard < %{version}-%{release}
+Provides:       libksysguard = %{version}-%{release}
 
 Requires:       %{name}-common = %{version}-%{release}
 
 ## upgrade path, https://bugzilla.redhat.com/show_bug.cgi?id=1963354
 Conflicts: ksysguard-backend < 5.21.90
-
-Conflicts: libksysguard
 
 %description
 KSysGuard library provides API to read and manage processes
@@ -78,14 +78,16 @@ Requires:       cmake(KF6I18n)
 Requires:       cmake(KF6IconThemes)
 Obsoletes:      kf5-ksysguard-devel < 5.1.95
 Provides:       kf5-ksysguard-devel = %{version}-%{release}
+Obsoletes:      libksysguard-devel < %{version}-%{release}
+Provides:       libksysguard-devel = %{version}-%{release}
 Conflicts:      kde-workspace-devel < 1:4.11.16-11
-Conflicts: libksysguard-devel
 
 %package        common
 Summary:        Runtime data files shared by libksysguard and ksysguard-libs
+Obsoletes:      libksysguard-common < %{version}-%{release}
+Provides:       libksysguard-common = %{version}-%{release}
 Conflicts:      libksysguard < 5.2.1-2
 Conflicts:      ksysguard < 5.2
-Conflicts: libksysguard-common
 %description    common
 %{summary}.
 

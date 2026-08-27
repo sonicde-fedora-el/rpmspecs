@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-daemon
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extensible daemon for system-level services
 
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -39,8 +39,8 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  systemd
 Requires:  kf6-filesystem
 
-Provides:       kf6-kded = %{version}-%{release}
-Conflicts:      kf6-kded < %{version}-%{release}
+Provides:       kf6-kded%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kded < %{version}-%{release}
 
 %description
 KDED stands for KDE Daemon which isn't very descriptive. KDED runs
@@ -53,8 +53,8 @@ applications.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       kf6-kded-devel = %{version}-%{release}
-Conflicts:      kf6-kded-devel < %{version}-%{release}
+Provides:       kf6-kded-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kded-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for

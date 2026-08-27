@@ -11,7 +11,7 @@
 Name:           sonic-launcher-menu-edit
 Summary: KDE menu editor
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -42,8 +42,8 @@ BuildRequires:  libappstream-glib
 # when split out from kde-workspace-4.11.x
 Conflicts:      kde-workspace < 4.11.15-3
 
-Provides:       kmenuedit = %{version}-%{release}
-Conflicts:      kmenuedit < %{version}-%{release}
+Provides:       kmenuedit%{?_isa} = %{version}-%{release}
+Obsoletes:      kmenuedit < %{version}-%{release}
 
 %description
 %{summary}.

@@ -12,7 +12,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-root-shell
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration with su
 
 License: CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -39,8 +39,8 @@ Requires:  kf6-filesystem
 Requires:  sudo
 %endif
 
-Provides:       kf6-kdesu = %{version}-%{release}
-Conflicts:      kf6-kdesu < %{version}-%{release}
+Provides:       kf6-kdesu%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdesu < %{version}-%{release}
 
 %description
 
@@ -48,8 +48,8 @@ Conflicts:      kf6-kdesu < %{version}-%{release}
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6Pty)
-Provides:       kf6-kdesu-devel = %{version}-%{release}
-Conflicts:      kf6-kdesu-devel < %{version}-%{release}
+Provides:       kf6-kdesu-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdesu-devel < %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -58,8 +58,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kdesu-doc = %{version}-%{release}
-Conflicts:      kf6-kdesu-doc < %{version}-%{release}
+Provides:       kf6-kdesu-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdesu-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -67,8 +67,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-kdesu-html = %{version}-%{release}
-Conflicts:      kf6-kdesu-html < %{version}-%{release}
+Provides:       kf6-kdesu-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-kdesu-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

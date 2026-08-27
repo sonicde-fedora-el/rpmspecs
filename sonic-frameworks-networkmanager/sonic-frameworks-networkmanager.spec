@@ -14,7 +14,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-networkmanager
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A Tier 1 KDE Frameworks 6 module that wraps NetworkManager DBus API
 License:        LGPL-2.0-or-later AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND CC0-1.0
 #URL:            https://invent.kde.org/frameworks/%%{framework}
@@ -42,8 +42,8 @@ BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  pkgconfig(libnm)
 Recommends:     NetworkManager
 
-Provides:       kf6-networkmanager-qt = %{version}-%{release}
-Conflicts:      kf6-networkmanager-qt < %{version}-%{release}
+Provides:       kf6-networkmanager-qt%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-networkmanager-qt < %{version}-%{release}
 
 %description
 A Tier 1 KDE Frameworks 6 Qt library for NetworkManager.
@@ -53,8 +53,8 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(Qt6Core)
 Requires:       pkgconfig(libnm)
-Provides:       kf6-networkmanager-qt-devel = %{version}-%{release}
-Conflicts:      kf6-networkmanager-qt-devel < %{version}-%{release}
+Provides:       kf6-networkmanager-qt-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-networkmanager-qt-devel < %{version}-%{release}
 
 %description    devel
 Qt libraries and header files for developing applications
@@ -63,8 +63,8 @@ that use NetworkManager.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-networkmanager-qt-doc = %{version}-%{release}
-Conflicts:      kf6-networkmanager-qt-doc < %{version}-%{release}
+Provides:       kf6-networkmanager-qt-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-networkmanager-qt-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -72,8 +72,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-networkmanager-qt-html = %{version}-%{release}
-Conflicts:      kf6-networkmanager-qt-html < %{version}-%{release}
+Provides:       kf6-networkmanager-qt-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-networkmanager-qt-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

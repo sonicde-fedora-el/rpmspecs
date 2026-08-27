@@ -4,7 +4,7 @@
 
 Name:    sonic-screenlocker
 Version: 6.7.4
-Release: 1%{?dist}
+Release:        3%{?dist}
 Summary: Library and components for secure lock screen architecture
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -55,7 +55,8 @@ BuildRequires:  cmake(PlasmaQuick)
 BuildRequires:  libXcursor-devel
 BuildRequires:  pam-devel
 
-Conflicts: kscreenlocker
+Obsoletes:      kscreenlocker < %{version}-%{release}
+Provides:       kscreenlocker = %{version}-%{release}
 
 %description
 %{summary}.
@@ -65,7 +66,8 @@ Patch30:        sonic-screenlocker-6.6.5.2-fake-version-6.6.4.patch
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Conflicts: kscreenlocker
+Obsoletes:      kscreenlocker < %{version}-%{release}
+Provides:       kscreenlocker = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.

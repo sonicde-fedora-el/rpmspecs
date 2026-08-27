@@ -13,7 +13,7 @@
 Name:           sonic-ecco
 Summary:        KDE File Manager
 Version:        26.04.3.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:            https://invent.kde.org/system/dolphin
@@ -86,16 +86,16 @@ Recommends:     sonic-frameworks-image-formats%{?_isa}
 Recommends:     qt6-qtimageformats%{?_isa}
 Recommends:     ffmpegthumbs%{?_isa}
 
-Provides:       dolphin = %{version}-%{release}
-Conflicts:      dolphin < %{version}-%{release}
+Provides:       dolphin%{?_isa} = %{version}-%{release}
+Obsoletes:      dolphin < %{version}-%{release}
 
 %description
 %{summary}.
 
 %package        libs
 Summary:        Dolphin runtime libraries
-Provides:       dolphin-libs = %{version}-%{release}
-Conflicts:      dolphin-libs < %{version}-%{release}
+Provides:       dolphin-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      dolphin-libs < %{version}-%{release}
 
 %description    libs
 %{summary}.
@@ -105,8 +105,8 @@ Summary:        Developer files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel%{?_isa}
 Requires:       sonic-frameworks-io-devel%{?_isa}
-Provides:       dolphin-devel = %{version}-%{release}
-Conflicts:      dolphin-devel < %{version}-%{release}
+Provides:       dolphin-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      dolphin-devel < %{version}-%{release}
 
 %description    devel
 %{summary}.

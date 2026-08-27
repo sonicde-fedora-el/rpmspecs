@@ -13,7 +13,7 @@
 Name:           sonic-frameworks-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
 Version:        6.29.0
-Release:        1%{?dist}
+Release:        4%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 #URL:     https://invent.kde.org/frameworks/%%{framework}
@@ -42,8 +42,7 @@ BuildRequires: cmake(KAccounts6)
 BuildRequires: pkgconfig(Qt6Network)
 BuildRequires: pkgconfig(Qt6Qml)
 
-BuildRequires: accounts-qml-module-qt6
-Requires:      accounts-qml-module-qt6
+Recommends:     accounts-qml-module-qt6
 BuildRequires: cmake(KF6Declarative)
 Requires:      sonic-frameworks-qml-bridge
 BuildRequires: cmake(KF6Prison)
@@ -55,8 +54,8 @@ Requires:      qt6qml(org.kde.kitemmodels)
 Requires: hicolor-icon-theme
 Requires: sonic-frameworks-bluetooth >= %{version}
 
-Provides:       kf6-purpose = %{version}-%{release}
-Conflicts:      kf6-purpose < %{version}-%{release}
+Provides:       kf6-purpose%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-purpose < %{version}-%{release}
 
 %description
 Purpose offers the possibility to create integrate services and actions on
@@ -69,8 +68,8 @@ can receive all the information they need.
 Summary:  Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: cmake(KF6CoreAddons)
-Provides:       kf6-purpose-devel = %{version}-%{release}
-Conflicts:      kf6-purpose-devel < %{version}-%{release}
+Provides:       kf6-purpose-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-purpose-devel < %{version}-%{release}
 
 %description devel
 %{summary}.
@@ -78,8 +77,8 @@ Conflicts:      kf6-purpose-devel < %{version}-%{release}
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-purpose-doc = %{version}-%{release}
-Conflicts:      kf6-purpose-doc < %{version}-%{release}
+Provides:       kf6-purpose-doc%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-purpose-doc < %{version}-%{release}
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -87,8 +86,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Provides:       kf6-purpose-html = %{version}-%{release}
-Conflicts:      kf6-purpose-html < %{version}-%{release}
+Provides:       kf6-purpose-html%{?_isa} = %{version}-%{release}
+Obsoletes:      kf6-purpose-html < %{version}-%{release}
 
 %description    html
 Developer Documentation files for %{name} in HTML format

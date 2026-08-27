@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-drawing-tablet
 Summary: KDE Control module for Wacom Graphictablets
 Version:        6.7.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -61,8 +61,8 @@ ExcludeArch: s390 s390x
 Obsoletes: kcm-wacomtablet < 1.3.7-2
 Provides:  kcm-wacomtablet = %{version}-%{release}
 
-Provides:       kcm_wacomtablet = %{version}-%{release}
-Conflicts:      kcm_wacomtablet < %{version}-%{release}
+Provides:       kcm_wacomtablet%{?_isa} = %{version}-%{release}
+Obsoletes:      kcm_wacomtablet < %{version}-%{release}
 
 %description
 This module implements a GUI for the Wacom Linux Drivers and extends it

@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-system-log
 Summary: System Log Viewer for KDE
 Version:        26.04.3
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -59,8 +59,8 @@ BuildRequires: cmake(KF6Crash)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(audit)
 
-Provides:       ksystemlog = %{version}-%{release}
-Conflicts:      ksystemlog < %{version}-%{release}
+Provides:       ksystemlog%{?_isa} = %{version}-%{release}
+Obsoletes:      ksystemlog < %{version}-%{release}
 
 %description
 This program is developed for beginner users, who don't know how to find
