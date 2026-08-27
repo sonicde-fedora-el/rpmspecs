@@ -1,14 +1,14 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version:      25.12.3
-Release:        2%{?dist}
+Version:      26.04.3
+Release:        1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
 Url:     https://community.kde.org/KDEConnect
 
-Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
+Source0: kdeconnect-kde-%{version}.tar.xz
 
 # Doesn't build on i686 as-of 25.03.80
 ExcludeArch: %{ix86}
@@ -24,8 +24,8 @@ BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(openssl)
 
-BuildRequires:  extra-cmake-modules
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-frameworks-cmake-modules
+BuildRequires:  sonic-rpm-macros
 BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6DocTools)
@@ -182,6 +182,7 @@ done
 %{_datadir}/applications/org.kde.kdeconnect.daemon.desktop
 %{_kf6_bindir}/kdeconnectd
 %{_datadir}/dbus-1/services/org.kde.kdeconnect.service
+%{_prefix}/lib64/udev/rules.d/40-kdeconnect-uinput.rules
 
 %files libs
 %{_kf6_libdir}/libkdeconnectcore.so.*
@@ -192,7 +193,8 @@ done
 
 
 %changelog
-* Thu Aug 27 2026 SonicDE <dev@sonicde.org> - 25.12.3-2
+* Thu Aug 27 2026 SonicDE <dev@sonicde.org> - 26.04.3-1
+- Update to 26.04.3
 - Change Requires from kde-cli-tools to sonic-terminal-tools
 - Change Requires from kf6-kirigami2 to sonic-frameworks-quick-ui
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1

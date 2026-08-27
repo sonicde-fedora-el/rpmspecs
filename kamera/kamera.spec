@@ -12,8 +12,8 @@ License: GPL-2.0-only
 URL:     https://www.kde.org/applications/graphics/
 Source0: kamera-%{version}.tar.xz
 
-BuildRequires: extra-cmake-modules
-BuildRequires: kf6-rpm-macros
+BuildRequires:  sonic-frameworks-cmake-modules
+BuildRequires:  sonic-rpm-macros
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
