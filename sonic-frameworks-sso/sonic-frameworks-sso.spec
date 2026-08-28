@@ -13,7 +13,7 @@
 #Name:           signon
 Name:           sonic-frameworks-sso
 Version:        8.61.2
-Release:        6%{?dist}
+Release:        9%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
 License:        LGPL-2.1-only
@@ -87,6 +87,89 @@ sed -i '/^install(FILES$/,/dbus-1\/interfaces)/d' cmake/signond/CMakeLists.txt
 # create/own libdir/signond/extensions
 mkdir -p %{buildroot}%{_libdir}/signond/extensions/
 
+# Install plugin development files (CMake fork doesn't install these)
+# Plugin headers
+mkdir -p %{buildroot}%{_includedir}/signon-plugins/SignOn
+cp -a %{_builddir}/%{reponame}-%{version}/lib/plugins/SignOn/*.h \
+      %{buildroot}%{_includedir}/signon-plugins/SignOn/
+cp -a %{_builddir}/%{reponame}-%{version}/lib/plugins/*.h \
+      %{buildroot}%{_includedir}/signon-plugins/ 2>/dev/null || true
+cp -a %{_builddir}/%{reponame}-%{version}/src/plugins/example/exampledata.h \
+      %{buildroot}%{_includedir}/signon-plugins/ 2>/dev/null || true
+cp -a %{_builddir}/%{reponame}-%{version}/src/plugins/example/exampleplugin.h \
+      %{buildroot}%{_includedir}/signon-plugins/ 2>/dev/null || true
+cp -a %{_builddir}/%{reponame}-%{version}/src/plugins/password/passwordplugin.h \
+      %{buildroot}%{_includedir}/signon-plugins/ 2>/dev/null || true
+# Create CamelCase forwarding headers (upstream plugins use #include <SignOn/AuthPluginInterface>)
+# AuthPluginInterface -> authpluginif.h (note: not authplugininterface.h)
+echo "#include <SignOn/authpluginif.h>" > %{buildroot}%{_includedir}/signon-plugins/SignOn/AuthPluginInterface
+echo "#include <SignOn/uisessiondata.h>" > %{buildroot}%{_includedir}/signon-plugins/SignOn/UiSessionData
+# Error and SessionData are in signon-qt6, but plugins include them via SignOn/
+# Create forwarding headers that point to the qt6 versions
+echo "#include <SignOn/signonerror.h>" > %{buildroot}%{_includedir}/signon-plugins/SignOn/Error
+echo "#include <SignOn/sessiondata.h>" > %{buildroot}%{_includedir}/signon-plugins/SignOn/SessionData
+# Copy the actual qt6 headers that plugins need (signonerror.h, sessiondata.h, libsignoncommon.h)
+# since the forwarding headers above include them from SignOn/ which resolves
+# to signon-plugins/SignOn/
+cp -a %{buildroot}%{_includedir}/signon-qt6/SignOn/signonerror.h \
+      %{buildroot}%{_includedir}/signon-plugins/SignOn/ 2>/dev/null || true
+cp -a %{buildroot}%{_includedir}/signon-qt6/SignOn/sessiondata.h \
+      %{buildroot}%{_includedir}/signon-plugins/SignOn/ 2>/dev/null || true
+cp -a %{buildroot}%{_includedir}/signon-qt6/SignOn/libsignoncommon.h \
+      %{buildroot}%{_includedir}/signon-plugins/SignOn/ 2>/dev/null || true
+# Extension headers
+mkdir -p %{buildroot}%{_includedir}/signon-extension/SignOn
+cp -a %{_builddir}/%{reponame}-%{version}/lib/signond/SignOn/*.h \
+      %{buildroot}%{_includedir}/signon-extension/SignOn/
+# signond internal headers (needed by some plugins)
+mkdir -p %{buildroot}%{_includedir}/signond
+cp -a %{_builddir}/%{reponame}-%{version}/src/signond/*.h \
+      %{buildroot}%{_includedir}/signond/ 2>/dev/null || true
+# Create pkgconfig files (the .pc.in templates use qmake $$ syntax, not CMake)
+cat > %{buildroot}%{_libdir}/pkgconfig/signon-plugins.pc << 'PCEOF'
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/%{_lib}
+includedir=${prefix}/include
+plugin_includedir=${includedir}/signon-plugins/SignOn
+plugindir=${libdir}/signond
+
+Name: signon-plugins
+Description: SignonPlugins
+Version: %{version}
+Libs: -L${libdir} -lsignon-plugins-common
+Cflags: -I${includedir}/signon-plugins -I${includedir}/signon-plugins/SignOn
+PCEOF
+cat > %{buildroot}%{_libdir}/pkgconfig/SignOnExtension.pc << 'PCEOF'
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/%{_lib}
+includedir=${prefix}/include
+plugindir=${libdir}/signond/extensions
+
+Name: SignOnExtension
+Description: SignOn extension development
+Version: %{version}
+Requires: Qt6Core
+Libs: -L${libdir} -lsignon-extension
+Cflags: -I${includedir}/signon-extension
+PCEOF
+cat > %{buildroot}%{_libdir}/pkgconfig/signon-plugins-common.pc << 'PCEOF'
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/%{_lib}
+includedir=${prefix}/include
+plugin_includedir=${includedir}/signon-plugins/SignOn
+
+Name: signon-plugins-common
+Description: SignonPluginsCommon
+Version: %{version}
+Libs: -L${libdir} -lsignon-plugins-common
+Cflags: -I${includedir}/signon-plugins -I${includedir}/signon-plugins/SignOn
+PCEOF
+# Create libsignon-plugins.so symlink (plugins link against this)
+ln -sf libsignon-plugins-common.so %{buildroot}%{_libdir}/libsignon-plugins.so
+
 
 %files
 %license COPYING
@@ -102,13 +185,30 @@ mkdir -p %{buildroot}%{_libdir}/signond/extensions/
 
 %files devel
 %{_includedir}/signon-qt6/
+%{_includedir}/signon-plugins/
+%{_includedir}/signon-extension/
+%{_includedir}/signond/
 %{_libdir}/cmake/SignOnQt6/
 %{_libdir}/pkgconfig/libsignon-qt6.pc
+%{_libdir}/pkgconfig/signon-plugins.pc
+%{_libdir}/pkgconfig/SignOnExtension.pc
+%{_libdir}/pkgconfig/signon-plugins-common.pc
 %{_libdir}/libsignon-qt6.so
 %{_libdir}/libsignon-extension.so
 %{_libdir}/libsignon-plugins-common.so
+%{_libdir}/libsignon-plugins.so
 
 %changelog
+* Fri Aug 28 2026 SonicDE <dev@sonicde.org> - 8.61.2-9
+- Fix forwarding headers: AuthPluginInterface->authpluginif.h, add libsignoncommon.h
+
+* Fri Aug 28 2026 SonicDE <dev@sonicde.org> - 8.61.2-8
+- Add CamelCase forwarding headers and qt6 headers for plugin builds
+
+* Fri Aug 28 2026 SonicDE <dev@sonicde.org> - 8.61.2-7
+- Install plugin development files (headers, pkgconfig, symlinks) needed
+  to build signon-plugin-oauth2 and signon-kwallet-extension against SSO
+
 * Thu Aug 27 2026 SonicDE <dev@sonicde.org> - 8.61.2-6
 - Add Conflicts: signon to prevent D-Bus service file clash with EPEL signon
 
