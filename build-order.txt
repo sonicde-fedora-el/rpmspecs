@@ -1,5 +1,4 @@
-tiers: 16 packages: 137
-nicDE packages, derived from the BuildRequires of
+# Build order for the SonicDE packages, derived from the BuildRequires of
 # every spec in this repository (see ci/generate-build-order.py).
 #
 # Packages inside one tier are independent and can be built in parallel;
@@ -17,6 +16,7 @@ sonic-qt-accounts-library
 sonic-rpm-macros
 
 [tier2]
+signon-plugin-oauth2
 sonic-frameworks-cmake-modules
 
 [tier3]
@@ -54,6 +54,7 @@ sonic-pulseaudio-library
 sonic-workspace-wallpapers
 
 [tier4]
+ksanecore
 sonic-activities
 sonic-decoration
 sonic-frameworks-auth
@@ -73,6 +74,8 @@ sonic-quick-image-editor
 sonic-screen-library
 
 [tier5]
+kde-gtk-config
+kde-inotify-survey
 sonic-activities-stats
 sonic-frameworks-app-info
 sonic-frameworks-keybind
@@ -91,6 +94,7 @@ sonic-frameworks-root-shell
 sonic-frameworks-text-widgets
 
 [tier7]
+signon-kwallet-extension
 sonic-frameworks-keyring-pam
 sonic-frameworks-quick-desktop-style
 sonic-frameworks-quick-silver-style
@@ -120,6 +124,10 @@ sonic-qt-theme-bridge
 sonic-system-log
 
 [tier11]
+colord-kde
+filelight
+kamera
+kde-connect
 sonic-accounts-integration
 sonic-disks
 sonic-dr-robotnik
@@ -135,6 +143,7 @@ sonic-thunderbolt
 xdg-desktop-portal-sonicde
 
 [tier12]
+kaccounts-providers
 sonic-audio-applet-pulse
 sonic-bluetooth-runtime
 sonic-ecco
@@ -150,6 +159,8 @@ sonic-terminal
 sonic-welcome-center
 
 [tier13]
+dolphin-plugins
+skanpage
 sonic-breeze
 sonic-oxygen
 sonic-plasma5-support-library
