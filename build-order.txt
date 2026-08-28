@@ -179,6 +179,7 @@ sonic-win
 sonic-workspace
 
 [tier16]
+powerdevil
 sonic-browser-integration
 sonic-desktop-interface
 sonic-login-manager
