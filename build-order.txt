@@ -6,6 +6,7 @@
 
 [tier1]
 SDL2
+kde-filesystem
 libei
 silver-sddm
 sonic-crypto-library
@@ -16,10 +17,18 @@ sonic-qt-accounts-library
 sonic-rpm-macros
 
 [tier2]
+kde-settings
 signon-plugin-oauth2
 sonic-frameworks-cmake-modules
 
 [tier3]
+kdegraphics-mobipocket
+kdsoap-ws-discovery-client
+kf6-kcalendarcore
+kf6-ktexttemplate
+kf6-threadweaver
+libkdcraw
+sddm
 sonic-exiv2-library
 sonic-frameworks-archive
 sonic-frameworks-barcode
@@ -54,7 +63,9 @@ sonic-pulseaudio-library
 sonic-workspace-wallpapers
 
 [tier4]
+kf6-kcontacts
 ksanecore
+libkcompactdisc
 sonic-activities
 sonic-decoration
 sonic-frameworks-auth
@@ -87,6 +98,7 @@ sonic-gtk-theme-bridge
 sonic-write-daemon
 
 [tier6]
+kf6-kpeople
 sonic-daemon
 sonic-frameworks-icon-themes
 sonic-frameworks-keyring
@@ -103,12 +115,16 @@ sonic-frameworks-xml-gui
 sonic-ssh-password-prompt
 
 [tier8]
+kdebugsettings
 sonic-frameworks-bookmarks
 
 [tier9]
 sonic-frameworks-io
 
 [tier10]
+kdegraphics-thumbnailers
+kdenetwork-filesharing
+libkgapi
 sonic-activity-manager-daemon
 sonic-frameworks-feeds
 sonic-frameworks-file-search
@@ -126,8 +142,12 @@ sonic-system-log
 [tier11]
 colord-kde
 filelight
+flatpak-kcm
 kamera
 kde-connect
+libkcddb
+okular
+plasma-systemsettings
 sonic-accounts-integration
 sonic-disks
 sonic-dr-robotnik
@@ -144,6 +164,10 @@ xdg-desktop-portal-sonicde
 
 [tier12]
 kaccounts-providers
+kate
+plasma-keyboard
+plasma-print-manager
+sddm-kcm
 sonic-audio-applet-pulse
 sonic-bluetooth-runtime
 sonic-ecco
@@ -160,6 +184,7 @@ sonic-welcome-center
 
 [tier13]
 dolphin-plugins
+gwenview
 skanpage
 sonic-breeze
 sonic-oxygen
