@@ -4,7 +4,7 @@
 
 Name:           signon-plugin-oauth2
 Version:        0.25^%{gitdate}.%{shortcommit0}
-Release:        5%{?dist}
+Release:        50%{?dist}
 Summary:        OAuth2 plugin for the Accounts framework
 
 License:        LGPL-2.1-or-later
@@ -56,6 +56,9 @@ rm -rvf %{buildroot}/%{_sysconfdir} 2>/dev/null || true
 %{_libdir}/pkgconfig/signon-oauth2plugin.pc
 
 %changelog
+* Fri Aug 28 2026 SonicDE <dev@sonicde.org> - 0.25^20231216.fab6988-50
+- Bump release to 50 to supersede both EPEL and Fedora releases
+
 * Fri Aug 28 2026 SonicDE <dev@sonicde.org> - 0.25^20231216.fab6988-5
 - Bump release to 5 to supersede EPEL's release 4
 
