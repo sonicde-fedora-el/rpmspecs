@@ -1,9 +1,9 @@
-# Disable X11 for RHEL 10+
-%bcond x11 %[%{undefined rhel} || 0%{?rhel} < 10]
+# SonicDE uses X11 (xlibre-xserver) on EL 10+
+%bcond_without x11
 
 Name:           sddm
 Version:        0.21.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
@@ -103,36 +103,22 @@ Requires(pre): shadow-utils
 
 # Virtual dependency for sddm greeter setup
 Requires: sddm-greeter-displayserver
-Suggests: sddm-wayland-generic
+Suggests: sddm-x11
 
 %description
 SDDM is a modern graphical display manager aiming to be fast, simple and
 beautiful. It uses modern technologies like QtQuick, which in turn gives the
 designer the ability to create smooth, animated user interfaces.
 
-%package wayland-generic
-Summary: Generic Wayland SDDM greeter configuration
-Provides: sddm-greeter-displayserver
-Conflicts: sddm-greeter-displayserver
-Requires: weston
-Requires: %{name} = %{version}-%{release}
-BuildArch: noarch
-
-%description wayland-generic
-This package contains configuration and dependencies for SDDM
-to use Weston for the greeter display server.
-
-This is the generic default Wayland configuration provided
-by SDDM.
-
 %if %{with x11}
 %package x11
 Summary: X11 SDDM greeter configuration
 Provides: sddm-greeter-displayserver
 Conflicts: sddm-greeter-displayserver
+Obsoletes: sddm-wayland-generic < %{version}-%{release}
 # This will eventually go away...
 Provides: deprecated()
-Requires: xorg-x11-server-Xorg
+Requires: (xorg-x11-server-Xorg or xlibre-xserver-Xorg)
 Requires: %{name} = %{version}-%{release}
 Recommends: qt6-qtvirtualkeyboard
 BuildArch: noarch
@@ -279,9 +265,6 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 %{_mandir}/man5/sddm-state.conf.5*
 
 
-%files wayland-generic
-# No files since default configuration
-
 
 %if %{with x11}
 %files x11
@@ -296,6 +279,9 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 
 
 %changelog
+* Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 0.21.0-11
+- SonicDE: build sddm-x11, drop sddm-wayland-generic, support xlibre-xserver
+
 * Sat Feb 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-9
 - Fix embedding correct background in default theme
 
