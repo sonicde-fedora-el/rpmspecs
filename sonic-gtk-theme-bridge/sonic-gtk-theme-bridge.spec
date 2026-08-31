@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           sonic-gtk-theme-bridge
 Summary: Configure the appearance of GTK apps in KDE
 Version:        6.7.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -93,5 +93,8 @@ appearance of GTK apps in KDE.
 %{_datadir}/qlogging-categories6/kde-gtk-config.categories
 
 %changelog
+* Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-4
+- Bump release and obsolete kde-gtk-config so dnf upgrade --allowerasing replaces it.
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora
