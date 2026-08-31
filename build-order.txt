@@ -164,6 +164,7 @@ sonic-thunderbolt
 xdg-desktop-portal-sonicde
 
 [tier12]
+aurorae
 kaccounts-providers
 kate
 plasma-keyboard
