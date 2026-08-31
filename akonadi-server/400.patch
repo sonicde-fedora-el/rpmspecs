@@ -1,0 +1,69 @@
+From f0d71c9a28491b3fa664c1c520558c591061cb99 Mon Sep 17 00:00:00 2001
+From: Allen Winter <winter@kde.org>
+Date: Thu, 9 Jul 2026 07:25:18 -0400
+Subject: [PATCH] WIP - Fixes for Akonadi killing MariaDB too quickly
+
+[Tested with Fedora44 and mariadb 11.8.8]
+[No idea if these settings are ok for other MySQL variants]
+
+Implement the recommendations in BUG522845 to prevent crashes
+on login/logout when using the MariaDB backend.
+
+Includes these changes:
+- increase the wait from 3 to 30 seconds before termination
+- remove the  `TimeoutSec=5sec` in akonadi_control.service.in
+  so that systemd doesn't try to kill things after 5 seconds wait.
+- add `skip_slave_start` to mysql-global.conf so that replica
+  threads are not started which should improve startup time.
+
+BUG: 522845
+---
+ src/akonadicontrol/akonadi_control.service.in | 1 -
+ src/server/storage/dbconfigmysql.cpp          | 4 ++--
+ src/server/storage/mysql-global.conf          | 3 +++
+ 3 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/src/akonadicontrol/akonadi_control.service.in b/src/akonadicontrol/akonadi_control.service.in
+index 03c35ef5d..26f4b1838 100644
+--- a/src/akonadicontrol/akonadi_control.service.in
++++ b/src/akonadicontrol/akonadi_control.service.in
+@@ -9,7 +9,6 @@ PartOf=graphical-session.target
+ ExecStart=@CMAKE_INSTALL_FULL_BINDIR@/akonadi_control
+ Type=dbus
+ BusName=org.freedesktop.Akonadi.Control
+-TimeoutSec=5sec
+ Slice=background.slice
+ # Disable restart as we're dbus activated anyway
+ Restart=no
+diff --git a/src/server/storage/dbconfigmysql.cpp b/src/server/storage/dbconfigmysql.cpp
+index 5f1dbd2e0..bb82a6537 100644
+--- a/src/server/storage/dbconfigmysql.cpp
++++ b/src/server/storage/dbconfigmysql.cpp
+@@ -609,8 +609,8 @@ void DbConfigMysql::stopInternalServer()
+     }
+ 
+     mDatabaseProcess->terminate();
+-    const bool result = mDatabaseProcess->waitForFinished(3000);
+-    // We've waited nicely for 3 seconds, to no avail, let's be rude.
++    const bool result = mDatabaseProcess->waitForFinished(30000);
++    // We've waited nicely for 30 seconds, to no avail, let's be rude.
+     if (!result) {
+         mDatabaseProcess->kill();
+     }
+diff --git a/src/server/storage/mysql-global.conf b/src/server/storage/mysql-global.conf
+index b381ea502..9cc47ecf7 100644
+--- a/src/server/storage/mysql-global.conf
++++ b/src/server/storage/mysql-global.conf
+@@ -78,6 +78,9 @@ loose_query_cache_size=0
+ # Do not cache results (default:1)
+ loose_query_cache_type=0
+ 
++# Tells the replica server not to start the replication I/O (receiver) and SQL (applier) threads when the server starts
++skip_slave_start
++
+ # Do not use the privileges mechanisms
+ skip_grant_tables
+ 
+-- 
+GitLab
+
