@@ -13,8 +13,8 @@
 
 #Name:    plasma-breeze
 Name:           sonic-breeze
-Version:        6.7.4.3
-Release:        3%{?dist}
+Version:        6.7.4.7
+Release:        1%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
@@ -195,5 +195,8 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Fri Sep 04 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.7-1
+- Update to SonicDE 6.7.4.7
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.3-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora
