@@ -6,8 +6,8 @@
 
 Name:    sonic-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.7.4.6
-Release:        5%{?dist}
+Version: 6.7.4.7
+Release:        1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -671,6 +671,9 @@ fi
 
 
 %changelog
+* Fri Sep 04 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.7-1
+- Update to SonicDE 6.7.4.7
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.6-1
 - Update to SonicDE 6.7.4.6 from the hard fork; build on Enterprise Linux 10 and Fedora
 

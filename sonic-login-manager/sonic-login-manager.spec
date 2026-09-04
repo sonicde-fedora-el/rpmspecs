@@ -1,8 +1,8 @@
 
 
 Name:           sonic-login-manager
-Version:        6.7.4.4
-Release:        3%{?dist}
+Version:        6.7.4.5
+Release:        1%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager for SonicDE
 
@@ -200,6 +200,9 @@ mv %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf \
 
 
 %changelog
+* Fri Sep 04 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.5-1
+- Update to SonicDE 6.7.4.5
+
 * Tue Jun 30 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.6.4-12
 - Add SELinux policy module to allow soniclogin to launch X11 user sessions
 - Remove with_X11 condition since we will always be using X11
