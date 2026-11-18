@@ -1,8 +1,0 @@
---- a/src/CMakeLists.txt
-+++ b/src/CMakeLists.txt
-@@ -28,4 +28,5 @@
-     KF6::KCMUtils
-     KF6::KIOGui
-     KF6::Service
-+    Qt6::Quick
- )
