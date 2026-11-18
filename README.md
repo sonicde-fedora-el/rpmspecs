@@ -6,7 +6,7 @@ This third-party repository provides [SonicDE](https://sonicde.org) source and b
 
 The packages of this repository are known to work with [AlmaLinux](https://almalinux.org/), [Red Hat Enterprise Linux (RHEL)](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) and Fedora. They also should on [Oracle Linux](https://www.oracle.com/linux) and [Rocky Linux](https://rockylinux.org).
 
-Since SonicDE completed its hard fork of KDE Frameworks and Plasma, this repository packages the complete SonicDE stack itself: the frameworks (currently 6.29.0.x), the workspace (currently 6.7.4.x) and the applications (26.04.x). The very same versions are built for EL10 and for Fedora, so neither distribution's KDE packages decide which SonicDE version you get. The SonicDE packages carry `Provides`/`Conflicts` for the corresponding `kf6-*` and `plasma-*` packages, so they replace their EPEL/Fedora counterparts instead of coexisting with them.
+Since SonicDE completed its hard fork of KDE Frameworks and Plasma, this repository packages the complete SonicDE stack itself: the frameworks (currently 6.31.0.x), the workspace (currently 6.8.2) and the applications (26.08.x). The very same versions are built for EL10 and for Fedora, so neither distribution's KDE packages decide which SonicDE version you get. The SonicDE packages carry `Provides`/`Conflicts` for the corresponding `kf6-*` and `plasma-*` packages, so they replace their EPEL/Fedora counterparts instead of coexisting with them.
 
 ## Installing SonicDE Manually
 
@@ -14,45 +14,79 @@ Since SonicDE completed its hard fork of KDE Frameworks and Plasma, this reposit
 
 EL10 has no X11 server by default or in the official repos, and Fedora no longer ships one either, so you need to install one. We recommend using the XLibre X11 server. Follow the installation instructions on the [XLibre for Fedora and EL GitHub page](https://github.com/xlibre-fedora-el/rpmspecs).
 
-### Enabling the SonicDE Copr Repository
+### Before You Install
 
 > [!warning]
-> Beware that SonicDE has removed the Wayland parts, so the Wayland session may not work after installing it even though it is listed as an option in the display manager. You may not be able to start KDE Wayland anymore. Proceed at your own risk.
+> Beware that SonicDE has removed the Wayland parts, so the Wayland session may not work after installing it. You may not be able to start KDE Wayland anymore. Proceed at your own risk.
 
 > [!note]
-> On EL10 the EPEL repository is still needed for build and runtime dependencies that SonicDE does not fork, such as `plasma-systemsettings`. Enable it as described in [Getting started with EPEL](https://docs.fedoraproject.org/en-US/epel/getting-started/). Installing the whole "KDE Plasma Workspaces" group first is no longer necessary.
-
-Add the SonicDE repository to your system:
-
-```shell
-# Enterprise Linux 10
-sudo dnf config-manager --add-repo https://copr.fedorainfracloud.org/coprs/g/SonicDE/SonicDE-EL10/repo/rhel+epel-10/group_SonicDE-SonicDE-EL10-rhel+epel-10.repo
-
-# Fedora
-sudo dnf copr enable @SonicDE/SonicDE-EL10
-```
+> On EL10 the EPEL repository is still needed for build and runtime dependencies. The per-platform instructions below enable it for you (`epel-release`). Installing the whole "KDE Plasma Workspaces" group first is no longer necessary.
 
 ### Installing SonicDE
 
-When XLibre has been installed, you can install the SonicDE packages and other needed X11 packages by running this command:
+`sonic-desktop` is the metapackage that pulls in the complete environment — `sonic-workspace`, `sonic-win`, `sonic-desktop-interface`, `sonic-login-manager`, the frameworks, apps and `xorg-x11-server-Xorg`. Enable the repository for your platform and run:
+
+#### Fedora
 
 ```shell
-sudo dnf install --allowerasing xorg-x11-xinit xkbcomp xinput xrandr \
-    sonic-workspace sonic-workspace-libs sonic-workspace-common \
-    sonic-workspace-x11 sonic-win sonic-desktop-interface \
-    sonic-interface-libraries sonic-keybind-daemon \
-    sonic-frameworks-windowsystem sonic-system-info sonic-screen \
-    sonic-screen-library sonic-sysguard-library
+sudo dnf copr enable @SonicDE/SonicDE
+sudo dnf install --allowerasing sonic-desktop
+sudo dnf upgrade --allowerasing
+sudo systemctl enable --force soniclogin.service
 ```
 
-As the [GNOME Display Manager (GDM)](https://en.wikipedia.org/wiki/GNOME_Display_Manager) has no X11 support compiled in, you need to switch to an X11-capable display manager. SonicDE ships its own, `sonic-login-manager`:
+#### RHEL 10 and binary-compatible clones (AlmaLinux x86_64, Rocky, Oracle)
 
 ```shell
-sudo dnf install sonic-login-manager
-sudo systemctl enable --force plasmalogin.service
+sudo dnf install -y epel-release dnf-plugins-core
+sudo dnf copr enable @SonicDE/SonicDE rhel+epel-10-x86_64
+sudo dnf install --allowerasing sonic-desktop
+sudo dnf upgrade --allowerasing
+sudo systemctl enable --force soniclogin.service
 ```
 
-Alternatively you can keep [SDDM](https://en.wikipedia.org/wiki/Simple_Desktop_Display_Manager), optionally with the Sonic Silver theme from `silver-sddm`:
+On RHEL itself, EPEL additionally requires the CodeReady Builder repository: `sudo subscription-manager repos --enable codeready-builder-for-rhel-10-$(arch)-rpms`. On the clones the equivalent is `sudo dnf config-manager --set-enabled crb`.
+
+#### CentOS Stream 10
+
+```shell
+sudo dnf install -y epel-release dnf-plugins-core
+sudo dnf copr enable @SonicDE/SonicDE
+sudo dnf install --allowerasing sonic-desktop
+sudo dnf upgrade --allowerasing
+sudo systemctl enable --force soniclogin.service
+```
+
+#### AlmaLinux 10 on x86_64_v2-capable CPUs
+
+`dnf copr enable` cannot be used for this variant: COPR's generated repository file always expands to `alma+epel-10-$basearch` (i.e. `x86_64`), while the x86_64_v2 packages are published under `alma+epel-10-x86_64_v2`. Create the repo file explicitly instead:
+
+```shell
+sudo dnf install -y epel-release
+sudo tee /etc/yum.repos.d/copr-sonicde.repo <<'EOF'
+[copr-sonicde]
+name=Copr repo for SonicDE owned by @SonicDE
+baseurl=https://download.copr.fedorainfracloud.org/results/@SonicDE/SonicDE/alma+epel-10-x86_64_v2/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/@SonicDE/SonicDE/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+EOF
+sudo dnf install --allowerasing sonic-desktop
+sudo dnf upgrade --allowerasing
+sudo systemctl enable --force soniclogin.service
+```
+
+#### ARM (aarch64) and POWER (ppc64le)
+
+Builds are published for `aarch64` and `ppc64le` on Fedora, CentOS Stream and RHEL/clones — only the AlmaLinux variant above is x86_64-only. On Fedora and CentOS, `sudo dnf copr enable @SonicDE/SonicDE` detects your architecture automatically. On EL10, pass the chroot matching your platform and architecture, e.g. `sudo dnf copr enable @SonicDE/SonicDE rhel+epel-10-aarch64` or `rhel+epel-10-ppc64le`.
+
+Note that on ppc64le there is no Qt WebEngine (an upstream V8 porting gap — Fedora does not ship it either), so WebEngine-based applications are unavailable on that architecture.
+
+The `sonic-login-manager` display manager is installed by the metapackage — `systemctl enable --force soniclogin.service` switches to it. Alternatively you can keep [SDDM](https://en.wikipedia.org/wiki/Simple_Desktop_Display_Manager), optionally with the Sonic Silver theme from `silver-sddm`:
 
 ```shell
 sudo dnf install sddm silver-sddm
@@ -61,7 +95,7 @@ sudo systemctl enable --force sddm.service
 
 ### Rebooting Your System
 
-Now reboot your system. At the login screen choose "Plasma (X11)" as the session type. Log in with your credentials, start the program System Settings and verify that you’re running SonicDE on the “About this System” page. You do? Congratulations!
+Now reboot your system. Log in with your credentials, start the program System Settings and verify that you’re running SonicDE on the “About this System” page. You do? Congratulations!
 
 If your system only shows a blinking cursor after the reboot, switch to a [text console](https://wiki.archlinux.org/title/Linux_console) via, e.g., Ctrl+Alt+F3, log in as your regular user and enter the following commands:
 
