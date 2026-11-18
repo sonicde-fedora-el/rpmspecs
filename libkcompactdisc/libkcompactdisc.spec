@@ -1,7 +1,9 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 Name:    libkcompactdisc 
 Version: 25.12.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A KDE compact disc library
 
 # License for this library is very nebulous.
@@ -16,11 +18,12 @@ BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires: sonic-rpm-macros
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6Solid)
-BuildRequires: cmake(KF6I18n)
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-device-integration-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
 
-BuildRequires: cmake(Qt6DBus)
+BuildRequires: qt6-qtbase-devel >= 6.11
 
 BuildRequires: pkgconfig(alsa)
 BuildRequires: pkgconfig(phonon4qt6)
@@ -73,5 +76,13 @@ Obsoletes: kf5-libkcompactdisc-devel < 24.01.85
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 25.12.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 25.12.3-1
+- 26.08.3
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 25.12.3-1
 - SonicDE build for Enterprise Linux 10

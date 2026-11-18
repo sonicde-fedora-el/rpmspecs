@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-gtk-theme-bridge fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-gtk-theme-bridge
 # Upstream KDE project: kde-gtk-config
@@ -14,7 +16,7 @@ ExcludeArch: %{ix86}
 #Name:    kde-gtk-config
 Name:           sonic-gtk-theme-bridge
 Summary: Configure the appearance of GTK apps in KDE
-Version:        6.7.4
+Version:        6.8.2
 Release:        4%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -31,16 +33,15 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtsvg-devel
-
-BuildRequires:  cmake(KDecoration3)
-BuildRequires:  cmake(KF6ColorScheme)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtsvg-devel >= 6.11
+BuildRequires:  sonic-decoration-devel
+BuildRequires:  sonic-frameworks-color-scheme-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
 
 BuildRequires:  gsettings-desktop-schemas-devel
 BuildRequires:  gtk3-devel
@@ -57,8 +58,9 @@ BuildRequires:  xsettingsd
 # avoid hard dep for now -- rex
 Recommends:     xsettingsd
 
+Provides:       kde-gtk-config = %{version}-%{release}
 Provides:       kde-gtk-config%{?_isa} = %{version}-%{release}
-Obsoletes:      kde-gtk-config < %{version}-%{release}
+Obsoletes:      kde-gtk-config
 
 %description
 This is a System Settings configuration module for configuring the
@@ -93,6 +95,19 @@ appearance of GTK apps in KDE.
 %{_datadir}/qlogging-categories6/kde-gtk-config.categories
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-4
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-4
 - Bump release and obsolete kde-gtk-config so dnf upgrade --allowerasing replaces it.
 

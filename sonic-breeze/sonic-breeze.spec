@@ -3,6 +3,8 @@
 # https://github.com/Sonic-DE/sonic-breeze fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-breeze
 # Upstream KDE project: breeze
 %global oldname plasma-breeze
@@ -13,8 +15,8 @@
 
 #Name:    plasma-breeze
 Name:           sonic-breeze
-Version:        6.7.4.7
-Release:        1%{?dist}
+Version:        6.8.2
+Release:        7%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
@@ -23,6 +25,8 @@ URL:            https://github.com/Sonic-DE/%{reponame}
 #Source0: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{base_name}-%%{version}.tar.xz
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{version}.tar.gz
 #Source1: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{base_name}-%%{version}.tar.xz.sig
+Source2:        normalize-hidpi-layout.py
+Source3:        test_normalize_hidpi_layout.py
 
 # Upstream Patches
 
@@ -33,6 +37,7 @@ Patch0:         a74ad95349ec913f1042f5390dbd95a8341aea06.patch
 # Misc
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gettext
+BuildRequires:  python3
 
 %if %{with kf5}
 # Qt5
@@ -54,30 +59,29 @@ Requires:       (%{name}-qt5 if qt5-qtbase-gui)
 
 # Qt6
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(KDecoration3)
-BuildRequires:  cmake(KF6ColorScheme)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6FrameworkIntegration)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6KirigamiPlatform)
-BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  sonic-decoration-devel
+BuildRequires:  sonic-frameworks-color-scheme-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-qt-integration-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
 
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qtsvg-devel >= 6.11
 
 Requires:       %{name}-qt6
 
 # since we provide a cmake dev-like file
 Provides:       %{name}-devel = %{version}-%{release}
 
+Provides:       plasma-breeze = %{version}-%{release}
 Provides:       plasma-breeze%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-breeze < %{version}-%{release}
+Obsoletes:      plasma-breeze
 
 %description
 %{summary}.
@@ -86,8 +90,9 @@ Obsoletes:      plasma-breeze < %{version}-%{release}
 %package        qt6
 Summary:        Breeze application style for Qt6
 Requires:       %{name}-common = %{version}-%{release}
+Provides:       plasma-breeze-qt6 = %{version}-%{release}
 Provides:       plasma-breeze-qt6%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-breeze-qt6 < %{version}-%{release}
+Obsoletes:      plasma-breeze-qt6
 
 %description    qt6
 %{summary}.
@@ -96,8 +101,9 @@ Obsoletes:      plasma-breeze-qt6 < %{version}-%{release}
 %package        qt5
 Summary:        Breeze application style for Qt5
 Requires:       %{name}-common = %{version}-%{release}
+Provides:       plasma-breeze-qt5 = %{version}-%{release}
 Provides:       plasma-breeze-qt5%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-breeze-qt5 < %{version}-%{release}
+Obsoletes:      plasma-breeze-qt5
 
 %description    qt5
 %{summary}.
@@ -106,8 +112,13 @@ Obsoletes:      plasma-breeze-qt5 < %{version}-%{release}
 %package        common
 Summary:        Common files shared between Plasma 5 and Plasma 6 versions of the Breeze style
 BuildArch:      noarch
+Provides:       plasma-breeze-common = %{version}-%{release}
 Provides:       plasma-breeze-common%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-breeze-common < %{version}-%{release}
+Obsoletes:      plasma-breeze-common
+# Breeze icon files moved from the old separate icon-theme package.
+Obsoletes:      breeze-icon-theme < 6.31.0.1
+Provides:       breeze-icon-theme = %{version}-%{release}
+Provides:       breeze-icons = %{version}-%{release}
 
 %description    common
 %{summary}.
@@ -152,7 +163,13 @@ pushd qt6build
 %cmake_install
 popd
 
+python3 %{SOURCE2} %{buildroot}%{_datadir}/icons
+
 %find_lang breeze --all-name
+
+
+%check
+python3 %{SOURCE3}
 
 
 %files -f breeze.lang
@@ -180,6 +197,8 @@ popd
 %{_datadir}/plasma/look-and-feel/
 %{_datadir}/kstyle/themes/breeze.themerc
 %{_datadir}/icons/hicolor/*/apps/breeze-settings.*
+%{_datadir}/icons/breeze/
+%{_datadir}/icons/breeze-dark/
 %dir %{_datadir}/QtCurve/
 %{_datadir}/QtCurve/Breeze.qtcurve
 %{_datadir}/wallpapers/Next/
@@ -195,6 +214,34 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-7
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-6
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-5
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.8.2-4
+- Replace content-identical HiDPI icon variant directories with the
+  relative symlinks EL10 ships, verified by normalize-hidpi-layout.py
+  before any replacement; unit tests run in %%check.
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.8.2-3
+- sonic-breeze-common: provide breeze-icon-theme/breeze-icons at the
+  real Sonic Breeze version; this package owns the actual Breeze theme
+  files, while the Silver theme moved to sonic-silver-icon-theme.
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.8.2-2
+- sonic-breeze-common: obsolete the old separate breeze-icon-theme
+  package whose icon files moved into this package, so upgrades replace
+  it instead of file-conflicting.
+
 * Fri Sep 04 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.7-1
 - Update to SonicDE 6.7.4.7
 

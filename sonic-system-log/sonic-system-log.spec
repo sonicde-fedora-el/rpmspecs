@@ -3,6 +3,8 @@
 # https://github.com/Sonic-DE/sonic-system-log fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-system-log
 # Upstream KDE project: ksystemlog
 %global oldname ksystemlog
@@ -14,7 +16,7 @@ ExcludeArch: %{ix86}
 #Name:    ksystemlog
 Name:           sonic-system-log
 Summary: System Log Viewer for KDE
-Version:        26.04.3
+Version:        26.08.3
 Release:        3%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -35,32 +37,29 @@ BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires: sonic-rpm-macros
 BuildRequires: libappstream-glib
 
-BuildRequires: cmake(Qt6Concurrent)
-BuildRequires: cmake(Qt6Core)
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6Test)
-BuildRequires: cmake(Qt6PrintSupport)
-BuildRequires: cmake(Qt6Core5Compat)
-BuildRequires: cmake(Qt6Network)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qt5compat-devel >= 6.11
 
-BuildRequires: cmake(KF6XmlGui)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6WidgetsAddons)
-BuildRequires: cmake(KF6ItemViews)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6Archive)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6Completion)
-BuildRequires: cmake(KF6TextWidgets)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6Crash)
+BuildRequires: sonic-frameworks-xml-gui-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-widgets-addons-devel
+BuildRequires: sonic-frameworks-data-views-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-archive-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: sonic-frameworks-autocomplete-devel
+BuildRequires: sonic-frameworks-text-widgets-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
 
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(audit)
 
+Provides:       ksystemlog = %{version}-%{release}
 Provides:       ksystemlog%{?_isa} = %{version}-%{release}
-Obsoletes:      ksystemlog < %{version}-%{release}
+Obsoletes:      ksystemlog
 
 %description
 This program is developed for beginner users, who don't know how to find
@@ -99,5 +98,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ks
 %{_kf6_metainfodir}/org.kde.ksystemlog.appdata.xml
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

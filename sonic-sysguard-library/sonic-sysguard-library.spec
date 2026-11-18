@@ -1,10 +1,12 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 
 #Name:    libksysguard
 Name:    sonic-sysguard-library
 Summary: Library for managing processes running on the system
-Version: 6.7.4
+Version: 6.8.2
 Release:        3%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -15,37 +17,37 @@ URL:           https://github.com/Sonic-DE/%{name}
 #Source1: http://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 # kf6 required
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6Completion)
-BuildRequires:  cmake(KF6Auth)
-BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6ConfigWidgets)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6GlobalAccel)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Declarative)
-BuildRequires:  cmake(KF6NewStuff)
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-autocomplete-devel
+BuildRequires:  sonic-frameworks-auth-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-settings-ui-devel
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  sonic-frameworks-keybind-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-qml-bridge-devel
+BuildRequires:  sonic-frameworks-addons-downloader-devel
 # qt6 required
-BuildRequires:  qt6-qttools-devel
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6Network)
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  qt6-qttools-devel >= 6.11
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qt5compat-devel >= 6.11
 
 # Qt6 Web packages do not exist on those architectures.
 %ifarch %{qt6_qtwebengine_arches}
-BuildRequires:  cmake(Qt6WebEngineWidgets)
-BuildRequires:  cmake(Qt6WebChannel)
+BuildRequires:  qt6-qtwebengine-devel >= 6.11
+BuildRequires:  qt6-qtwebchannel-devel >= 6.11
 %endif
 
 BuildRequires:  pkgconfig(libdrm)
+BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libpcap)
 BuildRequires:  pkgconfig(libnl-3.0) pkgconfig(libnl-route-3.0)
 BuildRequires:  libcap-devel
@@ -53,9 +55,9 @@ BuildRequires:  libXres-devel
 BuildRequires:  lm_sensors-devel
 BuildRequires:  zlib-devel
 
-Obsoletes:      kf5-ksysguard < 5.1.95
+Obsoletes:      kf5-ksysguard
 Provides:       kf5-ksysguard = %{version}-%{release}
-Obsoletes:      libksysguard < %{version}-%{release}
+Obsoletes:      libksysguard
 Provides:       libksysguard = %{version}-%{release}
 
 Requires:       %{name}-common = %{version}-%{release}
@@ -70,21 +72,19 @@ running on the system.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt6Core)
-Requires:       cmake(Qt6Network)
-Requires:       cmake(Qt6Widgets)
-Requires:       cmake(KF6Config)
-Requires:       cmake(KF6I18n)
-Requires:       cmake(KF6IconThemes)
-Obsoletes:      kf5-ksysguard-devel < 5.1.95
+Requires:       qt6-qtbase-devel >= 6.11
+Requires:       sonic-frameworks-settings-devel
+Requires:       sonic-frameworks-internationalization-devel
+Requires:       sonic-frameworks-icon-themes-devel
+Obsoletes:      kf5-ksysguard-devel
 Provides:       kf5-ksysguard-devel = %{version}-%{release}
-Obsoletes:      libksysguard-devel < %{version}-%{release}
+Obsoletes:      libksysguard-devel
 Provides:       libksysguard-devel = %{version}-%{release}
 Conflicts:      kde-workspace-devel < 1:4.11.16-11
 
 %package        common
 Summary:        Runtime data files shared by libksysguard and ksysguard-libs
-Obsoletes:      libksysguard-common < %{version}-%{release}
+Obsoletes:      libksysguard-common
 Provides:       libksysguard-common = %{version}-%{release}
 Conflicts:      libksysguard < 5.2.1-2
 Conflicts:      ksysguard < 5.2
@@ -140,6 +140,16 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
 

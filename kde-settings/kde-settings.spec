@@ -8,7 +8,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 44.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 License: MIT
 URL:     https://forge.fedoraproject.org/kde/kde-settings
@@ -35,7 +35,7 @@ Requires: xdg-user-dirs >= 0.18-7
 Requires: xdg-user-dirs >= 0.18-9
 %endif
 ## add breeze deps here? probably, need more too -- rex
-Requires: breeze-icon-theme
+Requires: sonic-silver-icon-theme
 # Baseline mimeapps associations, e.g. LibreOffice
 Requires: shared-mime-info
 
@@ -172,5 +172,15 @@ test -e %{_datadir}/wallpapers/Default || ls -l %{_datadir}/wallpapers
 # nothing, this is a metapackage
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 44.0-4
+- Drop sonicde-xcb-egl.sh again: it now lives in
+  sonic-desktop-interface (the upstreamable SonicDE package),
+  keeping a single owner of the file.
+
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 44.0-3
+- Add plasma-workspace env script exporting
+  QT_XCB_GL_INTEGRATION=xcb_egl for applications (VA-API
+  decoding); KWin selects GLX internally.
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 44.0-2
 - SonicDE build for Enterprise Linux 10

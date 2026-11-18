@@ -1,0 +1,10 @@
+--- a/kcm/CMakeLists.txt	2026-11-12 16:55:17.076222508 +0000
++++ b/kcm/CMakeLists.txt	2026-11-12 16:55:17.078244622 +0000
+@@ -24,6 +24,7 @@ target_link_libraries(kcm_updates PRIVAT
+     KF6::I18n
+     KF6::ConfigGui
+     KF6::KCMUtilsQuick
++    Qt6::Qml
+ )
+ 
+ if (BUILD_HoloBackend)

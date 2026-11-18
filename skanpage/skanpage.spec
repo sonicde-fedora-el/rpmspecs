@@ -1,6 +1,8 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 Name:     skanpage
-Version:        26.04.3
-Release:        2%{?dist}
+Version: 26.08.3
+Release:        3%{?dist}
 Summary:  Utility to scan images and multi-page documents
 License:  BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only
 
@@ -15,7 +17,7 @@ Source0:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/
 
 # https://invent.kde.org/utilities/skanpage/-/commit/9d94de32a3a1a9bb9ead8ae8c06743b2052beef7
 # The previous commit made qtwebengine a mandatory requirement :(
-ExclusiveArch: %{qt6_qtwebengine_arches}
+ExclusiveArch: x86_64 aarch64 riscv64 x86_64_v2
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -23,27 +25,22 @@ BuildRequires:  libappstream-glib
 BuildRequires:  cmake
 BuildRequires:      sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-rpm-macros
 
-BuildRequires:  cmake(Qt6Concurrent)
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6Pdf)
-BuildRequires:  cmake(Qt6PrintSupport)
-BuildRequires:  cmake(Qt6Qml)
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6QuickControls2)
-BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtwebengine-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6Kirigami)
-BuildRequires:  cmake(KF6Purpose)
-BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  sonic-frameworks-purpose-devel
+BuildRequires:  sonic-frameworks-xml-gui-devel
 BuildRequires:  cmake(KQuickImageEditor)
 BuildRequires:  cmake(KSaneCore6)
-BuildRequires:  cmake(KF6KIO)
+BuildRequires:  sonic-frameworks-io-devel
 
 BuildRequires:  cmake(Tesseract) >= 4
 BuildRequires:  cmake(Leptonica)
@@ -89,13 +86,21 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name
 %{_kf6_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2

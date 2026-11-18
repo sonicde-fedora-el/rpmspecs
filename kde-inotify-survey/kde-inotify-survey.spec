@@ -3,15 +3,15 @@
 ExcludeArch: %{ix86}
 
 Name:          kde-inotify-survey
-Version:        26.04.3
-Release:        1%{?dist}
+Version: 26.08.3
+Release:        2%{?dist}
 Summary:       Monitors inotify limits and lets the user know when exceeded
 
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file
 License:       BSD-3-Clause and CC0-1.0 and FSFAP and GPL-2.0-only and GPL-3.0-only
 URL:           https://invent.kde.org/system/%{name}
 
-Source:        https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source:        https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # Updates the dbus service config to use the right policies to satisfy a rpmlint error
 # Merge Request: https://invent.kde.org/frameworks/kauth/-/merge_requests/44
@@ -26,11 +26,12 @@ BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: gettext
 BuildRequires: qt6-qtbase-devel
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6Notifications)
-BuildRequires: cmake(KF6DBusAddons)
-BuildRequires: cmake(KF6Auth)
+BuildRequires: qt6-qtdeclarative-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-notifications-devel
+BuildRequires: sonic-frameworks-dbus-devel
+BuildRequires: sonic-frameworks-auth-devel
 
 %description
 %{summary}.
@@ -63,6 +64,13 @@ install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/dbus-1/system.d/org.kde.k
 %{_datadir}/polkit-1/actions/org.kde.kded.inotify.policy
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Restore to the SonicDE stack (required by sonic-desktop).
+- Convert cmake() BuildRequires to sonic-frameworks name pins.
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

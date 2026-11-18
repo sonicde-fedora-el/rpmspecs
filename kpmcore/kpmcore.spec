@@ -1,11 +1,14 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 %global kf6min 5.240.0
 %global qt6min 6.5.0
 %global sover 13
 
 Name:           kpmcore
-Version:        26.04.3
-Release:        1%{?dist}
+Version: 26.08.3
+%global libversion %(echo %{version} | cut -d. -f1-3)
+Release:        2%{?dist}
 Summary:        Library for managing partitions by KDE programs
 License:        GPL-3.0-or-later AND MIT AND CC-BY-4.0 AND CC0-1.0
 URL:            https://github.com/KDE/kpmcore
@@ -17,14 +20,12 @@ BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gettext
 BuildRequires:  sonic-rpm-macros
 
-BuildRequires:  cmake(Qt6Core) >= %{qt6min}
-BuildRequires:  cmake(Qt6DBus) >= %{qt6min}
-BuildRequires:  cmake(Qt6Gui) >= %{qt6min}
-BuildRequires:  cmake(Qt6Widgets) >= %{qt6min}
+BuildRequires:  qt6-qtbase-devel >= 6.11
 
-BuildRequires:  cmake(KF6CoreAddons) >= %{kf6min}
-BuildRequires:  cmake(KF6I18n) >= %{kf6min}
-BuildRequires:  cmake(KF6WidgetsAddons) >= %{kf6min}
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-widgets-addons-devel
 
 BuildRequires:  cmake(PolkitQt6-1)
 
@@ -32,7 +33,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(blkid) >= 2.33.2
 
 Requires:       e2fsprogs
-Requires:       kf6-filesystem
+Requires: kf6-filesystem >= 6.31
 
 Recommends:     dosfstools
 Recommends:     exfatprogs
@@ -52,8 +53,8 @@ and other KDE projects
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt6Core) >= %{qt6min}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -78,7 +79,7 @@ developing applications that use %{name}
 %license LICENSES/*
 %doc README.md
 %{_kf6_libdir}/libkpmcore.so.%{sover}
-%{_kf6_libdir}/libkpmcore.so.%{version}
+%{_kf6_libdir}/libkpmcore.so.%{libversion}
 %{_kf6_qtplugindir}/kpmcore
 %{_libexecdir}/kpmcore_externalcommand
 %{_datadir}/dbus-1/system.d/org.kde.kpmcore.*.conf
@@ -92,6 +93,14 @@ developing applications that use %{name}
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
@@ -115,7 +124,7 @@ developing applications that use %{name}
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2

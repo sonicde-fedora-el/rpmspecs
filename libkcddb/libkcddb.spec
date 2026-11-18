@@ -1,7 +1,9 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 Name:    libkcddb 
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 Summary: CDDB retrieval library
 
 # Automatically converted from old format: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later - review is highly recommended.
@@ -12,17 +14,17 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires: sonic-rpm-macros
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6Codecs)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6KCMUtils)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-text-codec-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: sonic-frameworks-settings-utils-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-widgets-addons-devel
 
-BuildRequires: cmake(Qt6Network)
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qt5compat-devel >= 6.11
 
 BuildRequires: pkgconfig(libmusicbrainz5)
 
@@ -98,5 +100,13 @@ Documentation for %{name}.
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - SonicDE build for Enterprise Linux 10

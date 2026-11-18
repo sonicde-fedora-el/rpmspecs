@@ -1,11 +1,13 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 Name:    ffmpegthumbs
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 Summary: KDE ffmpegthumbnailer service
 
 License: GPL-2.0-or-later
@@ -18,10 +20,9 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires:  sonic-frameworks-cmake-modules
-BuildRequires: cmake(Qt6Core)
-BuildRequires: cmake(Qt6Gui)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6Config)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-settings-devel
 BuildRequires: ffmpeg-free-devel
 
 Provides: kffmpegthumbnailer = %{version}-%{release}
@@ -56,6 +57,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
@@ -79,7 +88,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2

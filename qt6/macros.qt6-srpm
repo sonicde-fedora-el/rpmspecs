@@ -1,0 +1,11 @@
+
+# # the architectures theoretically supported by the version of V8 used (#1298011)
+# # You may need some minor patching to build on one of the secondary
+# # architectures, e.g., to add to the Qt -> Chromium -> V8 arch translations.
+# # If you cannot get this package to build on your secondary architecure, please:
+# # * remove your architecture from this list AND
+# # * put #1298011 onto your ExcludeArch tracker.
+# ppc64le dropped: bundled V8 11.8 lacks WasmLiftoffSetupFrameConstants::kCallingPCOffset
+# on ppc64 (upstream port gap not covered by the Fedora ppc64 patch series).
+%qt6_qtwebengine_arches x86_64 aarch64 riscv64 x86_64_v2
+

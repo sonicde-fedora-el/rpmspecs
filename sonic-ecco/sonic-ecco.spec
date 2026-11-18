@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-ecco fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-ecco
 # Upstream KDE project: dolphin
@@ -12,8 +14,8 @@
 #Name:           dolphin
 Name:           sonic-ecco
 Summary:        KDE File Manager
-Version:        26.04.3.2
-Release:        3%{?dist}
+Version:        26.08.3
+Release:        5%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:            https://invent.kde.org/system/dolphin
@@ -30,44 +32,40 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 
-BuildRequires:  cmake(KF6Baloo)
+BuildRequires:  sonic-frameworks-file-search-devel
 # baloo-widget is part of Gear like Dolphin thus both versions need to match.
 # We use the major.minor.patch macros to not fail the build on hotfix releases.
-BuildRequires:  cmake(KF6BalooWidgets)
-BuildRequires:  cmake(KF6Bookmarks)
-BuildRequires:  cmake(KF6Codecs)
-BuildRequires:  cmake(KF6Completion)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6FileMetaData)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6NewStuff)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Parts)
-BuildRequires:  cmake(KF6Solid)
-BuildRequires:  cmake(KF6TextWidgets)
-BuildRequires:  cmake(KF6UserFeedback)
-BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  baloo-widgets-devel = 26.08.3
+BuildRequires:  sonic-frameworks-bookmarks-devel
+BuildRequires:  sonic-frameworks-text-codec-devel
+BuildRequires:  sonic-frameworks-autocomplete-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-file-metadata-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-addons-downloader-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-ui-components-devel
+BuildRequires:  sonic-frameworks-device-integration-devel
+BuildRequires:  sonic-frameworks-text-widgets-devel
+BuildRequires:  sonic-frameworks-user-feedback-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
 
-BuildRequires:  cmake(PlasmaActivities)
+BuildRequires:  sonic-activities-devel
 
-BuildRequires:  cmake(Qt6Concurrent)
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6Gui)
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(Qt6Multimedia)
-BuildRequires:  qt6-qtbase-private-devel
-
-BuildRequires:  cmake(packagekitqt6)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtmultimedia-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  packagekit-qt6-devel
 BuildRequires:  cmake(Phonon4Qt6)
 
 %if 0%{?tests}
@@ -86,16 +84,18 @@ Recommends:     sonic-frameworks-image-formats%{?_isa}
 Recommends:     qt6-qtimageformats%{?_isa}
 Recommends:     ffmpegthumbs%{?_isa}
 
+Provides:       dolphin = %{version}-%{release}
 Provides:       dolphin%{?_isa} = %{version}-%{release}
-Obsoletes:      dolphin < %{version}-%{release}
+Obsoletes:      dolphin
 
 %description
 %{summary}.
 
 %package        libs
 Summary:        Dolphin runtime libraries
+Provides:       dolphin-libs = %{version}-%{release}
 Provides:       dolphin-libs%{?_isa} = %{version}-%{release}
-Obsoletes:      dolphin-libs < %{version}-%{release}
+Obsoletes:      dolphin-libs
 
 %description    libs
 %{summary}.
@@ -105,8 +105,9 @@ Summary:        Developer files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel%{?_isa}
 Requires:       sonic-frameworks-io-devel%{?_isa}
+Provides:       dolphin-devel = %{version}-%{release}
 Provides:       dolphin-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      dolphin-devel < %{version}-%{release}
+Obsoletes:      dolphin-devel
 
 %description    devel
 %{summary}.
@@ -120,7 +121,7 @@ Obsoletes:      dolphin-devel < %{version}-%{release}
 %cmake_kf6 \
   %{?flatpak:-DFLATPAK:BOOL=ON} \
   -DKDE_INSTALL_SYSTEMDUSERUNITDIR=%{_userunitdir} \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
+  -DBUILD_TESTING:BOOL=%{?with_tests:ON}%{!?with_tests:OFF}
 
 %cmake_build
 
@@ -167,6 +168,8 @@ xvfb-run -a bash -c "%ctest" || :
 %{_kf6_datadir}/zsh/site-functions/_dolphin
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.dolphin.svg
 %{_kf6_libdir}/kconf_update_bin/dolphin_update_splitviewsettings
+%{_kf6_datadir}/kconf_update/dolphin_tab_key_shortcut_for_focus_other_view.py
+%{_kf6_datadir}/kconf_update/dolphin_tab_key_shortcut_for_focus_other_view.upd
 
 %files libs
 %{_kf6_libdir}/libdolphinprivate.so.*
@@ -185,5 +188,20 @@ xvfb-run -a bash -c "%ctest" || :
 %{_datadir}/dbus-1/interfaces/org.freedesktop.FileManager1.xml
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-5
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-4
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Pin Plasma cmake deps to SonicDE providers (Fedora libplasma 6.8.3 outranks ours)
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3.2-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

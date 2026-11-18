@@ -1,4 +1,6 @@
+%global sonicde_frameworks_version 6.31.0
 %global debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -6,8 +8,8 @@ ExcludeArch: %{ix86}
 Name:    gwenview
 Summary: An image viewer
 Epoch:   1
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 
 # app + lib: GPL-2.0-or-later
 # lib/jlibjpeg: IJG
@@ -28,18 +30,19 @@ BuildRequires: desktop-file-utils
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires: gettext
 BuildRequires: sonic-rpm-macros
-BuildRequires: cmake(KF6Baloo)
-BuildRequires: cmake(PlasmaActivities)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6ItemModels)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6Parts)
-BuildRequires: cmake(KF6IconThemes)
-BuildRequires: cmake(KF6Notifications)
-BuildRequires: cmake(KF6GuiAddons)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6Purpose)
-BuildRequires: cmake(KF6Crash)
+BuildRequires: sonic-frameworks-file-search-devel
+BuildRequires: sonic-activities-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-data-models-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: sonic-frameworks-ui-components-devel
+BuildRequires: sonic-frameworks-icon-themes-devel
+BuildRequires: sonic-frameworks-notifications-devel
+BuildRequires: sonic-frameworks-gui-addons-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-purpose-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
 BuildRequires: cmake(KDcrawQt6)
 BuildRequires: cmake(kColorPicker-Qt6)
 BuildRequires: cmake(kImageAnnotator-Qt6)
@@ -51,25 +54,21 @@ BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(cfitsio)
 BuildRequires: pkgconfig(libtiff-4)
 BuildRequires: cmake(phonon4qt6)
-BuildRequires: cmake(Qt6DBus)
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6Test)
-BuildRequires: cmake(Qt6Concurrent)
-BuildRequires: cmake(Qt6Svg)
-BuildRequires: cmake(Qt6OpenGL)
-BuildRequires: cmake(Qt6WaylandClient)
-BuildRequires: cmake(Qt6WaylandScannerTools)
-BuildRequires: cmake(Qt6Multimedia)
-BuildRequires: qt6-qtbase-private-devel
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtsvg-devel >= 6.11
+BuildRequires: qt6-qtwayland-devel >= 6.11
+BuildRequires: qt6-qtmultimedia-devel >= 6.11
+BuildRequires: qt6-qtbase-private-devel >= 6.11
 BuildRequires: pkgconfig(wayland-client)
 BuildRequires: pkgconfig(wayland-protocols)
+BuildRequires: ecm-compat-find-modules
 
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 # support for more formats, e.g. jp2, tiff, webp
 Recommends: qt6-qtimageformats%{?_isa}
 # eps, etc...
-Recommends: kf6-kimageformats%{?_isa}
+Recommends: sonic-frameworks-image-formats%{?_isa}
 
 # when split occurred
 Conflicts: kdegraphics < 7:4.6.95-10
@@ -135,5 +134,13 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.gwenview.
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - SonicDE build for Enterprise Linux 10

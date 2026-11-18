@@ -1,12 +1,13 @@
 # Written from scratch: SonicVia has no KDE or Fedora counterpart.  It replaces
 # the qmk-via-api Rust crate used by the QMK D-Bus helper.
 %define _disable_source_fetch 0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 %global reponame sonic-frameworks-via
 
 Name:           sonic-frameworks-via
-Version:        6.29.0
-Release:        1%{?dist}
+Version:        6.31.0.1
+Release:        2%{?dist}
 Summary:        VIA HID keyboard protocol library for SonicDE
 License:        BSD-2-Clause AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
 URL:            https://github.com/Sonic-DE/%{reponame}
@@ -16,8 +17,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  qt6-qtbase-devel >= 6.11
 # Without hidapi the library builds as a stub.
 BuildRequires:  pkgconfig(hidapi-hidraw)
 
@@ -28,8 +28,7 @@ keyboards, as used by SonicDE's QMK D-Bus helper.
 %package devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt6Core)
-Requires:       cmake(Qt6Gui)
+Requires:       qt6-qtbase-devel >= 6.11
 
 %description devel
 %{summary}.
@@ -56,5 +55,10 @@ Requires:       cmake(Qt6Gui)
 %{_libdir}/cmake/SonicVia/
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

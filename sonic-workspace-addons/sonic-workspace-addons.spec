@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-workspace-addons fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-workspace-addons
 # Upstream KDE project: kdeplasma-addons
@@ -10,8 +12,8 @@
 #Name:    kdeplasma-addons
 Name:           sonic-workspace-addons
 Summary: Additional Plasmoids for Plasma 6
-Version:        6.7.4
-Release:        4%{?dist}
+Version:        6.8.2
+Release:        3%{?dist}
 
 %global source_licenses %{shrink:
     BSD-3-Clause AND
@@ -42,7 +44,7 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 ExcludeArch: %{ix86}
 
 %ifarch %{qt6_qtwebengine_arches}
-BuildRequires:  cmake(Qt6WebEngineQuick)
+BuildRequires:  qt6-qtwebengine-devel >= 6.11
 %endif
 
 ## upstream patches
@@ -50,52 +52,53 @@ BuildRequires:  cmake(Qt6WebEngineQuick)
 Obsoletes: kdeplasma-addons-libs < 5.0.0
 
 BuildRequires:  sonic-frameworks-cmake-modules
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6ConfigWidgets)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6Holidays)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6NewStuff)
-BuildRequires:  cmake(KF6Runner)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6GlobalAccel)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Sonnet)
-BuildRequires:  cmake(KF6UnitConversion)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6KirigamiPlatform)
-BuildRequires:  cmake(Plasma5Support)
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-settings-ui-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-holidays-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-addons-downloader-devel
+BuildRequires:  sonic-frameworks-runner-devel
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  sonic-frameworks-keybind-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-spell-check-devel
+BuildRequires:  sonic-frameworks-unit-conversion-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-svg-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  sonic-plasma5-support-library-devel
 BuildRequires:  sonic-rpm-macros >= 5.25.0-2
 BuildRequires:  libicu-devel
 BuildRequires:  libxcb-devel
-BuildRequires:  cmake(Qt6Quick3D)
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtdeclarative-devel
-BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  qt6-qtquick3d-devel >= 6.11
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qt5compat-devel >= 6.11
 BuildRequires:  xcb-util-image-devel
 BuildRequires:  xcb-util-keysyms-devel
-BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  sonic-frameworks-qml-bridge-devel
 BuildRequires:  sonic-workspace-devel
 BuildRequires: sonic-sysguard-library-devel
-BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  sonic-frameworks-xml-gui-devel
 
-BuildRequires:  cmake(Plasma)
-BuildRequires:  cmake(PlasmaActivities)
+BuildRequires:  sonic-interface-libraries-devel
+BuildRequires:  sonic-activities-devel
 
 # The SonicDE fork implements the QMK VIA helper in C++ on top of SonicVia
 # instead of the Rust qmk-via-api crate.
 BuildRequires:  cmake(SonicVia)
-BuildRequires:  pkgconfig(polkit-qt6-core-1)
+BuildRequires:  polkit-qt6-1-devel
 
 # for notes.svgz
 Requires:       sonic-interface-libraries
 
 # Quickshare applet runtime dep
-BuildRequires:  cmake(KF6Purpose)
+BuildRequires:  sonic-frameworks-purpose-devel
+BuildRequires:  sonic-frameworks-logging-devel
 Recommends:     sonic-frameworks-purpose%{?_isa}
 
 # Cube effect
@@ -104,6 +107,7 @@ Requires:       qt6-qtquick3d%{?_isa}
 Requires:       sonic-frameworks-data-models%{?_isa}
 Requires:       sonic-frameworks-quick-ui-addons%{?_isa}
 
+Provides:       kdeplasma-addons = %{version}-%{release}
 Provides:       kdeplasma-addons%{?_isa} = %{version}-%{release}
 Obsoletes:      kdeplasma-addons < %{version}-%{release}
 
@@ -127,10 +131,11 @@ License: %{source_licenses}
 Requires: %{name} = %{version}-%{release}
 #find_dependency(Qt5Gui "5.12.0")
 #find_dependency(KF5CoreAddons "5.58.0")
-Requires: cmake(Qt6Gui)
-Requires: cmake(KF6CoreAddons)
+Requires: qt6-qtbase-devel >= 6.11
+Requires: sonic-frameworks-core-addons-devel
+Provides:       kdeplasma-addons-devel = %{version}-%{release}
 Provides:       kdeplasma-addons-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kdeplasma-addons-devel < %{version}-%{release}
+Obsoletes:      kdeplasma-addons-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -156,6 +161,7 @@ developing applications that use %{name}.
 %{_kf6_datadir}/plasma/desktoptheme/default/widgets/*
 %{_kf6_datadir}/plasma/desktoptheme/default/weather/
 %{_kf6_datadir}/plasma/wallpapers/*
+%{_kf6_datadir}/plasma/layout-templates/
 %{_kf6_datadir}/qlogging-categories6/kdeplasma-addons.categories
 %{_kf6_datadir}/qlogging-categories6/kdeplasma-addons.renamecategories
 %{_kf6_qtplugindir}/plasma/applets/*.so
@@ -192,7 +198,6 @@ developing applications that use %{name}.
 %{_kf6_qtplugindir}/plasma/weather_ions/dwd.so
 %{_kf6_qtplugindir}/plasma/weather_ions/envcan.so
 %{_kf6_qtplugindir}/plasma/weather_ions/noaa.so
-%{_kf6_qtplugindir}/plasma/weather_ions/wettercom.so
 %{_datadir}/plasma/weather/noaa_station_list.xml
 %{_datadir}/kwin/scripts/virtualdesktopsonlyonprimary/
 %{_kf6_libexecdir}/kameleon-qmk-helper
@@ -213,5 +218,15 @@ developing applications that use %{name}.
 %{_libdir}/cmake/PlasmaWeather/
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

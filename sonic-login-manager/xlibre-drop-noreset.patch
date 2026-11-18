@@ -1,0 +1,19 @@
+From: RytterOS
+Subject: Drop -noreset from X server arguments
+
+XLibre removed the -noreset option and logs a warning when it is passed.
+The flag only matters when the last client disconnects; a display manager
+controls the X server lifecycle explicitly, so dropping it is safe on
+both Xorg and XLibre.
+
+--- a/src/daemon/XorgUserDisplayServer.cpp
++++ b/src/daemon/XorgUserDisplayServer.cpp
+@@ -84,7 +84,7 @@
+     }
+ 
+     args << serverPath << mainConfig.X11.ServerArguments.get().split(QLatin1Char(' '), Qt::SkipEmptyParts) << QStringLiteral("-background")
+-         << QStringLiteral("none") << QStringLiteral("-seat") << display->seat()->name() << QStringLiteral("-noreset") << QStringLiteral("-keeptty")
++         << QStringLiteral("none") << QStringLiteral("-seat") << display->seat()->name() << QStringLiteral("-keeptty")
+          << QStringLiteral("-novtswitch") << QStringLiteral("-verbose") << QStringLiteral("3") << QStringLiteral("-logfile") << xorgLogFile;
+ 
+     return args.join(QLatin1Char(' '));

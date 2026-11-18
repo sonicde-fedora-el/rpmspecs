@@ -3,6 +3,7 @@
 # https://github.com/Sonic-DE/sonic-pulseaudio-library fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-pulseaudio-library
 # Upstream KDE project: pulseaudio-qt
 %global oldname pulseaudio-qt
@@ -11,7 +12,8 @@
 Name:           sonic-pulseaudio-library
 Summary: Qt bindings for PulseAudio
 Version:        1.8.1
-Release:        3%{?dist}
+%global libversion %(echo %{version} | cut -d. -f1-3)
+Release:        5%{?dist}
 
 License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
 #URL:     https://invent.kde.org/libraries/pulseaudio-qt
@@ -23,21 +25,21 @@ BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  cmake(Qt6Gui)
-BuildRequires:  cmake(Qt6Qml)
-BuildRequires:  cmake(Qt6Test)
-BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 
+Provides:       pulseaudio-qt = %{version}-%{release}
 Provides:       pulseaudio-qt%{?_isa} = %{version}-%{release}
-Obsoletes:      pulseaudio-qt < %{version}-%{release}
+Obsoletes:      pulseaudio-qt
 
 %description
 Pulseaudio-Qt is a library providing Qt bindings to PulseAudio.
 
 %package qt6
 Summary: Qt6 bindings for PulseAudio
+Provides:       pulseaudio-qt-qt6 = %{version}-%{release}
 Provides:       pulseaudio-qt-qt6%{?_isa} = %{version}-%{release}
-Obsoletes:      pulseaudio-qt-qt6 < %{version}-%{release}
+Obsoletes:      pulseaudio-qt-qt6
 
 %description qt6
 %{summary}.
@@ -45,16 +47,18 @@ Obsoletes:      pulseaudio-qt-qt6 < %{version}-%{release}
 %package qt6-devel
 Summary: Development files for %{name} (Qt6)
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       pulseaudio-qt-qt6-devel = %{version}-%{release}
 Provides:       pulseaudio-qt-qt6-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      pulseaudio-qt-qt6-devel < %{version}-%{release}
+Obsoletes:      pulseaudio-qt-qt6-devel
 
 %description qt6-devel
 %{summary}.
 
 %package qt6-doc
 Summary: Developer Documentation files for %{name}
+Provides:       pulseaudio-qt-qt6-doc = %{version}-%{release}
 Provides:       pulseaudio-qt-qt6-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      pulseaudio-qt-qt6-doc < %{version}-%{release}
+Obsoletes:      pulseaudio-qt-qt6-doc
 
 %description qt6-doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -75,7 +79,7 @@ rm %{buildroot}%{_kf6_includedir}/pulseaudioqt_version.h
 %license LICENSES/*.txt
 %doc README.md
 %{_kf6_libdir}/libKF6PulseAudioQt.so.5
-%{_kf6_libdir}/libKF6PulseAudioQt.so.%{version}
+%{_kf6_libdir}/libKF6PulseAudioQt.so.%{libversion}
 
 %files qt6-devel
 %{_kf6_includedir}/KF6PulseAudioQt/
@@ -88,5 +92,15 @@ rm %{buildroot}%{_kf6_includedir}/pulseaudioqt_version.h
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 1.8.1-5
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 1.8.1-4
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 1.8.1-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

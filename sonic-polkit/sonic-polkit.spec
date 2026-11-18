@@ -6,6 +6,7 @@
 # builds the Qt5 variant that Fedora's polkit-qt-1 shipped.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-polkit
 # Upstream KDE project: polkit-qt-1
 %global oldname polkit-qt-1
@@ -13,7 +14,7 @@
 #Name:            polkit-qt-1
 Name:           sonic-polkit
 Version:        0.201.2
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:         Qt bindings for PolicyKit
 
 License:         BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -28,8 +29,9 @@ BuildRequires:   gcc-c++
 BuildRequires:   pkgconfig(polkit-agent-1)
 BuildRequires:   pkgconfig(polkit-gobject-1)
 
+Provides:       polkit-qt-1 = %{version}-%{release}
 Provides:       polkit-qt-1%{?_isa} = %{version}-%{release}
-Obsoletes:      polkit-qt-1 < %{version}-%{release}
+Obsoletes:      polkit-qt-1
 
 %description
 Polkit-qt is a library that lets developers use the PolicyKit API
@@ -37,10 +39,7 @@ through a nice Qt-styled API.
 
 %package -n polkit-qt6-1
 Summary: PolicyKit Qt6 bindings
-BuildRequires:  pkgconfig(Qt6Core)
-BuildRequires:  pkgconfig(Qt6DBus)
-BuildRequires:  pkgconfig(Qt6Gui)
-BuildRequires:  pkgconfig(Qt6Widgets)
+BuildRequires:  qt6-qtbase-devel >= 6.11
 Provides:  polkit-qt6-1 = %{version}-%{release}
 %description -n polkit-qt6-1
 Polkit-qt is a library that lets developers use the PolicyKit API
@@ -83,5 +82,15 @@ Provides:  polkit-qt6-1-devel = %{version}-%{release}
 %{_libdir}/cmake/PolkitQt6-1/
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 0.201.2-5
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 0.201.2-4
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 0.201.2-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

@@ -1,4 +1,6 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %define oldname kscreen
 
@@ -8,8 +10,8 @@ ExcludeArch: %{ix86}
 
 Name:    sonic-screen
 Epoch:   1
-Version: 6.7.4
-Release:        4%{?dist}
+Version: 6.8.2
+Release:        3%{?dist}
 Summary: KDE Display Management software
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -24,32 +26,33 @@ BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  systemd-rpm-macros
 
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  qt6-qtsensors-devel
-
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  qt6-qtsensors-devel >= 6.11
 BuildRequires:  cmake(LayerShellQt)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6GlobalAccel)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6Screen)
-BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6XmlGui)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6KirigamiPlatform)
-BuildRequires:  cmake(Qt6WaylandClient)
-BuildRequires:  cmake(KF6Crash)
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-keybind-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-screen-library-devel
+BuildRequires:  sonic-frameworks-svg-devel
+BuildRequires:  sonic-frameworks-xml-gui-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  qt6-qtwayland-devel >= 6.11
+BuildRequires:  sonic-frameworks-crash-handler-devel
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  wayland-devel
 
-BuildRequires:  cmake(Plasma)
+BuildRequires:  sonic-interface-libraries-devel
+BuildRequires:  sonic-frameworks-data-models
 
 BuildRequires:  pkgconfig(xcb-atom)
 BuildRequires:  pkgconfig(xi)
 
-Obsoletes:      kscreen < 1:%{version}-%{release}
+Obsoletes:      kscreen
 Provides:       kscreen = %{version}-%{release}
 
 %description
@@ -86,6 +89,16 @@ KCM and KDED modules for managing displays in KDE.
 %{_userunitdir}/plasma-kscreen-osd.service
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
 

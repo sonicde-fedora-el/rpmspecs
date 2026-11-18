@@ -1,10 +1,12 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 
 #Name:    kglobalacceld
 Name:    sonic-keybind-daemon
 Summary: Daemon providing Global Keyboard Shortcut functionality
-Version: 6.7.4
+Version: 6.8.2
 Release:        3%{?dist}
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -19,21 +21,19 @@ BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  qt6-qtbase-gui
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6Gui)
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6GlobalAccel)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6JobWidgets)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  qt6-qtbase-gui >= 6.11
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-keybind-devel
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-progress-ui-devel
+BuildRequires:  sonic-frameworks-logging-devel
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(xcb-keysyms)
@@ -41,8 +41,8 @@ BuildRequires:  pkgconfig(xcb-xkb)
 BuildRequires:  pkgconfig(xcb-record)
 BuildRequires:  pkgconfig(xcb-xtest)
 BuildRequires:  systemd
-Requires:  kf6-filesystem
-Obsoletes:      kglobalacceld < %{version}-%{release}
+Requires: kf6-filesystem >= 6.31
+Obsoletes:      kglobalacceld
 Provides:       kglobalacceld = %{version}-%{release}
 
 %description
@@ -50,9 +50,9 @@ Provides:       kglobalacceld = %{version}-%{release}
 
 %package devel
 Summary:        Developer files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       qt6-qtbase-devel
-Obsoletes:      kglobalacceld-devel < %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
+Obsoletes:      kglobalacceld-devel
 Provides:       kglobalacceld-devel = %{version}-%{release}
 %description    devel
 %{summary}.
@@ -82,6 +82,16 @@ Provides:       kglobalacceld-devel = %{version}-%{release}
 %{_libdir}/cmake/KGlobalAccelD/
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
 

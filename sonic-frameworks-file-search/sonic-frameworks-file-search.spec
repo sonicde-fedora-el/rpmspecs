@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-frameworks-file-search fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-file-search
 # Upstream KDE project: baloo
@@ -12,7 +14,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-file-search
 Summary: A Tier 3 KDE Frameworks 6 module that provides indexing and search functionality
-Version:        6.29.0
+Version:        6.31.0.1
 Release:        3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND bzip2-1.0.6
@@ -29,29 +31,29 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 # http://bugzilla.redhat.com/1235026
 Patch100: baloo-5.67.0-baloofile_config.patch
 
-BuildRequires:  sonic-frameworks-cmake-modules >= %{version}
+BuildRequires:  sonic-frameworks-cmake-modules >= %(echo %{version} | cut -d. -f1-3)
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6FileMetaData)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6IdleTime)
-BuildRequires:  cmake(KF6KIO)
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-file-metadata-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-idle-tracker-devel
+BuildRequires:  sonic-frameworks-io-devel
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(KF6Solid)
+BuildRequires:  sonic-frameworks-device-integration-devel
 
 BuildRequires:  lmdb-devel
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtdeclarative-devel
-
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 # for systemd-related macros
 BuildRequires:  systemd
 
+Provides:       kf6-baloo = %{version}-%{release}
 Provides:       kf6-baloo%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-baloo < %{version}-%{release}
+Obsoletes:      kf6-baloo
 
 %description
 %{summary}.
@@ -59,12 +61,13 @@ Obsoletes:      kf6-baloo < %{version}-%{release}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       cmake(KF6CoreAddons)
-Requires:       cmake(KF6FileMetaData)
-Requires:       qt6-qtbase-devel
+Requires:       sonic-frameworks-core-addons-devel
+Requires:       sonic-frameworks-file-metadata-devel
+Requires: qt6-qtbase-devel >= 6.11
 
+Provides:       kf6-baloo-devel = %{version}-%{release}
 Provides:       kf6-baloo-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-baloo-devel < %{version}-%{release}
+Obsoletes:      kf6-baloo-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -72,18 +75,19 @@ developing applications that use %{name}.
 
 %package        file
 Summary:        File indexing and search for Baloo
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Obsoletes:      kf5-baloo-file < 6
+Provides:       kf6-baloo-file = %{version}-%{release}
 Provides:       kf6-baloo-file%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-baloo-file < %{version}-%{release}
+Obsoletes:      kf6-baloo-file
 
 %description    file
 %{summary}.
 
 %package        libs
 Summary:        Runtime libraries for %{name}
+Provides:       kf6-baloo-libs = %{version}-%{release}
 Provides:       kf6-baloo-libs%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-baloo-libs < %{version}-%{release}
+Obsoletes:      kf6-baloo-libs
 
 %description    libs
 %{summary}.
@@ -91,8 +95,9 @@ Obsoletes:      kf6-baloo-libs < %{version}-%{release}
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-baloo-doc = %{version}-%{release}
 Provides:       kf6-baloo-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-baloo-doc < %{version}-%{release}
+Obsoletes:      kf6-baloo-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -100,8 +105,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-baloo-html = %{version}-%{release}
 Provides:       kf6-baloo-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-baloo-html < %{version}-%{release}
+Obsoletes:      kf6-baloo-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -181,5 +187,15 @@ cat baloo_file6.lang baloo_file_extractor6.lang \
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

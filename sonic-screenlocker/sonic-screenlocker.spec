@@ -1,9 +1,11 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %define oldname kscreenlocker
 
 Name:    sonic-screenlocker
-Version: 6.7.4
+Version: 6.8.2
 Release:        3%{?dist}
 Summary: Library and components for secure lock screen architecture
 
@@ -21,28 +23,31 @@ Conflicts: plasma-workspace < 5.5
 ## upstream patches
 
 BuildRequires: cmake(LayerShellQt)
+BuildRequires: xcb-util-devel
 
 BuildRequires:  perl-generators
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  sonic-frameworks-cmake-modules
 
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6GlobalAccel)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6IdleTime)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Screen)
-BuildRequires:  cmake(KF6Solid)
-BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6XmlGui)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6KirigamiPlatform)
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-keybind-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-idle-tracker-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-ipc-devel
+BuildRequires:  sonic-frameworks-logging-devel
+BuildRequires:  sonic-screen-library-devel
+BuildRequires:  sonic-frameworks-device-integration-devel
+BuildRequires:  sonic-frameworks-svg-devel
+BuildRequires:  sonic-frameworks-xml-gui-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
 
 BuildRequires:  libX11-devel
 BuildRequires:  xcb-util-keysyms-devel
@@ -50,12 +55,12 @@ BuildRequires:  wayland-devel
 BuildRequires:  pkgconfig(xi)
 
 # Plasma
-BuildRequires:  cmake(PlasmaQuick)
+BuildRequires:  sonic-interface-libraries-devel
 
 BuildRequires:  libXcursor-devel
 BuildRequires:  pam-devel
 
-Obsoletes:      kscreenlocker < %{version}-%{release}
+Obsoletes:      kscreenlocker
 Provides:       kscreenlocker = %{version}-%{release}
 
 %description
@@ -66,7 +71,7 @@ Patch30:        sonic-screenlocker-6.6.5.2-fake-version-6.6.4.patch
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      kscreenlocker < %{version}-%{release}
+Obsoletes:      kscreenlocker
 Provides:       kscreenlocker = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -93,11 +98,10 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKScreenLocker.so.*
 %{_kf6_datadir}/knotifications6/*.notifyrc
 %{_libexecdir}/kscreenlocker_greet
-%dir %{_kf6_datadir}/ksmserver/
-%{_kf6_datadir}/ksmserver/screenlocker/
+%{_libexecdir}/kscreenlocker_worker
+%{_kf6_qmldir}/org/kde/kscreenlocker/
 %{_kf6_datadir}/applications/kcm_screenlocker.desktop
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_screenlocker.so
-%{_kf6_datadir}/qlogging-categories6/kscreenlocker.categories
 
 %files devel
 %{_kf6_libdir}/libKScreenLocker.so
@@ -108,6 +112,16 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
 

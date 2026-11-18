@@ -1,5 +1,5 @@
 Name:    kf6-filesystem
-Version: 6.29.0
+Version: 6.31.0
 Release: 2%{?dist}
 Summary: Filesystem for KDE Frameworks 6
 License: BSD-3-Clause
@@ -69,5 +69,8 @@ install -Dpm644 %{_sourcedir}/LICENSE %{buildroot}%{_datadir}/kf6/LICENSE
 %endif
 
 %changelog
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.31.0-1
+- 6.31.0
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-2
 - SonicDE build for Enterprise Linux 10

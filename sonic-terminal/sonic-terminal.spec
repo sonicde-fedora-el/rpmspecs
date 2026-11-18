@@ -3,6 +3,7 @@
 # https://github.com/Sonic-DE/sonic-terminal fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
 %global reponame sonic-terminal
 # Upstream KDE project: konsole
 %global oldname konsole
@@ -18,7 +19,7 @@
 #Name:    konsole
 Name:           sonic-terminal
 Summary: KDE Terminal emulator
-Version:        26.04.3.1
+Version:        26.08.3
 Release:        4%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -30,12 +31,17 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 ## upstreamable patches
 
 ## upstream patches
+# Backport of upstream commit 75ba4c3 (issue #5): keep the terminal window
+# when it is minimized
+Patch100: konsole-minimize-keep-window.patch
 
 ## downstream patches
 Patch200: konsole-history_location_default.patch
 # custom konsolerc that sets default to cache as well
 Source10: konsolerc
 
+%global sonicde_qt6_version 6.11.3
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 BuildRequires: make
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
@@ -43,36 +49,38 @@ BuildRequires: pkgconfig(zlib)
 
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires: sonic-rpm-macros
-BuildRequires: cmake(KF6Bookmarks)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6ConfigWidgets)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6Crash)
-BuildRequires: cmake(KF6DBusAddons)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6GlobalAccel)
-BuildRequires: cmake(KF6GuiAddons)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6IconThemes)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6NewStuff)
-BuildRequires: cmake(KF6Notifications)
-BuildRequires: cmake(KF6NotifyConfig)
-BuildRequires: cmake(KF6Parts)
-BuildRequires: cmake(KF6Pty)
-BuildRequires: cmake(KF6Service)
-BuildRequires: cmake(KF6TextWidgets)
-BuildRequires: cmake(KF6WidgetsAddons)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(KF6XmlGui)
+BuildRequires: sonic-frameworks-bookmarks-devel
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-settings-ui-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
+BuildRequires: sonic-frameworks-dbus-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-keybind-devel
+BuildRequires: sonic-frameworks-gui-addons-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: sonic-frameworks-icon-themes-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-logging-devel
+BuildRequires: sonic-frameworks-ipc-devel
+BuildRequires: sonic-frameworks-qml-bridge
+BuildRequires: sonic-frameworks-quick-ui
+BuildRequires: sonic-frameworks-quick-desktop-style
+BuildRequires: sonic-frameworks-addons-downloader-devel
+BuildRequires: sonic-frameworks-notifications-devel
+BuildRequires: sonic-frameworks-notification-settings-devel
+BuildRequires: sonic-frameworks-ui-components-devel
+BuildRequires: sonic-frameworks-pseudo-terminal-devel
+BuildRequires: sonic-frameworks-app-info-devel
+BuildRequires: sonic-frameworks-text-widgets-devel
+BuildRequires: sonic-frameworks-widgets-addons-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
+BuildRequires: sonic-frameworks-xml-gui-devel
 
 BuildRequires: libappstream-glib
-BuildRequires: cmake(Qt6Core)
-BuildRequires: cmake(Qt6DBus)
-BuildRequires: cmake(Qt6Multimedia)
-BuildRequires: cmake(Qt6PrintSupport)
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtmultimedia-devel >= 6.11
+BuildRequires: qt6-qt5compat-devel >= 6.11
 BuildRequires: libicu-devel
 BuildRequires: cmake(libssh)
 
@@ -90,16 +98,17 @@ Requires: keditbookmarks
 
 Obsoletes: konsole5 < 24.01.75
 
+Provides:       konsole = %{version}-%{release}
 Provides:       konsole%{?_isa} = %{version}-%{release}
-
 %description
 %{summary}.
 
 %package part
 Summary: Konsole kpart plugin
+Provides:       konsole-part = %{version}-%{release}
 Provides:       konsole-part%{?_isa} = %{version}-%{release}
-Obsoletes:      konsole-part < %{version}-%{release}
-Obsoletes:      konsole < %{version}-%{release}
+Obsoletes:      konsole-part
+Obsoletes:      konsole
 
 %description part
 %{summary}.
@@ -112,7 +121,7 @@ Obsoletes:      konsole < %{version}-%{release}
 %build
 %cmake_kf6 \
   %{?flatpak:-DINSTALL_ICONS:BOOL=ON} \
-  %{?tests:-DBUILD_TESTING:BOOL=ON}
+  %{?with_tests:-DBUILD_TESTING:BOOL=ON}
 
 %cmake_build
 
@@ -152,9 +161,25 @@ xvfb-run -a bash -c "%ctest" || :
 %config(noreplace) %{_kf6_sysconfdir}/xdg/konsolerc
 %{_kf6_libdir}/libkonsoleapp.so.*
 %{_kf6_libdir}/libkonsoleprivate.so.*
+%{_qt6_qmldir}/org/sonicde/terminal/
 %{_kf6_qtplugindir}/konsoleplugins/
 %{_kf6_qtplugindir}/kf6/parts/konsolepart.so
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-4
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Backport upstream fix (commit 75ba4c3, issue #5): keep the terminal
+  window when minimized - never propagate WindowMinimized to the hidden
+  compat window, which made Qt hide the QML window (withdrawn on X11)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3.1-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

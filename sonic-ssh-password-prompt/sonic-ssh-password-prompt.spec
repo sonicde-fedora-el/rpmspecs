@@ -3,6 +3,8 @@
 # https://github.com/Sonic-DE/sonic-ssh-password-prompt fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-ssh-password-prompt
 # Upstream KDE project: ksshaskpass
 %global oldname ksshaskpass
@@ -13,7 +15,7 @@ ExcludeArch: %{ix86}
 
 #Name:    ksshaskpass
 Name:           sonic-ssh-password-prompt
-Version:        6.7.4
+Version:        6.8.2
 Release:        3%{?dist}
 Summary: A ssh-add helper that uses kwallet and kpassworddialog
 
@@ -29,16 +31,19 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gettext
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  cmake(KF6Wallet)
-BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-widgets-addons-devel
+BuildRequires:  sonic-frameworks-keyring-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
 BuildRequires:  cmake(Qt6Keychain)
 
+Provides:       ksshaskpass = %{version}-%{release}
 Provides:       ksshaskpass%{?_isa} = %{version}-%{release}
-Obsoletes:      ksshaskpass < %{version}-%{release}
+Obsoletes:      ksshaskpass
 
 %description
 %{summary}.
@@ -75,5 +80,15 @@ EOF
 %{_mandir}/man1/ksshaskpass.1*
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

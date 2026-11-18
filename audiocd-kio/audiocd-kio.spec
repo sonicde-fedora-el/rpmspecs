@@ -1,3 +1,5 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -5,8 +7,8 @@ ExcludeArch: %{ix86}
 
 Name:    audiocd-kio
 Summary: KF6 Audiocd kio slave
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://invent.kde.org/multimedia/audiocd-kio
@@ -24,18 +26,17 @@ BuildRequires: cdparanoia-devel cdparanoia
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6KCMUtils)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6KIO)
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-settings-utils-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-io-devel
 
-BuildRequires: cmake(Qt6Core)
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qt5compat-devel >= 6.11
 
 BuildRequires: cmake(KCddb6)
-BuildRequires: cmake(KCompactDisc6)
 
 BuildRequires: pkgconfig(alsa)
 BuildRequires: pkgconfig(phonon4qt6)
@@ -117,11 +118,11 @@ Documentation for %{name}.
 %{_kf6_datadir}/qlogging-categories6/*
 %{_kf6_metainfodir}/org.kde.kio_audiocd.*.xml
 %{_kf6_libdir}/libaudiocdplugins.so.5*
-%{_qt6_plugindir}/libaudiocd_encoder_flac.so
-%{_qt6_plugindir}/libaudiocd_encoder_lame.so
-%{_qt6_plugindir}/libaudiocd_encoder_opus.so
-%{_qt6_plugindir}/libaudiocd_encoder_vorbis.so
-%{_qt6_plugindir}/libaudiocd_encoder_wav.so
+%{_qt6_plugindir}/audiocd/libaudiocd_encoder_flac.so
+%{_qt6_plugindir}/audiocd/libaudiocd_encoder_lame.so
+%{_qt6_plugindir}/audiocd/libaudiocd_encoder_opus.so
+%{_qt6_plugindir}/audiocd/libaudiocd_encoder_vorbis.so
+%{_qt6_plugindir}/audiocd/libaudiocd_encoder_wav.so
 %{_kf6_plugindir}/kio/audiocd.so
 %{_kf6_datadir}/config.kcfg/audiocd_*_encoder.kcfg
 %dir %{_kf6_datadir}/konqsidebartng/
@@ -141,6 +142,14 @@ Documentation for %{name}.
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
@@ -164,7 +173,7 @@ Documentation for %{name}.
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3

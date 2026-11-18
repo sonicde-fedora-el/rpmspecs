@@ -1,12 +1,14 @@
+%global sonicde_frameworks_version 6.31.0
 %global debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 Name:    krfb
 Summary: Desktop sharing
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
 URL:     https://apps.kde.org/krfb/
@@ -16,35 +18,35 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 
 BuildRequires: desktop-file-utils
 BuildRequires:  sonic-frameworks-cmake-modules
+BuildRequires:  ecm-compat-find-modules
 BuildRequires: gettext
 BuildRequires: hicolor-icon-theme
 
-BuildRequires: cmake(PlasmaWaylandProtocols)
-BuildRequires: cmake(Qt6Core)
-BuildRequires: cmake(Qt6DBus)
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6WaylandClient)
-BuildRequires: qt6-qtbase-private-devel
+BuildRequires: plasma-wayland-protocols-devel >= 1.21.0
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtwayland-devel >= 6.11
+BuildRequires: qt6-qtbase-private-devel >= 6.11
 BuildRequires: lzo-devel
 BuildRequires: libpng-devel
 BuildRequires: libgcrypt-devel
 BuildRequires: openssl-devel
 
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6Crash)
-BuildRequires: cmake(KF6DBusAddons)
-BuildRequires: cmake(KF6DNSSD)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6Notifications)
-BuildRequires: cmake(KF6Wallet)
-BuildRequires: cmake(KF6WidgetsAddons)
-BuildRequires: cmake(KF6XmlGui)
-BuildRequires: cmake(KF6StatusNotifierItem)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(KPipeWire)
-BuildRequires: cmake(KWayland)
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
+BuildRequires: sonic-frameworks-dbus-devel
+BuildRequires: sonic-frameworks-zeroconf-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-notifications-devel
+BuildRequires: sonic-frameworks-keyring-devel
+BuildRequires: sonic-frameworks-widgets-addons-devel
+BuildRequires: sonic-frameworks-xml-gui-devel
+BuildRequires: sonic-frameworks-status-notification-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
+BuildRequires: sonic-pipewire-devel
+BuildRequires: sonicde-kwayland-devel
 
 BuildRequires: pipewire-devel
 BuildRequires: pkgconfig(zlib)
@@ -123,6 +125,14 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krfb.desk
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
@@ -152,7 +162,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krfb.desk
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2

@@ -1,15 +1,16 @@
+%global sonicde_qt6_version 6.11.3
 Name:    kaccounts-providers
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 Summary: Additional service providers for KAccounts framework
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL:     https://invent.kde.org/network/%{name}
 
-Source0: %{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
-%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
+ExclusiveArch: x86_64 aarch64 riscv64 x86_64_v2
 
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
@@ -20,9 +21,9 @@ BuildRequires:  sonic-frameworks-internationalization-devel
 BuildRequires:  sonic-frameworks-io-devel
 
 BuildRequires:  pkgconfig(libaccounts-glib)
-BuildRequires:  pkgconfig(Qt6Gui)
-BuildRequires:  pkgconfig(Qt6Qml)
-BuildRequires:  pkgconfig(Qt6WebEngineQuick)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qtwebengine-devel >= 6.11
 BuildRequires:  qcoro-qt6-devel
 
 Requires:       signon-ui
@@ -67,6 +68,14 @@ Obsoletes: kaccounts-providers < 15.12.0
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Thu Aug 27 2026 SonicDE <dev@sonicde.org> - 26.04.3-1
 - Update to 26.04.3
 - Change BuildRequires to sonic-* packages

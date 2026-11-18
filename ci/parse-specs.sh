@@ -8,7 +8,12 @@ cd "$REPO_DIR"
 
 fail=0
 
-for spec in */*.spec; do
+if ! spec_paths=$(python3 ci/specs.py); then
+  echo "FEJL: kan ikke liste aktive specs via ci/specs.py" >&2
+  exit 1
+fi
+mapfile -t active_specs <<< "$spec_paths"
+for spec in "${active_specs[@]}"; do
   dir=${spec%%/*}
   base=$(basename "$spec" .spec)
   if [ "$dir" != "$base" ]; then
@@ -30,7 +35,7 @@ for spec in */*.spec; do
 done
 
 ordered=$(grep -v '^\[' build-order.txt | grep -v '^#' | grep -v '^$' | sort)
-present=$(for spec in */*.spec; do basename "$spec" .spec; done | sort)
+present=$(for spec in "${active_specs[@]}"; do basename "$spec" .spec; done | sort)
 
 missing=$(comm -13 <(echo "$ordered") <(echo "$present"))
 extra=$(comm -23 <(echo "$ordered") <(echo "$present"))

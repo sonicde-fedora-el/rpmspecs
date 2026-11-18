@@ -3,6 +3,7 @@
 # https://github.com/Sonic-DE/sonic-frameworks-user-feedback fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-frameworks-user-feedback
 # Upstream KDE project: kuserfeedback
 %global oldname kf6-kuserfeedback
@@ -12,7 +13,7 @@
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-user-feedback
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
-Version:        6.29.0
+Version:        6.31.0
 Release:        3%{?dist}
 
 License: MIT AND CC0-1.0 AND BSD-3-Clause
@@ -33,21 +34,18 @@ BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils
 BuildRequires: sonic-frameworks-cmake-modules
 
-BuildRequires: cmake(Qt6Qml)
-BuildRequires: cmake(Qt6Svg)
-BuildRequires: cmake(Qt6Core)
-BuildRequires: cmake(Qt6Test)
-BuildRequires: cmake(Qt6Charts)
-BuildRequires: cmake(Qt6Network)
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6PrintSupport)
-BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: qt6-qtsvg-devel >= 6.11
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtcharts-devel >= 6.11
+BuildRequires: qt6-qttools-devel >= 6.11
 
 BuildRequires: bison
 BuildRequires: flex
 
+Provides:       kf6-kuserfeedback = %{version}-%{release}
 Provides:       kf6-kuserfeedback%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kuserfeedback < %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback
 
 %description
 %{summary}.
@@ -57,12 +55,13 @@ Summary:        Analytics and administration tool for UserFeedback servers
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtcharts%{?_isa}
 # Obsolete the qt5 version
-Obsoletes:      kuserfeedback-console < %{version}-%{release}
+Obsoletes:      kuserfeedback-console
+Provides:       kuserfeedback-console = %{version}-%{release}
 Provides:       kuserfeedback-console = %{version}-%{release}
 Provides:       kuserfeedback-console%{?_isa} = %{version}-%{release}
-
+Provides:       kf6-kuserfeedback-console = %{version}-%{release}
 Provides:       kf6-kuserfeedback-console%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kuserfeedback-console < %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback-console
 
 %description    console
 Analytics and administration tool for UserFeedback servers.
@@ -70,11 +69,11 @@ Analytics and administration tool for UserFeedback servers.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt6Network)
-Requires:       cmake(Qt6Widgets)
+Requires:       qt6-qtbase-devel >= 6.11
 
+Provides:       kf6-kuserfeedback-devel = %{version}-%{release}
 Provides:       kf6-kuserfeedback-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kuserfeedback-devel < %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -83,8 +82,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kuserfeedback-doc = %{version}-%{release}
 Provides:       kf6-kuserfeedback-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kuserfeedback-doc < %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -92,8 +92,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kuserfeedback-html = %{version}-%{release}
 Provides:       kf6-kuserfeedback-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kuserfeedback-html < %{version}-%{release}
+Obsoletes:      kf6-kuserfeedback-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -155,5 +156,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

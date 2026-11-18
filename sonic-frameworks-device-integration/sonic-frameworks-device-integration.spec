@@ -3,6 +3,8 @@
 # https://github.com/Sonic-DE/sonic-frameworks-device-integration fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-frameworks-device-integration
 # Upstream KDE project: solid
 %global oldname kf6-solid
@@ -11,24 +13,25 @@
 
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-device-integration
-Version:        6.29.0
+Version:        6.31.0
+%global libversion %(echo %{version} | cut -d. -f1-3)
 Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 integration module that provides hardware information
 License:        LGPL-2.1-or-later AND LGPL-2.1-only AND CCO-1.0 AND BSD-3-Clause AND LGPL-3.0-only
 #URL:            https://solid.kde.org/
 URL:            https://github.com/Sonic-DE/%{reponame}
-#Source0:        https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz
+#Source0:        https://download.kde.org/%%{stable_kf6}/frameworks/%%{sonicde_frameworks_version}/%%{framework}-%%{version}.tar.xz
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{version}.tar.gz
-#Source1:        https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz.sig
+#Source1:        https://download.kde.org/%%{stable_kf6}/frameworks/%%{sonicde_frameworks_version}/%%{framework}-%%{version}.tar.xz.sig
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  sonic-frameworks-cmake-modules >= %{majmin_ver_kf6}
-Requires:       kf6-filesystem
+BuildRequires:  sonic-frameworks-cmake-modules >= %{sonicde_frameworks_version}
+Requires: kf6-filesystem >= 6.31
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6Qml)
-BuildRequires:  cmake(Qt6Tools)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qttools-devel >= 6.11
 BuildRequires:  libupnp-devel
 BuildRequires:  systemd-devel
 BuildRequires:  libmount-devel
@@ -42,8 +45,9 @@ Recommends:     media-player-info
 Recommends:     udisks2
 Recommends:     upower
 
+Provides:       kf6-solid = %{version}-%{release}
 Provides:       kf6-solid%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-solid < %{version}-%{release}
+Obsoletes:      kf6-solid
 
 %description
 Solid provides the following features for application developers:
@@ -53,10 +57,11 @@ Solid provides the following features for application developers:
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt6Core)
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
+Provides:       kf6-solid-devel = %{version}-%{release}
 Provides:       kf6-solid-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-solid-devel < %{version}-%{release}
+Obsoletes:      kf6-solid-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -65,8 +70,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-solid-doc = %{version}-%{release}
 Provides:       kf6-solid-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-solid-doc < %{version}-%{release}
+Obsoletes:      kf6-solid-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -74,8 +80,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-solid-html = %{version}-%{release}
 Provides:       kf6-solid-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-solid-html < %{version}-%{release}
+Obsoletes:      kf6-solid-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -98,7 +105,7 @@ Developer Documentation files for %{name} in HTML format
 %{_kf6_bindir}/solid-hardware6
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*
 %{_kf6_libdir}/libKF6Solid.so.6
-%{_kf6_libdir}/libKF6Solid.so.%{version}
+%{_kf6_libdir}/libKF6Solid.so.%{libversion}
 
 %files devel
 %{_kf6_includedir}/Solid/
@@ -116,5 +123,15 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

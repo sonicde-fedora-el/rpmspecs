@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-daemon fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-daemon
 # Upstream KDE project: kded
@@ -11,7 +13,7 @@
 
 #Name:    kf6-%%{framework}
 Name:           sonic-daemon
-Version:        6.29.0
+Version:        6.31.0
 Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extensible daemon for system-level services
 
@@ -26,21 +28,21 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildRequires:  sonic-frameworks-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6Service)
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-app-info-devel
 BuildRequires:  sonic-rpm-macros
 
-BuildRequires:  qt6-qtbase-devel
-
+BuildRequires:  qt6-qtbase-devel >= 6.11
 BuildRequires:  systemd
-Requires:  kf6-filesystem
+Requires: kf6-filesystem >= 6.31
 
+Provides:       kf6-kded = %{version}-%{release}
 Provides:       kf6-kded%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kded < %{version}-%{release}
+Obsoletes:      kf6-kded
 
 %description
 KDED stands for KDE Daemon which isn't very descriptive. KDED runs
@@ -52,9 +54,10 @@ applications.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Provides:       kf6-kded-devel = %{version}-%{release}
 Provides:       kf6-kded-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kded-devel < %{version}-%{release}
+Obsoletes:      kf6-kded-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -96,5 +99,15 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kded
 %{_kf6_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

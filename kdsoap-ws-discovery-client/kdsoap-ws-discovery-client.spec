@@ -1,7 +1,8 @@
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 Name:           kdsoap-ws-discovery-client
 Version:        0.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for finding WS-Discovery devices in the network using Qt6 and KDSoap
 
 License:        GPL-3.0-or-later AND LicenseRef-OASIS AND LicenseRef-WS-Addressing AND LicenseRef-Discovery AND W3C
@@ -13,7 +14,7 @@ BuildRequires:  gcc-c++
 
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires:  cmake(KDSoap-qt6)
-BuildRequires:  cmake(Qt6)
+BuildRequires:  qt6-qtbase-devel >= 6.11
 
 %description
 %{summary}.
@@ -51,5 +52,10 @@ sed -i '/add_subdirectory(docs)/d' CMakeLists.txt
 %{_libdir}/libKDSoapWSDiscoveryClient.so
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 0.4.0-5
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 0.4.0-4
 - SonicDE build for Enterprise Linux 10

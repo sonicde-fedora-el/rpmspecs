@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-frameworks-spell-check fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-spell-check
 # Upstream KDE project: sonnet
@@ -11,7 +13,7 @@
 
 #Name:		kf6-%%{framework}
 Name:           sonic-frameworks-spell-check
-Version:        6.29.0
+Version:        6.31.0.1
 Release:        3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 solution for spell checking
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -26,16 +28,15 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 Patch0:		sonnet6-default-list.patch
 
 BuildRequires:	appstream
-BuildRequires:	sonic-frameworks-cmake-modules >= %{version}
+BuildRequires:	sonic-frameworks-cmake-modules >= %(echo %{version} | cut -d. -f1-3)
 BuildRequires:	sonic-rpm-macros
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
-BuildRequires:	qt6-qtbase-devel
-BuildRequires:	qt6-qtdeclarative-devel
-BuildRequires:	qt6-qttools-devel
+BuildRequires:	qt6-qtbase-devel >= 6.11
+BuildRequires:	qt6-qtdeclarative-devel >= 6.11
+BuildRequires:	qt6-qttools-devel >= 6.11
 BuildRequires:	zlib-devel
-BuildRequires:	cmake(Qt6Quick)
 BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(aspell)
 BuildRequires:	pkgconfig(hunspell)
@@ -43,11 +44,12 @@ BuildRequires:	hspell-devel
 BuildRequires:	pkgconfig(libvoikko)
 
 
-Requires:	kf6-filesystem
+Requires: kf6-filesystem >= 6.31
 Recommends:	%{name}-hunspell
 
+Provides:       kf6-sonnet = %{version}-%{release}
 Provides:       kf6-sonnet%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-sonnet < %{version}-%{release}
+Obsoletes:      kf6-sonnet
 
 %description
 KDE Frameworks 6 Tier 1 solution for spell checking.
@@ -55,9 +57,10 @@ KDE Frameworks 6 Tier 1 solution for spell checking.
 
 %package	aspell
 Summary:	aspell plugin for %{name}
-Requires:	%{name} = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
+Provides:       kf6-sonnet-aspell = %{version}-%{release}
 Provides:       kf6-sonnet-aspell%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-sonnet-aspell < %{version}-%{release}
+Obsoletes:      kf6-sonnet-aspell
 
 %description	aspell
 The %{name}-aspell package contains the aspell spellchecking
@@ -65,9 +68,9 @@ plugin for %{name}.
 
 %package	hunspell
 Summary:	hunspell plugin for %{name}
-Requires:	%{name} = %{version}-%{release}
+Provides:       kf6-sonnet-hunspell = %{version}-%{release}
 Provides:       kf6-sonnet-hunspell%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-sonnet-hunspell < %{version}-%{release}
+Obsoletes:      kf6-sonnet-hunspell
 
 %description	hunspell
 The %{name}-hunspell package contains the hunspell spellchecking
@@ -76,11 +79,11 @@ plugin for %{name}.
 %package	hspell
 Summary:	hspell plugin for %{name}
 Supplements:	(%{name} and langpacks-he)
-Requires:	%{name} = %{version}-%{release}
-Requires:	hunspell-he
+Requires: hunspell-he
 
+Provides:       kf6-sonnet-hspell = %{version}-%{release}
 Provides:       kf6-sonnet-hspell%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-sonnet-hspell < %{version}-%{release}
+Obsoletes:      kf6-sonnet-hspell
 
 %description	hspell
 The %{name}-hspell package contains the Hebrew hspell spellchecking
@@ -89,9 +92,9 @@ plugin for %{name}.
 %package	voikko
 Summary:	voikko plugin for %{name}
 Supplements:	(%{name} and langpacks-fi)
-Requires:	%{name} = %{version}-%{release}
+Provides:       kf6-sonnet-voikko = %{version}-%{release}
 Provides:       kf6-sonnet-voikko%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-sonnet-voikko < %{version}-%{release}
+Obsoletes:      kf6-sonnet-voikko
 
 %description	voikko
 The %{name}-voikko package contains the Finnish voikko spellchecking
@@ -100,10 +103,11 @@ plugin for %{name}.
 
 %package	devel
 Summary:	Development files for %{name}
-Requires:	%{name} = %{version}-%{release}
-Requires:	qt6-qtbase-devel
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
+Provides:       kf6-sonnet-devel = %{version}-%{release}
 Provides:       kf6-sonnet-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-sonnet-devel < %{version}-%{release}
+Obsoletes:      kf6-sonnet-devel
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -112,8 +116,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-sonnet-doc = %{version}-%{release}
 Provides:       kf6-sonnet-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-sonnet-doc < %{version}-%{release}
+Obsoletes:      kf6-sonnet-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -121,8 +126,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-sonnet-html = %{version}-%{release}
 Provides:       kf6-sonnet-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-sonnet-html < %{version}-%{release}
+Obsoletes:      kf6-sonnet-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -187,5 +193,15 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

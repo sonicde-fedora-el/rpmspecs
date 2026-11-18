@@ -2,6 +2,7 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-frameworks-quick-ui fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-quick-ui
 # Upstream KDE project: kirigami
@@ -11,7 +12,7 @@
 
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-quick-ui
-Version:        6.29.0.2
+Version:        6.31.0.2
 Release:        3%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -28,21 +29,22 @@ BuildRequires:  gcc-c++
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  make
-BuildRequires:  qt6-linguist
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtdeclarative-devel
-BuildRequires:  qt6-qtsvg-devel
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6ShaderTools)
+BuildRequires:  qt6-linguist >= 6.11
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qtsvg-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  qt6-qtshadertools-devel >= 6.11
 
 # Renamed from kf6-kirigami2
-Obsoletes:      kf6-kirigami2 < 5.246.0
+Obsoletes:      kf6-kirigami2
+Provides:       kf6-kirigami2 = %{version}-%{release}
 Provides:       kf6-kirigami2%{?_isa} = %{version}-%{release}
+Provides:       kf6-kirigami2 = %{version}-%{release}
 Provides:       kf6-kirigami2%{?_isa} = %{version}-%{release}
-
+Provides:       kf6-kirigami = %{version}-%{release}
 Provides:       kf6-kirigami%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kirigami < %{version}-%{release}
+Obsoletes:      kf6-kirigami
 
 %description
 %{summary}.
@@ -50,11 +52,14 @@ Obsoletes:      kf6-kirigami < %{version}-%{release}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
-Obsoletes:      kf6-kirigami2-devel < 5.246.0
+Obsoletes:      kf6-kirigami2-devel
+Provides:       kf6-kirigami2-devel = %{version}-%{release}
 Provides:       kf6-kirigami2-devel%{?_isa} = %{version}-%{release}
+Provides:       kf6-kirigami2-devel = %{version}-%{release}
 Provides:       kf6-kirigami2-devel%{?_isa} = %{version}-%{release}
+Provides:       kf6-kirigami-devel = %{version}-%{release}
 Provides:       kf6-kirigami-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kirigami-devel < %{version}-%{release}
+Obsoletes:      kf6-kirigami-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -63,8 +68,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kirigami-doc = %{version}-%{release}
 Provides:       kf6-kirigami-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kirigami-doc < %{version}-%{release}
+Obsoletes:      kf6-kirigami-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -72,8 +78,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kirigami-html = %{version}-%{release}
 Provides:       kf6-kirigami-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kirigami-html < %{version}-%{release}
+Obsoletes:      kf6-kirigami-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -156,5 +163,15 @@ cat libkirigami6_qt.lang libkirigami2plugin_qt.lang > all.lang
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0.2-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

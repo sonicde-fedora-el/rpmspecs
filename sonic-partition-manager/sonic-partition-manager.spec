@@ -3,6 +3,8 @@
 # https://github.com/Sonic-DE/sonic-partition-manager fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-partition-manager
 # Upstream KDE project: partitionmanager
 %global oldname kde-partitionmanager
@@ -19,7 +21,7 @@ ExcludeArch: %{ix86}
 
 #Name:           kde-partitionmanager
 Name:           sonic-partition-manager
-Version:        26.04.3
+Version:        26.08.3
 Release:        3%{?dist}
 Summary:        KDE Partition Manager
 
@@ -36,30 +38,30 @@ BuildRequires:  gettext
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  libappstream-glib
 
-BuildRequires:  cmake(Qt6Core) >= %{qt6min}
-BuildRequires:  cmake(Qt6Gui) >= %{qt6min}
-BuildRequires:  cmake(Qt6Widgets) >= %{qt6min}
+BuildRequires:  qt6-qtbase-devel >= 6.11
 
-BuildRequires:  cmake(KF6Config) >= %{kf6min}
-BuildRequires:  cmake(KF6ConfigWidgets) >= %{kf6min}
-BuildRequires:  cmake(KF6CoreAddons) >= %{kf6min}
-BuildRequires:  cmake(KF6Crash) >= %{kf6min}
-BuildRequires:  cmake(KF6DBusAddons) >= %{kf6min}
-BuildRequires:  cmake(KF6I18n) >= %{kf6min}
-BuildRequires:  cmake(KF6JobWidgets) >= %{kf6min}
-BuildRequires:  cmake(KF6KIO) >= %{kf6min}
-BuildRequires:  cmake(KF6WidgetsAddons) >= %{kf6min}
-BuildRequires:  cmake(KF6WindowSystem) >= %{kf6min}
-BuildRequires:  cmake(KF6XmlGui) >= %{kf6min}
-BuildRequires:  cmake(KF6DocTools) >= %{kf6min}
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-settings-ui-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-progress-ui-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-xml-gui-devel
+BuildRequires:  sonic-frameworks-doctools-devel
 
 BuildRequires:  cmake(PolkitQt6-1)
 BuildRequires:  cmake(KPMcore) >= %{kpmcoremin}
 
-Requires:       kf6-filesystem
+Requires: kf6-filesystem >= 6.31
 
+Provides:       kde-partitionmanager = %{version}-%{release}
 Provides:       kde-partitionmanager%{?_isa} = %{version}-%{release}
-Obsoletes:      kde-partitionmanager < %{version}-%{release}
+Obsoletes:      kde-partitionmanager
 
 %description
 KDE Partition Manager is a utility program to help you manage the disk devices,
@@ -105,5 +107,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.
 %{_kf6_metainfodir}/*partitionmanager.appdata.xml
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

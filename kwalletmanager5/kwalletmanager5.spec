@@ -1,3 +1,5 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 
 %global  base_name kwalletmanager
@@ -11,8 +13,8 @@ ExcludeArch: %{ix86}
 
 Name:    kwalletmanager5
 Summary: Manage KDE passwords
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 3%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -30,31 +32,29 @@ BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 BuildRequires: libappstream-glib
 
-BuildRequires: cmake(Qt6Core)
-BuildRequires: cmake(Qt6Gui)
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6DBus)
+BuildRequires: qt6-qtbase-devel >= 6.11
 
 %if ! 0%{?flatpak}
-BuildRequires: cmake(KF6Auth)
+BuildRequires: sonic-frameworks-auth-devel
 %endif
-BuildRequires: cmake(KF6Archive)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6ConfigWidgets)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6DBusAddons)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6KCMUtils)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6Wallet)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(KF6XmlGui)
-BuildRequires: cmake(KF6Crash)
-BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: sonic-frameworks-archive-devel
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-settings-ui-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-dbus-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: sonic-frameworks-settings-utils-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-keyring-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
+BuildRequires: sonic-frameworks-xml-gui-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
+BuildRequires: sonic-frameworks-status-notification-devel
 
 %if 0%{?kwalletmanager}
-Obsoletes: kwalletmanager < 15.04.3-100
+Obsoletes:      kwalletmanager
 Provides:  kwalletmanager = %{version}-%{release}
 %endif
 
@@ -104,6 +104,19 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kw
 
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
 - 26.04.3
 
@@ -125,7 +138,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kw
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2

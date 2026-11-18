@@ -3,6 +3,8 @@
 # https://github.com/Sonic-DE/sonic-frameworks-text-editor fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-frameworks-text-editor
 # Upstream KDE project: ktexteditor
 %global oldname kf6-ktexteditor
@@ -11,7 +13,7 @@
 
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-text-editor
-Version:        6.29.0
+Version:        6.31.0
 Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 with advanced embeddable text editor
 
@@ -26,28 +28,28 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildRequires:  sonic-frameworks-cmake-modules >= %{version}
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  cmake(KF6Archive)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Parts)
-BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  sonic-frameworks-archive-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-ui-components-devel
+BuildRequires:  sonic-frameworks-color-scheme-devel
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  pkgconfig(Qt6TextToSpeech)
-BuildRequires:  pkgconfig(Qt6Widgets)
-BuildRequires:  pkgconfig(Qt6PrintSupport)
-BuildRequires:  pkgconfig(Qt6Qml)
-BuildRequires:  pkgconfig(Qt6Xml)
-BuildRequires:  cmake(KF6SyntaxHighlighting)
+BuildRequires:  qt6-qtspeech-devel >= 6.11
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-syntax-highlighting-devel
 BuildRequires:  pkgconfig(editorconfig)
 BuildRequires:  pkgconfig(xkbcommon)
-Requires: kf6-filesystem
+Requires: kf6-filesystem >= 6.31
 Requires: git-core
 
+Provides:       kf6-ktexteditor = %{version}-%{release}
 Provides:       kf6-ktexteditor%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-ktexteditor < %{version}-%{release}
+Obsoletes:      kf6-ktexteditor
 
 %description
 KTextEditor provides a powerful text editor component that you can embed in your
@@ -61,12 +63,13 @@ IDE.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
-Requires:       cmake(KF6Parts)
-Requires:       cmake(KF6SyntaxHighlighting)
+Requires: %{name} = %{version}-%{release}
+Requires: sonic-frameworks-ui-components-devel
+Requires: sonic-frameworks-syntax-highlighting-devel
 #Requires:       kf6-syntax-highlighting-devel
+Provides:       kf6-ktexteditor-devel = %{version}-%{release}
 Provides:       kf6-ktexteditor-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-ktexteditor-devel < %{version}-%{release}
+Obsoletes:      kf6-ktexteditor-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -75,8 +78,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-ktexteditor-doc = %{version}-%{release}
 Provides:       kf6-ktexteditor-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-ktexteditor-doc < %{version}-%{release}
+Obsoletes:      kf6-ktexteditor-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -84,8 +88,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-ktexteditor-html = %{version}-%{release}
 Provides:       kf6-ktexteditor-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-ktexteditor-html < %{version}-%{release}
+Obsoletes:      kf6-ktexteditor-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -137,5 +142,15 @@ rm -f %{buildroot}%{_kf6_datadir}/katepart5/script/README.md
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

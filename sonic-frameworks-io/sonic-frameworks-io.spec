@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-frameworks-io fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-io
 # Upstream KDE project: kio
@@ -11,7 +13,7 @@
 
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-io
-Version:        6.29.0.1
+Version:        6.31.0.1
 Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
@@ -40,30 +42,30 @@ BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  cmake
-BuildRequires:  cmake(KF6Archive)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6Solid)
+BuildRequires:  sonic-frameworks-archive-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-device-integration-devel
 BuildRequires:  switcheroo-control
-BuildRequires:  cmake(KF6ColorScheme)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  cmake(KF6Bookmarks)
-BuildRequires:  cmake(KF6Completion)
-BuildRequires:  cmake(KF6ConfigWidgets)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6ItemViews)
-BuildRequires:  cmake(KF6JobWidgets)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Wallet)
-BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  sonic-frameworks-color-scheme-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  sonic-frameworks-bookmarks-devel
+BuildRequires:  sonic-frameworks-autocomplete-devel
+BuildRequires:  sonic-frameworks-settings-ui-devel
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-data-views-devel
+BuildRequires:  sonic-frameworks-progress-ui-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-keyring-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
+BuildRequires:  sonic-frameworks-xml-gui-devel
 
 BuildRequires:  libacl-devel
 %if !0%{?flatpak}
@@ -75,12 +77,12 @@ BuildRequires:  pkgconfig(mount)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  zlib-devel
 
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  cmake(Qt6UiPlugin)
-BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qttools-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 
-BuildRequires:  cmake(KF6KDED)
-BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  sonic-daemon-devel
+BuildRequires:  qt6-qt5compat-devel >= 6.11
 
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 Requires:       %{name}-widgets%{?_isa} = %{version}-%{release}
@@ -89,8 +91,9 @@ Requires:       %{name}-gui%{?_isa} = %{version}-%{release}
 
 Requires: sonic-daemon
 
+Provides:       kf6-kio = %{version}-%{release}
 Provides:       kf6-kio%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio < %{version}-%{release}
+Obsoletes:      kf6-kio
 
 %description
 KDE Frameworks 6 Tier 3 solution for filesystem abstraction
@@ -99,18 +102,19 @@ KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       sonic-frameworks-bookmarks-devel
-Requires:       cmake(KF6Completion)
-Requires:       cmake(KF6Config)
-Requires:       cmake(KF6CoreAddons)
-Requires:       cmake(KF6ItemViews)
-Requires:       cmake(KF6JobWidgets)
-Requires:       cmake(KF6Service)
-Requires:       cmake(KF6Solid)
-Requires:       cmake(KF6XmlGui)
-Requires:       cmake(KF6WindowSystem)
-Requires:       qt6-qtbase-devel
+Requires:       sonic-frameworks-autocomplete-devel
+Requires:       sonic-frameworks-settings-devel
+Requires:       sonic-frameworks-core-addons-devel
+Requires:       sonic-frameworks-data-views-devel
+Requires:       sonic-frameworks-progress-ui-devel
+Requires:       sonic-frameworks-app-info-devel
+Requires:       sonic-frameworks-device-integration-devel
+Requires:       sonic-frameworks-xml-gui-devel
+Requires:       sonic-frameworks-windowsystem-devel
+Requires: qt6-qtbase-devel >= 6.11
+Provides:       kf6-kio-devel = %{version}-%{release}
 Provides:       kf6-kio-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-devel < %{version}-%{release}
+Obsoletes:      kf6-kio-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -118,10 +122,11 @@ developing applications that use %{name}.
 
 %package        doc
 Summary:        Documentation files for %{name}
-Requires:       %{name}-core = %{version}-%{release}
+Requires: %{name}-core = %{version}-%{release}
 BuildArch:      noarch
+Provides:       kf6-kio-doc = %{version}-%{release}
 Provides:       kf6-kio-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-doc < %{version}-%{release}
+Obsoletes:      kf6-kio-doc
 
 %description    doc
 Documentation for %{name}.
@@ -129,33 +134,35 @@ Documentation for %{name}.
 %package        core
 Summary:        Core components of the KIO Framework
 %{?kf6_kinit_requires}
-Requires:       %{name}-core-libs%{?_isa} = %{version}-%{release}
-Requires:       %{name}-doc = %{version}-%{release}
-Requires:       kf6-filesystem
+Requires: %{name}-core-libs%{?_isa} = %{version}-%{release}
+Requires: %{name}-doc = %{version}-%{release}
+Requires: kf6-filesystem >= 6.31
 Recommends:     switcheroo-control
+Provides:       kf6-kio-core = %{version}-%{release}
 Provides:       kf6-kio-core%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-core < %{version}-%{release}
+Obsoletes:      kf6-kio-core
 
 %description    core
 KIOCore library provides core non-GUI components for working with KIO.
 
 %package        core-libs
 Summary:        Runtime libraries for KIO Core
-Requires:       %{name}-core%{?_isa} = %{version}-%{release}
+Provides:       kf6-kio-core-libs = %{version}-%{release}
 Provides:       kf6-kio-core-libs%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-core-libs < %{version}-%{release}
+Obsoletes:      kf6-kio-core-libs
 
 %description    core-libs
 %{summary}.
 
 %package        widgets
 Summary:        Widgets for KIO Framework
+Requires: %{name}-widgets-libs%{?_isa} = %{version}-%{release}
 ## org.kde.klauncher6 service referenced from : widgets/krun.cpp
 ## included here for completeness, even those -core already has a dependency.
 %{?kf6_kinit_requires}
-Requires:       %{name}-core%{?_isa} = %{version}-%{release}
+Provides:       kf6-kio-widgets = %{version}-%{release}
 Provides:       kf6-kio-widgets%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-widgets < %{version}-%{release}
+Obsoletes:      kf6-kio-widgets
 
 %description    widgets
 KIOWidgets contains classes that provide generic job control, progress
@@ -163,18 +170,18 @@ reporting, etc.
 
 %package        widgets-libs
 Summary:        Runtime libraries for KIO Widgets library
-Requires:       %{name}-widgets%{?_isa} = %{version}-%{release}
+Provides:       kf6-kio-widgets-libs = %{version}-%{release}
 Provides:       kf6-kio-widgets-libs%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-widgets-libs < %{version}-%{release}
+Obsoletes:      kf6-kio-widgets-libs
 
 %description    widgets-libs
 %{summary}.
 
 %package        file-widgets
 Summary:        Widgets for file-handling for KIO Framework
-Requires:       %{name}-widgets%{?_isa} = %{version}-%{release}
+Provides:       kf6-kio-file-widgets = %{version}-%{release}
 Provides:       kf6-kio-file-widgets%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-file-widgets < %{version}-%{release}
+Obsoletes:      kf6-kio-file-widgets
 
 %description    file-widgets
 The KIOFileWidgets library provides the file selection dialog and
@@ -182,9 +189,9 @@ its components.
 
 %package        gui
 Summary:        Gui components for the KIO Framework
-Requires:       %{name}-core%{?_isa} = %{version}-%{release}
+Provides:       kf6-kio-gui = %{version}-%{release}
 Provides:       kf6-kio-gui%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-gui < %{version}-%{release}
+Obsoletes:      kf6-kio-gui
 
 %description    gui
 %{summary}.
@@ -192,8 +199,9 @@ Obsoletes:      kf6-kio-gui < %{version}-%{release}
 %package        qch-doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kio-qch-doc = %{version}-%{release}
 Provides:       kf6-kio-qch-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-qch-doc < %{version}-%{release}
+Obsoletes:      kf6-kio-qch-doc
 
 %description    qch-doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -201,8 +209,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kio-html = %{version}-%{release}
 Provides:       kf6-kio-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kio-html < %{version}-%{release}
+Obsoletes:      kf6-kio-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -276,5 +285,15 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0.1-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

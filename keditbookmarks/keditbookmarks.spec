@@ -1,8 +1,10 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 Name:    keditbookmarks
 Summary: Bookmark organizer and editor
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 
 # Documentation is GFDL, rest GPLv2 and GPLv3 (note: NOT any later version)
 # Automatically converted from old format: GPLv2 and GPLv3 and GFDL - review is highly recommended.
@@ -15,20 +17,21 @@ BuildRequires: desktop-file-utils
 
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
-BuildRequires: cmake(KF6Bookmarks)
-BuildRequires: cmake(KF6Codecs)
-BuildRequires: cmake(KF6ConfigWidgets)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6IconThemes)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6Parts)
-BuildRequires: cmake(KF6WidgetsAddons)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(KF6Crash)
+BuildRequires: sonic-frameworks-bookmarks-devel
+BuildRequires: sonic-frameworks-text-codec-devel
+BuildRequires: sonic-frameworks-settings-ui-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: sonic-frameworks-icon-themes-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-ui-components-devel
+BuildRequires: sonic-frameworks-widgets-addons-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
 
-BuildRequires: cmake(Qt6Core)
+BuildRequires: qt6-qtbase-devel >= 6.11
 
 Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -80,6 +83,14 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
@@ -103,7 +114,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2

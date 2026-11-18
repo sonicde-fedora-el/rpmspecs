@@ -1,3 +1,6 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
+
 %if 0%{?fedora}
 %global p7zip 1
 %endif
@@ -9,8 +12,8 @@ ExcludeArch: %{ix86}
 
 Name:    ark
 Summary: Archive manager
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 
 # icons are LGPL-3.0-only
 # code is GPL-2.0-or-later
@@ -34,26 +37,27 @@ BuildRequires: desktop-file-utils
 
 BuildRequires:  sonic-frameworks-cmake-modules >= 5.71
 BuildRequires:  sonic-rpm-macros
-BuildRequires: cmake(KF6BreezeIcons)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6Crash)
-BuildRequires: cmake(KF6DBusAddons)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6FileMetaData)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6Service)
-BuildRequires: cmake(KF6Parts)
-BuildRequires: cmake(KF6Pty)
-BuildRequires: cmake(KF6WidgetsAddons)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(KF6IconThemes)
+BuildRequires: sonic-frameworks-silver-icons-devel
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
+BuildRequires: sonic-frameworks-dbus-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: sonic-frameworks-file-metadata-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-app-info-devel
+BuildRequires: sonic-frameworks-ui-components-devel
+BuildRequires: sonic-frameworks-pseudo-terminal-devel
+BuildRequires: sonic-frameworks-widgets-addons-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
+BuildRequires: sonic-frameworks-icon-themes-devel
 
 BuildRequires: libappstream-glib
 BuildRequires: pkgconfig(libarchive)
 BuildRequires: pkgconfig(liblzma)
 BuildRequires: pkgconfig(libzip)
-BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtbase-devel >= 6.11
 BuildRequires: zlib-devel
 
 # when split occured
@@ -77,6 +81,9 @@ Requires: p7zip-plugins
 %endif
 Requires: unzip
 # optional/soft dependencies
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
+
 %if 0%{?fedora} > 23
 Suggests: lha
 Recommends: unar
@@ -97,6 +104,7 @@ License: BSD-2-Clause AND GPL-2.0-or-later AND MIT
 Requires: %{name} = %{version}-%{release}
 Obsoletes: kdeutils-ark-libs < 6:4.7.80
 Provides:  kdeutils-ark-libs = 6:%{version}-%{release}
+Provides: ark-part = %{version}-%{release}
 Provides: ark-part = %{version}-%{release}
 Provides: ark-part%{?_isa} = %{version}-%{release}
 %description libs
@@ -135,6 +143,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ark.deskt
 %{_kf6_metainfodir}/org.kde.ark.appdata.xml
 %{_kf6_datadir}/applications/org.kde.ark.desktop
 %{_kf6_datadir}/icons/hicolor/*/apps/ark.*
+%{_kf6_datadir}/kconf_update/ark_move_dirhistory_to_state_config.*
 %{_mandir}/man1/ark.1*
 
 %files libs
@@ -147,6 +156,14 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ark.deskt
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
 - 26.04.3
 
@@ -168,7 +185,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ark.deskt
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3

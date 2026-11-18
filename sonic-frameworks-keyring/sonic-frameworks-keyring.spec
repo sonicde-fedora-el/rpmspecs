@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-frameworks-keyring fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-keyring
 # Upstream KDE project: kwallet
@@ -11,7 +13,7 @@
 
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-keyring
-Version:        6.29.0
+Version:        6.31.0
 Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for password management
 
@@ -24,62 +26,63 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 #Source1: https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz.sig
 
 BuildRequires:  cmake(Qca-qt6)
-BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  qt6-qt5compat-devel >= 6.11
 
-BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  sonic-frameworks-settings-ui-devel
 
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  libgcrypt-devel
 BuildRequires:  cmake
-BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
 
-BuildRequires:  cmake(Qt6Core5Compat)
-
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6Crash)
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  sonic-frameworks-color-scheme-devel
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  cmake(Gpgmepp)
 BuildRequires:  pkgconfig(libsecret-1)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       kf6-filesystem
-Requires:       pinentry-gui
-Requires:       qca-qt6-ossl%{?_isa}
+Requires: kf6-filesystem >= 6.31
+Requires: pinentry-gui
+Requires: qca-qt6-ossl%{?_isa}
 
+Provides:       kf6-kwallet = %{version}-%{release}
 Provides:       kf6-kwallet%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kwallet < %{version}-%{release}
+Obsoletes:      kf6-kwallet
 
 %description
 KWallet is a secure and unified container for user passwords.
 
 %package        libs
 Summary:        KWallet framework libraries
-Requires:       (%{name}%{?_isa} = %{version}-%{release} if systemd)
+Requires: (%{name}%{?_isa} = %{version}-%{release} if systemd)
+Provides:       kf6-kwallet-libs = %{version}-%{release}
 Provides:       kf6-kwallet-libs%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kwallet-libs < %{version}-%{release}
+Obsoletes:      kf6-kwallet-libs
 
 %description    libs
 Provides API to access KWallet data from applications.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       qt6-qtbase-devel
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
 
+Provides:       kf6-kwallet-devel = %{version}-%{release}
 Provides:       kf6-kwallet-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kwallet-devel < %{version}-%{release}
+Obsoletes:      kf6-kwallet-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -88,8 +91,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kwallet-doc = %{version}-%{release}
 Provides:       kf6-kwallet-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kwallet-doc < %{version}-%{release}
+Obsoletes:      kf6-kwallet-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -97,8 +101,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kwallet-html = %{version}-%{release}
 Provides:       kf6-kwallet-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kwallet-html < %{version}-%{release}
+Obsoletes:      kf6-kwallet-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -122,6 +127,7 @@ Developer Documentation files for %{name} in HTML format
 %{_kf6_bindir}/kwalletd6
 %{_kf6_bindir}/ksecretd
 %{_kf6_datadir}/applications/org.kde.ksecretd.desktop
+%{_kf6_datadir}/applications/org.kde.kwalletd.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.secretservicecompat.service
 %{_kf6_datadir}/dbus-1/services/org.kde.kwalletd5.service
 %{_kf6_datadir}/dbus-1/services/org.kde.kwalletd6.service
@@ -153,5 +159,15 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

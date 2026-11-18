@@ -1,4 +1,6 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %define oldname plasma-workspace
 
@@ -6,8 +8,8 @@
 
 Name:    sonic-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.7.4.7
-Release:        1%{?dist}
+Version: 6.8.2
+Release:        8%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -45,6 +47,9 @@ Source41:       spice-vdagent.conf
 Patch106:       plasma-workspace-5.27.80-enable-open-terminal-action.patch
 # default to enable the lock/logout actions
 Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
+# X11: defer mask/blur-region/screen-region updates to the end of the
+# floatingness animation instead of applying them every frame
+Patch110:       sonic-workspace-panel-anim.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -88,15 +93,14 @@ BuildRequires:  libraw1394-devel
 BuildRequires:  libqalculate-devel
 BuildRequires:  libicu-devel
 
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
-
-BuildRequires:  qt6-qtdeclarative-devel
-BuildRequires:  qt6-qtsvg-devel
-BuildRequires:  qt6-qtwayland-devel
-BuildRequires:  cmake(Qt6Location)
-BuildRequires:  cmake(Qt6Positioning)
-BuildRequires:  cmake(Qt6ShaderTools)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qtsvg-devel >= 6.11
+BuildRequires:  qt6-qtwayland-devel >= 6.11
+BuildRequires:  qt6-qtlocation-devel >= 6.11
+BuildRequires:  qt6-qtpositioning-devel >= 6.11
+BuildRequires:  qt6-qtshadertools-devel >= 6.11
 BuildRequires:  polkit-qt6-1-devel
 BuildRequires:  libcanberra-devel
 BuildRequires:  sonic-rpm-macros
@@ -105,42 +109,43 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  systemd
 
 BuildRequires:  sonic-frameworks-cmake-modules
-BuildRequires:  cmake(KF6Baloo)
-BuildRequires:  cmake(KF6Archive)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6Declarative)
-BuildRequires:  cmake(KF6Su)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6GlobalAccel)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6IdleTime)
-BuildRequires:  cmake(KF6ItemModels)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6NewStuff)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6NotifyConfig)
-BuildRequires:  cmake(KF6People)
-BuildRequires:  cmake(KF6Runner)
-BuildRequires:  cmake(KF6TextEditor)
-BuildRequires:  cmake(KF6TextWidgets)
-BuildRequires:  cmake(KF6UnitConversion)
-BuildRequires:  cmake(KF6Wallet)
-BuildRequires:  cmake(KF6ThreadWeaver)
-BuildRequires:  cmake(KF6Kirigami)
-BuildRequires:  cmake(KF6KirigamiAddons)
-BuildRequires:  cmake(KF6QuickCharts)
-BuildRequires:  cmake(KF6StatusNotifierItem)
-BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6KDED)
-BuildRequires:  cmake(KF6NetworkManagerQt)
-BuildRequires:  cmake(KF6Screen)
-BuildRequires:  cmake(KF6Holidays)
-BuildRequires:  cmake(KF6Prison)
-BuildRequires:  cmake(KF6UserFeedback)
-BuildRequires:  cmake(KNightTime)
-BuildRequires:  cmake(Plasma5Support)
+BuildRequires:  ecm-compat-find-modules
+BuildRequires:  sonic-frameworks-file-search-devel
+BuildRequires:  sonic-frameworks-archive-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-qml-bridge-devel
+BuildRequires:  sonic-frameworks-root-shell-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-keybind-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-idle-tracker-devel
+BuildRequires:  sonic-frameworks-data-models-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-addons-downloader-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-notification-settings-devel
+BuildRequires:  kf6-kpeople-devel >= 6.31
+BuildRequires:  sonic-frameworks-runner-devel
+BuildRequires:  sonic-frameworks-text-editor-devel
+BuildRequires:  sonic-frameworks-text-widgets-devel
+BuildRequires:  sonic-frameworks-unit-conversion-devel
+BuildRequires:  sonic-frameworks-keyring-devel
+BuildRequires:  kf6-threadweaver-devel >= 6.31
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  sonic-frameworks-quick-ui-addons-devel
+BuildRequires:  sonic-frameworks-quick-charts-devel
+BuildRequires:  sonic-frameworks-status-notification-devel
+BuildRequires:  sonic-frameworks-svg-devel
+BuildRequires:  sonic-daemon-devel
+BuildRequires:  sonic-frameworks-networkmanager-devel
+BuildRequires:  sonic-screen-library-devel
+BuildRequires:  sonic-frameworks-holidays-devel
+BuildRequires:  sonic-frameworks-barcode-devel
+BuildRequires:  sonic-frameworks-user-feedback-devel
+BuildRequires:  sonic-night-light-devel
+BuildRequires:  sonic-plasma5-support-library-devel
 
 BuildRequires:  wayland-devel >= 1.3.0
 BuildRequires:  sonic-sysguard-library-devel
@@ -149,25 +154,26 @@ BuildRequires:  sonic-win-devel
 BuildRequires:  layer-shell-qt-devel
 BuildRequires:  cmake(Phonon4Qt6)
 BuildRequires:  PackageKit-Qt6-devel
-BuildRequires:  cmake(KExiv2Qt6)
+BuildRequires:  sonic-exiv2-library-qt6-devel
 
-BuildRequires:  cmake(Plasma)
-BuildRequires:  cmake(KWayland)
-BuildRequires:  cmake(PlasmaActivities)
-BuildRequires:  cmake(PlasmaActivitiesStats)
+BuildRequires:  sonic-interface-libraries-devel
+BuildRequires:  sonic-activities-devel
+BuildRequires:  sonic-activities-stats-devel
 
 # workaround for
 #   The imported target "Qt6::XkbCommonSupport" references the file
 #     "/usr/lib64/libQt6XkbCommonSupport.a"
 #  but this file does not exist.
-BuildRequires:  qt6-qtbase-static
-BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  qt6-qtbase-static >= 6.11
+BuildRequires:  qt6-qt5compat-devel >= 6.11
 BuildRequires:  cmake(QCoro6)
 BuildRequires:  pkgconfig(libxcrypt)
 
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  plasma-wayland-protocols-devel
-BuildRequires:  sonic-breeze-devel >= %{majmin_ver_kf6}
+BuildRequires:  sonic-breeze-devel
+BuildRequires:  sonic-silver-theme-devel
+BuildRequires:  qt6-qtvirtualkeyboard-devel >= 6.11
 
 BuildRequires:  chrpath
 BuildRequires:  desktop-file-utils
@@ -240,33 +246,34 @@ Requires:       redhat-menus
 Requires:       coreutils
 Requires:       socat
 Requires:       xmessage
-Requires:       qt6-qttools
+Requires: qt6-qttools >= 6.11
 
 # kconf_update
-Requires:       /usr/bin/qtpaths-qt6
+Requires: /usr/bin/qtpaths-qt6
 
-Requires:       xrdb xprop
+Requires: xrdb xprop
 
 Recommends:      kde-settings-plasma
 
 # Default look-and-feel theme
-Requires:       plasma-lookandfeel-fedora = %{version}-%{release}
+Requires: sonic-lookandfeel-fedora = %{version}-%{release}
+Requires: sonic-libworkspace6%{?_isa} = %{version}-%{release}
 
-Requires:       systemd
+Requires: systemd
 
 # Default sound theme
-Requires:       ocean-sound-theme
+Requires: ocean-sound-theme
 
 # PolicyKit authentication agent
-Requires:      sonic-polkit-agent
+Requires: sonic-polkit-agent
 
 # onscreen keyboard
 Recommends:      plasma-keyboard%{?_isa}
 
 # lockscreen look-and-feel imports qml: QtQuick.VirtualKeyboard
-Requires:        qt6-qtvirtualkeyboard
+Requires: qt6-qtvirtualkeyboard >= 6.11
 
-Requires:        (uresourced if systemd-oomd-defaults)
+Requires: (uresourced if systemd-oomd-defaults)
 
 # needed for task manager thumbnails under wayland and for things like
 # screenshare portal
@@ -286,73 +293,78 @@ BuildRequires: pkgconfig(iso-codes)
 Requires: iso-codes
 
 # Split of Xorg session into subpackage
-Obsoletes: plasma-workspace < %{version}-%{release}
+Obsoletes:      plasma-workspace
 
 # khotkeys was dropped
 Obsoletes: khotkeys < 6
 
 # Require Wayland session dependencies appropriately
-Requires:   sonic-win
+Requires: sonic-win
 #Requires:   xorg-x11-server-Xwayland
-Requires:   qt6-qtwayland%{?_isa}
+Requires: qt6-qtwayland%{?_isa}
 # startplasmacompositor deps
-Requires:   qt6-qttools
-Requires:      xdg-desktop-portal-sonicde
+Requires: qt6-qttools >= 6.11
+Requires: xdg-desktop-portal-sonicde
 # Enables X11 apps to screenshare a Wayland environment
 Recommends: xwaylandvideobridge
 # Replace the old -wayland subpackage
 Obsoletes:  %{oldname}-wayland < 6.4.1-2
 Conflicts:  %{oldname}-wayland < 6.4.1-2
-Obsoletes:      plasma-workspace-x11 < %{version}-%{release}
+Obsoletes:      plasma-workspace-x11
 Provides:       plasma-workspace-x11 = %{version}-%{release}
-Obsoletes:      plasma-workspace < %{version}-%{release}
+Obsoletes:      plasma-workspace
 Provides:       plasma-workspace = %{version}-%{release}
+Provides:   sonic-workspace = %{version}-%{release}
 Provides:   sonic-workspace = %{version}-%{release}
 Provides:   sonic-workspace%{?_isa} = %{version}-%{release}
 Provides:   plasma-workspace = %{version}-%{release}
+Provides:   plasma-workspace = %{version}-%{release}
 Provides:   plasma-workspace%{?_isa} = %{version}-%{release}
-
 %description
 Plasma 6 libraries and runtime components
 
 %package common
 Summary: Common files for %{name}
 Provides:   plasma-workspace-common = %{version}-%{release}
-Obsoletes:  plasma-workspace-common < %{version}-%{release}
+Obsoletes:      plasma-workspace-common
 %description common
 %{name}.
 
-%package -n libkworkspace6
-Summary: Runtime libkworkspace6 library
+%package -n sonic-libworkspace6
+Summary: SonicDE libkworkspace6 runtime library
 # when spilt occurred
-Obsoletes: plasma-workspace < 5.4.2-2
+Obsoletes:      plasma-workspace
 Obsoletes: libkworkspace5 < %{version}-%{release}
+Obsoletes:      libkworkspace6
 Provides:  libkworkspace6 = %{version}-%{release}
 Provides:  libkworkspace6%{?_isa} = %{version}-%{release}
-Requires:  %{name}-common = %{version}-%{release}
-%description -n libkworkspace6
+Requires: %{name}-common = %{version}-%{release}
+%description -n sonic-libworkspace6
 %{summary}.
 
 %package libs
 Summary: Runtime libraries for %{name}
 # when split out
-Obsoletes: plasma-workspace < 5.4.2-2
+Obsoletes:      plasma-workspace
 ## omit dep on main pkg for now, means we can avoid pulling in a
 ## huge amount of deps (including kde4) into buildroot -- rex
 #Requires:  %%{name}%%{?_isa} = %%{version}-%%{release}
-Requires:  %{name}-common = %{version}-%{release}
+Requires: %{name}-common = %{version}-%{release}
 # consider splitting out plasma_packagestructure content later
 Provides: plasma-packagestructure = %{version}-%{release}
 Provides: plasma-workspace-libs = %{version}-%{release}
+Provides: plasma-workspace-libs = %{version}-%{release}
 Provides: plasma-workspace-libs%{?_isa} = %{version}-%{release}
-Obsoletes:  plasma-workspace-libs < %{version}-%{release}
+Obsoletes:      plasma-workspace-libs
 %description libs
 %{summary}.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       sonic-workspace-libs%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: sonic-workspace-libs%{?_isa} = %{version}-%{release}
+Requires: sonic-libworkspace6%{?_isa} = %{version}-%{release}
+Provides:       plasma-workspace-devel = %{version}-%{release}
 Provides:       plasma-workspace-devel = %{version}-%{release}
 Provides:       plasma-workspace-devel%{?_isa} = %{version}-%{release}
 %description    devel
@@ -365,7 +377,7 @@ Summary:        Documentation and user manuals for %{name}
 License:        LicenseRef-Callaway-GFDL
 # switch to noarch
 Obsoletes:      plasma-workspace-doc < 5.3.1-2
-Requires:       %{name}-common = %{version}-%{release}
+Requires: %{name}-common = %{version}-%{release}
 BuildArch: noarch
 %description    doc
 Documentation and user manuals for %{name}.
@@ -394,28 +406,28 @@ Documentation and user manuals for %{name}.
 %package        x11
 Summary:        SonicDE X11 session
 #Requires:       %%{name}%%{?_isa} = %%{version}-%%{release}
-Requires:       xlibre-xserver-Xorg
-Obsoletes:      plasma-workspace-x11 < %{version}-%{release}
+Requires: xlibre-xserver-Xorg
+Obsoletes:      plasma-workspace-x11
 Provides:       plasma-workspace-x11 = %{version}-%{release}
 
 %description    x11
 SonicDE X11 session.
 
-%package -n plasma-lookandfeel-fedora
+%package -n sonic-lookandfeel-fedora
 Summary:  Fedora look-and-feel for Plasma
 Requires: %{name} = %{version}-%{release}
 # lockscreen look-and-feel imports qml: QtQuick.VirtualKeyboard
-Requires: qt6-qtvirtualkeyboard
+Requires: qt6-qtvirtualkeyboard >= 6.11
 Provides: plasma-lookandfeel-fedora = %{version}-%{release}
 # when switched to noarch
-Obsoletes: plasma-lookandfeel-fedora < %{version}-%{release}
+Obsoletes:      plasma-lookandfeel-fedora
 # https://bugzilla.redhat.com/show_bug.cgi?id=1356890
 Obsoletes: f22-kde-theme < 22.4
 Obsoletes: f23-kde-theme < 23.1
 Obsoletes: f24-kde-theme < 24.6
 Obsoletes: f24-kde-theme-core < 5.10.5-2
 BuildArch: noarch
-%description -n plasma-lookandfeel-fedora
+%description -n sonic-lookandfeel-fedora
 %{summary}.
 
 
@@ -474,7 +486,7 @@ cat *.lang | sort | uniq -u > %{name}.lang
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.{plasmashell,kcolorschemeeditor,kfontview,plasmawindowed,klipper,plasma-interactiveconsole,baloorunner,secretprompter}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.{kfontview,plasmawindowed,klipper,plasma-interactiveconsole,baloorunner,secretprompter}.desktop
 
 %post
 if [ -s /usr/sbin/setsebool ] ; then
@@ -496,7 +508,7 @@ fi
 %{_kf6_bindir}/krunner
 %{_kf6_bindir}/ksmserver
 %{_kf6_bindir}/ksplashqml
-%{_kf6_bindir}/plasmashell
+%{_kf6_bindir}/sonicshell
 %{_kf6_bindir}/plasmawindowed
 %{_kf6_bindir}/plasma_session
 %{_kf6_bindir}/plasma-apply-*
@@ -510,6 +522,7 @@ fi
 %{_kf6_bindir}/kfontview
 %{_kf6_bindir}/lookandfeeltool
 %{_kf6_qmldir}/org/kde/*
+%{_kf6_qmldir}/org/sonicde/
 %{_libexecdir}/baloorunner
 %{_libexecdir}/ksmserver-logout-greeter
 %{_libexecdir}/kf6/kauth/fontinst*
@@ -525,7 +538,7 @@ fi
 %{_sysconfdir}/xdg/startkderc
 %{_sysconfdir}/xdg/autostart/*.desktop
 %{_datadir}/zsh/site-functions/_krunner
-%{_datadir}/zsh/site-functions/_plasmashell
+%{_datadir}/zsh/site-functions/_sonicshell
 %{_datadir}/icons/hicolor/*/*/*font*.png
 %{_libdir}/kconf_update_bin/sonicde-6.0-repair-missing-theme-components
 %{_datadir}/kconf_update/sonicde-6.0-repair-missing-theme-components.upd
@@ -546,7 +559,7 @@ fi
 %{_kf6_datadir}/config.kcfg/*
 %{_kf6_datadir}/kio_desktop/
 %{_kf6_datadir}/applications/kcm_*
-%{_kf6_datadir}/applications/org.kde.plasmashell.desktop
+%{_kf6_datadir}/applications/org.sonicde.sonicshell.desktop
 %{_kf6_datadir}/applications/org.kde.kcolorschemeeditor.desktop
 %{_kf6_datadir}/applications/org.kde.kfontview.desktop
 %{_kf6_datadir}/applications/org.kde.kfontinst.desktop
@@ -570,8 +583,8 @@ fi
 %dir %{_userunitdir}/plasma-workspace@.target.d/
 %{_libdir}/kconf_update_bin/plasma6.3-update-clipboard-database-2-to-3
 %{_datadir}/kconf_update/plasma6.3-update-clipboard-database-2-to-3.upd
-%{_libdir}/kconf_update_bin/plasmashell-6.5-remove-stop-activity-shortcut
-%{_datadir}/kconf_update/plasmashell-6.5-remove-stop-activity-shortcut.upd
+%{_libdir}/kconf_update_bin/sonicshell-6.0-keep-custom-position-of-panels
+%{_datadir}/kconf_update/plasmashell-6.0-keep-custom-position-of-panels.upd
 %{_kf6_datadir}/timezonefiles/timezones.json
 %{_kf6_datadir}/applications/org.kde.plasma-interactiveconsole.desktop
 # PAM
@@ -585,7 +598,7 @@ fi
 
 %files doc -f %{name}-doc.lang
 
-%files -n libkworkspace6 -f libkworkspace6.lang
+%files -n sonic-libworkspace6 -f libkworkspace6.lang
 %{_libdir}/libkworkspace6.so.*
 
 %files libs
@@ -604,7 +617,7 @@ fi
 %{_kf6_plugindir}/kio/*.so
 %{_kf6_plugindir}/kded/*.so
 %{_libdir}/libklookandfeel.so.6
-%{_libdir}/libklookandfeel.so.6.7.4
+%{_libdir}/libklookandfeel.so.6.*
 %{_kf6_plugindir}/krunner/*
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_*.so
 %{_kf6_qtplugindir}/kf6/parts/kfontviewpart.so
@@ -625,15 +638,11 @@ fi
 %{_libexecdir}/plasma-sourceenv.sh
 %{_kf6_datadir}/kconf_update/plasma6.0-remove-dpi-settings.upd
 %{_kf6_datadir}/kconf_update/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels.upd
-%{_kf6_datadir}/kconf_update/plasma6.0-remove-old-shortcuts.upd
 %{_kf6_datadir}/kconf_update/migrate-calendar-to-plugin-id.upd
 %{_kf6_datadir}/kconf_update/migrate-calendar-to-plugin-id.py
-%{_kf6_datadir}/kconf_update/plasmashell-6.0-keep-custom-position-of-panels.upd
 %{_kf6_datadir}/kconf_update/plasma6.4-migrate-fullscreen-notifications-to-dnd.upd
-%{_libdir}/kconf_update_bin/plasma6.0-remove-old-shortcuts
-%{_libdir}/kconf_update_bin/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels
+%{_libdir}/kconf_update_bin/sonicshell-6.0-keep-default-floating-setting-for-plasma-5-panels
 %{_libdir}/kconf_update_bin/plasma6.0-remove-dpi-settings
-%{_libdir}/kconf_update_bin/plasmashell-6.0-keep-custom-position-of-panels
 %{_libdir}/kconf_update_bin/plasma6.4-migrate-fullscreen-notifications-to-dnd
 %{_kf6_datadir}/kglobalaccel/org.kde.krunner.desktop
 
@@ -667,10 +676,40 @@ fi
 %{_bindir}/startplasma-x11
 %{_datadir}/xsessions/sonicde.desktop
 
-%files -n plasma-lookandfeel-fedora
+%files -n sonic-lookandfeel-fedora
 
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-8
+- X11: jump the panel floatingness transition to its end state
+  when it is triggered by a virtual desktop switch; repainting
+  the panel every frame during the compositor's slide made
+  the switch stutter.
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-7
+- X11: defer mask, blur-region and available-screen-region
+  updates to the end of the panel floatingness animation
+  instead of applying them every frame (fixes animation
+  stutter when switching desktop states).
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-6
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-5
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-4
+- Rename libkworkspace6 and plasma-lookandfeel-fedora subpackages to
+  sonic-libworkspace6 / sonic-lookandfeel-fedora with unversioned
+  Obsoletes so Fedora's same-name 6.8.3 packages cannot win the
+  install race and drag in plasma-workspace-common
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Add libkworkspace6 Requires to -devel (LibKWorkspace cmake refs the lib)
 * Fri Sep 04 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.7-1
 - Update to SonicDE 6.7.4.7
 

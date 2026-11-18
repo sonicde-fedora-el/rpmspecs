@@ -1,14 +1,16 @@
+%global sonicde_frameworks_version 6.31.0
 %global base_name kdeconnect-kde
+%global sonicde_qt6_version 6.11.3
 
 Name:    kde-connect
-Version:      26.04.3
-Release:        1%{?dist}
+Version: 26.08.3
+Release:        2%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
 Url:     https://community.kde.org/KDEConnect
 
-Source0: kdeconnect-kde-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/kdeconnect-kde-%{version}.tar.xz
 
 # Doesn't build on i686 as-of 25.03.80
 ExcludeArch: %{ix86}
@@ -26,46 +28,46 @@ BuildRequires:  pkgconfig(openssl)
 
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(KF6ConfigWidgets)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Kirigami2)
-BuildRequires:  cmake(KF6KirigamiAddons)
-BuildRequires:  cmake(KF6ModemManagerQt)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Package)
-BuildRequires:  cmake(KF6People)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6StatusNotifierItem)
-BuildRequires:  cmake(KF6QQC2DesktopStyle)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  sonic-frameworks-settings-ui-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  sonic-frameworks-quick-ui-addons-devel
+BuildRequires:  sonic-frameworks-modemmanager-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-package-devel
+BuildRequires:  kf6-kpeople-devel >= 6.31
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  sonic-frameworks-status-notification-devel
+BuildRequires:  sonic-frameworks-quick-desktop-style
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-data-models-devel
 
-BuildRequires:  cmake(Qt6Bluetooth)
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6Multimedia)
-BuildRequires:  cmake(Qt6Network)
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6QuickControls2)
-BuildRequires:  cmake(Qt6Test)
-BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  qt6-qtconnectivity-devel >= 6.11
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtmultimedia-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qt5compat-devel >= 6.11
 # wayland/clipboard deps
-BuildRequires:  cmake(Qt6WaylandClient)
-BuildRequires:  cmake(PlasmaWaylandProtocols)
+BuildRequires:  ecm-compat-find-modules
+BuildRequires:  qt6-qtwayland-devel >= 6.11
+BuildRequires:  plasma-wayland-protocols-devel >= 1.21.0
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  wayland-protocols-devel
-BuildRequires:  qt6-qtbase-private-devel
-
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
 BuildRequires:  cmake(Qca-qt6)
 
-BuildRequires:  cmake(KF6PulseAudioQt)
+BuildRequires:  sonic-pulseaudio-library-qt6-devel
 
 BuildRequires:  libXtst-devel
+BuildRequires:  pkgconfig(libei-1.0)
+BuildRequires:  pkgconfig(libeis-1.0)
+BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  pkgconfig(libfakekey)
 
 Obsoletes: kde-connect-kde4-ioslave < %{version}-%{release}
@@ -89,7 +91,7 @@ Requires:       sonic-frameworks-quick-ui-addons
 # kde-connect app requires the qml definition to launch
 Requires:       qt6qml(org.kde.desktop)
 # Required for contact synchronization with kde connect
-Recommends:     kf6-kpeople
+Recommends:     kf6-kpeople >= 6.31
 
 %description
 KDE Connect adds communication between KDE and your smartphone.
@@ -182,7 +184,9 @@ done
 %{_datadir}/applications/org.kde.kdeconnect.daemon.desktop
 %{_kf6_bindir}/kdeconnectd
 %{_datadir}/dbus-1/services/org.kde.kdeconnect.service
-%{_prefix}/lib64/udev/rules.d/40-kdeconnect-uinput.rules
+%{_udevrulesdir}/40-kdeconnect-uinput.rules
+%{_datadir}/remoteview/kdeconnect-network.desktop
+%{_datadir}/solid/actions/solid_kdeconnect.desktop
 
 %files libs
 %{_kf6_libdir}/libkdeconnectcore.so.*
@@ -193,6 +197,14 @@ done
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Thu Aug 27 2026 SonicDE <dev@sonicde.org> - 26.04.3-1
 - Update to 26.04.3
 - Change Requires from kde-cli-tools to sonic-terminal-tools
@@ -203,7 +215,8 @@ done
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild

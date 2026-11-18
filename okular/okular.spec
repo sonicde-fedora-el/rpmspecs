@@ -1,4 +1,6 @@
+%global sonicde_frameworks_version 6.31.0
 %global debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 ## uncomment to enable bootstrap mode
 #global bootstrap 1
 
@@ -15,8 +17,8 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 3%{?dist}
 
 License: GPL-2.0-only
 URL:     https://www.kde.org/applications/graphics/okular/
@@ -37,39 +39,35 @@ BuildRequires: libappstream-glib
 
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires: sonic-rpm-macros
-BuildRequires: cmake(KF6Archive)
-BuildRequires: cmake(KF6Bookmarks)
-BuildRequires: cmake(KF6Completion)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6ConfigWidgets)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6Crash)
-BuildRequires: cmake(KF6DBusAddons)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6IconThemes)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6Parts)
-BuildRequires: cmake(KF6ThreadWeaver)
-BuildRequires: cmake(KF6Wallet)
-BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: sonic-frameworks-archive-devel
+BuildRequires: sonic-frameworks-bookmarks-devel
+BuildRequires: sonic-frameworks-autocomplete-devel
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-settings-ui-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
+BuildRequires: sonic-frameworks-dbus-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-icon-themes-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-ui-components-devel
+BuildRequires: kf6-threadweaver-devel >= 6.31
+BuildRequires: sonic-frameworks-keyring-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
 
-BuildRequires: qt6-qtbase-private-devel
-BuildRequires: cmake(Qt6DBus)
-BuildRequires: cmake(Qt6Test)
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6PrintSupport)
-BuildRequires: cmake(Qt6Svg)
-BuildRequires: cmake(Qt6Qml)
-BuildRequires: cmake(Qt6Quick)
+BuildRequires: qt6-qtbase-private-devel >= 6.11
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtsvg-devel >= 6.11
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
 
 # okular-mobile
-Requires: kf6-purpose%{?_isa}
+Requires: sonic-frameworks-purpose%{?_isa}
 
 BuildRequires: pkgconfig(phonon4qt6)
 BuildRequires: cmake(Qca-qt6)
 
 ## generater/plugin deps
-BuildRequires: cmake(KExiv2Qt6)
+BuildRequires: sonic-exiv2-library-qt6-devel
 BuildRequires: cmake(QMobipocket6)
 %if 0%{?chm}
 BuildRequires: chmlib-devel
@@ -85,15 +83,14 @@ BuildRequires: libjpeg-devel
 BuildRequires: libtiff-devel
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(libmarkdown)
-BuildRequires: pkgconfig(libspectre)
-BuildRequires: pkgconfig(poppler-qt6)
+BuildRequires: (pkgconfig(poppler-qt6) or fedora-release >= 46)
 BuildRequires: pkgconfig(zlib)
 %if 0%{?fedora}
 BuildRequires: pkgconfig(ddjvuapi) 
 %endif
 
 %if !0%{?bootstrap}
-BuildRequires:  cmake(Qt6TextToSpeech)
+BuildRequires:  qt6-qtspeech-devel >= 6.11
 %endif
 
 Requires: %{name}-part%{?_isa} = %{version}-%{release}
@@ -106,7 +103,6 @@ Requires: %{name}-part%{?_isa} = %{version}-%{release}
 Summary: Document viewer for plasma mobile
 # included last in okular-15.12.3-1.fc23
 Obsoletes: okular-active < 16.04
-Requires: %{name}-part%{?_isa} = %{version}-%{release}
 %description mobile
 %{summary}.
 %endif
@@ -131,7 +127,6 @@ Recommends: ghostscript-core
 
 %package part
 Summary: Okular kpart plugin
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 # translations moved here
 Conflicts: kde-l10n < 17.03
 %description part
@@ -151,7 +146,7 @@ sed -i -e 's|^add_subdirectory( mobile )|#add_subdirectory( mobile )|' CMakeList
 
 %build
 %cmake_kf6 -DOKULAR_UI=desktop \
-	-DFORCE_NOT_REQUIRED_DEPENDENCIES="CHM;LibZip;DjVuLibre;EPub;KF6Purpose;Qt6TextToSpeech;Poppler"
+	-DFORCE_NOT_REQUIRED_DEPENDENCIES="CHM;LibZip;DjVuLibre;EPub;KF6Purpose;Qt6TextToSpeech;Poppler%{!?postscript:;LibSpectre}"
 
 %cmake_build
 
@@ -218,5 +213,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ok
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - SonicDE build for Enterprise Linux 10

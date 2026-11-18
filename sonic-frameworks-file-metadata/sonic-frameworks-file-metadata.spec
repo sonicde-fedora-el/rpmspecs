@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-frameworks-file-metadata fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-file-metadata
 # Upstream KDE project: kfilemetadata
@@ -12,7 +14,7 @@
 #Name:           kf6-%%{framework}
 Name:           sonic-frameworks-file-metadata
 Summary:        A Tier 2 KDE Framework for extracting file metadata
-Version:        6.29.0
+Version:        6.31.0
 Release:        3%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -27,14 +29,16 @@ BuildRequires:  sonic-frameworks-cmake-modules >= %{version}
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(KF6Archive)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6Codecs)
-BuildRequires:  cmake(KF6Config)
+BuildRequires:  sonic-frameworks-archive-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-text-codec-devel
+BuildRequires:  sonic-frameworks-settings-devel
 BuildRequires:  cmake(QMobipocket6)
-BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
 BuildRequires:  libattr-devel
+BuildRequires:  libzip-tools
 BuildRequires:  pkgconfig(exiv2) >= 0.20
 # catdoc is dead upstream and will not be in epel10
 # https://bugzilla.redhat.com/show_bug.cgi?id=2313773
@@ -44,12 +48,13 @@ Recommends:     catdoc
 %endif
 BuildRequires:  ebook-tools-devel
 BuildRequires:  ffmpeg-free-devel
-BuildRequires:  pkgconfig(poppler-qt6)
+BuildRequires:  (pkgconfig(poppler-qt6) or fedora-release >= 46)
 BuildRequires:  pkgconfig(taglib) >= 1.9
 BuildRequires:  pkgconfig(xkbcommon)
 
+Provides:       kf6-kfilemetadata = %{version}-%{release}
 Provides:       kf6-kfilemetadata%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kfilemetadata < %{version}-%{release}
+Obsoletes:      kf6-kfilemetadata
 
 %description
 %{summary}.
@@ -57,9 +62,10 @@ Obsoletes:      kf6-kfilemetadata < %{version}-%{release}
 %package devel
 Summary:        Developer files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       qt6-qtbase-devel
+Requires: qt6-qtbase-devel >= 6.11
+Provides:       kf6-kfilemetadata-devel = %{version}-%{release}
 Provides:       kf6-kfilemetadata-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kfilemetadata-devel < %{version}-%{release}
+Obsoletes:      kf6-kfilemetadata-devel
 
 %description devel
 %{summary}.
@@ -67,8 +73,9 @@ Obsoletes:      kf6-kfilemetadata-devel < %{version}-%{release}
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kfilemetadata-doc = %{version}-%{release}
 Provides:       kf6-kfilemetadata-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kfilemetadata-doc < %{version}-%{release}
+Obsoletes:      kf6-kfilemetadata-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -76,8 +83,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kfilemetadata-html = %{version}-%{release}
 Provides:       kf6-kfilemetadata-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kfilemetadata-html < %{version}-%{release}
+Obsoletes:      kf6-kfilemetadata-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -122,5 +130,15 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

@@ -1,10 +1,11 @@
 # Written from scratch: a pure QML theme with no build system.
 %define _disable_source_fetch 0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
-%global reponame silver-sddm
+%global reponame sonic-silver-sddm
 
 Name:           silver-sddm
-Version:        1.0.0
+Version:        1.1.0
 Release:        2%{?dist}
 Summary:        Sonic Silver login screen themes for SonicDE
 License:        GPL-2.0-or-later
@@ -14,8 +15,8 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildArch:      noarch
 
 Requires:       sddm
-Requires:       qt6-qtdeclarative
-Requires:       qt6-qt5compat
+Requires: qt6-qtdeclarative >= 6.11
+Requires: qt6-qt5compat >= 6.11
 
 %description
 The Sonic Silver login screen themes, in a light and a dark variant, for the
@@ -38,5 +39,10 @@ cp -a Sonic-Silver Sonic-Silver-Light %{buildroot}%{_datadir}/sddm/themes/
 %{_datadir}/sddm/themes/Sonic-Silver-Light/
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 1.1.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 1.0.0-1
 - Initial SonicDE package

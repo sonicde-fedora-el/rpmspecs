@@ -7,6 +7,7 @@ cmake config files, pkgconfig files).  This derives the tiers from the specs
 themselves so a tier only needs packages from earlier tiers.
 """
 import glob
+import json
 import os
 import re
 import subprocess
@@ -15,18 +16,24 @@ from collections import defaultdict
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-specs = sorted(glob.glob(os.path.join(REPO, "*", "*.spec")))
-specs = [s for s in specs if os.path.basename(s)[:-5] == os.path.basename(os.path.dirname(s))]
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import specs as _specs
+
+specs = [os.path.join(REPO, s) for s in _specs.active(REPO)]
 
 provides = {}   # capability -> package dir name
 brs = defaultdict(set)
+spec_text = {}  # pkg -> raw spec text (for implicit-dep rules)
 
 
 def parse(spec):
     pkg = os.path.basename(spec)[:-5]
     out = subprocess.run(["rpmspec", "-P", spec], capture_output=True, text=True).stdout
+    raw = open(spec, errors="replace").read()
+    # raw text keeps macro invocations like %cmake_build_kf6 that -P expands
+    spec_text[pkg] = raw
     if not out:
-        out = open(spec, errors="replace").read()
+        out = raw
     names = {pkg}
     in_files = False
     for line in out.splitlines():
@@ -67,6 +74,21 @@ for pkg in pkgs:
         owner = provides.get(cap)
         if owner and owner != pkg:
             edges[pkg].add(owner)
+
+# Implicit deps: edges the BuildRequires cannot express — e.g. a build-time
+# macro package whose RPM Requires pull tools into every buildroot using it.
+# Rules live in ci/extra-deps.json so another specs repo can ship its own.
+extra = os.path.join(REPO, "ci", "extra-deps.json")
+if os.path.exists(extra):
+    for rule in json.load(open(extra)).get("implicit_deps", []):
+        macro = rule["when_spec_uses_macro"]
+        for pkg in pkgs:
+            if macro not in spec_text[pkg]:
+                continue
+            for cap in rule["requires"]:
+                owner = provides.get(cap)
+                if owner and owner != pkg:
+                    edges[pkg].add(owner)
 
 # longest-path tier assignment, ignoring back edges of cycles
 tier = {}

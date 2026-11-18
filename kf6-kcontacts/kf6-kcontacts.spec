@@ -1,9 +1,11 @@
+%global sonicde_frameworks_version 6.31.0
 %global debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 %global framework kcontacts
 
 Name:    kf6-%{framework}
-Version: 6.29.0
-Release: 1%{?dist}
+Version: 6.31.0
+Release: 2%{?dist}
 Summary: The KContacts Library
 
 # The following licenses are present in LICENSES but go unused: BSD-3-Clause, MIT, Unicode-DFS-2016
@@ -15,12 +17,12 @@ BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires: sonic-rpm-macros
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6Config)
-BuildRequires: cmake(KF6Codecs)
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-text-codec-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 BuildRequires:  pkgconfig(xkbcommon)
 
 %description
@@ -29,9 +31,9 @@ BuildRequires:  pkgconfig(xkbcommon)
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(KF6CoreAddons)
-Requires:       cmake(KF6I18n)
-Requires:       cmake(KF6Codecs)
+Requires:       sonic-frameworks-core-addons-devel
+Requires:       sonic-frameworks-internationalization-devel
+Requires:       sonic-frameworks-text-codec-devel
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -84,5 +86,13 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.31.0-1
+- 6.31.0
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE build for Enterprise Linux 10

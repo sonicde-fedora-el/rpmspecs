@@ -118,3 +118,12 @@
 # Plasma, so the versions are SonicDE's own and do not track KDE releases.
 %_sonicde_frameworks_version @@sonicde_frameworks_VERSION@@
 %_sonicde_plasma_version @@sonicde_plasma_VERSION@@
+
+# Flavor-aware dependency pins for names the distribution also owns.
+# On Enterprise Linux the entire Qt6/KF6 stack is SonicDE's own, so deps
+# pin the exact SonicDE version.  On Fedora the distribution's own Qt6/KF6
+# stack wins by NVR, so the pins relax to a minimum-version floor matching
+# the API baseline the packages were built against (Qt_6.11 / KF6 6.31).
+# Use as: BuildRequires: qt6-qtbase-devel%{_sonicde_qt6_eq}
+%_sonicde_qt6_eq >= 6.11
+%_sonicde_kf6_eq >= 6.31

@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-network-manager fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-network-manager
 # Upstream KDE project: plasma-nm
@@ -14,8 +16,8 @@ ExcludeArch: %{ix86}
 #Name:    plasma-nm
 Name:           sonic-network-manager
 Summary: Plasma for managing network connections
-Version:        6.7.4
-Release:        3%{?dist}
+Version:        6.8.2
+Release:        4%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%%{name}
@@ -35,44 +37,45 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 ## upstream patches
 
 
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 BuildRequires:  gettext
 
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  sonic-frameworks-cmake-modules
 
-BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
 BuildRequires:  cmake(QCoro6)
 BuildRequires:  cmake(Qca-qt6)
 BuildRequires:  cmake(Qt6Keychain)
 
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6Completion)
-BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Wallet)
-BuildRequires:  cmake(KF6ConfigWidgets)
-BuildRequires:  cmake(KF6Solid)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Declarative)
-BuildRequires:  cmake(KF6NetworkManagerQt)
-BuildRequires:  cmake(KF6ModemManagerQt)
-BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6QuickCharts)
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  sonic-frameworks-autocomplete-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-keyring-devel
+BuildRequires:  sonic-frameworks-settings-ui-devel
+BuildRequires:  sonic-frameworks-device-integration-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-qml-bridge-devel
+BuildRequires:  sonic-frameworks-networkmanager-devel
+BuildRequires:  sonic-frameworks-modemmanager-devel
+BuildRequires:  sonic-frameworks-svg-devel
+BuildRequires:  sonic-frameworks-quick-charts-devel
 # For some reason, it's not pulling it up on s390x
 BuildRequires:  pkgconfig(libcrypto)
 
 # Plasma
-BuildRequires:  cmake(Plasma)
+BuildRequires:  sonic-interface-libraries-devel
 
 # Others
 BuildRequires:  pkgconfig(cups)
 
 # Runtime check
-BuildRequires:  cmake(KF6Prison)
-BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  sonic-frameworks-barcode-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
 BuildRequires:  qt6qml(org.kde.kirigamiaddons.formcard)
 Requires:       qt6qml(org.kde.kirigamiaddons.formcard)
 
@@ -82,7 +85,7 @@ BuildRequires:  pkgconfig(mobile-broadband-provider-info)
 
 %if %{with openconnect}
 BuildRequires:  pkgconfig(openconnect) >= 4.00
-BuildRequires:  cmake(Qt6WebEngineWidgets)
+BuildRequires:  qt6-qtwebengine-devel >= 6.11
 %else
 Obsoletes:      %{name}-openconnect < %{version}-%{release}
 %endif
@@ -93,11 +96,12 @@ Requires:       sonic-frameworks-quick-ui
 
 Obsoletes:      kde-plasma-networkmanagement < 1:0.9.1.0
 Obsoletes:      kde-plasma-networkmanagement-libs < 1:0.9.1.0
-Obsoletes:      kde-plasma-nm < 5.0.0-1
+Obsoletes:      kde-plasma-nm
 Provides:       kde-plasma-nm = %{version}-%{release}
 
+Provides:       plasma-nm = %{version}-%{release}
 Provides:       plasma-nm%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm < %{version}-%{release}
+Obsoletes:      plasma-nm
 
 %description
 Plasma applet and editor for managing your network connections in KDE 4 using
@@ -109,10 +113,11 @@ Summary:        OpenVPN support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-openvpn
 Obsoletes:      kde-plasma-networkmanagement-openvpn < 1:0.9.1.0
-Obsoletes:      kde-plasma-nm-openvpn < 5.0.0-1
+Obsoletes:      kde-plasma-nm-openvpn
 Provides:       kde-plasma-nm-openvpn = %{version}-%{release}
+Provides:       plasma-nm-openvpn = %{version}-%{release}
 Provides:       plasma-nm-openvpn%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-openvpn < %{version}-%{release}
+Obsoletes:      plasma-nm-openvpn
 
 %description    openvpn
 %{summary}.
@@ -123,11 +128,12 @@ Summary:        OpenConnect support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-openconnect
 Obsoletes:      kde-plasma-networkmanagement-openconnect < 1:0.9.1.0
-Obsoletes:      kde-plasma-nm-openconnect < 5.0.0-1
+Obsoletes:      kde-plasma-nm-openconnect
 Provides:       kde-plasma-nm-openconnect = %{version}-%{release}
 Provides:       deprecated()
+Provides:       plasma-nm-openconnect = %{version}-%{release}
 Provides:       plasma-nm-openconnect%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-openconnect < %{version}-%{release}
+Obsoletes:      plasma-nm-openconnect
 
 %description    openconnect
 %{summary}.
@@ -137,10 +143,11 @@ Obsoletes:      plasma-nm-openconnect < %{version}-%{release}
 Summary:        Openswan support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-openswan
-Obsoletes:      kde-plasma-nm-openswan < 5.0.0-1
+Obsoletes:      kde-plasma-nm-openswan
 Provides:       kde-plasma-nm-openswan = %{version}-%{release}
+Provides:       plasma-nm-openswan = %{version}-%{release}
 Provides:       plasma-nm-openswan%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-openswan < %{version}-%{release}
+Obsoletes:      plasma-nm-openswan
 
 %description    openswan
 %{summary}.
@@ -149,10 +156,11 @@ Obsoletes:      plasma-nm-openswan < %{version}-%{release}
 Summary:        Strongswan support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       strongswan
-Obsoletes:      kde-plasma-nm-strongswan < 5.0.0-1
+Obsoletes:      kde-plasma-nm-strongswan
 Provides:       kde-plasma-nm-strongswan = %{version}-%{release}
+Provides:       plasma-nm-strongswan = %{version}-%{release}
 Provides:       plasma-nm-strongswan%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-strongswan < %{version}-%{release}
+Obsoletes:      plasma-nm-strongswan
 
 %description    strongswan
 %{summary}.
@@ -161,10 +169,11 @@ Obsoletes:      plasma-nm-strongswan < %{version}-%{release}
 Summary:        L2TP support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-l2tp
-Obsoletes:      kde-plasma-nm-l2tp < 5.0.0-1
+Obsoletes:      kde-plasma-nm-l2tp
 Provides:       kde-plasma-nm-l2tp = %{version}-%{release}
+Provides:       plasma-nm-l2tp = %{version}-%{release}
 Provides:       plasma-nm-l2tp%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-l2tp < %{version}-%{release}
+Obsoletes:      plasma-nm-l2tp
 
 %description    l2tp
 %{summary}.
@@ -174,20 +183,23 @@ Summary:        PPTP support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-pptp
 Obsoletes:      kde-plasma-networkmanagement-pptp < 1:0.9.1.0
-Obsoletes:      kde-plasma-nm-pptp < 5.0.0-1
+Obsoletes:      kde-plasma-nm-pptp
 Provides:       kde-plasma-nm-pptp = %{version}-%{release}
+Provides:       plasma-nm-pptp = %{version}-%{release}
 Provides:       plasma-nm-pptp%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-pptp < %{version}-%{release}
+Obsoletes:      plasma-nm-pptp
 
 %description    pptp
 %{summary}.
 
+%if 0%{?fedora}
 %package        sstp
 Summary:        SSTP support for %{name}
 Requires:       NetworkManager-sstp
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       plasma-nm-sstp = %{version}-%{release}
 Provides:       plasma-nm-sstp%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-sstp < %{version}-%{release}
+Obsoletes:      plasma-nm-sstp
 
 %description    sstp
 %{summary}.
@@ -196,11 +208,13 @@ Obsoletes:      plasma-nm-sstp < %{version}-%{release}
 Summary:        Fortigate SSL VPN support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-fortisslvpn
+Provides:       plasma-nm-fortisslvpn = %{version}-%{release}
 Provides:       plasma-nm-fortisslvpn%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-fortisslvpn < %{version}-%{release}
+Obsoletes:      plasma-nm-fortisslvpn
 
 %description    fortisslvpn
 %{summary}.
+%endif
 
 %if 0%{?fedora}
 %package        vpnc
@@ -208,10 +222,11 @@ Summary:        Vpnc support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-vpnc
 Obsoletes:      kde-plasma-networkmanagement-vpnc < 1:0.9.1.0
-Obsoletes:      kde-plasma-nm-vpnc < 5.0.0-1
+Obsoletes:      kde-plasma-nm-vpnc
 Provides:       kde-plasma-nm-vpnc = %{version}-%{release}
+Provides:       plasma-nm-vpnc = %{version}-%{release}
 Provides:       plasma-nm-vpnc%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-vpnc < %{version}-%{release}
+Obsoletes:      plasma-nm-vpnc
 
 %description    vpnc
 %{summary}.
@@ -220,8 +235,9 @@ Obsoletes:      plasma-nm-vpnc < %{version}-%{release}
 Summary:        SSH suppor for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-ssh
+Provides:       plasma-nm-ssh = %{version}-%{release}
 Provides:       plasma-nm-ssh%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-ssh < %{version}-%{release}
+Obsoletes:      plasma-nm-ssh
 
 %description    ssh
 %{summary}.
@@ -230,8 +246,9 @@ Obsoletes:      plasma-nm-ssh < %{version}-%{release}
 Summary:        Iodine support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-iodine
+Provides:       plasma-nm-iodine = %{version}-%{release}
 Provides:       plasma-nm-iodine%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-nm-iodine < %{version}-%{release}
+Obsoletes:      plasma-nm-iodine
 
 %description    iodine
 %{summary}.
@@ -257,9 +274,13 @@ sed -i 's/Qt6Keychain 0.16.0/Qt6Keychain/' CMakeLists.txt
 rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
 rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sshui.so
 rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_iodineui.so
+rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sstpui.so
+rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_fortisslvpnui.so
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_iodineui.mo
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_sshui.mo
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_vpncui.mo 
+rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_sstpui.mo
+rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_fortisslvpnui.mo
 %endif
 %if %{without openconnect}
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openconnectui.mo
@@ -281,9 +302,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %find_lang plasmanetworkmanagement_strongswanui
 %find_lang plasmanetworkmanagement_l2tpui
 %find_lang plasmanetworkmanagement_pptpui
+%if 0%{?fedora}
 %find_lang plasmanetworkmanagement_sstpui
 %find_lang plasmanetworkmanagement_fortisslvpnui
-%if 0%{?fedora}
 %find_lang plasmanetworkmanagement_vpncui
 %find_lang plasmanetworkmanagement_sshui
 %find_lang plasmanetworkmanagement_iodineui
@@ -344,13 +365,13 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %files pptp -f plasmanetworkmanagement_pptpui.lang
 %{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_pptpui.so
 
+%if 0%{?fedora}
 %files sstp -f plasmanetworkmanagement_sstpui.lang
 %{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sstpui.so
 
 %files fortisslvpn -f plasmanetworkmanagement_fortisslvpnui.lang
 %{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_fortisslvpnui.so
 
-%if 0%{?fedora}
 %files vpnc -f plasmanetworkmanagement_vpncui.lang
 %{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
 
@@ -362,5 +383,17 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-4
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Pin Plasma cmake deps to SonicDE providers (Fedora libplasma 6.8.3 outranks ours)
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

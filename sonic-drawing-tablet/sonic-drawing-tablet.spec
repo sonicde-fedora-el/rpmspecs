@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-drawing-tablet fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-drawing-tablet
 # Upstream KDE project: wacomtablet
@@ -14,7 +16,7 @@ ExcludeArch: %{ix86}
 #Name:    kcm_wacomtablet
 Name:           sonic-drawing-tablet
 Summary: KDE Control module for Wacom Graphictablets
-Version:        6.7.4
+Version:        6.8.2
 Release:        3%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -29,28 +31,25 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires: sonic-rpm-macros
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6DBusAddons)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6GlobalAccel)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6WidgetsAddons)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(KF6XmlGui)
-BuildRequires: cmake(KF6Notifications)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6KCMUtils)
-BuildRequires: cmake(KF6KirigamiPlatform)
-BuildRequires: cmake(Plasma5Support)
-BuildRequires: cmake(Plasma)
-BuildRequires: cmake(KF6XmlGui)
-BuildRequires: cmake(KF6GuiAddons)
-BuildRequires: sonic-rpm-macros
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: sonic-frameworks-dbus-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-keybind-devel
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-widgets-addons-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
+BuildRequires: sonic-frameworks-xml-gui-devel
+BuildRequires: sonic-frameworks-notifications-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-settings-utils-devel
+BuildRequires: sonic-frameworks-quick-ui-devel
+BuildRequires: sonic-plasma5-support-library-devel
+BuildRequires: sonic-interface-libraries-devel
+BuildRequires: sonic-frameworks-gui-addons-devel
 
-BuildRequires: qt6-qtbase-devel
-BuildRequires: qt6-qtbase-private-devel
-BuildRequires: qt6-qtdeclarative-devel
-
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtbase-private-devel >= 6.11
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
 BuildRequires: pkgconfig(libwacom)
 BuildRequires: pkgconfig(xcb-xinput)
 BuildRequires: pkgconfig(xi)
@@ -58,11 +57,12 @@ BuildRequires: pkgconfig(xrandr)
 
 ExcludeArch: s390 s390x
 
-Obsoletes: kcm-wacomtablet < 1.3.7-2
+Obsoletes:      kcm-wacomtablet
 Provides:  kcm-wacomtablet = %{version}-%{release}
 
+Provides:       kcm_wacomtablet = %{version}-%{release}
 Provides:       kcm_wacomtablet%{?_isa} = %{version}-%{release}
-Obsoletes:      kcm_wacomtablet < %{version}-%{release}
+Obsoletes:      kcm_wacomtablet
 
 %description
 This module implements a GUI for the Wacom Linux Drivers and extends it
@@ -97,15 +97,23 @@ sed -i 's|#include <X11/Xwacomdefs.h>|/* #include <X11/Xwacomdefs.h> */|' src/co
 %{_kf6_datadir}/applications/kcm_wacomtablet.desktop
 %{_kf6_datadir}/applications/kde_wacom_tabletfinder.desktop
 %{_kf6_datadir}/knotifications6/wacomtablet.notifyrc
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.wacomtablet/
-%{_kf6_datadir}/plasma5support/services/wacomtablet.operations
+%{_qt6_plugindir}/plasma/applets/org.kde.plasma.wacomtablet.so
 %{_kf6_datadir}/wacomtablet/
 %{_kf6_datadir}/qlogging-categories6/wacomtablet.categories
 %{_kf6_metainfodir}/org.kde.wacomtablet.metainfo.xml
 %{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_wacomtablet.so
 %{_kf6_plugindir}/kded/wacomtablet.so
-%{_qt6_plugindir}/plasma5support/dataengine/plasma_engine_wacomtablet.so
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

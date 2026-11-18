@@ -1,0 +1,330 @@
+{
+  "purpose": "Pinned EL10 source rebuild cohort for the Qt dependency required by SonicDE. Source records and ordering are not proof that every module has been built or installed.",
+  "target_qt_version": "6.11.3",
+  "target_release": "1.rytteros%{?dist}",
+  "policy": [
+    "Use Fedora packaging SOURCE files pinned to recorded commits, not Fedora binary RPMs.",
+    "Use official Qt source archives at the recorded SHA256 digests.",
+    "Preserve upstream version requirements, hardening, patches and existing verification settings; investigate patch applicability rather than dropping failures.",
+    "Build in an isolated EL10 container/buildroot, never dnf-install into the running atomic host.",
+    "Resolve and rebuild all required Qt private-ABI consumers before attempting installation."
+  ],
+  "bootstrap_order": [
+    [
+      "qt6"
+    ],
+    [
+      "qt6-qtbase"
+    ],
+    [
+      "qt6-qtshadertools",
+      "qt6-qtsvg",
+      "qt6-qtlanguageserver"
+    ],
+    [
+      "qt6-qtdeclarative"
+    ],
+    [
+      "qt6-qttools"
+    ],
+    [
+      "qt6-qtimageformats"
+    ],
+    [
+      "qt6-qt5compat"
+    ],
+    [
+      "qt6-qtsensors"
+    ],
+    [
+      "qt6-qtserialport"
+    ],
+    [
+      "qt6-qtpositioning"
+    ],
+    [
+      "qt6-qtlocation"
+    ],
+    [
+      "qt6-qtquicktimeline"
+    ],
+    [
+      "qt6-qtquick3d"
+    ],
+    [
+      "qt6-qtmultimedia"
+    ],
+    [
+      "qt6-qtspeech"
+    ],
+    [
+      "qt6-qtvirtualkeyboard"
+    ],
+    [
+      "qt6-qtcharts"
+    ],
+    [
+      "qt6-qtconnectivity"
+    ],
+    [
+      "qt6-qtwebsockets"
+    ],
+    [
+      "qt6-qtwebchannel"
+    ],
+    [
+      "qt6-qthttpserver"
+    ],
+    [
+      "qt6-qttranslations"
+    ],
+    [
+      "qt6-qtwayland"
+    ]
+  ],
+  "sources": [
+    {
+      "package": "qt6",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6.git",
+      "packaging_commit": "9db3592ebcf4c0e3e0ac6b3ec56191b493493826",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": null,
+      "sha256": null
+    },
+    {
+      "package": "qt6-qtbase",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtbase.git",
+      "packaging_commit": "c3dd3fe417d776886a3f4b3b245f597313780eaa",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtbase-everywhere-src-6.11.3.tar.xz",
+      "sha256": "46de0710b594945a5d446ae44354daa386141c6903c53781b2ca547bc62f8f8f"
+    },
+    {
+      "package": "qt6-qtshadertools",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtshadertools.git",
+      "packaging_commit": "e449a1026c0e00bf5788bba13f9dcff670af5367",
+      "packaging_branch_at_capture": "f44",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtshadertools-everywhere-src-6.11.3.tar.xz",
+      "sha256": "d86079425ec71eecbb05f4d20623b0a403a7d21a5cfa7efb9734ea3d538d801b"
+    },
+    {
+      "package": "qt6-qtsvg",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtsvg.git",
+      "packaging_commit": "606ad796b8504affc046ba2cbe8ee551de691245",
+      "packaging_branch_at_capture": "f44",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtsvg-everywhere-src-6.11.3.tar.xz",
+      "sha256": "9bdf6fa4b5a2d91c3eaa2edd12263fdff0ae19d0ac25d3c99946cd4189a07123"
+    },
+    {
+      "package": "qt6-qtlanguageserver",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtlanguageserver.git",
+      "packaging_commit": "02194ad70e4a9b282f489b7211fd7aeac7d430f2",
+      "packaging_branch_at_capture": "f44",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtlanguageserver-everywhere-src-6.11.3.tar.xz",
+      "sha256": "64f4310b5403157eb7652bbd57bdd09b0ed080c9cd9e98b5bf84883ecaa8d60f"
+    },
+    {
+      "package": "qt6-qtdeclarative",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtdeclarative.git",
+      "packaging_commit": "b0274f499ea2295b0eaefc876a177cc4f07b5df8",
+      "packaging_branch_at_capture": "f44",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtdeclarative-everywhere-src-6.11.3.tar.xz",
+      "sha256": "6d6db328a02ae3bb0b1e6944aeef8dfe44cd6b55ab59b1708bbf0400f5759cb5"
+    },
+    {
+      "package": "qt6-qttools",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qttools.git",
+      "packaging_commit": "2b82ae8c1469045095bc261017c4003824b5451c",
+      "packaging_branch_at_capture": "f44",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qttools-everywhere-src-6.11.3.tar.xz",
+      "sha256": "524ca79ee653fa36d4644ce66a5c0825930ee2550ff1d0987e703a66fd6c61ec"
+    },
+    {
+      "package": "qt6-qtimageformats",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtimageformats.git",
+      "packaging_commit": "6823730b75eab8d5371d2ccd0d82843bc41ccc50",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtimageformats-everywhere-src-6.11.3.tar.xz",
+      "sha256": "2759929c7abbc5376120394d1ccac1abbb816bc2791b34ece6c1412d323e6213",
+      "packaging_spec_sha256": "1f09b81b2ab4162eccdd9e9bde7c66a75421b58d36f378327c676d3eef98ccfd"
+    },
+    {
+      "package": "qt6-qt5compat",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qt5compat.git",
+      "packaging_commit": "852d0de3901826943300ef7f81239d3f52979741",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qt5compat-everywhere-src-6.11.3.tar.xz",
+      "sha256": "2e998067417de46355b6750c3709aaa6032fb27e4b16edb5f73fba79fe436516",
+      "packaging_spec_sha256": "95accc0cf12acde68898aa7d268b66568737a67d76c442abe8551963aba05f58"
+    },
+    {
+      "package": "qt6-qtsensors",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtsensors.git",
+      "packaging_commit": "1ff9d676810366c1994cf2d21f910150853ee0ab",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtsensors-everywhere-src-6.11.3.tar.xz",
+      "sha256": "841d62343aa3dda607527080acd3c91ec1f17cf13a56a7cc033f5e3871f7aeb4",
+      "packaging_spec_sha256": "51491578f470bb96bd6e28ce50956b698795f8aa43c161706792b7740139a0a0"
+    },
+    {
+      "package": "qt6-qtserialport",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtserialport.git",
+      "packaging_commit": "e3d3a2be324c6acc483ad2a711e4f7b1990faa73",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtserialport-everywhere-src-6.11.3.tar.xz",
+      "sha256": "b09bfb0eace070ce1b980f7f2c9ba9fb885c2cc29a4cd0416061496426601722",
+      "packaging_spec_sha256": "174d731c1db04e502951286f42425244d70b39d0e2de24ac3f66a04b7be8b8fe"
+    },
+    {
+      "package": "qt6-qtpositioning",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtpositioning.git",
+      "packaging_commit": "6602e621e50453c2f579c8e466e24e2b82c18b1a",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtpositioning-everywhere-src-6.11.3.tar.xz",
+      "sha256": "a38695bc412b7261476e8e96178460ec9319e61c34ecc6a14eb2e76e5c73eca1",
+      "packaging_spec_sha256": "5cef2268252e7f3143abc4bf75a8bcbd1020bc904427d07974413ed1da9ba64d"
+    },
+    {
+      "package": "qt6-qtlocation",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtlocation.git",
+      "packaging_commit": "7e40ac704df3872718541c2db3d1aaf608a7a40e",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtlocation-everywhere-src-6.11.3.tar.xz",
+      "sha256": "5413fa6bb540d4042080ec468a723f01e3d21b312935c604127a2af1b375520e",
+      "packaging_spec_sha256": "f5cc638f3d9304ca0d107fda0100b1249590c16749e9bd1a4eea1f2d6f934a7a"
+    },
+    {
+      "package": "qt6-qtquicktimeline",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtquicktimeline.git",
+      "packaging_commit": "ac98117e25c931bdc8363f90d3992066a53ed928",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtquicktimeline-everywhere-src-6.11.3.tar.xz",
+      "sha256": "e0e52453a4d13f6378fc4dff4cac8ef874fea35ddb9a72c1604e124ee941c692",
+      "packaging_spec_sha256": "d2464e656b72b75bab3ab66fd526f74a66588e877d91dd1ac61c9fd31215e881"
+    },
+    {
+      "package": "qt6-qtquick3d",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtquick3d.git",
+      "packaging_commit": "6deea664ab421cb42c793574c797af71da2e22f8",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtquick3d-everywhere-src-6.11.3.tar.xz",
+      "sha256": "c05d2491ead3ee22d2c8e9b7c9cc8e5874e7c05c1fc3329bc6a0ece70eaccc96",
+      "packaging_spec_sha256": "472d56a1004bf05e15f63f36371570a649f5dd39cc7fa483f0bf3ec54c5d69a3"
+    },
+    {
+      "package": "qt6-qtmultimedia",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtmultimedia.git",
+      "packaging_commit": "4c964aebb5197b522b1fab87c21ff7309885d44f",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtmultimedia-everywhere-src-6.11.3.tar.xz",
+      "sha256": "3d172de9bdd137686c3871762a4adff988a1ec0faec15df0c4560cfc417288e6",
+      "packaging_spec_sha256": "97ec3dd82bbe377a06ebcaa658cff9bdc946653906b0f131e1ebdbf6c9860995"
+    },
+    {
+      "package": "qt6-qtspeech",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtspeech.git",
+      "packaging_commit": "63a78c939fb74989579a2e2a9614a623c1303334",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtspeech-everywhere-src-6.11.3.tar.xz",
+      "sha256": "cfadb37721f20c2dc85926a1edbf6c165d9162ea38ccdb6cbc4466109a21578c",
+      "packaging_spec_sha256": "a07de8d0bbdad3c8131d9015a575b7d769f751fc87b602ab623d791447f4fefa"
+    },
+    {
+      "package": "qt6-qtvirtualkeyboard",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtvirtualkeyboard.git",
+      "packaging_commit": "5df29df4a9d9ba68a603b6c14dbc12b3e6a97a49",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtvirtualkeyboard-everywhere-src-6.11.3.tar.xz",
+      "sha256": "7c0ea4c6e05cc4d8225c862781efc78284d5f61809eedc405f37ea31acbb7478",
+      "packaging_spec_sha256": "cf4dfad68f153bbc4f27c2cb333a13a2925bb886858a49f0bc4b03e2297b7e94"
+    },
+    {
+      "package": "qt6-qtcharts",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtcharts.git",
+      "packaging_commit": "42931a464a21161e1d76cf9d03d82217137fad45",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtcharts-everywhere-src-6.11.3.tar.xz",
+      "sha256": "1d51d18e6f36e8b0dbbcd1a59f3ce9452ca5bf9b2d2fc8465be18cd0d06d6700",
+      "packaging_spec_sha256": "863ecda4b72ffc9e4a4f2b68068e9d0b791bfc763e7f5431554250ef2cc3eabe"
+    },
+    {
+      "package": "qt6-qtconnectivity",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtconnectivity.git",
+      "packaging_commit": "d579075b05d48c87a7d73fa0813013391bc5e682",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtconnectivity-everywhere-src-6.11.3.tar.xz",
+      "sha256": "dd2896b40f413776beb5612125ff221fa5daba684a4d6629120a695f0efefef0",
+      "packaging_spec_sha256": "361f3e000595674314d99affe61b2bc84d1497c1c03cd12f89cdecd7d57867e8"
+    },
+    {
+      "package": "qt6-qtwebsockets",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtwebsockets.git",
+      "packaging_commit": "a3b5b28dc4f93d8aac1dcd734aab23ba0d467f09",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtwebsockets-everywhere-src-6.11.3.tar.xz",
+      "sha256": "19b39acc37ec67a344fe0f080201c2c64d04d2a3d0c7dfa84955033f1016983b",
+      "packaging_spec_sha256": "68c36a1f6109613802c50e0c27a5dc28816011085c44498fcadfaae4f9652cc0"
+    },
+    {
+      "package": "qt6-qtwebchannel",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtwebchannel.git",
+      "packaging_commit": "bec2cc3af19061696490aa07e72537b8d3f3d440",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtwebchannel-everywhere-src-6.11.3.tar.xz",
+      "sha256": "1df120c2904ca0a0dd4fd4fb5e9459fe15cbc50477c08c65d20070eafffaf01a",
+      "packaging_spec_sha256": "ea945b4824ee22750b77493da3cb8c3b370fa3c4b4c6732b193f4e26b1b3cd1d"
+    },
+    {
+      "package": "qt6-qthttpserver",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qthttpserver.git",
+      "packaging_commit": "8b8c0eaa027deb480a14dc3d76479294d25439e3",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qthttpserver-everywhere-src-6.11.3.tar.xz",
+      "sha256": "eee13d0aaac1e78faad5eff34a3b3c7610bf9f0322bd1eb0d717f61788323d7e",
+      "packaging_spec_sha256": "e9daae52394ec0183225c6628186ced13a8b39148809e84f2be0601d1d9e7639"
+    },
+    {
+      "package": "qt6-qttranslations",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qttranslations.git",
+      "packaging_commit": "b84b32fc04c56d3d844e2b5dc5cee713dbd3d2a4",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qttranslations-everywhere-src-6.11.3.tar.xz",
+      "sha256": "499e3067b91e53675eead7a54a3cd771c30939d04d03b4e67f12167484e290f2",
+      "packaging_spec_sha256": "4289f6555c7959d49ffb3169bfcd514fe85a6006c3fb6ef235aa4a1e3f95df16"
+    },
+    {
+      "package": "qt6-qtwayland",
+      "archive": "https://download.qt.io/official_releases/qt/6.11/6.11.3/submodules/qtwayland-everywhere-src-6.11.3.tar.xz",
+      "sha256": "7f6185eb6e7d75202c42dfaf18dc54ae96f2d9a7a265358d061a6f85366f6c97",
+      "packaging_repository": "https://src.fedoraproject.org/rpms/qt6-qtwayland.git",
+      "packaging_branch_at_capture": "f44",
+      "packaging_version_at_capture": "6.11.2",
+      "packaging_commit": "da5f5463a99ad19d21c232ab358e4438c7c4c873"
+    }
+  ],
+  "unresolved": [
+    "Complete final-image Qt dependency and private-ABI consumer closure; this cohort intentionally excludes QtWebView and QtWebEngine; QtWayland is now included because SonicDE specs BuildRequire qt6-qtwayland-devel.",
+    "Check pinned Fedora patches against Qt 6.11.3 and EL10 build dependencies.",
+    "The initial bootstrap is not a complete runtime Qt distribution.",
+    "Do not keep old Qt 6.10 private-ABI binaries as if they were compatible with Qt 6.11."
+  ]
+}

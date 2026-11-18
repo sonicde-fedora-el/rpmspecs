@@ -1,0 +1,1427 @@
+{
+  "captured_at": "2026-11-11T21:39:17.522072+00:00",
+  "selection": "Highest dotted numeric, non-v release tag; peeled commit where annotated",
+  "packages": [
+    {
+      "spec": "silver-sddm/silver-sddm.spec",
+      "package": "silver-sddm",
+      "current_version": "1.0.0",
+      "source_repository": "https://github.com/Sonic-DE/silver-sddm",
+      "resolved_refs_url": "https://github.com/Sonic-DE/silver-sddm.git/info/refs?service=git-upload-pack",
+      "tag": "1.1.0",
+      "commit": "9e7a3c3f672e517e3a0cd3c0533f2a114c9f2632",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-accounts-integration/sonic-accounts-integration.spec",
+      "package": "sonic-accounts-integration",
+      "current_version": "26.04.3",
+      "source_repository": "https://github.com/Sonic-DE/sonic-accounts-integration",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-accounts-integration.git/info/refs?service=git-upload-pack",
+      "tag": "26.08.3",
+      "commit": "52028b4e9a1147e682d6dc0403518fc55d32c1ba",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-activities/sonic-activities.spec",
+      "package": "sonic-activities",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-activities",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-activities.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "878b309ae0a784312ffa7468f3af9c00594a0567",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-activities-stats/sonic-activities-stats.spec",
+      "package": "sonic-activities-stats",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-activities-stats",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-activities-stats.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "f24b6d1581bb3da56ad095bcd6f92b97b0385197",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-activity-manager-daemon/sonic-activity-manager-daemon.spec",
+      "package": "sonic-activity-manager-daemon",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-activity-manager-daemon",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-activity-manager-daemon.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "8576568b43b430f295773abe73bb28c383147b2c",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-audio-applet-pulse/sonic-audio-applet-pulse.spec",
+      "package": "sonic-audio-applet-pulse",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-audio-applet-pulse",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-audio-applet-pulse.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "dfed5f3a04d3e85d25711764a4b4022d7810776f",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-bluetooth-runtime/sonic-bluetooth-runtime.spec",
+      "package": "sonic-bluetooth-runtime",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-bluetooth-runtime",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-bluetooth-runtime.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "dd4ada1fb975de8aa112ce4c14e82e80d1f8e9f2",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-breeze/sonic-breeze.spec",
+      "package": "sonic-breeze",
+      "current_version": "6.7.4.7",
+      "source_repository": "https://github.com/Sonic-DE/sonic-breeze",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-breeze.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "6d18d768a44690ef3b1964301fa98e08175a2a45",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-browser-integration/sonic-browser-integration.spec",
+      "package": "sonic-browser-integration",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-browser-integration",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-browser-integration.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "7c3363850a96fe1a4987d5b7d1c4e8b3b8158b41",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-crypto-library/sonic-crypto-library.spec",
+      "package": "sonic-crypto-library",
+      "current_version": "2.3.10",
+      "source_repository": "https://github.com/Sonic-DE/sonic-crypto-library",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-crypto-library.git/info/refs?service=git-upload-pack",
+      "tag": "2.3.12",
+      "commit": "ca81fa0e184f7449782e87da34a36f3ffd9122bd",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-daemon/sonic-daemon.spec",
+      "package": "sonic-daemon",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-daemon",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-daemon.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "111c49ae1a9330a82a5ef7c4ae684c9cbfb4d1a3",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-decoration/sonic-decoration.spec",
+      "package": "sonic-decoration",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-decoration",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-decoration.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "bd727674efc6b02187384a827593a456a0228055",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-desktop-interface/sonic-desktop-interface.spec",
+      "package": "sonic-desktop-interface",
+      "current_version": "6.7.4.2",
+      "source_repository": "https://github.com/Sonic-DE/sonic-desktop-interface",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-desktop-interface.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "649680b89cb565dbdfe744c361b5f927b8d2b579",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-disks/sonic-disks.spec",
+      "package": "sonic-disks",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-disks",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-disks.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "1a83753ded9d5672b11995009da292feb22b17aa",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-dr-robotnik/sonic-dr-robotnik.spec",
+      "package": "sonic-dr-robotnik",
+      "current_version": "6.7.4.1",
+      "source_repository": "https://github.com/Sonic-DE/sonic-dr-robotnik",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-dr-robotnik.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "723b956a4c27c1a4c8cc6421aa018098596a163e",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-drawing-tablet/sonic-drawing-tablet.spec",
+      "package": "sonic-drawing-tablet",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-drawing-tablet",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-drawing-tablet.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "c885556db228052426cfd53a2226a921e2225c59",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-ecco/sonic-ecco.spec",
+      "package": "sonic-ecco",
+      "current_version": "26.04.3.2",
+      "source_repository": "https://github.com/Sonic-DE/sonic-ecco",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-ecco.git/info/refs?service=git-upload-pack",
+      "tag": "26.08.3",
+      "commit": "08ac9d65cea685c937bb339f792482fffcf1ff57",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-exiv2-library/sonic-exiv2-library.spec",
+      "package": "sonic-exiv2-library",
+      "current_version": "26.04.3",
+      "source_repository": "https://github.com/Sonic-DE/sonic-exiv2-library",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-exiv2-library.git/info/refs?service=git-upload-pack",
+      "tag": "26.08.3",
+      "commit": "62b21850378e1ea59e418e78362c4a5dae0d78e0",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-file-search-ui/sonic-file-search-ui.spec",
+      "package": "sonic-file-search-ui",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-file-search-ui",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-file-search-ui.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "7c4196fba1520e71bc68dd7c6d117963ab154794",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-firewall/sonic-firewall.spec",
+      "package": "sonic-firewall",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-firewall",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-firewall.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "ab5c76de9e2c94a02174d266eaac06b5f0c414d9",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-addons-downloader/sonic-frameworks-addons-downloader.spec",
+      "package": "sonic-frameworks-addons-downloader",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-addons-downloader",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-addons-downloader.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "d1d740e49f322882d112d84eaca7a18a22e37a4e",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-app-info/sonic-frameworks-app-info.spec",
+      "package": "sonic-frameworks-app-info",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-app-info",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-app-info.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "edfeec63fcba2e10f8051356111a563a1160a273",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-archive/sonic-frameworks-archive.spec",
+      "package": "sonic-frameworks-archive",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-archive",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-archive.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "4e87062717808dcd8201db79d4457b41e12e3a6f",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-auth/sonic-frameworks-auth.spec",
+      "package": "sonic-frameworks-auth",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-auth",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-auth.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "0aa771c36c5f78ec58e82d9ceb8875e4a64f6d38",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-autocomplete/sonic-frameworks-autocomplete.spec",
+      "package": "sonic-frameworks-autocomplete",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-autocomplete",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-autocomplete.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "a2e5b389dac91a105a97dd50ce790761b6d8d700",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-barcode/sonic-frameworks-barcode.spec",
+      "package": "sonic-frameworks-barcode",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-barcode",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-barcode.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "e398830df3e5f00e2c4165fce594a92818ed7627",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-bluetooth/sonic-frameworks-bluetooth.spec",
+      "package": "sonic-frameworks-bluetooth",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-bluetooth",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-bluetooth.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "58dc3057ea6b802c147094e405ce352e17e82af4",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-bookmarks/sonic-frameworks-bookmarks.spec",
+      "package": "sonic-frameworks-bookmarks",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-bookmarks",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-bookmarks.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "e11acd6324db7310820993e75704816db040086c",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-cmake-modules/sonic-frameworks-cmake-modules.spec",
+      "package": "sonic-frameworks-cmake-modules",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-cmake-modules",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-cmake-modules.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "4c6d42854f70fbdb01a4ed94ad6dee0dc46824a4",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-color-scheme/sonic-frameworks-color-scheme.spec",
+      "package": "sonic-frameworks-color-scheme",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-color-scheme",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-color-scheme.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "b53935a36a7fbbe689a0a1433fb142e940ba093b",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-core-addons/sonic-frameworks-core-addons.spec",
+      "package": "sonic-frameworks-core-addons",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-core-addons",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-core-addons.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "b69c06eb2a7978623b46c4c625ad4abf0a191746",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-crash-handler/sonic-frameworks-crash-handler.spec",
+      "package": "sonic-frameworks-crash-handler",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-crash-handler",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-crash-handler.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "5ec7ccf86b60c3e433016fe7e99c5881285254fc",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-data-models/sonic-frameworks-data-models.spec",
+      "package": "sonic-frameworks-data-models",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-data-models",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-data-models.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "92707b2e21181fea6b4a5278f2e8a8a03fd245f0",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-data-views/sonic-frameworks-data-views.spec",
+      "package": "sonic-frameworks-data-views",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-data-views",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-data-views.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "affeda01aea9d238e0e6d972adc3711c40a7f8f9",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-dbus/sonic-frameworks-dbus.spec",
+      "package": "sonic-frameworks-dbus",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-dbus",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-dbus.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "8bd6875316b43460e28c48f06610db2b2450a9fb",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-device-integration/sonic-frameworks-device-integration.spec",
+      "package": "sonic-frameworks-device-integration",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-device-integration",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-device-integration.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "d4d4fa3312cfb9497d7f0fcceb71055f294ec56e",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-doctools/sonic-frameworks-doctools.spec",
+      "package": "sonic-frameworks-doctools",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-doctools",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-doctools.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "303b32b3d2f03927c67084d93693c2711a00c498",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-feeds/sonic-frameworks-feeds.spec",
+      "package": "sonic-frameworks-feeds",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-feeds",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-feeds.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "d47243ff645620c7a2e4a2e66d5aac02be3874f6",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-file-metadata/sonic-frameworks-file-metadata.spec",
+      "package": "sonic-frameworks-file-metadata",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-file-metadata",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-file-metadata.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "aa814d01ed2a056df038950873cf0fbaf4f56922",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-file-search/sonic-frameworks-file-search.spec",
+      "package": "sonic-frameworks-file-search",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-file-search",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-file-search.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "2886505571aa75fdd05dcdbd3967805088982784",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-gui-addons/sonic-frameworks-gui-addons.spec",
+      "package": "sonic-frameworks-gui-addons",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-gui-addons",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-gui-addons.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "bdb696d36bcf1c1a5e6899cc8013ac080a353dae",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-holidays/sonic-frameworks-holidays.spec",
+      "package": "sonic-frameworks-holidays",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-holidays",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-holidays.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "7543c18fbca15570e8a96751966878ba97cc5f1e",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-icon-themes/sonic-frameworks-icon-themes.spec",
+      "package": "sonic-frameworks-icon-themes",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-icon-themes",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-icon-themes.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "435d123e70e7aaad6e56c9d3f4ecbaae8e2dd29d",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-idle-tracker/sonic-frameworks-idle-tracker.spec",
+      "package": "sonic-frameworks-idle-tracker",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-idle-tracker",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-idle-tracker.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "c42537b6d9c1ec78681035e910546e36ad91559b",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-image-formats/sonic-frameworks-image-formats.spec",
+      "package": "sonic-frameworks-image-formats",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-image-formats",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-image-formats.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "372a1627da8bd7dcfc54855633bef2f7e2ddff85",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-init-info/sonic-frameworks-init-info.spec",
+      "package": "sonic-frameworks-init-info",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-init-info",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-init-info.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "eb7c133900f6818db8c70bc9c124e1a9a6e0cce8",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-frameworks-internationalization/sonic-frameworks-internationalization.spec",
+      "package": "sonic-frameworks-internationalization",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-internationalization",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-internationalization.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "6188426bbd01e89c0a634a8474f0049991c92739",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-io/sonic-frameworks-io.spec",
+      "package": "sonic-frameworks-io",
+      "current_version": "6.29.0.1",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-io",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-io.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "72e02efa7bce4a65ff1a47e014b892bf1e823db4",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-io-extras/sonic-frameworks-io-extras.spec",
+      "package": "sonic-frameworks-io-extras",
+      "current_version": "26.04.3",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-io-extras",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-io-extras.git/info/refs?service=git-upload-pack",
+      "tag": "26.08.3",
+      "commit": "e8b2aeae0d9bf7fa920bed93b38305f567e99dbb",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-io-fuse/sonic-frameworks-io-fuse.spec",
+      "package": "sonic-frameworks-io-fuse",
+      "current_version": "6.0.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-io-fuse",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-io-fuse.git/info/refs?service=git-upload-pack",
+      "tag": "6.0.0",
+      "commit": "078a27485764ef5da2cb9c8e25fc1845cf36b7c5",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-ipc/sonic-frameworks-ipc.spec",
+      "package": "sonic-frameworks-ipc",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-ipc",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-ipc.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "4b757f5ba71fc2b79f57d27c436b662f1fccdc87",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-frameworks-keybind/sonic-frameworks-keybind.spec",
+      "package": "sonic-frameworks-keybind",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-keybind",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-keybind.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "e9f67fff94ab5dfc703e6bc458375b8f5a44480e",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-keyring/sonic-frameworks-keyring.spec",
+      "package": "sonic-frameworks-keyring",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-keyring",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-keyring.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "d0ad3f1683541e2778f7a7c861e6b9bcdec976d1",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-keyring-pam/sonic-frameworks-keyring-pam.spec",
+      "package": "sonic-frameworks-keyring-pam",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-keyring-pam",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-keyring-pam.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "871511f6cb704b2f60e6d73375dfa7e126a69311",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-logging/sonic-frameworks-logging.spec",
+      "package": "sonic-frameworks-logging",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-logging",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-logging.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "ea18fb39d7cef7fd1481b60f7b62995cdd6a6f09",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-frameworks-modemmanager/sonic-frameworks-modemmanager.spec",
+      "package": "sonic-frameworks-modemmanager",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-modemmanager",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-modemmanager.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "5d3eb0ecdfc48ce81ebcb635c58736cee518b634",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-networkmanager/sonic-frameworks-networkmanager.spec",
+      "package": "sonic-frameworks-networkmanager",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-networkmanager",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-networkmanager.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "603732121fac0d39d19cf822202f06dd6915d4a6",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-notification-settings/sonic-frameworks-notification-settings.spec",
+      "package": "sonic-frameworks-notification-settings",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-notification-settings",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-notification-settings.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "6dca79eeabb0ec94ba6bee7c5bf4233f3c92fbb1",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-notifications/sonic-frameworks-notifications.spec",
+      "package": "sonic-frameworks-notifications",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-notifications",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-notifications.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "a1b36bf9c246317a86439cdfd066e376a3b32cc4",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-open-collab/sonic-frameworks-open-collab.spec",
+      "package": "sonic-frameworks-open-collab",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-open-collab",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-open-collab.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "6c1220ed0cd6db37e17a5c5c4588d50fb8c2ff85",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-package/sonic-frameworks-package.spec",
+      "package": "sonic-frameworks-package",
+      "current_version": "6.29.0.1",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-package",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-package.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "2a504aa6e7d1613d705e9e5121588cc1a68b5e48",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-progress-ui/sonic-frameworks-progress-ui.spec",
+      "package": "sonic-frameworks-progress-ui",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-progress-ui",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-progress-ui.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "a09a9fd2b65b748d146e2ec99a425e41b1c2269e",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-pseudo-terminal/sonic-frameworks-pseudo-terminal.spec",
+      "package": "sonic-frameworks-pseudo-terminal",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-pseudo-terminal",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-pseudo-terminal.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "4101e942150ffc44921078c2eb2ed11baefa308d",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-purpose/sonic-frameworks-purpose.spec",
+      "package": "sonic-frameworks-purpose",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-purpose",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-purpose.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "b43bb17c689ad821242fa1b4d45c7cc0a8bcf0fc",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-qml-bridge/sonic-frameworks-qml-bridge.spec",
+      "package": "sonic-frameworks-qml-bridge",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-qml-bridge",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-qml-bridge.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "dfccb900ff91fea79d8e472998dcf0861551d281",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-qt-integration/sonic-frameworks-qt-integration.spec",
+      "package": "sonic-frameworks-qt-integration",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-qt-integration",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-qt-integration.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "6edeefe2fab258c6867979c9908529b40b4c8710",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-quick-charts/sonic-frameworks-quick-charts.spec",
+      "package": "sonic-frameworks-quick-charts",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-quick-charts",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-quick-charts.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "e72ced29c46cf6acc20814a07b4cc74d193c6f00",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-quick-desktop-style/sonic-frameworks-quick-desktop-style.spec",
+      "package": "sonic-frameworks-quick-desktop-style",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-quick-desktop-style",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-quick-desktop-style.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "4f4d5a5ee5d7df92da87fe852df33385f0a54520",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-quick-silver-style/sonic-frameworks-quick-silver-style.spec",
+      "package": "sonic-frameworks-quick-silver-style",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-quick-silver-style",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-quick-silver-style.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "082aa54d24c066e8abcb19bf22fac052bac4b05d",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-quick-ui/sonic-frameworks-quick-ui.spec",
+      "package": "sonic-frameworks-quick-ui",
+      "current_version": "6.29.0.2",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-quick-ui",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-quick-ui.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.2",
+      "commit": "111678529faa0e8b757144ca3a476b02d058b943",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-root-shell/sonic-frameworks-root-shell.spec",
+      "package": "sonic-frameworks-root-shell",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-root-shell",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-root-shell.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "c1d60e31a482e924371e4e95198113647a0a08d3",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-runner/sonic-frameworks-runner.spec",
+      "package": "sonic-frameworks-runner",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-runner",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-runner.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "8e2f1923071bdbdba081ce7c7dd68f0d7f9e73c6",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-settings/sonic-frameworks-settings.spec",
+      "package": "sonic-frameworks-settings",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-settings",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-settings.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "3eb0843a83d2afa74bb6447ebce0933291342a62",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-settings-ui/sonic-frameworks-settings-ui.spec",
+      "package": "sonic-frameworks-settings-ui",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-settings-ui",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-settings-ui.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "0d7f30c3c85ce477323018381fbe3a59193ea5bf",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-settings-utils/sonic-frameworks-settings-utils.spec",
+      "package": "sonic-frameworks-settings-utils",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-settings-utils",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-settings-utils.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "b2083a81338b82561c86eca0132cfeafa79072c4",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-silver-icons/sonic-frameworks-silver-icons.spec",
+      "package": "sonic-frameworks-silver-icons",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-silver-icons",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-silver-icons.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "4e8d1510b87e31c306fd1ff9be364e208b584cb5",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-spell-check/sonic-frameworks-spell-check.spec",
+      "package": "sonic-frameworks-spell-check",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-spell-check",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-spell-check.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "3b3417f5cf9924fc45e4e8b334d0ed19328aab44",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-sso/sonic-frameworks-sso.spec",
+      "package": "sonic-frameworks-sso",
+      "current_version": "8.61.2",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-sso",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-sso.git/info/refs?service=git-upload-pack",
+      "tag": "8.61.2.3",
+      "commit": "d25cc8d03e3e1dd1288c0f01eac484def737ee04",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-frameworks-status-notification/sonic-frameworks-status-notification.spec",
+      "package": "sonic-frameworks-status-notification",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-status-notification",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-status-notification.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "ca4d6aeb2a54edf796a461b2b2b610a1036418f0",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-svg/sonic-frameworks-svg.spec",
+      "package": "sonic-frameworks-svg",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-svg",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-svg.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "02a24b34832896025ec9d97cb0787f2ab07582dd",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-syntax-highlighting/sonic-frameworks-syntax-highlighting.spec",
+      "package": "sonic-frameworks-syntax-highlighting",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-syntax-highlighting",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-syntax-highlighting.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "042b9ee15ef2cd752d4491d4b46b1ebe428e4389",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-text-codec/sonic-frameworks-text-codec.spec",
+      "package": "sonic-frameworks-text-codec",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-text-codec",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-text-codec.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "74526654e2bbb9e685e33ae534220aac056fa05a",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-text-editor/sonic-frameworks-text-editor.spec",
+      "package": "sonic-frameworks-text-editor",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-text-editor",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-text-editor.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "4f17e396301cfbce194c39934bed3aafa036537e",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-text-widgets/sonic-frameworks-text-widgets.spec",
+      "package": "sonic-frameworks-text-widgets",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-text-widgets",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-text-widgets.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "bdc034eb011da9c37190c48c81f5b96efcb28f43",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-ui-components/sonic-frameworks-ui-components.spec",
+      "package": "sonic-frameworks-ui-components",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-ui-components",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-ui-components.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "758eec76811a1f970aee45e31bb4c6093aaadb86",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-unit-conversion/sonic-frameworks-unit-conversion.spec",
+      "package": "sonic-frameworks-unit-conversion",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-unit-conversion",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-unit-conversion.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "8ea178a190970ed8918cd792bbb9598297235f5f",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-user-feedback/sonic-frameworks-user-feedback.spec",
+      "package": "sonic-frameworks-user-feedback",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-user-feedback",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-user-feedback.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "b78ebc8d208acbc11df3cef5880f1ded3697769f",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-via/sonic-frameworks-via.spec",
+      "package": "sonic-frameworks-via",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-via",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-via.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "bd34cfd86e178986ac77a9f900d157a6c37fbeb9",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-widgets-addons/sonic-frameworks-widgets-addons.spec",
+      "package": "sonic-frameworks-widgets-addons",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-widgets-addons",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-widgets-addons.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "6f6a2697a5b83309ffad6d1b71f93059da0b9176",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-windowsystem/sonic-frameworks-windowsystem.spec",
+      "package": "sonic-frameworks-windowsystem",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-windowsystem",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-windowsystem.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "cf4196cd388f6ad0ced3267c59d14efaa3eb4094",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-xml-gui/sonic-frameworks-xml-gui.spec",
+      "package": "sonic-frameworks-xml-gui",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-xml-gui",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-xml-gui.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "91630ddae66b3cae81ffc3b429af7bcca7b97501",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-frameworks-zeroconf/sonic-frameworks-zeroconf.spec",
+      "package": "sonic-frameworks-zeroconf",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-frameworks-zeroconf",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-frameworks-zeroconf.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0",
+      "commit": "a85a4452149e95629d6c613b49d14fdf9834be26",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-gamma/sonic-gamma.spec",
+      "package": "sonic-gamma",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-gamma",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-gamma.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "61bd7fea960563144660c8d678a6807c2ebf2cd7",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-gtk-theme-bridge/sonic-gtk-theme-bridge.spec",
+      "package": "sonic-gtk-theme-bridge",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-gtk-theme-bridge",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-gtk-theme-bridge.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "25d102f29a6d1c428fca846d48c64e41d5d67d25",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-interface-libraries/sonic-interface-libraries.spec",
+      "package": "sonic-interface-libraries",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-interface-libraries",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-interface-libraries.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "05eb2325d863aecfd295fcd190b8a73994410fa3",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-keybind-daemon/sonic-keybind-daemon.spec",
+      "package": "sonic-keybind-daemon",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-keybind-daemon",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-keybind-daemon.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "a4431de2c46e22d1f69ef88f70cc9633a2ae31b6",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-keyboard/sonic-keyboard.spec",
+      "package": "sonic-keyboard",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-keyboard",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-keyboard.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "2b9fefbdb6316a457d4ea2fca4533618848a16bc",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-launcher-menu-edit/sonic-launcher-menu-edit.spec",
+      "package": "sonic-launcher-menu-edit",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-launcher-menu-edit",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-launcher-menu-edit.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "b847e41db54497637dd6e971c46a617c6499fbd2",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-login-manager/sonic-login-manager.spec",
+      "package": "sonic-login-manager",
+      "current_version": "6.7.4.5",
+      "source_repository": "https://github.com/Sonic-DE/sonic-login-manager",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-login-manager.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "4d445487f5e3ecc9c3f60db9a16245602689476a",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-network-manager/sonic-network-manager.spec",
+      "package": "sonic-network-manager",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-network-manager",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-network-manager.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "b75aeba0e5e1b8a3c2ffa8da10ab6d548145e1ba",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-night-light/sonic-night-light.spec",
+      "package": "sonic-night-light",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-night-light",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-night-light.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "34326415a7ae421d5eb1c05cdbcec4b73f5db944",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-oxygen/sonic-oxygen.spec",
+      "package": "sonic-oxygen",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-oxygen",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-oxygen.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "ab946516a228990642ca0076f22b56511885ff67",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-oxygen-icons/sonic-oxygen-icons.spec",
+      "package": "sonic-oxygen-icons",
+      "current_version": "6.29.0",
+      "source_repository": "https://github.com/Sonic-DE/sonic-oxygen-icons",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-oxygen-icons.git/info/refs?service=git-upload-pack",
+      "tag": "6.31.0.1",
+      "commit": "8468700f39fc2501aa644a5d0582f31b6264be67",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-oxygen-sounds/sonic-oxygen-sounds.spec",
+      "package": "sonic-oxygen-sounds",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-oxygen-sounds",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-oxygen-sounds.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "5338cce707676b346b8af7d053b86f2d0862d977",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-partition-manager/sonic-partition-manager.spec",
+      "package": "sonic-partition-manager",
+      "current_version": "26.04.3",
+      "source_repository": "https://github.com/Sonic-DE/sonic-partition-manager",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-partition-manager.git/info/refs?service=git-upload-pack",
+      "tag": "26.08.3",
+      "commit": "b648a247c6293b1d66f4ee62aecfb29f9c4c042f",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-pipewire/sonic-pipewire.spec",
+      "package": "sonic-pipewire",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-pipewire",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-pipewire.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "2f31923b901825b4d4cf503aa90313ff632b233f",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-plasma5-support-library/sonic-plasma5-support-library.spec",
+      "package": "sonic-plasma5-support-library",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-plasma5-support-library",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-plasma5-support-library.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.0",
+      "commit": "6af8845c7fa1945afdc529acb1979d2e67a99e64",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-polkit/sonic-polkit.spec",
+      "package": "sonic-polkit",
+      "current_version": "0.201.2",
+      "source_repository": "https://github.com/Sonic-DE/sonic-polkit",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-polkit.git/info/refs?service=git-upload-pack",
+      "tag": "0.201.2",
+      "commit": "a7b3dc53359620c23a5a0a7cffcb0403015ea97f",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-polkit-agent/sonic-polkit-agent.spec",
+      "package": "sonic-polkit-agent",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-polkit-agent",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-polkit-agent.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "dfeec845aa935c445e0815e4ccc033a0ccc3ea8e",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-power-management/sonic-power-management.spec",
+      "package": "sonic-power-management",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-power-management",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-power-management.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "f835ef7d386ba78d4cb0b0b665144817680be86c",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-print-management/sonic-print-management.spec",
+      "package": "sonic-print-management",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-print-management",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-print-management.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "2b6e738cc01d368c4ffef3c5d80b4a1c82329a32",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-pulseaudio-library/sonic-pulseaudio-library.spec",
+      "package": "sonic-pulseaudio-library",
+      "current_version": "1.8.1",
+      "source_repository": "https://github.com/Sonic-DE/sonic-pulseaudio-library",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-pulseaudio-library.git/info/refs?service=git-upload-pack",
+      "tag": "1.8.1",
+      "commit": "10786fe31e640858f4f5db5366aed9c56d77bfab",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-qt-accounts-library/sonic-qt-accounts-library.spec",
+      "package": "sonic-qt-accounts-library",
+      "current_version": "1.17.2",
+      "source_repository": "https://github.com/Sonic-DE/sonic-qt-accounts-library",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-qt-accounts-library.git/info/refs?service=git-upload-pack",
+      "tag": "1.17.2",
+      "commit": "00366057571c25250851feab0e62c55416ef23f6",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-qt-theme-bridge/sonic-qt-theme-bridge.spec",
+      "package": "sonic-qt-theme-bridge",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-qt-theme-bridge",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-qt-theme-bridge.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "c8d309e657da7490ae6d4f171265b3c24314eb70",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-quick-image-editor/sonic-quick-image-editor.spec",
+      "package": "sonic-quick-image-editor",
+      "current_version": "0.6.2.1.1",
+      "source_repository": "https://github.com/Sonic-DE/sonic-quick-image-editor",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-quick-image-editor.git/info/refs?service=git-upload-pack",
+      "tag": "0.7.0.1",
+      "commit": "7f866b4803145b672ea343297a8abd8a639ea7e6",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-rdp-server/sonic-rdp-server.spec",
+      "package": "sonic-rdp-server",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-rdp-server",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-rdp-server.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.0",
+      "commit": "8fa334a16d0285ed1df496736651e4f57e46bb61",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-screen/sonic-screen.spec",
+      "package": "sonic-screen",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-screen",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-screen.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "1a141e82e294c884685270647c277ee2a5f4fb5a",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-screen-library/sonic-screen-library.spec",
+      "package": "sonic-screen-library",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-screen-library",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-screen-library.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "37f29ad65279cbc56e3e17175a45e37441e4fe4f",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-screenies/sonic-screenies.spec",
+      "package": "sonic-screenies",
+      "current_version": "6.7.4.2",
+      "source_repository": "https://github.com/Sonic-DE/sonic-screenies",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-screenies.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "48423e1d8fa439d181f9e2cd9e219fcd67fc97e3",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-screenlocker/sonic-screenlocker.spec",
+      "package": "sonic-screenlocker",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-screenlocker",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-screenlocker.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "8de127f5c24bb28ffa2055d2df5ba48ca59ad1b1",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-silver-gtk/sonic-silver-gtk.spec",
+      "package": "sonic-silver-gtk",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-silver-gtk",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-silver-gtk.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "d98785fb853f1178548b7fcc8122e9a67546232e",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-silver-sound-theme/sonic-silver-sound-theme.spec",
+      "package": "sonic-silver-sound-theme",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-silver-sound-theme",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-silver-sound-theme.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "c46bb95f87a2d79636711ce90b3f274c8af16ebb",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-silver-theme/sonic-silver-theme.spec",
+      "package": "sonic-silver-theme",
+      "current_version": "6.7.4.2",
+      "source_repository": "https://github.com/Sonic-DE/sonic-silver",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-silver.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "64c5d18b3a13851b409c491a1a8bed295de2ff96",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-ssh-password-prompt/sonic-ssh-password-prompt.spec",
+      "package": "sonic-ssh-password-prompt",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-ssh-password-prompt",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-ssh-password-prompt.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "03dac2d9670ce2c914d3b94a9c3c9eaa576afaba",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-sysguard-library/sonic-sysguard-library.spec",
+      "package": "sonic-sysguard-library",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-sysguard-library",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-sysguard-library.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "3cd9202855c05120972320b35c9cf7c10b94ddc4",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-system-info/sonic-system-info.spec",
+      "package": "sonic-system-info",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-system-info",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-system-info.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "ae84fcfdab0260c2fee90ad2294823b4a13684ce",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-system-log/sonic-system-log.spec",
+      "package": "sonic-system-log",
+      "current_version": "26.04.3",
+      "source_repository": "https://github.com/Sonic-DE/sonic-system-log",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-system-log.git/info/refs?service=git-upload-pack",
+      "tag": "26.08.3",
+      "commit": "ba0eebe12f4d242526022118487fba5be97977d9",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-system-monitor/sonic-system-monitor.spec",
+      "package": "sonic-system-monitor",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-system-monitor",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-system-monitor.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "da5f66992ee7a2b15e13cf0eb362209a75542c68",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-system-settings/sonic-system-settings.spec",
+      "package": "sonic-system-settings",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-system-settings",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-system-settings.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "4b6357458b9727525c665e699d73bc6b62f4c2a5",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-system-stats/sonic-system-stats.spec",
+      "package": "sonic-system-stats",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-system-stats",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-system-stats.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "466899ecde4e7964d98776ad031c5e9b40361812",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-terminal/sonic-terminal.spec",
+      "package": "sonic-terminal",
+      "current_version": "26.04.3.1",
+      "source_repository": "https://github.com/Sonic-DE/sonic-terminal",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-terminal.git/info/refs?service=git-upload-pack",
+      "tag": "26.08.3",
+      "commit": "342e7db0a90b8867a70cd2b606ed0496d2dace57",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-terminal-tools/sonic-terminal-tools.spec",
+      "package": "sonic-terminal-tools",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-terminal-tools",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-terminal-tools.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "9e1515a8f71afb02b589e97e24ba6e826481546a",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-theme-sdk/sonic-theme-sdk.spec",
+      "package": "sonic-theme-sdk",
+      "current_version": null,
+      "source_repository": "https://github.com/Sonic-DE/sonic-theme-sdk",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-theme-sdk.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "04a38e6f27c552869f2369b5102ab6c08cbe73cb",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-thunderbolt/sonic-thunderbolt.spec",
+      "package": "sonic-thunderbolt",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-thunderbolt",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-thunderbolt.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "1c4937a29c24682abb4ab427dba041a172870409",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-vault/sonic-vault.spec",
+      "package": "sonic-vault",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-vault",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-vault.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "3d7f82d52e87a538b567ee49beb6c8c8fe3390b3",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-welcome-center/sonic-welcome-center.spec",
+      "package": "sonic-welcome-center",
+      "current_version": "6.7.4.1",
+      "source_repository": "https://github.com/Sonic-DE/sonic-welcome-center",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-welcome-center.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "3f95336c54757e300244d5525b8de862e010ded2",
+      "previous_tag_exists": null
+    },
+    {
+      "spec": "sonic-win/sonic-win.spec",
+      "package": "sonic-win",
+      "current_version": "6.7.4.3",
+      "source_repository": "https://github.com/Sonic-DE/sonic-win",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-win.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "1e06eee0598a1873390810741fa6bad67409f6a6",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-workspace/sonic-workspace.spec",
+      "package": "sonic-workspace",
+      "current_version": "6.7.4.7",
+      "source_repository": "https://github.com/Sonic-DE/sonic-workspace",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-workspace.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "dfe4a1136bfaae2c5375595b9be731ea9aa651c8",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-workspace-addons/sonic-workspace-addons.spec",
+      "package": "sonic-workspace-addons",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-workspace-addons",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-workspace-addons.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "b5f1fadba6d8352a1643a050a91d5070db955510",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-workspace-wallpapers/sonic-workspace-wallpapers.spec",
+      "package": "sonic-workspace-wallpapers",
+      "current_version": "6.7.4.1",
+      "source_repository": "https://github.com/Sonic-DE/sonic-workspace-wallpapers",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-workspace-wallpapers.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "475b8372d1eca036129a59b9afddfa53de83c1d9",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "sonic-write-daemon/sonic-write-daemon.spec",
+      "package": "sonic-write-daemon",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/sonic-write-daemon",
+      "resolved_refs_url": "https://github.com/Sonic-DE/sonic-write-daemon.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "b0b6695e89e054ecb2cf30251695e6306b18c412",
+      "previous_tag_exists": true
+    },
+    {
+      "spec": "xdg-desktop-portal-sonicde/xdg-desktop-portal-sonicde.spec",
+      "package": "xdg-desktop-portal-sonicde",
+      "current_version": "6.7.4",
+      "source_repository": "https://github.com/Sonic-DE/xdg-desktop-portal-sonicde",
+      "resolved_refs_url": "https://github.com/Sonic-DE/xdg-desktop-portal-sonicde.git/info/refs?service=git-upload-pack",
+      "tag": "6.8.2",
+      "commit": "ea2e26f84f362b88f79d94b94c28f240df2613a4",
+      "previous_tag_exists": true
+    }
+  ],
+  "errors": []
+}

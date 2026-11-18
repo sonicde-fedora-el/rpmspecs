@@ -1,11 +1,13 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 
 %global		framework kwindowsystem
 
 #Name:		kf6-%%{framework}
 Name:       sonic-frameworks-windowsystem
-Version: 6.29.0
+Version: 6.31.0.1
 Release:        3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module with classes for windows management
 License:	CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
@@ -20,13 +22,13 @@ Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
-BuildRequires:	sonic-frameworks-cmake-modules >= %{version}
+BuildRequires:	sonic-frameworks-cmake-modules >= %(echo %{version} | cut -d. -f1-3)
 BuildRequires:	sonic-rpm-macros
 BuildRequires:	make
-BuildRequires:	qt6-qtbase-devel
-BuildRequires:	qt6-qttools-devel
-BuildRequires:	cmake(Qt6Qml)
-BuildRequires:  pkgconfig(Qt6WaylandClient)
+BuildRequires:	qt6-qtbase-devel >= 6.11
+BuildRequires:	qt6-qttools-devel >= 6.11
+BuildRequires:	qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qtwayland-devel >= 6.11
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xcb)
 BuildRequires:	pkgconfig(xcb-icccm)
@@ -39,11 +41,10 @@ BuildRequires:  egl-wayland-devel
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  plasma-wayland-protocols-devel
 BuildRequires:	fdupes
-BuildRequires:  pkgconfig(Qt6Core)
-BuildRequires:  pkgconfig(Qt6Gui)
-BuildRequires:  qt6-qtbase-private-devel
-Requires:	kf6-filesystem
-Obsoletes:      kf6-kwindowsystem < %{version}-%{release}
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+Requires: kf6-filesystem >= 6.31
+Obsoletes:      kf6-kwindowsystem
 Provides:       kf6-kwindowsystem = %{version}-%{release}
 
 %description
@@ -52,9 +53,9 @@ working with windows.
 
 %package	devel
 Summary:	Development files for %{name}
-Requires:	%{name} = %{version}-%{release}
-Requires:	qt6-qtbase-devel
-Obsoletes:      kf6-kwindowsystem-devel < %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
+Obsoletes:      kf6-kwindowsystem-devel
 Provides:       kf6-kwindowsystem-devel = %{version}-%{release}
 
 %description	devel
@@ -64,7 +65,7 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Obsoletes:      kf6-kwindowsystem-doc < %{version}-%{release}
+Obsoletes:      kf6-kwindowsystem-doc
 Provides:       kf6-kwindowsystem-doc = %{version}-%{release}
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -72,7 +73,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Obsoletes:      kf6-kwindowsystem-html < %{version}-%{release}
+Obsoletes:      kf6-kwindowsystem-html
 Provides:       kf6-kwindowsystem-html = %{version}-%{release}
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -118,6 +119,16 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - Update to SonicDE 6.29.0 from the hard fork; build on Enterprise Linux 10 and Fedora
 

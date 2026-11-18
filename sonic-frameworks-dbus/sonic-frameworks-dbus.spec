@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-frameworks-dbus fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-dbus
 # Upstream KDE project: kdbusaddons
@@ -11,7 +13,7 @@
 
 #Name:			kf6-%%{framework}
 Name:           sonic-frameworks-dbus
-Version:        6.29.0
+Version:        6.31.0
 Release:        3%{?dist}
 Summary:		KDE Frameworks 6 Tier 1 addon with various classes on top of QtDBus
 License:		CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only
@@ -25,15 +27,16 @@ BuildRequires:		sonic-frameworks-cmake-modules >= %{version}
 BuildRequires:		sonic-rpm-macros
 BuildRequires:		cmake
 BuildRequires:		gcc-c++
-BuildRequires:		qt6-qtbase-devel
-BuildRequires:		qt6-qttools-devel
-BuildRequires:          qt6-qtbase-private-devel
+BuildRequires:		qt6-qtbase-devel >= 6.11
+BuildRequires:		qt6-qttools-devel >= 6.11
+BuildRequires:          qt6-qtbase-private-devel >= 6.11
 BuildRequires:		pkgconfig(xkbcommon)
 
-Requires:		kf6-filesystem
+Requires: kf6-filesystem >= 6.31
 
+Provides:       kf6-kdbusaddons = %{version}-%{release}
 Provides:       kf6-kdbusaddons%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kdbusaddons < %{version}-%{release}
+Obsoletes:      kf6-kdbusaddons
 
 %description
 KDBusAddons provides convenience classes on top of QtDBus, as well as an API to
@@ -41,10 +44,11 @@ create KDED modules.
 
 %package		devel
 Summary:		Development files for %{name}
-Requires:		%{name} = %{version}-%{release}
-Requires:		qt6-qtbase-devel
+Requires: %{name} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
+Provides:       kf6-kdbusaddons-devel = %{version}-%{release}
 Provides:       kf6-kdbusaddons-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kdbusaddons-devel < %{version}-%{release}
+Obsoletes:      kf6-kdbusaddons-devel
 
 %description		devel
 The %{name}-devel package contains libraries and header files for
@@ -53,8 +57,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kdbusaddons-doc = %{version}-%{release}
 Provides:       kf6-kdbusaddons-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kdbusaddons-doc < %{version}-%{release}
+Obsoletes:      kf6-kdbusaddons-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -62,8 +67,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kdbusaddons-html = %{version}-%{release}
 Provides:       kf6-kdbusaddons-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kdbusaddons-html < %{version}-%{release}
+Obsoletes:      kf6-kdbusaddons-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -103,5 +109,15 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

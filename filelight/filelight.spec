@@ -2,11 +2,13 @@
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 Name:    filelight
 Summary: Graphical disk usage statistics
 Epoch:   1
-Version:        26.04.3
-Release:        1%{?dist}
+Version: 26.08.3
+Release:        2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -18,21 +20,19 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires:      sonic-frameworks-cmake-modules
-BuildRequires: kf6-rpm-macros
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6Declarative)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6XmlGui)
-BuildRequires: cmake(KF6QQC2DesktopStyle)
-BuildRequires: cmake(KF6KirigamiAddons)
-BuildRequires: cmake(KF6Crash)
+BuildRequires: sonic-rpm-macros
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-qml-bridge-devel
+BuildRequires: sonic-frameworks-doctools-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: sonic-frameworks-xml-gui-devel
+BuildRequires: sonic-frameworks-quick-desktop-style
+BuildRequires: sonic-frameworks-quick-ui-addons-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
 
-BuildRequires: cmake(Qt6Gui)
-BuildRequires: cmake(Qt6Quick)
-BuildRequires: cmake(Qt6QuickControls2)
-BuildRequires: cmake(Qt6Widgets)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
 
 # Runtime Deps
 Requires:      sonic-frameworks-quick-desktop-style
@@ -77,13 +77,21 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/kio/servicemenus/filelight.desktop
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 1:25.12.3-1
 - 25.12.3
 
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 1:25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 1:25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 1:25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:25.12.1-2

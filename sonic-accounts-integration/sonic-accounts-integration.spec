@@ -3,6 +3,7 @@
 # https://github.com/Sonic-DE/sonic-accounts-integration fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
 %global reponame sonic-accounts-integration
 # Upstream KDE project: kaccounts-integration
 %global oldname kaccounts-integration
@@ -13,8 +14,8 @@
 
 #Name:    kaccounts-integration
 Name:           sonic-accounts-integration
-Version:        26.04.3
-Release:        3%{?dist}
+Version:        26.08.3
+Release:        4%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later
 #URL:     https://invent.kde.org/network/%%{name}
@@ -27,6 +28,8 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 
 ## upstreamable fixes
 
+%global sonicde_qt6_version 6.11.3
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  sonic-frameworks-settings-utils-devel
@@ -41,12 +44,11 @@ BuildRequires:  sonic-frameworks-keyring-devel
 BuildRequires:  sonic-frameworks-dbus-devel
 BuildRequires:  cmake(QCoro6)
 
-BuildRequires:  pkgconfig(Qt6Gui)
-BuildRequires:  pkgconfig(Qt6Qml)
+BuildRequires:  qt6-qtbase-devel >= 6.11
 
-BuildRequires:  pkgconfig(accounts-qt6)
+BuildRequires:  sonic-qt-accounts-library-devel
 BuildRequires:  pkgconfig(libaccounts-glib) >= 1.21
-BuildRequires:  cmake(SignOnQt6)
+BuildRequires:  sonic-frameworks-sso-devel
 
 %if %{with kf5}
 BuildRequires:  kf5-rpm-macros
@@ -73,8 +75,9 @@ BuildRequires:  cmake(SignOnQt5)
 # For AutoReq cmake-filesystem
 BuildRequires:  cmake
 
+Provides:       kaccounts-integration = %{version}-%{release}
 Provides:       kaccounts-integration%{?_isa} = %{version}-%{release}
-Obsoletes:      kaccounts-integration < %{version}-%{release}
+Obsoletes:      kaccounts-integration
 
 %description
 Small system to administer web accounts for the sites and services
@@ -83,15 +86,16 @@ across the KDE desktop.
 %if %{with kf5}
 %package        qt5
 Summary:        qt5 runtime for %{name}
-Obsoletes:      kaccounts < 15.03
+Obsoletes:      kaccounts
 Provides:       kaccounts = %{version}-%{release}
-Obsoletes:      sonic-accounts-integration < 24.01.75
+Obsoletes:      sonic-accounts-integration
 Provides:       sonic-accounts-integration = %{version}-%{release}
 # translations moved here
 Conflicts: kde-l10n < 17.03
 
+Provides:       kaccounts-integration-qt5 = %{version}-%{release}
 Provides:       kaccounts-integration-qt5%{?_isa} = %{version}-%{release}
-Obsoletes:      kaccounts-integration-qt5 < %{version}-%{release}
+Obsoletes:      kaccounts-integration-qt5
 
 %description    qt5
 Small system to administer web accounts for the sites and services
@@ -106,11 +110,12 @@ Requires:       cmake(AccountsQt5)
 Requires:       cmake(SignOnQt5)
 Requires:       pkgconfig(libaccounts-glib)
 Requires:       intltool
-Obsoletes:      kaccounts-integration-devel < 24.01.75
+Obsoletes:      kaccounts-integration-devel
+Provides:       kaccounts-integration-devel = %{version}-%{release}
 Provides:       kaccounts-integration-devel%{?_isa} = %{version}-%{release}
-
+Provides:       kaccounts-integration-qt5-devel = %{version}-%{release}
 Provides:       kaccounts-integration-qt5-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kaccounts-integration-qt5-devel < %{version}-%{release}
+Obsoletes:      kaccounts-integration-qt5-devel
 
 %description    qt5-devel
 Headers, development libraries and documentation for %{name}.
@@ -119,8 +124,9 @@ Headers, development libraries and documentation for %{name}.
 %package        qt6
 Summary:        qt6 runtime for %{name}
 
+Provides:       kaccounts-integration-qt6 = %{version}-%{release}
 Provides:       kaccounts-integration-qt6%{?_isa} = %{version}-%{release}
-Obsoletes:      kaccounts-integration-qt6 < %{version}-%{release}
+Obsoletes:      kaccounts-integration-qt6
 
 %description    qt6
 Small system to administer web accounts for the sites and services
@@ -129,15 +135,14 @@ across the KDE desktop.
 %package        qt6-devel
 Summary:        Development files for %{name}
 Requires:       %{name}-qt6%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt6Widgets)
-Requires:       cmake(KF6CoreAddons)
-Requires:       cmake(AccountsQt6)
-Requires:       cmake(SignOnQt6)
-Requires:       pkgconfig(libaccounts-glib)
-Requires:       intltool
+Requires:       qt6-qtbase-devel >= 6.11
+Requires:       sonic-frameworks-core-addons-devel
+Requires:       sonic-qt-accounts-library-devel
+Requires:       sonic-frameworks-sso-devel
 
+Provides:       kaccounts-integration-qt6-devel = %{version}-%{release}
 Provides:       kaccounts-integration-qt6-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kaccounts-integration-qt6-devel < %{version}-%{release}
+Obsoletes:      kaccounts-integration-qt6-devel
 
 %description    qt6-devel
 Headers, development libraries and documentation for %{name}.
@@ -207,5 +212,18 @@ popd
 %endif
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-4
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

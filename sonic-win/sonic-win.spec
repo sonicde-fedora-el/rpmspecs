@@ -1,10 +1,12 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %define oldname kwin_x11
 
 Name:    sonic-win
-Version: 6.7.4.3
-Release:        3%{?dist}
+Version: 6.8.2
+Release:        8%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -17,6 +19,15 @@ URL:           https://github.com/Sonic-DE/%{name}
 #Source1: http://download.kde.org/%%{stable_kf6}/plasma/%%{maj_ver_kf6}.%%{min_ver_kf6}.%%{bug_ver_kf6}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+## downstream patches
+# X11: re-assert gamma ramps after output re-queries and shortly after each
+# reset, so Night Light survives login-time gamma writes by other components
+Patch101:    sonic-win-nightlight-reassert.patch
+# X11: create the backing pixmap and GLX texture eagerly at map() instead of
+# lazily inside the first painted frame, so desktop-switch animations do not
+# stall while every newly shown window sets up its texture-from-pixmap
+Patch102:    sonic-win-map-prefetch.patch
+
 ## upstream patches
 
 ## proposed patches
@@ -24,22 +35,22 @@ Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.
 
 # Base
 BuildRequires:  sonic-frameworks-cmake-modules
+BuildRequires:  ecm-compat-find-modules
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  systemd-rpm-macros
 
 # Qt
 BuildRequires:  cmake(QAccessibilityClient6)
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-static
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtbase-static >= 6.11
 # KWinQpaPlugin (and others?)
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  qt6-qttools-devel
-BuildRequires:  qt6-qttools-static
-BuildRequires:  qt6-qtwayland-devel
-BuildRequires:  cmake(Qt6Core5Compat)
-BuildRequires:  cmake(Qt6Svg)
-BuildRequires:  qt6-qtsensors-devel
-
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  qt6-qttools-devel >= 6.11
+BuildRequires:  qt6-qttools-static >= 6.11
+BuildRequires:  qt6-qtwayland-devel >= 6.11
+BuildRequires:  qt6-qt5compat-devel >= 6.11
+BuildRequires:  qt6-qtsvg-devel >= 6.11
+BuildRequires:  qt6-qtsensors-devel >= 6.11
 # X11/OpenGL
 BuildRequires:  pkgconfig(libxcvt)
 BuildRequires:  mesa-libGL-devel
@@ -75,42 +86,44 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libevdev)
 
 # KF6
-BuildRequires:  cmake(KF6Completion)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6ConfigWidgets)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6GlobalAccel)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6NewStuff)
-BuildRequires:  cmake(KF6Declarative)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6IdleTime)
-BuildRequires:  cmake(KF6TextWidgets)
-BuildRequires:  cmake(KF6Kirigami2)
-BuildRequires:  cmake(KF6Runner)
-BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KNightTime)
+BuildRequires:  sonic-frameworks-autocomplete-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-settings-ui-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-keybind-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-addons-downloader-devel
+BuildRequires:  sonic-frameworks-qml-bridge-devel
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-idle-tracker-devel
+BuildRequires:  sonic-frameworks-text-widgets-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  sonic-frameworks-runner-devel
+BuildRequires:  sonic-frameworks-svg-devel
+BuildRequires:  sonic-night-light-devel
 
-BuildRequires:  cmake(KDecoration3)
+BuildRequires:  sonic-decoration-devel
 BuildRequires:  sonic-screenlocker-devel
 BuildRequires:  sonic-breeze-devel
 BuildRequires:  plasma-wayland-protocols-devel
-BuildRequires:  cmake(KGlobalAccelD)
+BuildRequires:  sonic-keybind-daemon-devel
 BuildRequires:  libdisplay-info-devel
 
-BuildRequires:  cmake(KWayland)
-BuildRequires:  cmake(Plasma)
-BuildRequires:  cmake(PlasmaActivities)
+BuildRequires:  sonic-interface-libraries-devel
+BuildRequires:  sonic-frameworks-logging-devel
+BuildRequires:  sonic-frameworks-ipc-devel
+BuildRequires:  sonic-activities-devel
 
 # Unknowns
 BuildRequires:  libeis-devel
@@ -135,14 +148,14 @@ Obsoletes:      kwin-gles < 5
 Obsoletes:      kwin-gles-libs < 5
 
 # Split of X11 variant into subpackage
-Obsoletes: kwin < %{version}-%{release}
+Obsoletes:      kwin
 
 #Requires:   kwin-wayland = %%{version}-%%{release}
 
 # Merge -wayland subpackage
-Obsoletes:      kwin-wayland < 6.3.90
+Obsoletes:      kwin-wayland
 Provides:       kwin-wayland = %{version}-%{release}
-Obsoletes: kwin-wayland < 6.3.90
+Obsoletes:      kwin-wayland
 #Provides:  kwin-wayland = %%{version}-%%{release}
 #Provides:  kwin-wayland%%{?_isa} = %%{version}-%%{release}
 
@@ -152,10 +165,10 @@ Obsoletes:      kwin-wayland-nvidia < 5.20.2-2
 #Provides:       kwin-wayland-nvidia = %%{version}-%%{release}
 # Obsolete -x11 for Plasma 6
 %if 0%{?fedora}
-Obsoletes:      kwin-x11 < 5.92.0
+Obsoletes:      kwin-x11
 %else
-Obsoletes:      kwin-x11 < %{version}-%{release}
-Obsoletes:      kwin-x11 < %{version}-%{release}
+Obsoletes:      kwin-x11
+Obsoletes:      kwin-x11
 Provides:       kwin-x11 = %{version}-%{release}
 %endif
 %if ! 0%{?rhel} >= 10
@@ -168,12 +181,14 @@ Provides:       kwin-x11 = %{version}-%{release}
 # KWinQpaPlugin (and others?)
 
 Provides: kwin = %{version}-%{release}
+Provides: kwin = %{version}-%{release}
 Provides: kwin%{?_isa} = %{version}-%{release}
 Provides: kwin-x11 = %{version}-%{release}
+Provides: kwin-x11 = %{version}-%{release}
 Provides: kwin-x11%{?_isa} = %{version}-%{release}
-Obsoletes:      kwin < %{version}-%{release}
+Obsoletes:      kwin
 Provides:       kwin = %{version}-%{release}
-Obsoletes:      kwin-x11 < %{version}-%{release}
+Obsoletes:      kwin-x11
 Provides:       kwin-x11 = %{version}-%{release}
 
 %description
@@ -183,10 +198,9 @@ Provides:       kwin-x11 = %{version}-%{release}
 %package        common
 Summary:        Common files for KWin X11 and KWin Wayland
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       kwayland%{?_isa}
 # Split of X11 variant into subpackage
 Obsoletes:      %{name}-common < 5.19.5-3
-Obsoletes:      kwin-common < %{version}-%{release}
+Obsoletes:      kwin-common
 Provides:       kwin-common = %{version}-%{release}
 Conflicts: kwin-x11-common
 %description    common
@@ -196,10 +210,7 @@ Conflicts: kwin-x11-common
 Summary:        KWin runtime libraries
 # Before kwin-libs was split out from kde-workspace into a subpackage
 Conflicts:      kde-workspace-libs%{?_isa} < 4.11.14-2
-# kwin uses wl_display_set_default_max_buffer_size from wayland 1.23.0
-# https://bugzilla.redhat.com/show_bug.cgi?id=2312499
-Requires:       libwayland-server%{?_isa} >= 1.23.0
-Obsoletes:      kwin-libs < %{version}-%{release}
+Obsoletes:      kwin-libs
 Provides:       kwin-libs = %{version}-%{release}
 Conflicts: kwin-x11-libs
 %description    libs
@@ -285,6 +296,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 %{_datadir}/knsrcfiles/*.knsrc
 %{_datadir}/krunner/dbusplugins/kwin-runner-windows-x11.desktop
 %{_datadir}/applications/*.desktop
+%config %{_sysconfdir}/nvidia/nvidia-application-profiles-rc.d/10-sonicde-disable-vrr.rc
+%config %{_datadir}/drirc.d/10-sonicde-disable-adaptive-sync.conf
 #%%{_bindir}/kwindowprop
 
 %files libs
@@ -294,6 +307,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 
 %files devel
 %{_datadir}/dbus-1/interfaces/*.xml
+%{_includedir}/SonicWin/
+%{_libdir}/cmake/SonicWinDwellClickerIpc/
 #%%{_libdir}/cmake/KWinDBusInterface
 %{_libdir}/cmake/KWinX11
 %{_libdir}/cmake/KWinX11DBusInterface
@@ -305,6 +320,37 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 
 
 %changelog
+* Wed Nov 18 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-8
+- Drop the internal QT_XCB_GL_INTEGRATION=xcb_glx force: the
+  session-wide xcb_egl workaround is being removed entirely -
+  GLX does not break VA-API hardware decoding in Haruna
+  (verified on Mint); the real problem is elsewhere in the stack.
+
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-7
+- X11: create the window backing pixmap and its GLX texture
+  eagerly at map() instead of lazily inside the first painted
+  frame, so the desktop-switch slide does not stall while
+  newly shown windows set up texture-from-pixmap.
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-6
+- X11: force GLX internally via QT_XCB_GL_INTEGRATION=xcb_glx
+  so a session-wide xcb_egl setting (VA-API decoding) cannot
+  break the compositor.
+- X11: re-assert Night Light gamma ramps after output
+  re-queries and repeatedly for 15s after each reset, so the
+  color temperature survives login-time gamma writes.
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-5
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-4
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.3-1
 - Update to SonicDE 6.7.4.3 from the hard fork; build on Enterprise Linux 10 and Fedora
 

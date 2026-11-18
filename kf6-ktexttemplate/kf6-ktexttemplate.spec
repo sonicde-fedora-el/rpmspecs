@@ -1,9 +1,10 @@
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 %global		framework ktexttemplate
 
 Name:		kf6-%{framework}
-Version:	6.29.0
-Release:	1%{?dist}
+Version: 6.31.0
+Release:	2%{?dist}
 Summary:	Separates the structure of documents from their data
 License:	CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -13,8 +14,8 @@ BuildRequires:	cmake
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires:	gcc-c++
 BuildRequires: sonic-rpm-macros
-BuildRequires:	cmake(Qt6Core)
-BuildRequires:	cmake(Qt6Qml)
+BuildRequires:	qt6-qtbase-devel >= 6.11
+BuildRequires:	qt6-qtdeclarative-devel >= 6.11
 
 %description
 The goal of KTextTemplate is to make it easier for application developers to
@@ -72,5 +73,13 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.31.0-1
+- 6.31.0
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE build for Enterprise Linux 10

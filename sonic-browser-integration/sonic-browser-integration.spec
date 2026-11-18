@@ -3,6 +3,8 @@
 # https://github.com/Sonic-DE/sonic-browser-integration fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-browser-integration
 # Upstream KDE project: plasma-browser-integration
 %global oldname plasma-browser-integration
@@ -10,7 +12,7 @@
 #Name:    plasma-browser-integration
 Name:           sonic-browser-integration
 Summary: %{name} provides components necessary to integrate browsers into the Plasma Desktop
-Version:        6.7.4
+Version:        6.8.2
 Release:        3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
@@ -29,32 +31,31 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(Qt6Gui)
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6FileMetaData)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6ItemModels)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Purpose)
-BuildRequires:  cmake(KF6Runner)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-file-metadata-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-data-models-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-purpose-devel
+BuildRequires:  sonic-frameworks-runner-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-status-notification-devel
 
-BuildRequires:  cmake(PlasmaActivities)
+BuildRequires:  sonic-activities-devel
 
 BuildRequires:  sonic-workspace-devel >= %{version}
 
 Supplements: (sonic-workspace and chromium)
 Supplements: (sonic-workspace and firefox)
 
+Provides:       plasma-browser-integration = %{version}-%{release}
 Provides:       plasma-browser-integration%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-browser-integration < %{version}-%{release}
+Obsoletes:      plasma-browser-integration
 
 %description
 %{name} coupled with a browser plugin provides integration of the browser in the desktop.
@@ -96,5 +97,15 @@ https://community.kde.org/Plasma/Browser_Integration
 %{_kf6_qtplugindir}/kf6/kded/browserintegrationflatpakintegrator.so
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

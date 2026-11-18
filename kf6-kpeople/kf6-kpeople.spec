@@ -1,9 +1,11 @@
+%global sonicde_frameworks_version 6.31.0
 %global debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 %global framework kpeople
 
 Name:    kf6-%{framework}
-Version: 6.29.0
-Release: 1%{?dist}
+Version: 6.31.0
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 library for contact and people aggregation
 
 License: CC0-1.0 AND LGPL-2.1-or-later
@@ -13,25 +15,25 @@ Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{f
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  cmake(KF6Codecs)
-BuildRequires:  cmake(KF6Contacts)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6ItemViews)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  sonic-frameworks-text-codec-devel
+BuildRequires:  kf6-kcontacts-devel >= 6.31
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-data-views-devel
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
 BuildRequires: sonic-rpm-macros
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtdeclarative-devel
-Requires:  kf6-filesystem
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+Requires: kf6-filesystem >= 6.31
 
 %description
 KDE Frameworks 6 Tier 3 library for interaction with XML RPC services.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       qt6-qtbase-devel
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -88,5 +90,13 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.31.0-1
+- 6.31.0
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE build for Enterprise Linux 10

@@ -3,6 +3,7 @@
 # https://github.com/Sonic-DE/sonic-frameworks-cmake-modules fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-frameworks-cmake-modules
 # Upstream KDE project: extra-cmake-modules
 %global oldname extra-cmake-modules
@@ -19,8 +20,8 @@
 #Name:    extra-cmake-modules
 Name:           sonic-frameworks-cmake-modules
 Summary: Additional modules for CMake build system
-Version:        6.29.0
-Release:        3%{?dist}
+Version:        6.31.0
+Release:        5%{?dist}
 # kde-modules/clang-format.cmake is MIT
 License: BSD-3-Clause AND BSD-2-Clause AND MIT
 #URL:     https://api.kde.org/ecm/
@@ -31,6 +32,8 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildArch:      noarch
 
 ## upstreamable patches
+Patch0: ecm-deterministic-git-test.patch
+
 # do not unconditionally link in base/core libpoppler library
 Patch2: extra-cmake-modules-5.39.0-poppler_overlinking.patch
 
@@ -50,23 +53,23 @@ BuildRequires: python3-sphinxcontrib-qthelp
 
 # Qt5Core is needed for tests to run properly (As-of 5.246.1).
 BuildRequires: pkgconfig(Qt5Core)
-BuildRequires: pkgconfig(Qt6Core)
+BuildRequires: qt6-qtbase-devel >= 6.11
 %if 0%{?fedora} || 0%{?rhel} < 10
 Requires: (kf5-rpm-macros if qt5-qtbase-devel)
 %endif
 Requires: (sonic-rpm-macros if qt6-qtbase-devel)
 Recommends: appstream
 
-Provides:       extra-cmake-modules%{?_isa} = %{version}-%{release}
-Obsoletes:      extra-cmake-modules < %{version}-%{release}
+Provides:       extra-cmake-modules = %{version}-%{release}
+Obsoletes:      extra-cmake-modules
 
 %description
 Additional modules for CMake build system needed by KDE Frameworks.
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
-Provides:       extra-cmake-modules-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      extra-cmake-modules-doc < %{version}-%{release}
+Provides:       extra-cmake-modules-doc = %{version}-%{release}
+Obsoletes:      extra-cmake-modules-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -76,6 +79,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %build
 %cmake_kf6 \
+  -DBUILD_WITH_QT6:BOOL=ON \
   -DBUILD_MAN_DOCS:BOOL=OFF \
   -DBUILD_HTML_DOCS:BOOL=OFF \
   -DBUILD_QTHELP_DOCS:BOOL=ON \
@@ -105,5 +109,15 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-5
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-4
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

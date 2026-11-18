@@ -3,6 +3,8 @@
 # https://github.com/Sonic-DE/sonic-frameworks-svg fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-frameworks-svg
 # Upstream KDE project: ksvg
 %global oldname kf6-ksvg
@@ -12,7 +14,7 @@
 #Name:    kf6-ksvg
 Name:           sonic-frameworks-svg
 Summary: Components for handling SVGs
-Version:        6.29.0
+Version:        6.31.0.1
 Release:        3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -28,21 +30,22 @@ BuildRequires: cmake
 BuildRequires: gcc-c++
 
 BuildRequires: sonic-rpm-macros
-BuildRequires: sonic-frameworks-cmake-modules >= %{version}
+BuildRequires: sonic-frameworks-cmake-modules >= %(echo %{version} | cut -d. -f1-3)
 
-BuildRequires: cmake(Qt6)
-BuildRequires: cmake(Qt6Quick)
-BuildRequires: cmake(Qt6Svg)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: qt6-qtsvg-devel >= 6.11
 BuildRequires: pkgconfig(xkbcommon)
-BuildRequires: cmake(KF6Archive)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6GuiAddons)
-BuildRequires: cmake(KF6Kirigami2)
-BuildRequires: cmake(KF6ColorScheme)
+BuildRequires: sonic-frameworks-archive-devel
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-gui-addons-devel
+BuildRequires: sonic-frameworks-quick-ui-devel
+BuildRequires: sonic-frameworks-color-scheme-devel
 
+Provides:       kf6-ksvg = %{version}-%{release}
 Provides:       kf6-ksvg%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-ksvg < %{version}-%{release}
+Obsoletes:      kf6-ksvg
 
 %description
 %{summary}.
@@ -51,8 +54,9 @@ Obsoletes:      kf6-ksvg < %{version}-%{release}
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
+Provides:       kf6-ksvg-devel = %{version}-%{release}
 Provides:       kf6-ksvg-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-ksvg-devel < %{version}-%{release}
+Obsoletes:      kf6-ksvg-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -61,8 +65,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-ksvg-doc = %{version}-%{release}
 Provides:       kf6-ksvg-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-ksvg-doc < %{version}-%{release}
+Obsoletes:      kf6-ksvg-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -70,8 +75,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-ksvg-html = %{version}-%{release}
 Provides:       kf6-ksvg-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-ksvg-html < %{version}-%{release}
+Obsoletes:      kf6-ksvg-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -108,5 +114,15 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0.1-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

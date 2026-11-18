@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-frameworks-unit-conversion fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-unit-conversion
 # Upstream KDE project: kunitconversion
@@ -11,7 +13,10 @@
 
 #Name:    kf6-%%{framework}
 Name:           sonic-frameworks-unit-conversion
-Version:        6.29.0
+
+# pyside6 python bindings are optional (EPEL pyside6 currently uninstallable on EL10)
+%bcond_with bindings
+Version:        6.31.0
 Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 2 addon for unit conversions
 
@@ -26,40 +31,48 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildRequires:  sonic-frameworks-cmake-modules >= %{version}
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  cmake(KF6I18n)
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  qt6-qtbase-devel
-
-# required for pyside6 python bindings
+BuildRequires:  qt6-qtbase-devel >= 6.11
 BuildRequires:  python3-devel
+%if %{with bindings}
+# required for pyside6 python bindings
 BuildRequires:  python3-build
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
 BuildRequires:  clang-devel
 BuildRequires:  cmake(Shiboken6)
+%if %{with bindings}
 BuildRequires:  cmake(PySide6)
+%endif
+%endif
 
-Requires:  kf6-filesystem
+Requires: kf6-filesystem >= 6.31
 
+Provides:       kf6-kunitconversion = %{version}-%{release}
 Provides:       kf6-kunitconversion%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kunitconversion < %{version}-%{release}
+Obsoletes:      kf6-kunitconversion
 
 %description
 KDE Frameworks 6 Tier 2 addon for unit conversions.
 
+%if %{with bindings}
 %package        -n python3-%{name}
 Summary:        Qt for Python bindings for %{name}
 Provides:       python3-kf6-kunitconversion = %{version}-%{release}
 
 %description    -n python3-%{name}
 The package contains the pyside6 bindings library for %{name}
+%endif
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       qt6-qtbase-devel
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
+Provides:       kf6-kunitconversion-devel = %{version}-%{release}
 Provides:       kf6-kunitconversion-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kunitconversion-devel < %{version}-%{release}
+Obsoletes:      kf6-kunitconversion-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -68,8 +81,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kunitconversion-doc = %{version}-%{release}
 Provides:       kf6-kunitconversion-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kunitconversion-doc < %{version}-%{release}
+Obsoletes:      kf6-kunitconversion-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -77,8 +91,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kunitconversion-html = %{version}-%{release}
 Provides:       kf6-kunitconversion-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kunitconversion-html < %{version}-%{release}
+Obsoletes:      kf6-kunitconversion-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -87,7 +102,7 @@ Developer Documentation files for %{name} in HTML format
 %autosetup -p1 -n %{reponame}-%{version}
 
 %build
-%cmake_kf6
+%cmake_kf6 %{?with_bindings:-DBUILD_PYTHON_BINDINGS=ON}%{!?with_bindings:-DBUILD_PYTHON_BINDINGS=OFF}
 %cmake_build_kf6
 
 %install
@@ -101,9 +116,11 @@ Developer Documentation files for %{name} in HTML format
 %{_kf6_libdir}/libKF6UnitConversion.so.*
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*
 
+%if %{with bindings}
 %files -n python3-%{name}
 %{python3_sitearch}/KUnitConversion.cpython-%{python3_version_nodots}*.so
 
+%endif
 %files devel
 %{_kf6_includedir}/KUnitConversion/
 %{_kf6_libdir}/libKF6UnitConversion.so
@@ -120,5 +137,15 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

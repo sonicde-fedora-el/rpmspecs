@@ -1,26 +1,27 @@
 %undefine __cmake_in_source_build
 
 Name:    signon-kwallet-extension
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 Summary: KWallet integration for Sign-on framework
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/network/%{name}
 
 %global revision %(echo %{version} | cut -d. -f3)
+%global sonicde_qt6_version 6.11.3
 %if %{revision} >= 50
 %global stable unstable
 %else
 %global stable stable
 %endif
-Source0:        https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-frameworks-keyring-devel
-BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
 BuildRequires:  sonic-frameworks-sso-devel
 
 Supplements:    (sonic-frameworks-keyring-libs and sonic-frameworks-sso)
@@ -56,5 +57,13 @@ sed -i 's|#include <SignOn/AbstractSecretsStorage>|#include <SignOn/abstract-sec
 %{_libdir}/signond/extensions/libkeyring-kwallet.so
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Fri Aug 28 2026 SonicDE <dev@sonicde.org> - 26.04.3-1
 - Build 26.04.3 for SonicDE, link against sonic-frameworks-sso and sonic-frameworks-keyring

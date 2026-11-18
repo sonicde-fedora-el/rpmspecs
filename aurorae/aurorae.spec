@@ -1,10 +1,12 @@
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 Name:           aurorae
 Summary:        Aurorae is a themeable window decoration for KWin
-Version:        6.7.4
-Release:        1%{?dist}
+Version: 6.8.3
+Release:        3%{?dist}
 License:        GPL-2.0-or-later AND MIT AND CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
 
@@ -18,23 +20,21 @@ BuildRequires: gcc
 BuildRequires: sonic-rpm-macros
 BuildRequires: sonic-frameworks-cmake-modules
 
-BuildRequires: cmake(Qt6Core)
-BuildRequires: cmake(Qt6DBus)
-BuildRequires: cmake(Qt6Quick)
-BuildRequires: cmake(Qt6UiTools)
-BuildRequires: cmake(Qt6Widgets)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: qt6-qttools-devel >= 6.11
 
-BuildRequires: cmake(KF6ColorScheme)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6KCMUtils)
-BuildRequires: cmake(KF6NewStuff)
-BuildRequires: cmake(KF6Package)
-BuildRequires: cmake(KF6Svg)
-BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: sonic-frameworks-color-scheme-devel
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: sonic-frameworks-settings-utils-devel
+BuildRequires: sonic-frameworks-addons-downloader-devel
+BuildRequires: sonic-frameworks-package-devel
+BuildRequires: sonic-frameworks-svg-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
 
-BuildRequires: cmake(KDecoration3)
+BuildRequires: sonic-decoration-devel
 
 # Account for being split out of kwin
 Conflicts:     kwin < 6.3.90
@@ -90,5 +90,16 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/cmake/Aurorae/
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.3-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.3-2
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.8.3-1
+- 6.8.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - Rebuilt aurorae 6.7.4 for SonicDE on Enterprise Linux 10

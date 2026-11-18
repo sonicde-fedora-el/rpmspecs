@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-frameworks-idle-tracker fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-idle-tracker
 # Upstream KDE project: kidletime
@@ -15,7 +17,7 @@
 
 #Name:		kf6-%%{framework}
 Name:           sonic-frameworks-idle-tracker
-Version:        6.29.0
+Version:        6.31.0
 Release:        3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module for idle time detection
 License:	CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -29,18 +31,19 @@ BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	sonic-frameworks-cmake-modules >= %{version}
 BuildRequires:	sonic-rpm-macros
-BuildRequires:	qt6-qtbase-devel
+BuildRequires:	qt6-qtbase-devel >= 6.11
 BuildRequires:	wayland-devel
 BuildRequires:	wayland-protocols-devel
-BuildRequires:	cmake(PlasmaWaylandProtocols)
-BuildRequires:	cmake(Qt6WaylandClient)
-Requires:	kf6-filesystem
+BuildRequires:	plasma-wayland-protocols-devel >= 1.21.0
+BuildRequires:	qt6-qtwayland-devel >= 6.11
+Requires: kf6-filesystem >= 6.31
 %if %{with x11}
 Recommends:	%{name}-x11%{?_isa} = %{version}-%{release}
 %endif
 
+Provides:       kf6-kidletime = %{version}-%{release}
 Provides:       kf6-kidletime%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kidletime < %{version}-%{release}
+Obsoletes:      kf6-kidletime
 
 %description
 KDE Frameworks 6 Tier 1 integration module for idle time detection.
@@ -54,13 +57,14 @@ BuildRequires:	pkgconfig(xcb)
 BuildRequires:	pkgconfig(xcb-sync)
 BuildRequires:	pkgconfig(xscrnsaver)
 BuildRequires:	pkgconfig(xkbcommon)
-Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts:	%{name} < 6.6.0-1
 # X11 is deprecated and this will be removed eventually...
 Provides:	deprecated()
 
+Provides:       kf6-kidletime-x11 = %{version}-%{release}
 Provides:       kf6-kidletime-x11%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kidletime-x11 < %{version}-%{release}
+Obsoletes:      kf6-kidletime-x11
 
 %description	x11
 The %{name}-x11 package contains plugins for applications using
@@ -69,10 +73,11 @@ The %{name}-x11 package contains plugins for applications using
 
 %package	devel
 Summary:	Development files for %{name}
-Requires:	%{name} = %{version}-%{release}
-Requires:	qt6-qtbase-devel
+Requires: %{name} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
+Provides:       kf6-kidletime-devel = %{version}-%{release}
 Provides:       kf6-kidletime-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kidletime-devel < %{version}-%{release}
+Obsoletes:      kf6-kidletime-devel
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -81,8 +86,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kidletime-doc = %{version}-%{release}
 Provides:       kf6-kidletime-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kidletime-doc < %{version}-%{release}
+Obsoletes:      kf6-kidletime-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -90,8 +96,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kidletime-html = %{version}-%{release}
 Provides:       kf6-kidletime-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kidletime-html < %{version}-%{release}
+Obsoletes:      kf6-kidletime-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -136,5 +143,15 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

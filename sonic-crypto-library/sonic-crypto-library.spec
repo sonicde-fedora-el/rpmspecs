@@ -3,6 +3,7 @@
 # https://github.com/Sonic-DE/sonic-crypto-library fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-crypto-library
 # Upstream KDE project: qca
 %global oldname qca
@@ -21,8 +22,8 @@
 #Name:    qca
 Name:           sonic-crypto-library
 Summary: Qt Cryptographic Architecture
-Version:        2.3.10
-Release:        4%{?dist}
+Version:        2.3.12
+Release:        3%{?dist}
 
 License: LGPL-2.1-only
 #URL:     https://userbase.kde.org/QCA
@@ -54,8 +55,9 @@ BuildRequires: graphviz
 %endif
 
 
+Provides:       qca = %{version}-%{release}
 Provides:       qca%{?_isa} = %{version}-%{release}
-Obsoletes:      qca < %{version}-%{release}
+Obsoletes:      qca
 
 %description
 Taking a hint from the similarly-named Java Cryptography Architecture,
@@ -73,12 +75,13 @@ application!
 Summary: Qt5 Cryptographic Architecture
 BuildRequires: pkgconfig(Qt5Core)
 %if ! 0%{?botan}
-Obsoletes: qca-qt5-botan < %{version}-%{release}
+Obsoletes:      qca-qt5-botan
 %endif
 # most runtime consumers seem to assume the ossl plugin be present
 Recommends: %{name}-qt5-ossl%{?_isa}
+Provides:       qca-qt5 = %{version}-%{release}
 Provides:       qca-qt5%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5 < %{version}-%{release}
+Obsoletes:      qca-qt5
 
 %description qt5
 Taking a hint from the similarly-named Java Cryptography Architecture,
@@ -93,8 +96,9 @@ application!
 %package qt5-devel
 Summary: Qt5 Cryptographic Architecture development files
 Requires:  %{name}-qt5%{?_isa} = %{version}-%{release}
+Provides:       qca-qt5-devel = %{version}-%{release}
 Provides:       qca-qt5-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-devel < %{version}-%{release}
+Obsoletes:      qca-qt5-devel
 
 %description qt5-devel
 %{summary}.
@@ -104,8 +108,9 @@ Obsoletes:      qca-qt5-devel < %{version}-%{release}
 Summary: Botan plugin for the Qt5 Cryptographic Architecture
 BuildRequires: pkgconfig(botan-2)
 Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Provides:       qca-qt5-botan = %{version}-%{release}
 Provides:       qca-qt5-botan%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-botan < %{version}-%{release}
+Obsoletes:      qca-qt5-botan
 
 %description qt5-botan
 %{summary}.
@@ -114,8 +119,9 @@ Obsoletes:      qca-qt5-botan < %{version}-%{release}
 %package qt5-cyrus-sasl
 Summary: Cyrus-SASL plugin for the Qt5 Cryptographic Architecture
 Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Provides:       qca-qt5-cyrus-sasl = %{version}-%{release}
 Provides:       qca-qt5-cyrus-sasl%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-cyrus-sasl < %{version}-%{release}
+Obsoletes:      qca-qt5-cyrus-sasl
 
 %description qt5-cyrus-sasl
 %{summary}.
@@ -123,8 +129,9 @@ Obsoletes:      qca-qt5-cyrus-sasl < %{version}-%{release}
 %package qt5-gcrypt
 Summary: Gcrypt plugin for the Qt5 Cryptographic Architecture
 Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Provides:       qca-qt5-gcrypt = %{version}-%{release}
 Provides:       qca-qt5-gcrypt%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-gcrypt < %{version}-%{release}
+Obsoletes:      qca-qt5-gcrypt
 
 %description qt5-gcrypt
 %{summary}.
@@ -133,8 +140,9 @@ Obsoletes:      qca-qt5-gcrypt < %{version}-%{release}
 Summary: Gnupg plugin for the Qt Cryptographic Architecture
 Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
 Requires: gnupg
+Provides:       qca-qt5-gnupg = %{version}-%{release}
 Provides:       qca-qt5-gnupg%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-gnupg < %{version}-%{release}
+Obsoletes:      qca-qt5-gnupg
 
 %description qt5-gnupg
 %{summary}.
@@ -142,8 +150,9 @@ Obsoletes:      qca-qt5-gnupg < %{version}-%{release}
 %package qt5-logger
 Summary: Logger plugin for the Qt5 Cryptographic Architecture
 Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Provides:       qca-qt5-logger = %{version}-%{release}
 Provides:       qca-qt5-logger%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-logger < %{version}-%{release}
+Obsoletes:      qca-qt5-logger
 
 %description qt5-logger
 %{summary}.
@@ -151,8 +160,9 @@ Obsoletes:      qca-qt5-logger < %{version}-%{release}
 %package qt5-nss
 Summary: Nss plugin for the Qt5 Cryptographic Architecture
 Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Provides:       qca-qt5-nss = %{version}-%{release}
 Provides:       qca-qt5-nss%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-nss < %{version}-%{release}
+Obsoletes:      qca-qt5-nss
 
 %description qt5-nss
 %{summary}.
@@ -160,8 +170,9 @@ Obsoletes:      qca-qt5-nss < %{version}-%{release}
 %package qt5-ossl
 Summary: Openssl plugin for the Qt5 Cryptographic Architecture
 Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Provides:       qca-qt5-ossl = %{version}-%{release}
 Provides:       qca-qt5-ossl%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-ossl < %{version}-%{release}
+Obsoletes:      qca-qt5-ossl
 
 %description qt5-ossl
 %{summary}.
@@ -169,8 +180,9 @@ Obsoletes:      qca-qt5-ossl < %{version}-%{release}
 %package qt5-pkcs11
 Summary: Pkcs11 plugin for the Qt5 Cryptographic Architecture
 Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Provides:       qca-qt5-pkcs11 = %{version}-%{release}
 Provides:       qca-qt5-pkcs11%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-pkcs11 < %{version}-%{release}
+Obsoletes:      qca-qt5-pkcs11
 
 %description qt5-pkcs11
 %{summary}.
@@ -178,8 +190,9 @@ Obsoletes:      qca-qt5-pkcs11 < %{version}-%{release}
 %package qt5-softstore
 Summary: Pkcs11 plugin for the Qt5 Cryptographic Architecture
 Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Provides:       qca-qt5-softstore = %{version}-%{release}
 Provides:       qca-qt5-softstore%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt5-softstore < %{version}-%{release}
+Obsoletes:      qca-qt5-softstore
 
 %description qt5-softstore
 %{summary}.
@@ -188,13 +201,14 @@ Obsoletes:      qca-qt5-softstore < %{version}-%{release}
 
 %if %{with qt6}
 %package qt6
-BuildRequires: pkgconfig(Qt6Core)
-BuildRequires: pkgconfig(Qt6Core5Compat)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qt5compat-devel >= 6.11
 Summary: Qt6 Cryptographic Architecture
 # most runtime consumers seem to assume the ossl plugin be present
 Recommends: %{name}-qt6-ossl%{?_isa}
+Provides:       qca-qt6 = %{version}-%{release}
 Provides:       qca-qt6%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6 < %{version}-%{release}
+Obsoletes:      qca-qt6
 
 %description qt6
 Taking a hint from the similarly-named Java Cryptography Architecture,
@@ -209,8 +223,9 @@ application!
 %package qt6-devel
 Summary: Qt6 Cryptographic Architecture development files
 Requires:  %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       qca-qt6-devel = %{version}-%{release}
 Provides:       qca-qt6-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-devel < %{version}-%{release}
+Obsoletes:      qca-qt6-devel
 
 %description qt6-devel
 %{summary}.
@@ -218,10 +233,10 @@ Obsoletes:      qca-qt6-devel < %{version}-%{release}
 %if 0%{?botan}
 %package qt6-botan
 Summary: Botan plugin for the Qt6 Cryptographic Architecture
-BuildRequires: pkgconfig(botan-2)
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       qca-qt6-botan = %{version}-%{release}
 Provides:       qca-qt6-botan%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-botan < %{version}-%{release}
+Obsoletes:      qca-qt6-botan
 
 %description qt6-botan
 %{summary}.
@@ -230,8 +245,9 @@ Obsoletes:      qca-qt6-botan < %{version}-%{release}
 %package qt6-cyrus-sasl
 Summary: Cyrus-SASL plugin for the Qt6 Cryptographic Architecture
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       qca-qt6-cyrus-sasl = %{version}-%{release}
 Provides:       qca-qt6-cyrus-sasl%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-cyrus-sasl < %{version}-%{release}
+Obsoletes:      qca-qt6-cyrus-sasl
 
 %description qt6-cyrus-sasl
 %{summary}.
@@ -239,8 +255,9 @@ Obsoletes:      qca-qt6-cyrus-sasl < %{version}-%{release}
 %package qt6-gcrypt
 Summary: Gcrypt plugin for the Qt6 Cryptographic Architecture
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       qca-qt6-gcrypt = %{version}-%{release}
 Provides:       qca-qt6-gcrypt%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-gcrypt < %{version}-%{release}
+Obsoletes:      qca-qt6-gcrypt
 
 %description qt6-gcrypt
 %{summary}.
@@ -249,8 +266,9 @@ Obsoletes:      qca-qt6-gcrypt < %{version}-%{release}
 Summary: Gnupg plugin for the Qt Cryptographic Architecture
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
 Requires: gnupg
+Provides:       qca-qt6-gnupg = %{version}-%{release}
 Provides:       qca-qt6-gnupg%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-gnupg < %{version}-%{release}
+Obsoletes:      qca-qt6-gnupg
 
 %description qt6-gnupg
 %{summary}.
@@ -258,8 +276,9 @@ Obsoletes:      qca-qt6-gnupg < %{version}-%{release}
 %package qt6-logger
 Summary: Logger plugin for the Qt6 Cryptographic Architecture
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       qca-qt6-logger = %{version}-%{release}
 Provides:       qca-qt6-logger%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-logger < %{version}-%{release}
+Obsoletes:      qca-qt6-logger
 
 %description qt6-logger
 %{summary}.
@@ -267,8 +286,9 @@ Obsoletes:      qca-qt6-logger < %{version}-%{release}
 %package qt6-nss
 Summary: Nss plugin for the Qt6 Cryptographic Architecture
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       qca-qt6-nss = %{version}-%{release}
 Provides:       qca-qt6-nss%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-nss < %{version}-%{release}
+Obsoletes:      qca-qt6-nss
 
 %description qt6-nss
 %{summary}.
@@ -276,8 +296,9 @@ Obsoletes:      qca-qt6-nss < %{version}-%{release}
 %package qt6-ossl
 Summary: Openssl plugin for the Qt6 Cryptographic Architecture
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       qca-qt6-ossl = %{version}-%{release}
 Provides:       qca-qt6-ossl%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-ossl < %{version}-%{release}
+Obsoletes:      qca-qt6-ossl
 
 %description qt6-ossl
 %{summary}.
@@ -285,8 +306,9 @@ Obsoletes:      qca-qt6-ossl < %{version}-%{release}
 %package qt6-pkcs11
 Summary: Pkcs11 plugin for the Qt6 Cryptographic Architecture
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       qca-qt6-pkcs11 = %{version}-%{release}
 Provides:       qca-qt6-pkcs11%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-pkcs11 < %{version}-%{release}
+Obsoletes:      qca-qt6-pkcs11
 
 %description qt6-pkcs11
 %{summary}.
@@ -294,8 +316,9 @@ Obsoletes:      qca-qt6-pkcs11 < %{version}-%{release}
 %package qt6-softstore
 Summary: Pkcs11 plugin for the Qt6 Cryptographic Architecture
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Provides:       qca-qt6-softstore = %{version}-%{release}
 Provides:       qca-qt6-softstore%{?_isa} = %{version}-%{release}
-Obsoletes:      qca-qt6-softstore < %{version}-%{release}
+Obsoletes:      qca-qt6-softstore
 
 %description qt6-softstore
 %{summary}.
@@ -514,5 +537,15 @@ test "$(pkg-config --modversion qca2-qt6)" = "%{version}"
 %endif
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 2.3.12-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 2.3.12-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 2.3.10-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

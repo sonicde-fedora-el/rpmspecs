@@ -1,4 +1,6 @@
+%global sonicde_frameworks_version 6.31.0
 %global debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
@@ -11,8 +13,9 @@ ExcludeArch: %{ix86}
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+%global libversion %(echo %{version} | cut -d. -f1-3)
+Release: 2%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -30,32 +33,30 @@ BuildRequires: sonic-rpm-macros
 BuildRequires: libappstream-glib
 
 # core dependencies
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6GuiAddons)
-BuildRequires: cmake(KF6Crash)
-BuildRequires: cmake(KF6IconThemes)
-BuildRequires: cmake(KF6TextEditor)
-BuildRequires: cmake(KF6DocTools)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-gui-addons-devel
+BuildRequires: sonic-frameworks-crash-handler-devel
+BuildRequires: sonic-frameworks-icon-themes-devel
+BuildRequires: sonic-frameworks-text-editor-devel
+BuildRequires: sonic-frameworks-doctools-devel
 
 # apps dependencies
-BuildRequires: cmake(Qt6Test)
-BuildRequires: cmake(KF6DBusAddons)
-BuildRequires: cmake(KF6UserFeedback)
-BuildRequires: cmake(KF6TextWidgets)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: qt6-qtbase-private-devel
-
+BuildRequires: sonic-frameworks-dbus-devel
+BuildRequires: sonic-frameworks-user-feedback-devel
+BuildRequires: sonic-frameworks-text-widgets-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
+BuildRequires: qt6-qtbase-private-devel >= 6.11
 # addons dependencies
-BuildRequires: cmake(Qt6Concurrent)
-BuildRequires: cmake(Qt6Sql)
 BuildRequires: cmake(Qt6Keychain)
-BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6NewStuff)
-BuildRequires: cmake(KF6Wallet)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6Archive)
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-addons-downloader-devel
+BuildRequires: sonic-frameworks-keyring-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-archive-devel
+BuildRequires: gpgmepp-devel
 
 %if 0%{?tests}
 BuildRequires: make
@@ -137,7 +138,7 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %files libs
-%{_kf6_libdir}/libkateprivate.so.%{version}
+%{_kf6_libdir}/libkateprivate.so.%{libversion}
 
 %files plugins -f plugins.lang
 %{_kf6_datadir}/kateproject/
@@ -159,6 +160,7 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf6_plugindir}/ktexteditor/kateprojectplugin.so
 %{_kf6_plugindir}/ktexteditor/katereplicodeplugin.so
 %{_kf6_plugindir}/ktexteditor/katesearchplugin.so
+%{_kf6_plugindir}/ktexteditor/kateshownonprintableplugin.so
 %{_kf6_plugindir}/ktexteditor/katesnippetsplugin.so
 %{_kf6_plugindir}/ktexteditor/katesqlplugin.so
 %{_kf6_plugindir}/ktexteditor/katesymbolviewerplugin.so
@@ -190,5 +192,13 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Fri Aug 28 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - SonicDE build for Enterprise Linux 10

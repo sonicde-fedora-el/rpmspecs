@@ -3,6 +3,7 @@
 # https://github.com/Sonic-DE/sonic-frameworks-quick-charts fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-frameworks-quick-charts
 # Upstream KDE project: kquickcharts
 %global oldname kf6-kquickcharts
@@ -12,7 +13,7 @@
 #Name:		kf6-%%{framework}
 Name:           sonic-frameworks-quick-charts
 Summary:	A QtQuick module providing high-performance charts
-Version:        6.29.0
+Version:        6.31.0
 Release:        3%{?dist}
 
 License:	BSD-2-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
@@ -26,15 +27,14 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	sonic-frameworks-cmake-modules >= %{version}
-BuildRequires:	cmake(Qt6Qml)
-BuildRequires:	cmake(Qt6Quick)
-BuildRequires:	cmake(Qt6QuickControls2)
-BuildRequires:	cmake(Qt6ShaderTools)
+BuildRequires:	qt6-qtdeclarative-devel >= 6.11
+BuildRequires:	qt6-qtshadertools-devel >= 6.11
 BuildRequires:	make
 BuildRequires:	pkgconfig(xkbcommon)
 
+Provides:       kf6-kquickcharts = %{version}-%{release}
 Provides:       kf6-kquickcharts%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kquickcharts < %{version}-%{release}
+Obsoletes:      kf6-kquickcharts
 
 %description
 The Quick Charts module provides a set of charts that can be used from QtQuick
@@ -47,8 +47,9 @@ quality.
 %package	devel
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
+Provides:       kf6-kquickcharts-devel = %{version}-%{release}
 Provides:       kf6-kquickcharts-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kquickcharts-devel < %{version}-%{release}
+Obsoletes:      kf6-kquickcharts-devel
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -57,8 +58,9 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kquickcharts-doc = %{version}-%{release}
 Provides:       kf6-kquickcharts-doc%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kquickcharts-doc < %{version}-%{release}
+Obsoletes:      kf6-kquickcharts-doc
 
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
@@ -66,8 +68,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
+Provides:       kf6-kquickcharts-html = %{version}-%{release}
 Provides:       kf6-kquickcharts-html%{?_isa} = %{version}-%{release}
-Obsoletes:      kf6-kquickcharts-html < %{version}-%{release}
+Obsoletes:      kf6-kquickcharts-html
 
 %description    html
 Developer Documentation files for %{name} in HTML format
@@ -107,5 +110,15 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

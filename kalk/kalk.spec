@@ -1,3 +1,5 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 %global kf6_min_version 5.240.0
 
@@ -6,8 +8,8 @@
 ExcludeArch: %{ix86}
 
 Name:           kalk
-Version:        26.04.3
-Release:        1%{?dist}
+Version: 26.08.3
+Release:        2%{?dist}
 License:        BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later
 Summary:        %{name} is a convergent calculator for Plasma.
 Url:            https://apps.kde.org/%{name}/
@@ -21,27 +23,23 @@ BuildRequires:  sonic-rpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-BuildRequires: cmake(KF6Config) >= %{kf6_min_version}
-BuildRequires: cmake(KF6I18n) >= %{kf6_min_version}
-BuildRequires: cmake(KF6CoreAddons) >= %{kf6_min_version}
-BuildRequires: cmake(KF6UnitConversion) >= %{kf6_min_version}
-BuildRequires: cmake(KF6Kirigami) >= %{kf6_min_version}
+BuildRequires: sonic-frameworks-settings-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-unit-conversion-devel
+BuildRequires: sonic-frameworks-quick-ui-devel
 
-BuildRequires: cmake(Qt6Core)
-BuildRequires: cmake(Qt6Quick)
-BuildRequires: cmake(Qt6Test)
-BuildRequires: cmake(Qt6Gui)
-BuildRequires: cmake(Qt6QuickControls2)
-BuildRequires: cmake(Qt6Widgets)
+BuildRequires: qt6-qtbase-devel >= 6.11
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
 
 BuildRequires: pkgconfig(libqalculate) > 4.7.0
 
 # QML module dependencies
-Requires:  kf6-kcoreaddons%{?_isa}
-Requires:  kf6-kirigami%{?_isa}
-Requires:  kf6-kirigami-addons%{?_isa}
-Requires:  kf6-qqc2-desktop-style%{?_isa}
-Requires:  kf6-sonnet%{?_isa}
+Requires:  sonic-frameworks-core-addons%{?_isa}
+Requires:  sonic-frameworks-quick-ui%{?_isa}
+Requires:  sonic-frameworks-quick-ui-addons%{?_isa}
+Requires:  sonic-frameworks-quick-desktop-style%{?_isa}
+Requires:  sonic-frameworks-spell-check%{?_isa}
 Requires:  qt6-qt5compat%{?_isa}
 
 %description
@@ -73,6 +71,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
@@ -99,7 +105,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2

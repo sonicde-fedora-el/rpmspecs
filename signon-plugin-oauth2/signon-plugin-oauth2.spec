@@ -1,10 +1,11 @@
 %global gitdate 20231216
+%global sonicde_qt6_version 6.11.3
 %global commit0 fab698862466994a8fdc9aa335c87b4f05430ce6
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           signon-plugin-oauth2
 Version:        0.25^%{gitdate}.%{shortcommit0}
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        OAuth2 plugin for the Accounts framework
 
 License:        LGPL-2.1-or-later
@@ -13,7 +14,7 @@ URL:            https://gitlab.com/accounts-sso/signon-plugin-oauth2
 Source0:        https://gitlab.com/accounts-sso/signon-plugin-oauth2/-/archive/%{commit0}/%{name}-%{commit0}.tar.gz
 
 BuildRequires: make
-BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
 BuildRequires:  sonic-frameworks-sso-devel
 BuildRequires:  doxygen
 BuildRequires:  graphviz
@@ -56,6 +57,11 @@ rm -rvf %{buildroot}/%{_sysconfdir} 2>/dev/null || true
 %{_libdir}/pkgconfig/signon-oauth2plugin.pc
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - %{version}-%{release}
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Fri Aug 28 2026 SonicDE <dev@sonicde.org> - 0.25^20231216.fab6988-50
 - Bump release to 50 to supersede both EPEL and Fedora releases
 

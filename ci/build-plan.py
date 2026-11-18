@@ -42,9 +42,10 @@ def parse_build_order():
 
 
 def build_dependency_graph():
-    specs = sorted(glob.glob(os.path.join(REPO, "*", "*.spec")))
-    specs = [s for s in specs
-             if os.path.basename(s)[:-5] == os.path.basename(os.path.dirname(s))]
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import specs as _specs
+
+    specs = [os.path.join(REPO, s) for s in _specs.active(REPO)]
 
     provides = {}
     brs = defaultdict(set)

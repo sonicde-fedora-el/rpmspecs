@@ -5,6 +5,7 @@
 # (find_package(Qt6 6.5 ...) in CMakeLists.txt), so this spec uses the
 # CMake build system and no longer ships the Qt5 variant.
 %define _disable_source_fetch 0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-frameworks-sso
 # Upstream KDE project: signond
@@ -12,8 +13,8 @@
 
 #Name:           signon
 Name:           sonic-frameworks-sso
-Version:        8.61.2
-Release:        9%{?dist}
+Version:        8.61.2.3
+Release:        2%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
 License:        LGPL-2.1-only
@@ -25,15 +26,15 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildRequires: make
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  qt6-qtbase-devel
-
+BuildRequires:  qt6-qtbase-devel >= 6.11
 # upstream name: signond
+Provides:       signond = %{version}-%{release}
 Provides:       signond%{?_isa} = %{version}-%{release}
-
 # conflicting implementation: gsignond
 
 Requires:       dbus
 
+Provides:       signon = %{version}-%{release}
 Provides:       signon%{?_isa} = %{version}-%{release}
 # The EPEL signon package installs the same D-Bus service file and
 # /etc/signond.conf.  Our fork has different library sonames (.so.0
@@ -50,8 +51,8 @@ client library for applications to communicate with this system.
 
 %package qt6
 Summary:        Single Sign On client library for Qt6-based applications
+Provides:       signon-qt6 = %{version}-%{release}
 Provides:       signon-qt6%{?_isa} = %{version}-%{release}
-
 %description qt6
 %{summary}.
 
@@ -60,10 +61,12 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-qt6%{?_isa} = %{version}-%{release}
 # upstream name: signond
+Provides:       signond-devel = %{version}-%{release}
 Provides:       signond-devel%{?_isa} = %{version}-%{release}
+Provides:       signon-devel = %{version}-%{release}
 Provides:       signon-devel%{?_isa} = %{version}-%{release}
+Provides:       signon-qt6-devel = %{version}-%{release}
 Provides:       signon-qt6-devel%{?_isa} = %{version}-%{release}
-
 %description devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -168,14 +171,17 @@ Libs: -L${libdir} -lsignon-plugins-common
 Cflags: -I${includedir}/signon-plugins -I${includedir}/signon-plugins/SignOn
 PCEOF
 # Create libsignon-plugins.so symlink (plugins link against this)
-ln -sf libsignon-plugins-common.so %{buildroot}%{_libdir}/libsignon-plugins.so
+# Upstream 8.61.2.3 ships a real libsignon-plugins.so.1: point the devel link at it
+ln -sf libsignon-plugins.so.1 %{buildroot}%{_libdir}/libsignon-plugins.so
 
 
 %files
 %license COPYING
 %config(noreplace) %{_sysconfdir}/signond.conf
 %{_libexecdir}/signond
+%{_bindir}/signonpluginprocess
 %{_libdir}/libsignon-extension.so.0*
+%{_libdir}/libsignon-plugins.so.1*
 %{_libdir}/libsignon-plugins-common.so.0*
 %{_libdir}/signond/
 %{_datadir}/dbus-1/services/*.service
@@ -199,6 +205,11 @@ ln -sf libsignon-plugins-common.so %{buildroot}%{_libdir}/libsignon-plugins.so
 %{_libdir}/libsignon-plugins.so
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 8.61.2.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Fri Aug 28 2026 SonicDE <dev@sonicde.org> - 8.61.2-9
 - Fix forwarding headers: AuthPluginInterface->authpluginif.h, add libsignoncommon.h
 

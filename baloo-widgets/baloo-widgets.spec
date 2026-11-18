@@ -1,24 +1,26 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 Name:    baloo-widgets
 Summary: Widgets for Baloo
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 
 # # KDE e.V. may determine that future LGPL versions are accepted
 License: LGPL-2.0-only OR LGPL-3.0-only
 URL:     https://invent.kde.org/libraries/%{name}
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(Qt6Test)
+BuildRequires:  qt6-qtbase-devel >= 6.11
 
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  sonic-frameworks-cmake-modules
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6FileMetaData)
-BuildRequires:  cmake(KF6Baloo)
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-file-metadata-devel
+BuildRequires:  sonic-frameworks-file-search-devel
 
 %description
 %{summary}.
@@ -26,9 +28,9 @@ BuildRequires:  cmake(KF6Baloo)
 %package devel
 Summary:  Developer files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: qt6-qtbase-devel
-Requires: kf6-kcoreaddons-devel
-Requires: kf6-kio-devel
+Requires: qt6-qtbase-devel >= 6.11
+Requires: sonic-frameworks-core-addons-devel
+Requires: sonic-frameworks-io-devel
 %description devel
 %{summary}.
 
@@ -63,6 +65,14 @@ Requires: kf6-kio-devel
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
@@ -86,7 +96,7 @@ Requires: kf6-kio-devel
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3

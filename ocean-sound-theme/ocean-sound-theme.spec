@@ -1,8 +1,10 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 Name:           ocean-sound-theme
 Summary:        Ocean Sound Theme for Plasma
-Version:        6.7.4
-Release:        1%{?dist}
+Version: 6.8.3
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        CC0-1.0 AND BSD-2-Clause AND CC-BY-SA-4.0
@@ -15,10 +17,9 @@ BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  cmake(Qt6)
-BuildRequires:  cmake(Qt6CoreTools)
+BuildRequires:  qt6-qtbase-devel >= 6.11
 
-Requires:       kf6-filesystem
+Requires: kf6-filesystem >= 6.31
 
 %description
 %{summary}.
@@ -40,6 +41,14 @@ Requires:       kf6-filesystem
 %{_datadir}/sounds/ocean/
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.8.3-1
+- 6.8.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jul 14 2026 Steve Cossette <farchord@gmail.com> - 6.7.3-1

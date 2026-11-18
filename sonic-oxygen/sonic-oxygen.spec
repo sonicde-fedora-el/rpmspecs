@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-oxygen fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-oxygen
 # Upstream KDE project: oxygen
@@ -18,8 +20,8 @@ ExcludeArch: %{ix86}
 
 #Name:    plasma-%%{base_name}
 Name:           sonic-oxygen
-Version:        6.7.4
-Release:        3%{?dist}
+Version:        6.8.2
+Release:        4%{?dist}
 Summary: Plasma and Qt widget style and window decorations for Plasma
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -35,7 +37,7 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gettext
 BuildRequires:  libxcb-devel
-BuildRequires:  cmake(Plasma)
+BuildRequires:  sonic-interface-libraries-devel
 
 %if %{with kf5}
 # Qt5
@@ -59,40 +61,38 @@ Requires:       (%{name}-qt5 if qt5-qtbase-gui)
 
 # Qt6
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(KDecoration3)
-BuildRequires:  cmake(KF6ColorScheme)
-BuildRequires:  cmake(KF6Completion)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6FrameworkIntegration)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6KirigamiPlatform)
+BuildRequires:  sonic-decoration-devel
+BuildRequires:  sonic-frameworks-color-scheme-devel
+BuildRequires:  sonic-frameworks-autocomplete-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-qt-integration-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
 
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+Requires: kf6-filesystem >= 6.31
 
-Requires:       kf6-filesystem
+Requires: %{name}-qt6
 
-Requires:       %{name}-qt6
-
-Requires:       oxygen-cursor-themes >= %{version}
-Requires:       oxygen-sound-theme
+Requires: oxygen-cursor-themes >= %{version}
+Requires: oxygen-sound-theme
 # for oxygen look-and-feel
-Requires:       sonic-oxygen-icons
+Requires: sonic-oxygen-icons
 
 # kwin-oxygen was removed in 5.1.95
 Obsoletes:      kwin-oxygen < 5.1.95-1
 Obsoletes:      sonic-oxygen < 5.1.1-2
 Conflicts:      sonic-desktop-interface < 5.16.90
 
+Provides:       plasma-oxygen = %{version}-%{release}
 Provides:       plasma-oxygen%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-oxygen < %{version}-%{release}
+Obsoletes:      plasma-oxygen
 
 %description
 %{summary}.
@@ -100,10 +100,11 @@ Obsoletes:      plasma-oxygen < %{version}-%{release}
 %if %{with kf5}
 %package        qt5
 Summary:        Oxygen widget style for Qt 5
-Obsoletes:      qt5-style-oxygen < %{version}-%{release}
+Obsoletes:      qt5-style-oxygen
 Provides:       qt5-style-oxygen = %{version}-%{release}
+Provides:       plasma-oxygen-qt5 = %{version}-%{release}
 Provides:       plasma-oxygen-qt5%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-oxygen-qt5 < %{version}-%{release}
+Obsoletes:      plasma-oxygen-qt5
 
 %description    qt5
 %{summary}.
@@ -111,8 +112,9 @@ Obsoletes:      plasma-oxygen-qt5 < %{version}-%{release}
 
 %package        qt6
 Summary:        Oxygen widget style for Qt 6
+Provides:       plasma-oxygen-qt6 = %{version}-%{release}
 Provides:       plasma-oxygen-qt6%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-oxygen-qt6 < %{version}-%{release}
+Obsoletes:      plasma-oxygen-qt6
 
 %description    qt6
 %{summary}.
@@ -201,5 +203,18 @@ popd
 %{_datadir}/icons/Oxygen_Zion/
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-4
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

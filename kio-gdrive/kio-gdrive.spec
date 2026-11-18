@@ -1,7 +1,9 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 Name:           kio-gdrive
-Version:        26.04.3
-Release:        1%{?dist}
+Version: 26.08.3
+Release:        3%{?dist}
 Summary:        An Google Drive KIO slave for KDE
 
 License:        GPL-2.0-or-later
@@ -12,22 +14,23 @@ Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # arch's where libkgapi is available (due to inderect dependencies on qtwebengine)
-%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
+ExclusiveArch: x86_64 aarch64 riscv64 x86_64_v2
 
 BuildRequires:  cmake
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-notifications-devel
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  desktop-file-utils
-BuildRequires:  cmake(KAccounts6)
+BuildRequires:  sonic-accounts-integration-qt6-devel
 BuildRequires:  libkgapi-devel
 BuildRequires:  libaccounts-glib-devel
-BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  sonic-frameworks-doctools-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  intltool
-BuildRequires:  cmake(KF6Purpose)
+BuildRequires:  sonic-frameworks-purpose-devel
 Requires:       kaccounts-providers
 
 # QML SSO.OnlineAccounts
@@ -66,6 +69,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/purpose/purpose_gdrive_config.qml
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
@@ -89,7 +103,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2

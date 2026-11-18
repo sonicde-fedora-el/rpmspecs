@@ -3,6 +3,8 @@
 # https://github.com/Sonic-DE/sonic-frameworks-io-fuse fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-frameworks-io-fuse
 # Upstream KDE project: kio-fuse
 %global oldname kio-fuse
@@ -20,7 +22,7 @@
 #Name:           kio-fuse
 Name:           sonic-frameworks-io-fuse
 Version:        6.0.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        KIO FUSE
 
 License:        GPL-3.0-or-later
@@ -41,11 +43,10 @@ BuildRequires:  sonic-frameworks-cmake-modules  >= %{min_kf_version}
 
 BuildRequires:  pkgconfig(fuse3)
 
-BuildRequires:  cmake(Qt6Core)       >= %{min_qt_version}
-BuildRequires:  cmake(Qt6Test)       >= %{min_qt_version}
+BuildRequires:  qt6-qtbase-devel >= 6.11
 
-BuildRequires:  cmake(KF6KIO)        >= %{min_kf_version}
-BuildRequires:  cmake(KF6CoreAddons) >= %{min_kf_version}
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
 
 %if 0%{?tests}
 BuildRequires:  dbus-x11
@@ -56,8 +57,9 @@ BuildRequires:  fuse3
 Requires:       systemd
 Requires:       dbus-common
 
+Provides:       kio-fuse = %{version}-%{release}
 Provides:       kio-fuse%{?_isa} = %{version}-%{release}
-Obsoletes:      kio-fuse < %{version}-%{release}
+Obsoletes:      kio-fuse
 
 %description
 KioFuse works by acting as a bridge between KDE's KIO filesystem design and
@@ -97,5 +99,15 @@ dbus-launch --exit-with-session \
 %{_tmpfilesdir}/%{oldname}-tmpfiles.conf
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.0.0-5
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.0.0-4
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.0.0-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

@@ -1,0 +1,47 @@
+--- a/src/x11window.cpp	2026-11-17 22:54:36.853206480 +0000
++++ b/src/x11window.cpp	2026-11-17 22:54:36.854206480 +0000
+@@ -28,6 +28,7 @@
+ #include "placement.h"
+ #include "scene/surfaceitem_x11.h"
+ #include "scene/windowitem.h"
++#include "scene/workspacescene.h"
+ #include "screenedge.h"
+ #include "shadow.h"
+ #include "tiles/tilemanager.h"
+@@ -1938,6 +1939,14 @@
+     } else {
+         exportMappingState(XCB_ICCCM_WM_STATE_ICONIC);
+     }
++
++    // Create the backing pixmap and its scene texture right away instead of
++    // lazily inside the first painted frame. On desktop switches the slide
++    // effect would otherwise stall mid-animation while every newly shown
++    // window waits for its pixmap naming and texture-from-pixmap setup.
++    if (Compositor::compositing()) {
++        updateWindowPixmap();
++    }
+ }
+ 
+ /**
+@@ -4979,6 +4988,21 @@
+     }
+     if (auto item = surfaceItem()) {
+         item->updatePixmap();
++
++        // Also create the texture eagerly so that the first frame in which
++        // this window is painted (e.g. right after a virtual desktop switch)
++        // does not stall on the GLX texture-from-pixmap setup mid-animation.
++        if (SurfacePixmap *surfacePixmap = item->pixmap();
++            surfacePixmap && surfacePixmap->isValid() && !surfacePixmap->isDiscarded()) {
++            SurfaceTexture *surfaceTexture = surfacePixmap->texture();
++            if (surfaceTexture && !surfaceTexture->isValid()) {
++                Compositor *compositor = Compositor::self();
++                if (compositor && compositor->scene() && compositor->scene()->makeOpenGLContextCurrent()) {
++                    surfaceTexture->create();
++                    compositor->scene()->doneOpenGLContextCurrent();
++                }
++            }
++        }
+     }
+ }
+ 

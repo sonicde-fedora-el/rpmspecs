@@ -3,13 +3,14 @@
 # https://github.com/Sonic-DE/sonic-silver-gtk fork, not from download.kde.org.
 %define _disable_source_fetch 0
 %define debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 %global reponame sonic-silver-gtk
 # Upstream KDE project: breeze-gtk
 %global oldname breeze-gtk
 
 #Name:    breeze-gtk
 Name:           sonic-silver-gtk
-Version:        6.7.4
+Version:        6.8.2
 Release:        3%{?dist}
 Summary: Breeze widget theme for GTK
 
@@ -27,6 +28,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  gtk2-engines
 BuildRequires:  sonic-breeze-devel
+BuildRequires:  sonic-silver-theme-devel
 BuildRequires:  python3-cairo-devel
 BuildRequires:  sassc
 
@@ -35,15 +37,16 @@ BuildRequires:  sonic-rpm-macros
 
 # not used directly, but is an indirect dep from ECMQueryQmake.cmake
 # probably should be fixed there -- rex
-BuildRequires:  cmake(Qt6Core)
+BuildRequires:  qt6-qtbase-devel >= 6.11
 
 # main meta package to depend on all subpkgs, for cleaner/simpler upgrade path
 Requires: %{name}-gtk2 = %{version}-%{release}
 Requires: %{name}-gtk3 = %{version}-%{release}
 Requires: %{name}-gtk4 = %{version}-%{release}
 
+Provides:       breeze-gtk = %{version}-%{release}
 Provides:       breeze-gtk%{?_isa} = %{version}-%{release}
-Obsoletes:      breeze-gtk < %{version}-%{release}
+Obsoletes:      breeze-gtk
 
 %description
 %{summary}.
@@ -52,8 +55,9 @@ Obsoletes:      breeze-gtk < %{version}-%{release}
 Summary:        Breeze widget theme for GTK common files
 Conflicts:      sonic-silver-gtk < 5.20.2-2
 
+Provides:       breeze-gtk-common = %{version}-%{release}
 Provides:       breeze-gtk-common%{?_isa} = %{version}-%{release}
-Obsoletes:      breeze-gtk-common < %{version}-%{release}
+Obsoletes:      breeze-gtk-common
 
 %description common
 %{summary}.
@@ -63,8 +67,9 @@ Summary:        Breeze widget theme for GTK 2
 Requires:       gtk2-engines
 Requires:       %{name}-common = %{version}-%{release}
 Supplements:    (sonic-breeze and gtk2)
+Provides:       breeze-gtk-gtk2 = %{version}-%{release}
 Provides:       breeze-gtk-gtk2%{?_isa} = %{version}-%{release}
-Obsoletes:      breeze-gtk-gtk2 < %{version}-%{release}
+Obsoletes:      breeze-gtk-gtk2
 
 %description gtk2
 %{summary}.
@@ -73,8 +78,9 @@ Obsoletes:      breeze-gtk-gtk2 < %{version}-%{release}
 Summary:        Breeze widget theme for GTK 3
 Requires:       %{name}-common = %{version}-%{release}
 Supplements:    (sonic-breeze and gtk3)
+Provides:       breeze-gtk-gtk3 = %{version}-%{release}
 Provides:       breeze-gtk-gtk3%{?_isa} = %{version}-%{release}
-Obsoletes:      breeze-gtk-gtk3 < %{version}-%{release}
+Obsoletes:      breeze-gtk-gtk3
 
 %description gtk3
 %{summary}.
@@ -83,8 +89,9 @@ Obsoletes:      breeze-gtk-gtk3 < %{version}-%{release}
 Summary:        Breeze widget theme for GTK 4
 Requires:       %{name}-common = %{version}-%{release}
 Supplements:    (sonic-breeze and gtk4)
+Provides:       breeze-gtk-gtk4 = %{version}-%{release}
 Provides:       breeze-gtk-gtk4%{?_isa} = %{version}-%{release}
-Obsoletes:      breeze-gtk-gtk4 < %{version}-%{release}
+Obsoletes:      breeze-gtk-gtk4
 
 %description gtk4
 %{summary}.
@@ -126,5 +133,15 @@ Obsoletes:      breeze-gtk-gtk4 < %{version}-%{release}
 %{_datadir}/themes/Silver-Dark/gtk-4.0/
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

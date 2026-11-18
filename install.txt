@@ -1,0 +1,5 @@
+sudo dnf install epel-release dnf-plugins-core
+sudo dnf copr enable @SonicDE/SonicDE-dev rhel+epel-10-x86_64
+sudo dnf copr enable @xlibre/xlibre-xserver rhel+epel-10-x86_64
+sudo dnf install sonic-desktop
+sudo systemctl enable soniclogin.service

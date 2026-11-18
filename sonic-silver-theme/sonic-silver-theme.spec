@@ -1,9 +1,11 @@
 # Upstream SonicDE project: sonic-silver (Breeze/Silver derived)
+%global sonicde_frameworks_version 6.31.0
 %global reponame sonic-silver
+%global sonicde_qt6_version 6.11.3
 
 Name:		sonic-silver-theme
-Version:	6.7.4.2
-Release:        2%{?dist}
+Version:	6.8.2
+Release:        3%{?dist}
 Summary:	Silver widget style, window decoration and theme for SonicDE
 URL:		https://github.com/Sonic-DE/%{reponame}
 Source0:	%{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{version}.tar.gz
@@ -14,25 +16,22 @@ BuildRequires:	sonic-rpm-macros
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	gettext
-BuildRequires:	cmake(Qt6Core)
-BuildRequires:	cmake(Qt6DBus)
-BuildRequires:	cmake(Qt6Gui)
-BuildRequires:	cmake(Qt6Quick)
-BuildRequires:	cmake(Qt6Svg)
-BuildRequires:	cmake(Qt6Widgets)
-BuildRequires:	cmake(Qt6Xml)
-BuildRequires:	qt6-qtbase-private-devel
-BuildRequires:	cmake(KDecoration3)
-BuildRequires:	cmake(KF6ColorScheme)
-BuildRequires:	cmake(KF6Config)
-BuildRequires:	cmake(KF6CoreAddons)
-BuildRequires:	cmake(KF6FrameworkIntegration)
-BuildRequires:	cmake(KF6GuiAddons)
-BuildRequires:	cmake(KF6I18n)
-BuildRequires:	cmake(KF6IconThemes)
-BuildRequires:	cmake(KF6KCMUtils)
-BuildRequires:	cmake(KF6KirigamiPlatform)
-BuildRequires:	cmake(KF6WindowSystem)
+BuildRequires:	qt6-qtbase-devel >= 6.11
+BuildRequires:	qt6-qtdeclarative-devel >= 6.11
+BuildRequires:	qt6-qtsvg-devel >= 6.11
+BuildRequires:	qt6-qtbase-private-devel >= 6.11
+BuildRequires:	sonic-decoration-devel
+BuildRequires:	sonic-frameworks-color-scheme-devel
+BuildRequires:	sonic-frameworks-settings-devel
+BuildRequires:	sonic-frameworks-logging-devel
+BuildRequires:	sonic-frameworks-core-addons-devel
+BuildRequires:	sonic-frameworks-qt-integration-devel
+BuildRequires:	sonic-frameworks-gui-addons-devel
+BuildRequires:	sonic-frameworks-internationalization-devel
+BuildRequires:	sonic-frameworks-icon-themes-devel
+BuildRequires:	sonic-frameworks-settings-utils-devel
+BuildRequires:	sonic-frameworks-quick-ui-devel
+BuildRequires:	sonic-frameworks-windowsystem-devel
 
 # SonicDE replaces the Plasma Breeze theme packages.
 Provides:	breeze = %{version}-%{release}
@@ -46,8 +45,8 @@ the Breeze theme of KDE Plasma.
 %package devel
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
+Provides:	breeze-devel = %{version}-%{release}
 Provides:	breeze-devel%{?_isa} = %{version}-%{release}
-
 %description devel
 This package contains the CMake configuration and header files needed to
 build software against the Silver theme libraries.
@@ -93,5 +92,13 @@ cat silver_style_config.lang >> silver_kwin_deco.lang
 %{_libdir}/cmake/Breeze/
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.2-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

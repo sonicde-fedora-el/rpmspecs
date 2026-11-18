@@ -1,13 +1,18 @@
+%global sonicde_frameworks_version 6.31.0
 %global debug_package %{nil}
+%global sonicde_qt6_version 6.11.3
 
 %if 0%{?flatpak}
 %global database_backend SQLITE
 %endif
 
+# pyside6 python bindings are optional (uninstallable beside our qt6 pin)
+%bcond_with bindings
+
 Name:    akonadi-server
 Summary: PIM Storage Service
-Version: 26.04.3
-Release: 2%{?dist}
+Version: 26.08.3
+Release: 4%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/pim/akonadi
@@ -22,7 +27,6 @@ Source11:       akonadiserverrc.sqlite
 ## upstreamable patches
 ## MySQL is killed by akonadi too fast
 ## https://invent.kde.org/pim/akonadi/-/merge_requests/400
-Patch0:         400.patch
 
 ## upstream patches
 
@@ -31,22 +35,23 @@ Patch0:         400.patch
 
 %define mysql_conf_timestamp 20170512
 
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
-BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
 BuildRequires:  desktop-file-utils
 
-BuildRequires:  cmake(KF6ItemViews)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6ItemModels)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6Completion)
-BuildRequires:  cmake(KF6Crash)
+BuildRequires:  sonic-frameworks-data-views-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-data-models-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-autocomplete-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
 
 BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(libxslt)
@@ -54,9 +59,16 @@ BuildRequires:  pkgconfig(shared-mime-info)
 BuildRequires:  pkgconfig(sqlite3) >= 3.6.23
 
 ## (some) optional deps
-BuildRequires:  pkgconfig(Qt6Designer)
-BuildRequires:  cmake(AccountsQt6)
-BuildRequires:  cmake(KAccounts6)
+BuildRequires:  qt6-qttools-devel >= 6.11
+BuildRequires:  sonic-qt-accounts-library-devel
+BuildRequires:  sonic-accounts-integration-qt6-devel
+# python bindings need shiboken6/pyside6 (needs libclang 22 — unavailable on EL10;
+# on Fedora pyside6 pins distro qt = 6.11.2 via qtwebview, uninstallable beside
+# our qt6 6.11.3 — disabled everywhere by default, opt-in via --with bindings)
+%if %{with bindings}
+BuildRequires:  python3-shiboken6-devel
+BuildRequires:  python3-pyside6-devel
+%endif
 
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
@@ -81,20 +93,14 @@ Obsoletes:      kf5-akonadi-server < 24.01.80-1
 %package devel
 Summary:        Developer files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(KF6Config)
-Requires:       cmake(KF6ConfigWidgets)
-Requires:       cmake(KF6CoreAddons)
-Requires:       cmake(KF6ItemModels)
-Requires:       cmake(KF6KIO)
-Requires:       cmake(KF6XmlGui)
-Requires:       cmake(Qt6Core)
-Requires:       cmake(Qt6DBus)
-Requires:       cmake(Qt6Gui)
-Requires:       cmake(Qt6Network)
-Requires:       cmake(Qt6Widgets)
-Requires:       cmake(Qt6Xml)
+Requires:       sonic-frameworks-settings-devel
+Requires:       sonic-frameworks-settings-ui-devel
+Requires:       sonic-frameworks-core-addons-devel
+Requires:       sonic-frameworks-data-models-devel
+Requires:       sonic-frameworks-io-devel
+Requires:       sonic-frameworks-xml-gui-devel
+Requires:       qt6-qtbase-devel >= 6.11
 # For testing
-Requires:       cmake(Qt6Test)
 
 # at least dbus-1/interfaces conflict, maybe more -- rex
 Conflicts:      akonadi-devel
@@ -106,7 +112,6 @@ Conflicts:      kf5-akonadi-server-devel
 Summary:        Akonadi MySQL backend support
 # upgrade path
 Obsoletes:      kf5-akonadi-server-mysql < 24.01.80-1
-Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       mariadb-server-any
 Recommends:     mariadb-server
 Requires:       qt6-qtbase-mysql%{?_isa}
@@ -140,7 +145,9 @@ find ./po -type f -name libakonadi5.po -execdir mv {} libakonadi6.po \;
   -DKDE_INSTALL_SYSTEMDUSERUNITDIR=%{_userunitdir} \
   -DMYSQLD_EXECUTABLE:FILEPATH=%{_libexecdir}/mysqld \
   -DMYSQLD_SCRIPTS_PATH:FILEPATH=%{_bindir}/mysql_install_db \
-  -DPOSTGRES_PATH:FILEPATH=%{_bindir}/pg_ctl
+  -DPOSTGRES_PATH:FILEPATH=%{_bindir}/pg_ctl \
+  -DBUILD_PYTHON_BINDINGS:BOOL=%{?with_bindings:ON}%{!?with_bindings:OFF} \
+
 %cmake_build
 
 
@@ -222,6 +229,7 @@ fi
 %{_kf6_datadir}/kf6/akonadi_knut_resource/
 %{_kf6_qmldir}/org/kde/akonadi/
 %{_kf6_datadir}/applications/org.kde.akonadi.configdialog.desktop
+%{_kf6_datadir}/applications/org.kde.akonadi.desktop
 %{_userunitdir}/akonadi_control.service
 
 %files devel
@@ -263,6 +271,17 @@ fi
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-4
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-3
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Thu Jul 09 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-2
 - Adding a fix for akonadi killing mysql too quickly
 
@@ -293,7 +312,7 @@ fi
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3

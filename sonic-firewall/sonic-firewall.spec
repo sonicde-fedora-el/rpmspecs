@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-firewall fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-firewall
 # Upstream KDE project: plasma-firewall
@@ -18,7 +20,7 @@ ExcludeArch: %{ix86}
 
 #Name:    plasma-firewall
 Name:           sonic-firewall
-Version:        6.7.4
+Version:        6.8.2
 Release:        3%{?dist}
 Summary: Control Panel for your system firewall
 
@@ -36,24 +38,32 @@ BuildRequires: cmake
 
 BuildRequires: sonic-frameworks-cmake-modules
 BuildRequires: sonic-rpm-macros
-BuildRequires: cmake(KF6KCMUtils)
-BuildRequires: cmake(KF6CoreAddons)
-BuildRequires: cmake(KF6Declarative)
-BuildRequires: cmake(KF6I18n)
+BuildRequires: systemd-rpm-macros
+BuildRequires: sonic-frameworks-settings-utils-devel
+BuildRequires: sonic-frameworks-core-addons-devel
+BuildRequires: sonic-frameworks-qml-bridge-devel
+BuildRequires:  sonic-frameworks-init-info-devel
+BuildRequires: sonic-frameworks-internationalization-devel
+BuildRequires: sonic-frameworks-logging-devel
+BuildRequires: sonic-frameworks-ipc-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
+%if %{with backend_ufw}
+BuildRequires: ufw
+%endif
 
-BuildRequires: qt6-qtbase-devel
-
+BuildRequires: qt6-qtbase-devel >= 6.11
 # Owns KCM directories
 Requires: sonic-frameworks-settings-utils%{?_isa}
 
 Requires: %{name}-backend = %{version}-%{release}
 Suggests: %{name}-firewalld
 
+Provides:       plasma-firewall = %{version}-%{release}
 Provides:       plasma-firewall%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-firewall < %{version}-%{release}
+Obsoletes:      plasma-firewall
 
 %description
 %{summary}.
@@ -65,8 +75,9 @@ Provides: %{name}-backend = %{version}-%{release}
 Conflicts: %{name}-backend
 Requires: firewalld
 
+Provides:       plasma-firewall-firewalld = %{version}-%{release}
 Provides:       plasma-firewall-firewalld%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-firewall-firewalld < %{version}-%{release}
+Obsoletes:      plasma-firewall-firewalld
 
 %description firewalld
 This package provides the backend code for Plasma Firewall
@@ -84,8 +95,9 @@ Requires: dbus-common
 # For polkit directories
 Requires: polkit
 
+Provides:       plasma-firewall-ufw = %{version}-%{release}
 Provides:       plasma-firewall-ufw%{?_isa} = %{version}-%{release}
-Obsoletes:      plasma-firewall-ufw < %{version}-%{release}
+Obsoletes:      plasma-firewall-ufw
 
 %description ufw
 This package provides the backend code for Plasma Firewall
@@ -97,7 +109,8 @@ to interface with the Uncomplicated Firewall (UFW).
 %autosetup -p1 -n %{reponame}-%{version}
 
 %build
-%cmake_kf6 %{!?with_backend_ufw:-DBUILD_UFW_BACKEND=OFF}
+%cmake_kf6 %{!?with_backend_ufw:-DBUILD_UFW_BACKEND=OFF} \
+  -DMANUAL_INITS=ON -DSYSTEMD_FOUND=ON
 %cmake_build
 
 %install
@@ -108,6 +121,15 @@ to interface with the Uncomplicated Firewall (UFW).
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml || :
 desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 
+%post
+%systemd_post sonic-firewall-service.service
+
+%preun
+%systemd_preun sonic-firewall-service.service
+
+%postun
+%systemd_postun_with_restart sonic-firewall-service.service
+
 %files -f %{oldname}.lang
 %license LICENSES/*.txt
 %{_libdir}/libkcm_firewall_core.so
@@ -115,6 +137,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 %dir %{_qt6_plugindir}/kf6/plasma_firewall
 %{_datadir}/applications/kcm_firewall.desktop
 %{_metainfodir}/org.kde.plasma.firewall.metainfo.xml
+%{_unitdir}/sonic-firewall-service.service
+%{_libexecdir}/sonic-firewall-service
+%{_kf6_libexecdir}/kauth/kcm_firewall_service_helper
+%{_datadir}/dbus-1/system-services/org.sonicde.firewall.servicehelper.service
+%{_datadir}/dbus-1/system.d/org.sonicde.firewall.servicehelper.conf
+%{_datadir}/polkit-1/actions/org.sonicde.firewall.servicehelper.policy
 
 %files firewalld
 %{_qt6_plugindir}/kf6/plasma_firewall/firewalldbackend.so
@@ -132,5 +160,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 %endif
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

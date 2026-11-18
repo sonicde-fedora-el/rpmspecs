@@ -1,8 +1,10 @@
 
 
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 Name:           sonic-login-manager
-Version:        6.7.4.5
-Release:        1%{?dist}
+Version:        6.8.2
+Release:        9%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager for SonicDE
 
@@ -18,11 +20,14 @@ Source11:       plasmalogin.sysconfig
 # generation, so we duplicate them as source files for that purpose;
 # this is an ugly hack that should be removed if it becomes possible.
 # see https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/TFDMAU7KLMSQTKPJELHSM6PFVXIZ56GK/
-Source12:       plasmalogin.sysusers
+Source12:       soniclogin.sysusers
 # sample soniclogin.conf generated with soniclogin --example-config, and entries commented-out
 Source13:       plasmalogin.conf
+Source14:       soniclogin.tmpfiles
 
 # upstream patches
+# XLibre removed -noreset; drop the arg from the X server command line
+Patch0:         xlibre-drop-noreset.patch
 
 # proposed patches
 ## soniclogin.service: +EnvironmentFile=-/etc/sysconfig/soniclogin (FIXME: patch needs update for Sonic-DE source)
@@ -31,41 +36,47 @@ Source13:       plasmalogin.conf
 #Patch1002:      soniclogin-rpmostree-tmpfiles-hack.patch
 
 Provides:       service(graphical-login) = soniclogin
-Obsoletes:      plasma-login-manager < %{version}-%{release}
+Obsoletes:      plasma-login-manager
 Provides:       plasma-login-manager = %{version}-%{release}
+Obsoletes:      sddm
+Provides:       sddm = %{version}-%{release}
+Provides:       sddm%{?_isa} = %{version}-%{release}
 
+BuildRequires:  xorg-x11-server-Xorg
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake >= 3.22
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xau)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-xkb)
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6Gui)
-BuildRequires:  cmake(Qt6Qml)
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6LinguistTools)
-BuildRequires:  cmake(Qt6ShaderTools)
-BuildRequires:  cmake(Qt6Test)
-BuildRequires:  cmake(Qt6QuickTest)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6Package)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6Auth)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6KirigamiPlatform)
-BuildRequires:  cmake(PlasmaQuick)
-BuildRequires:  cmake(LibKWorkspace)
-BuildRequires:  cmake(LibKLookAndFeel)
-BuildRequires:  cmake(KF6Screen)
+BuildRequires:  libXcursor-devel
+BuildRequires:  libXfixes-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qttools-devel >= 6.11
+BuildRequires:  qt6-qtshadertools-devel >= 6.11
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-package-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-auth-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-init-info-devel
+BuildRequires:  sonic-frameworks-logging-devel
+BuildRequires:  sonic-frameworks-ipc-devel
+BuildRequires:  sonic-interface-libraries-devel
+BuildRequires:  sonic-workspace-devel
+BuildRequires:  sonic-screen-library-devel
 # verify presence to pull defaults from /etc/login.defs
 BuildRequires:  shadow-utils
 BuildRequires:  systemd
@@ -76,19 +87,20 @@ BuildRequires:  sonic-rpm-macros
 Requires:       sonic-frameworks-image-formats%{?_isa}
 
 Requires:       xorg-x11-xinit
+Requires:       xorg-x11-server-Xorg
 Requires:       sonic-login-manager-selinux
 
 %{?systemd_requires}
 
-Requires:      kf6-filesystem
-Requires:      sonic-frameworks-auth
+Requires: kf6-filesystem >= 6.31
+Requires: sonic-frameworks-auth
 Requires(pre): shadow-utils
 
 Recommends:      kde-settings-plasma
 
 # Requires sonic window manager (X11 variant)
-Requires:      sonic-win%{?_isa}
-Recommends:      plasma-systemsettings%{?_isa})
+Requires: sonic-win%{?_isa}
+Recommends:      plasma-systemsettings%{?_isa}
 
 %description
 Sonic Login Manager provides a display manager for SonicDE
@@ -101,8 +113,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: dbus-common
 Recommends:      plasma-systemsettings%{?_isa}
 Requires: polkit
-Requires: qt6-filesystem
-Obsoletes:      kcm-plasmalogin < %{version}-%{release}
+Requires: qt6-filesystem >= 6.11
+Obsoletes:      kcm-plasmalogin
 Provides:       kcm-plasmalogin = %{version}-%{release}
 
 %description -n kcm-soniclogin
@@ -110,7 +122,6 @@ Provides:       kcm-plasmalogin = %{version}-%{release}
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
-sed -i '/find_native_x_server(X_SERVER_EXECUTABLE_REAL/,/)/c\set(X_SERVER_EXECUTABLE_REAL "/usr/bin/Xwayland")' CMakeLists.txt
 
 
 %conf
@@ -138,6 +149,8 @@ mkdir -p %{buildroot}%{_prefix}/lib/soniclogin/soniclogin.conf.d
 
 mkdir -p %{buildroot}/run/soniclogin
 mkdir -p %{buildroot}%{_localstatedir}/lib/soniclogin
+install -Dpm644 %{SOURCE12} %{buildroot}%{_sysusersdir}/soniclogin.conf
+install -Dpm644 %{SOURCE14} %{buildroot}%{_tmpfilesdir}/soniclogin.conf
 
 # De-conflict the dbus file
 mv %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf \
@@ -149,6 +162,7 @@ mv %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf \
 
 
 %post
+%tmpfiles_create soniclogin.conf
 %systemd_post soniclogin.service
 %systemd_user_post soniclogin.service soniclogin-sonic-win.service soniclogin-x11.target soniclogin-wallpaper.service
 
@@ -179,6 +193,8 @@ mv %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf \
 %{_libexecdir}/soniclogin-helper
 %{_libexecdir}/soniclogin-helper-start-x11user
 %{_libexecdir}/soniclogin-greeter
+%{_sysusersdir}/soniclogin.conf
+%{_tmpfilesdir}/soniclogin.conf
 %attr(0711, root, soniclogin) %dir /run/soniclogin
 %attr(1770, soniclogin, soniclogin) %dir %{_localstatedir}/lib/soniclogin
 %{_unitdir}/soniclogin.service
@@ -189,7 +205,9 @@ mv %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf \
 %{_userunitdir}/soniclogin-apply-kscreen.service
 %dir %{_datadir}/soniclogin
 %{_datadir}/soniclogin/scripts/
+%if 0%{?rhel}
 %{_sysconfdir}/init.d/soniclogin
+%endif
 %{_datadir}/locale/*/LC_MESSAGES/plasma_login.mo
 
 
@@ -200,6 +218,33 @@ mv %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf \
 
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-9
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-8
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-7
+- Pin LibKWorkspace/LibKLookAndFeel to sonic-workspace-devel: the
+  unversioned cmake() provides also exist in EPEL's plasma-workspace-devel
+  (built for Qt 6.10), which won resolution on alma+epel-10-x86_64_v2 and
+  broke the buildroot on Qt_6.10_PRIVATE_API.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-6
+- Require xorg-x11-server-Xorg at runtime: a display manager cannot
+  start a session without its X server; resolves to XLibre where the
+  project repo is present, to xorg-x11-server on Fedora.
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.8.2-3
+- soniclogin.sysusers: add video/input/render memberships for the greeter
+  account; the groups live in /usr/lib/group which usermod cannot edit,
+  and the daemon's SelfProvisioner is SELinux-denied under xdm_t. Proven
+  needed on the live dev image.
+
 * Fri Sep 04 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.5-1
 - Update to SonicDE 6.7.4.5
 

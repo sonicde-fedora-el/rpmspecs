@@ -2,6 +2,8 @@
 # SonicDE is a hard fork of KDE Plasma; the sources come from the
 # https://github.com/Sonic-DE/sonic-bluetooth-runtime fork, not from download.kde.org.
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %global reponame sonic-bluetooth-runtime
 # Upstream KDE project: bluedevil
@@ -14,7 +16,7 @@ ExcludeArch: %{ix86}
 #Name:    bluedevil
 Name:           sonic-bluetooth-runtime
 Summary: Bluetooth stack for KDE
-Version:        6.7.4
+Version:        6.8.2
 Release:        4%{?dist}
 
 License: GPL-2.0-or-later
@@ -29,28 +31,28 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{versio
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 
-BuildRequires:  cmake(KF6BluezQt)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6Declarative)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6KDED)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  sonic-frameworks-bluetooth-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-qml-bridge-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-daemon-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-svg-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
 # runtime
-BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  sonic-frameworks-quick-ui-devel
 
 # Plasma
-BuildRequires:  cmake(Plasma)
+BuildRequires:  sonic-interface-libraries-devel
 
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
 BuildRequires:  shared-mime-info
 BuildRequires:  desktop-file-utils
 
@@ -68,10 +70,10 @@ Requires:       sonic-frameworks-quick-ui
 
 # When -autostart was removed
 Obsoletes:      bluedevil-autostart < 5.2.95
-Obsoletes:      bluedevil < %{version}-%{release}
+Obsoletes:      bluedevil
 
+Provides:       bluedevil = %{version}-%{release}
 Provides:       bluedevil%{?_isa} = %{version}-%{release}
-
 %description
 BlueDevil is the bluetooth stack for KDE.
 
@@ -115,5 +117,17 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_bluetooth.so
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-4
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Pin Plasma cmake deps to SonicDE providers (Fedora libplasma 6.8.3 outranks ours)
 * Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
 - SonicDE hard fork build for Enterprise Linux 10 and Fedora

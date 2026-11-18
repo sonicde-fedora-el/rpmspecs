@@ -1,8 +1,10 @@
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %global debug_package %{nil}
 Name:    kdialog
 Summary: Nice dialog boxes from shell scripts
-Version: 26.04.3
-Release: 1%{?dist}
+Version: 26.08.3
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -16,15 +18,15 @@ BuildRequires: libappstream-glib
 BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  sonic-rpm-macros
 
-BuildRequires: cmake(KF6TextWidgets)
-BuildRequires: cmake(KF6Notifications)
-BuildRequires: cmake(KF6GuiAddons)
-BuildRequires: cmake(KF6IconThemes)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(KF6KIO)
-BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: sonic-frameworks-text-widgets-devel
+BuildRequires: sonic-frameworks-notifications-devel
+BuildRequires: sonic-frameworks-gui-addons-devel
+BuildRequires: sonic-frameworks-icon-themes-devel
+BuildRequires: sonic-frameworks-windowsystem-devel
+BuildRequires: sonic-frameworks-io-devel
+BuildRequires: sonic-frameworks-dbus-devel
 
-BuildRequires: cmake(Qt6DBus)
+BuildRequires: qt6-qtbase-devel >= 6.11
 
 %description
 KDialog can be used to show nice dialog boxes from shell scripts.
@@ -56,6 +58,14 @@ KDialog can be used to show nice dialog boxes from shell scripts.
 
 
 %changelog
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.08.3-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 26.08.3-1
+- 26.08.3
+
 * Mon Aug 31 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 26.04.3-1
 - Built for SonicDE from Fedora EPEL 10.3
 * Tue Jun 30 2026 Steve Cossette <farchord@gmail.com> - 26.04.3-1
@@ -79,7 +89,7 @@ KDialog can be used to show nice dialog boxes from shell scripts.
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 
-* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+* Mon Nov 16 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2

@@ -1,0 +1,80 @@
+diff --git a/src/plugins/nightlight/nightlightmanager.cpp b/src/plugins/nightlight/nightlightmanager.cpp
+index 71daea9..083d6f8 100644
+--- a/src/plugins/nightlight/nightlightmanager.cpp
++++ b/src/plugins/nightlight/nightlightmanager.cpp
+@@ -89,6 +89,22 @@ NightLightManager::NightLightManager()
+     });
+     connect(kwinApp()->session(), &Session::awoke, this, &NightLightManager::hardReset);
+ 
++    // On X11, the CRTC gamma ramps are not part of the composited frame, so any
++    // client can overwrite them silently. Re-assert them after every output
++    // re-query and for a while after each reset, so the color temperature
++    // survives display reconfiguration and login-time gamma writes by other
++    // session components (ICC vcgt loaders, brightness helpers, etc.).
++    connect(kwinApp()->outputBackend(), &OutputBackend::outputsQueried, this, &NightLightManager::reassertGammaRamps);
++
++    m_reassertTimer = new QTimer(this);
++    m_reassertTimer->setInterval(1000);
++    connect(m_reassertTimer, &QTimer::timeout, this, [this]() {
++        reassertGammaRamps();
++        if (++m_reassertAttempts >= 15) {
++            m_reassertTimer->stop();
++        }
++    });
++
+     hardReset();
+ }
+ 
+@@ -106,6 +122,9 @@ void NightLightManager::hardReset()
+     if (isEnabled() && !isInhibited()) {
+         setRunning(true);
+         commitGammaRamps(currentTargetTemperature());
++
++        m_reassertAttempts = 0;
++        m_reassertTimer->start();
+     }
+     resetAllTimers();
+ }
+@@ -528,6 +547,21 @@ void NightLightManager::commitGammaRamps(int temperature)
+     setCurrentTemperature(temperature);
+ }
+ 
++void NightLightManager::reassertGammaRamps()
++{
++    if (!m_running) {
++        return;
++    }
++
++    // ColorDevice::setTemperature() has an equality early-out, so it cannot be
++    // used to repair gamma ramps that were overwritten by an external client.
++    // scheduleUpdate() unconditionally rewrites the stored channel factors.
++    const QList<ColorDevice *> devices = kwinApp()->colorManager()->devices();
++    for (ColorDevice *device : devices) {
++        device->scheduleUpdate();
++    }
++}
++
+ void NightLightManager::setEnabled(bool enabled)
+ {
+     if (m_active == enabled) {
+diff --git a/src/plugins/nightlight/nightlightmanager.h b/src/plugins/nightlight/nightlightmanager.h
+index 4e7431c..d027561 100644
+--- a/src/plugins/nightlight/nightlightmanager.h
++++ b/src/plugins/nightlight/nightlightmanager.h
+@@ -244,6 +244,7 @@ private:
+     void updateTransitionTimings(const QDateTime &dateTime);
+ 
+     void commitGammaRamps(int temperature);
++    void reassertGammaRamps();
+ 
+     void setEnabled(bool enabled);
+     void setRunning(bool running);
+@@ -279,6 +280,8 @@ private:
+     std::unique_ptr<QTimer> m_slowUpdateTimer;
+     std::unique_ptr<QTimer> m_quickAdjustTimer;
+     std::unique_ptr<QTimer> m_previewTimer;
++    QTimer *m_reassertTimer = nullptr;
++    int m_reassertAttempts = 0;
+ 
+     int m_currentTemperature = DEFAULT_DAY_TEMPERATURE;
+     int m_targetTemperature = DEFAULT_DAY_TEMPERATURE;
