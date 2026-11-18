@@ -1,53 +1,57 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 
 %global framework kglobalaccel
 
-#Name:    kf6-%{framework}
+#Name:    kf6-%%{framework}
 Name:    sonic-frameworks-keybind
-Version: 6.25.0
-Release: 1%{?dist}
+Version: 6.31.0
+Release:        3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module for global shortcuts
 
 # The following are in the LICENSES folder but go unused: LGPL-2.1-only, LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
 License: CC0-1.0 AND LGPL-2.0-or-later
-#URL:     https://invent.kde.org/frameworks/%{framework}
-#Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
-#Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
+#URL:     https://invent.kde.org/frameworks/%%{framework}
+#Source0: https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz
+#Source1: https://download.kde.org/%%{stable_kf6}/frameworks/%%{majmin_ver_kf6}/%%{framework}-%%{version}.tar.xz.sig
 
 URL:            https://github.com/Sonic-DE/sonic-frameworks-keybind
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  extra-cmake-modules >= %{version}
+BuildRequires:  sonic-frameworks-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  kf6-rpm-macros
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  sonic-rpm-macros
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-crash-handler-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
 # for systemd-related macros
 BuildRequires:  systemd
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qttools-devel >= 6.11
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  xcb-util-keysyms-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libxcb-devel
 
-Requires:       kf6-filesystem
-Conflicts:      kf6-kglobalaccel
+Requires: kf6-filesystem >= 6.31
+Obsoletes:      kf6-kglobalaccel
+Provides:       kf6-kglobalaccel = %{version}-%{release}
 
 %description
 %{summary}.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
-Requires:       qt6-qtbase-devel
-Conflicts:      kf6-kglobalaccel-devel
+Requires: %{name} = %{version}-%{release}
+Requires: qt6-qtbase-devel >= 6.11
+Obsoletes:      kf6-kglobalaccel-devel
+Provides:       kf6-kglobalaccel-devel = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -55,14 +59,16 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts:      kf6-kglobalaccel-doc
+Obsoletes:      kf6-kglobalaccel-doc
+Provides:       kf6-kglobalaccel-doc = %{version}-%{release}
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %package        html
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts:      kf6-kglobalaccel-html
+Obsoletes:      kf6-kglobalaccel-html
+Provides:       kf6-kglobalaccel-html = %{version}-%{release}
 %description    html
 Developer Documentation files for %{name} in HTML format
 
@@ -106,6 +112,19 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.31.0-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.29.0-1
+- Update to SonicDE 6.29.0 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
 - 6.25.0
 

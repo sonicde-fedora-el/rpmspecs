@@ -1,0 +1,12 @@
+# Build artifacts
+debugdata/
+*.src.rpm
+
+# Root-level source tarballs (should be in package directories)
+/libei-1.5.0.tar.bz2
+/libei-1.5.0-1.el10.src.rpm
+/ksanecore-25.12.3-1.el10_2.src.rpm
+
+# Large upstream sources are downloaded, not tracked in Git.
+/qt6-qt3d/qt3d-everywhere-src-*.tar.*
+/qt6-qtwebengine/qtwebengine-everywhere-src-*.tar.*

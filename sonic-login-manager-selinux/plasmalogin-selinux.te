@@ -1,12 +1,28 @@
-module plasmalogin-selinux 1.0;
+module plasmalogin-selinux 1.2;
 
 require {
-    type unconfined_t;
+    type xdm_t;
     type xdm_exec_t;
+    type xdm_var_lib_t;
+    type xdm_var_run_t;
+    type unconfined_t;
+    type systemd_unit_file_t;
     class file { entrypoint execute };
+    class service { start stop status };
 }
 
-# Allow the plasmalogin process to execute the X11 user helper binary
-# which is labeled as xdm_exec_t. This is needed when the plasmalogin
-# daemon is not running in the xdm_t domain on SELinux enforcing systems.
+# soniclogin-helper re-executes soniclogin-helper-start-x11user only after
+# switching into the user's session context (unconfined_t). Without this
+# entrypoint permission the exec fails with EACCES and the X11 user
+# session cannot start. Proven on the live dev image:
+#   avc: denied { entrypoint } scontext=unconfined_t tcontext=xdm_exec_t
 allow unconfined_t xdm_exec_t:file { entrypoint execute };
+
+# The greeter session runs a user systemd manager in xdm_t context.
+# soniclogin-x11.target pulls in sonic-win (greeter compositor), the
+# wallpaper process and apply-kscreen; without service start permission
+# none of them can launch and the greeter shows a black screen.
+# Proven on the live dev image:
+#   avc: denied { start } path="/usr/lib/systemd/user/soniclogin-x11.target"
+#   scontext=xdm_t tcontext=systemd_unit_file_t tclass=service
+allow xdm_t systemd_unit_file_t:service { start stop status };

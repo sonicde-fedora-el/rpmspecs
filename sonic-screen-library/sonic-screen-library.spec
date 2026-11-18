@@ -1,27 +1,30 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 
 #Name:    libkscreen
 Name:    sonic-screen-library
 Summary: KDE display configuration library
-Version: 6.6.4
-Release: 1%{?dist}
+Version: 6.8.2
+%global libversion %(echo %{version} | cut -d. -f1-3)
+Release:        3%{?dist}
 
 License: GPL-2.0-or-later
-#URL:     https://invent.kde.org/plasma/%{name}
+#URL:     https://invent.kde.org/plasma/%%{name}
 URL:           https://github.com/Sonic-DE/%{name}
 
-#Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-#Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
+#Source0: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
+#Source1: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 # KDE Frameworks
-BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(KF6Config)
+BuildRequires:  sonic-frameworks-cmake-modules
+BuildRequires:  sonic-frameworks-settings-devel
 
 # Fedora
-BuildRequires:  kf6-rpm-macros
-Requires:       kf6-filesystem
+BuildRequires:  sonic-rpm-macros
+Requires: kf6-filesystem >= 6.31
 
 # Misc
 BuildRequires:  systemd-rpm-macros
@@ -35,12 +38,12 @@ BuildRequires:  wayland-devel
 BuildRequires:  plasma-wayland-protocols-devel
 
 # Qt
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  qt6-qtwayland-devel
-BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  qt6-qtwayland-devel >= 6.11
 
-Conflicts: libkscreen
+Obsoletes:      libkscreen
+Provides:       libkscreen = %{version}-%{release}
 
 %description
 LibKScreen is a library that provides access to current configuration
@@ -48,8 +51,9 @@ of connected displays and ways to change the configuration.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Conflicts: libkscreen-devel
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      libkscreen-devel
+Provides:       libkscreen-devel = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -57,7 +61,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts: libkscreen-doc
+Obsoletes:      libkscreen-doc
+Provides:       libkscreen-doc = %{version}-%{release}
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -80,9 +85,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_bindir}/kscreen-doctor
 %{_kf6_libexecdir}/kscreen_backend_launcher
 %{_kf6_libdir}/libKF6Screen.so.8
-%{_kf6_libdir}/libKF6Screen.so.%{version}
+%{_kf6_libdir}/libKF6Screen.so.%{libversion}
 %{_kf6_libdir}/libKF6ScreenDpms.so.8
-%{_kf6_libdir}/libKF6ScreenDpms.so.%{version}
+%{_kf6_libdir}/libKF6ScreenDpms.so.%{libversion}
 %{_kf6_plugindir}/kscreen/
 %{_userunitdir}/plasma-kscreen.service
 
@@ -99,6 +104,19 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
+- Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

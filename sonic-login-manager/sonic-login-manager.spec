@@ -1,8 +1,10 @@
 
 
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 Name:           sonic-login-manager
-Version:        6.6.4
-Release:        12%{?dist}
+Version:        6.8.2
+Release:        9%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager for SonicDE
 
@@ -14,98 +16,112 @@ Source10:       README.scripts
 # sysconfig snippet
 Source11:       plasmalogin.sysconfig
 # sysusers config file. note these are shipped in the upstream tarball
-# but we cannot use the files from the tarball for %pre scriptlet
+# but we cannot use the files from the tarball for %%pre scriptlet
 # generation, so we duplicate them as source files for that purpose;
 # this is an ugly hack that should be removed if it becomes possible.
 # see https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/TFDMAU7KLMSQTKPJELHSM6PFVXIZ56GK/
-Source12:       plasmalogin.sysusers
-# sample plasmalogin.conf generated with plasmalogin --example-config, and entries commented-out
+Source12:       soniclogin.sysusers
+# sample soniclogin.conf generated with soniclogin --example-config, and entries commented-out
 Source13:       plasmalogin.conf
+Source14:       soniclogin.tmpfiles
 
 # upstream patches
+# XLibre removed -noreset; drop the arg from the X server command line
+Patch0:         xlibre-drop-noreset.patch
 
 # proposed patches
-## plasmalogin.service: +EnvironmentFile=-/etc/sysconfig/plasmalogin (FIXME: patch needs update for Sonic-DE source)
-#Patch1001:      plasmalogin-environment_file.patch
+## soniclogin.service: +EnvironmentFile=-/etc/sysconfig/soniclogin (FIXME: patch needs update for Sonic-DE source)
+#Patch1001:      soniclogin-environment_file.patch
 ## Workaround for https://pagure.io/fedora-kde/SIG/issue/87 (FIXME: patch needs update for Sonic-DE source)
-#Patch1002:      plasmalogin-rpmostree-tmpfiles-hack.patch
+#Patch1002:      soniclogin-rpmostree-tmpfiles-hack.patch
 
-Provides:       service(graphical-login) = plasmalogin
+Provides:       service(graphical-login) = soniclogin
+Obsoletes:      plasma-login-manager
+Provides:       plasma-login-manager = %{version}-%{release}
+Obsoletes:      sddm
+Provides:       sddm = %{version}-%{release}
+Provides:       sddm%{?_isa} = %{version}-%{release}
 
+BuildRequires:  xorg-x11-server-Xorg
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake >= 3.22
-BuildRequires:  extra-cmake-modules
+BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(systemd)
+BuildRequires:  pkgconfig(xau)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-xkb)
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6Gui)
-BuildRequires:  cmake(Qt6Qml)
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6LinguistTools)
-BuildRequires:  cmake(Qt6ShaderTools)
-BuildRequires:  cmake(Qt6Test)
-BuildRequires:  cmake(Qt6QuickTest)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6Package)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6Auth)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6KirigamiPlatform)
-BuildRequires:  cmake(PlasmaQuick)
-BuildRequires:  cmake(LayerShellQt)
-BuildRequires:  cmake(LibKWorkspace)
-BuildRequires:  cmake(LibKLookAndFeel)
-BuildRequires:  cmake(KF6Screen)
+BuildRequires:  libXcursor-devel
+BuildRequires:  libXfixes-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qttools-devel >= 6.11
+BuildRequires:  qt6-qtshadertools-devel >= 6.11
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-package-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-dbus-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-auth-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-init-info-devel
+BuildRequires:  sonic-frameworks-logging-devel
+BuildRequires:  sonic-frameworks-ipc-devel
+BuildRequires:  sonic-interface-libraries-devel
+BuildRequires:  sonic-workspace-devel
+BuildRequires:  sonic-screen-library-devel
 # verify presence to pull defaults from /etc/login.defs
 BuildRequires:  shadow-utils
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-rpm-macros
 
 # for jxl support
-Requires:       kf6-kimageformats%{?_isa}
+Requires:       sonic-frameworks-image-formats%{?_isa}
 
 Requires:       xorg-x11-xinit
+Requires:       xorg-x11-server-Xorg
 Requires:       sonic-login-manager-selinux
 
 %{?systemd_requires}
 
-Requires:      kf6-filesystem
-Requires:      kf6-kauth
+Requires: kf6-filesystem >= 6.31
+Requires: sonic-frameworks-auth
 Requires(pre): shadow-utils
 
-Requires:      kde-settings-plasma
+Recommends:      kde-settings-plasma
 
 # Requires sonic window manager (X11 variant)
-Requires:      sonic-win%{?_isa}
-Requires:      (kcm-plasmalogin%{?_isa} if plasma-systemsettings%{?_isa})
+Requires: sonic-win%{?_isa}
+Recommends:      plasma-systemsettings%{?_isa}
 
 %description
 Sonic Login Manager provides a display manager for SonicDE
 with a frontend providing a greeter,
 wallpaper plugin integration and a System Settings module (KCM).
 
-%package -n kcm-plasmalogin
+%package -n kcm-soniclogin
 Summary: KDE KCM for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: dbus-common
-Requires: plasma-systemsettings%{?_isa}
+Recommends:      plasma-systemsettings%{?_isa}
 Requires: polkit
-Requires: qt6-filesystem
+Requires: qt6-filesystem >= 6.11
+Obsoletes:      kcm-plasmalogin
+Provides:       kcm-plasmalogin = %{version}-%{release}
 
-%description -n kcm-plasmalogin
+%description -n kcm-soniclogin
 %{summary}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}
 
 
 %conf
@@ -113,7 +129,8 @@ Requires: qt6-filesystem
   -DCMAKE_BUILD_TYPE:STRING="Release" \
   -DPAM_OS_CONFIGURATION:STRING="fedora" \
   -DSESSION_COMMAND:PATH=/etc/X11/xinit/Xsession \
-  -DWAYLAND_SESSION_COMMAND:PATH=/etc/plasmalogin/wayland-session
+  -DWAYLAND_SESSION_COMMAND:PATH=/etc/soniclogin/wayland-session \
+  -DX_SERVER_EXECUTABLE:PATH=/usr/bin/Xorg
 
 
 %build
@@ -123,32 +140,21 @@ Requires: qt6-filesystem
 %install
 %cmake_install
 
-%find_lang plasma_login
-%find_lang kcm_plasmalogin
+%find_lang sonic_login
+%find_lang kcm_soniclogin
 
 
-mkdir -p %{buildroot}%{_sysconfdir}/plasmalogin.conf.d
-mkdir -p %{buildroot}%{_prefix}/lib/plasmalogin/plasmalogin.conf.d
+mkdir -p %{buildroot}%{_sysconfdir}/soniclogin.conf.d
+mkdir -p %{buildroot}%{_prefix}/lib/soniclogin/soniclogin.conf.d
 
-install -Dpm 644 %{SOURCE10} %{buildroot}%{_datadir}/plasmalogin/scripts/README.scripts
-install -Dpm 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/sysconfig/plasmalogin
-install -Dpm 644 %{SOURCE13} %{buildroot}%{_sysconfdir}/plasmalogin.conf
-
-mkdir -p %{buildroot}/run/plasmalogin
-mkdir -p %{buildroot}%{_localstatedir}/lib/plasmalogin
-mkdir -p %{buildroot}%{_sysconfdir}/plasmalogin/
-cp -a %{buildroot}%{_datadir}/plasmalogin/scripts/* \
-      %{buildroot}%{_sysconfdir}/plasmalogin/
-# we're using /etc/X11/xinit/Xsession (by default) instead
-rm -fv %{buildroot}%{_sysconfdir}/plasmalogin/Xsession
+mkdir -p %{buildroot}/run/soniclogin
+mkdir -p %{buildroot}%{_localstatedir}/lib/soniclogin
+install -Dpm644 %{SOURCE12} %{buildroot}%{_sysusersdir}/soniclogin.conf
+install -Dpm644 %{SOURCE14} %{buildroot}%{_tmpfilesdir}/soniclogin.conf
 
 # De-conflict the dbus file
 mv %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf \
-   %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-plasmalogin.conf
-
-
-%check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desktop
+   %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-soniclogin.conf 2>/dev/null || true
 
 
 %pre
@@ -156,63 +162,94 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %post
-%systemd_post plasmalogin.service
-%systemd_user_post plasma-login.service plasma-login-kwin_x11.service plasma-login-x11.target plasma-wallpaper.service
+%tmpfiles_create soniclogin.conf
+%systemd_post soniclogin.service
+%systemd_user_post soniclogin.service soniclogin-sonic-win.service soniclogin-x11.target soniclogin-wallpaper.service
 
 
 %preun
-%systemd_preun plasmalogin.service
-%systemd_user_preun plasma-login.service plasma-login-kwin_x11.service plasma-login-x11.target plasma-wallpaper.service
+%systemd_preun soniclogin.service
+%systemd_user_preun soniclogin.service soniclogin-sonic-win.service soniclogin-x11.target soniclogin-wallpaper.service
 
 
 %postun
-%systemd_postun plasmalogin.service
-%systemd_user_postun plasma-login.service plasma-login-kwin_x11.service plasma-login-x11.target plasma-wallpaper.service
+%systemd_postun soniclogin.service
+%systemd_user_postun soniclogin.service soniclogin-sonic-win.service soniclogin-x11.target soniclogin-wallpaper.service
 
 
-%files -f plasma_login.lang
+%files -f sonic_login.lang
 %license LICENSE LICENSE.* LICENSES/*
 %doc README.md
-%dir %{_sysconfdir}/plasmalogin/
-%dir %{_sysconfdir}/plasmalogin.conf.d
-%dir %{_prefix}/lib/plasmalogin
-%dir %{_prefix}/lib/plasmalogin/plasmalogin.conf.d
-%config(noreplace) %{_sysconfdir}/plasmalogin/*
-%config(noreplace) %{_sysconfdir}/plasmalogin.conf
-%config(noreplace) %{_sysconfdir}/sysconfig/plasmalogin
-%{_prefix}/lib/pam.d/plasmalogin*
-%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-plasmalogin.conf
-%{_bindir}/plasmalogin
-%{_bindir}/startplasma-login-x11
-%{_bindir}/plasma-login-wallpaper
-%{_libexecdir}/plasmalogin-helper
-%{_libexecdir}/plasmalogin-helper-start-x11user
-%{_libexecdir}/plasma-login-greeter
-%{_tmpfilesdir}/plasmalogin.conf
-%{_sysusersdir}/plasmalogin.conf
-%attr(0711, root, plasmalogin) %dir /run/plasmalogin
-%attr(1770, plasmalogin, plasmalogin) %dir %{_localstatedir}/lib/plasmalogin
-%{_unitdir}/plasmalogin.service
-%{_userunitdir}/plasma-login.service
-%{_userunitdir}/plasma-login-kwin_x11.service
-%{_userunitdir}/plasma-login-x11.target
-%{_userunitdir}/plasma-wallpaper.service
-%dir %{_datadir}/plasmalogin
-%{_datadir}/plasmalogin/scripts/
+%dir %{_sysconfdir}/soniclogin.conf.d
+%dir %{_prefix}/lib/soniclogin
+%dir %{_prefix}/lib/soniclogin/soniclogin.conf.d
+%config(noreplace) %{_sysconfdir}/pam.d/soniclogin
+%config(noreplace) %{_sysconfdir}/pam.d/soniclogin-autologin
+%config(noreplace) %{_sysconfdir}/pam.d/soniclogin-greeter
+%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-soniclogin.conf
+%{_bindir}/soniclogin
+%{_bindir}/start-soniclogin-x11
+%{_bindir}/soniclogin-wallpaper
+%{_libexecdir}/soniclogin-helper
+%{_libexecdir}/soniclogin-helper-start-x11user
+%{_libexecdir}/soniclogin-greeter
+%{_sysusersdir}/soniclogin.conf
+%{_tmpfilesdir}/soniclogin.conf
+%attr(0711, root, soniclogin) %dir /run/soniclogin
+%attr(1770, soniclogin, soniclogin) %dir %{_localstatedir}/lib/soniclogin
+%{_unitdir}/soniclogin.service
+%{_userunitdir}/soniclogin.service
+%{_userunitdir}/soniclogin-sonic-win.service
+%{_userunitdir}/soniclogin-x11.target
+%{_userunitdir}/soniclogin-wallpaper.service
+%{_userunitdir}/soniclogin-apply-kscreen.service
+%dir %{_datadir}/soniclogin
+%{_datadir}/soniclogin/scripts/
+%if 0%{?rhel}
+%{_sysconfdir}/init.d/soniclogin
+%endif
+%{_datadir}/locale/*/LC_MESSAGES/plasma_login.mo
 
 
-%files -n kcm-plasmalogin -f kcm_plasmalogin.lang
-%{_kf6_libexecdir}/kauth/kcmplasmalogin_authhelper
-%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_plasmalogin.so
-%{_datadir}/applications/kcm_plasmalogin.desktop
-%{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmplasmalogin.service
-%{_datadir}/dbus-1/system.d/org.kde.kcontrol.kcmplasmalogin.conf
-%{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmplasmalogin.policy
+%files -n kcm-soniclogin -f kcm_soniclogin.lang
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_soniclogin.so
+%{_datadir}/applications/kcm_soniclogin.desktop
+%{_datadir}/locale/*/LC_MESSAGES/kcm_plasmalogin.mo
 
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-9
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-8
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-7
+- Pin LibKWorkspace/LibKLookAndFeel to sonic-workspace-devel: the
+  unversioned cmake() provides also exist in EPEL's plasma-workspace-devel
+  (built for Qt 6.10), which won resolution on alma+epel-10-x86_64_v2 and
+  broke the buildroot on Qt_6.10_PRIVATE_API.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-6
+- Require xorg-x11-server-Xorg at runtime: a display manager cannot
+  start a session without its X server; resolves to XLibre where the
+  project repo is present, to xorg-x11-server on Fedora.
+
+* Thu Nov 12 2026 Devin <devin@users.noreply.github.com> - 6.8.2-3
+- soniclogin.sysusers: add video/input/render memberships for the greeter
+  account; the groups live in /usr/lib/group which usermod cannot edit,
+  and the daemon's SelfProvisioner is SELinux-denied under xdm_t. Proven
+  needed on the live dev image.
+
+* Fri Sep 04 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4.5-1
+- Update to SonicDE 6.7.4.5
+
 * Tue Jun 30 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.6.4-12
-- Add SELinux policy module to allow plasmalogin to launch X11 user sessions
+- Add SELinux policy module to allow soniclogin to launch X11 user sessions
 - Remove with_X11 condition since we will always be using X11
 
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
@@ -263,7 +300,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 * Wed Dec 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20251203.68b0122-1
 - Bump to new git snapshot
-- Add sample plasmalogin.conf
+- Add sample soniclogin.conf
 
 * Fri Nov 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20251128.146250b-1
 - Bump to new git snapshot

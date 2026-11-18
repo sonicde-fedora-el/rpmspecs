@@ -1,0 +1,8 @@
+#Type Name       ID GECOS                          Home directory     Shell
+u     soniclogin -  "Sonic Login Manager Greeter" /var/lib/soniclogin /usr/sbin/nologin
+# Greeter needs GPU/input access; groups live in /usr/lib/group which
+# usermod cannot edit, so declare memberships here (SelfProvisioner
+# usermod is also SELinux-denied under xdm_t).
+m     soniclogin video
+m     soniclogin input
+m     soniclogin render

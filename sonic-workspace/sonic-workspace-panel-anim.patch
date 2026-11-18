@@ -1,0 +1,116 @@
+diff --git a/shell/panelview.cpp b/shell/panelview.cpp
+index 8da6d87..03ff107 100644
+--- a/shell/panelview.cpp
++++ b/shell/panelview.cpp
+@@ -75,6 +75,9 @@ PanelView::PanelView(ShellCorona *corona, QScreen *targetScreen, QWindow *parent
+ 
+     connect(&m_theme, &Plasma::Theme::themeChanged, this, &PanelView::updateMask);
+     connect(&m_theme, &Plasma::Theme::themeChanged, this, &PanelView::updateAdaptiveOpacityEnabled);
++    connect(KX11Extras::self(), &KX11Extras::currentDesktopChanged, this, [this](int) {
++        m_lastDesktopSwitch.start();
++    });
+     connect(this, &PanelView::backgroundHintsChanged, this, &PanelView::updateMask);
+     connect(this, &PanelView::backgroundCutoutChanged, this, &PanelView::updateMask);
+     connect(this, &PanelView::backgroundHintsChanged, this, &PanelView::updateEnabledBorders);
+@@ -673,6 +676,20 @@ void PanelView::positionAndResizePanel()
+ 
+     // At least one QWindow setGeometry is needed to avoid a protocol error
+     setGeometry(geom);
++
++    if (m_floatingnessAnimation.state() == QAbstractAnimation::State::Running) {
++        // During the floatingness animation only the window geometry moves.
++        // updateMask() (XShape + blur-region atoms), the available screen
++        // region and the slide-window property are all deferred to the
++        // animation's finished() handler: updating them for every animation
++        // frame floods the X server and the compositor and is what makes the
++        // animation stutter on X11.
++        if (geomChanged) {
++            Q_EMIT geometryChanged();
++        }
++        return;
++    }
++
+     updateMask();
+ 
+     if (geomChanged) {
+@@ -984,9 +1001,16 @@ void PanelView::resizeEvent(QResizeEvent *ev)
+         updateEnabledBorders();
+         const QPoint pos = geometryByDistance(0).topLeft();
+         setPosition(pos);
+-        Q_EMIT m_corona->availableScreenRegionChanged(containment()->screen());
+ 
+-        m_strutsTimer.start(STRUTSTIMERDELAY);
++        if (m_floatingnessAnimation.state() != QAbstractAnimation::State::Running) {
++            // During the floatingness animation the panel resizes on every
++            // frame; emitting availableScreenRegionChanged and refreshing the
++            // struts each time forces every managed window to recompute its
++            // layout per animation frame, which is what makes the animation
++            // stutter on X11. Both are re-applied when the animation finishes.
++            Q_EMIT m_corona->availableScreenRegionChanged(containment()->screen());
++            m_strutsTimer.start(STRUTSTIMERDELAY);
++        }
+     }
+ 
+     PlasmaQuick::ContainmentView::resizeEvent(ev);
+@@ -995,7 +1019,9 @@ void PanelView::resizeEvent(QResizeEvent *ev)
+ void PanelView::moveEvent(QMoveEvent *ev)
+ {
+     updateEnabledBorders();
+-    m_strutsTimer.start(STRUTSTIMERDELAY);
++    if (m_floatingnessAnimation.state() != QAbstractAnimation::State::Running) {
++        m_strutsTimer.start(STRUTSTIMERDELAY);
++    }
+     PlasmaQuick::ContainmentView::moveEvent(ev);
+     if (m_screenToFollow && !m_screenToFollow->geometry().contains(geometry())) {
+         positionPanel();
+@@ -1630,7 +1656,8 @@ void PanelView::handleQmlStatusChange(QQmlComponent::Status status)
+                 positionAndResizePanel();
+             });
+             connect(&m_floatingnessAnimation, &QPropertyAnimation::finished, rootObject, [this]() {
+-                updateMask();
++                positionAndResizePanel();
++                m_strutsTimer.start(STRUTSTIMERDELAY);
+             });
+             connect(rootObject, SIGNAL(minPanelHeightChanged()), this, SLOT(updatePadding()));
+             connect(rootObject, SIGNAL(minPanelWidthChanged()), this, SLOT(updatePadding()));
+@@ -1834,7 +1861,19 @@ void PanelView::updateFloating()
+ 
+     // positionPanel and updateMask are called by m_floatingnessAnimation
+     if (m_floatingnessAnimation.targetObject()) {
+-        m_floatingnessAnimation.start();
++        // When the floatingness change is triggered by a virtual desktop switch,
++        // run the transition instantly: repainting the panel every frame while
++        // the compositor's desktop-switch effect animates makes the switch
++        // stutter on X11, and the visual float change is masked by the slide.
++        if (m_lastDesktopSwitch.isValid() && m_lastDesktopSwitch.elapsed() < 350) {
++            m_floatingnessAnimation.stop();
++            rootObject()->setProperty("floatingness", m_floatingnessAnimation.endValue());
++            m_floatingness = m_floatingnessAnimation.endValue().toDouble();
++            positionAndResizePanel();
++            m_strutsTimer.start(STRUTSTIMERDELAY);
++        } else {
++            m_floatingnessAnimation.start();
++        }
+     }
+ }
+ 
+diff --git a/shell/panelview.h b/shell/panelview.h
+index d1e868c..a8411bd 100644
+--- a/shell/panelview.h
++++ b/shell/panelview.h
+@@ -7,6 +7,7 @@
+ #pragma once
+ 
+ #include <Plasma/Theme>
++#include <QElapsedTimer>
+ #include <QPointer>
+ #include <QPropertyAnimation>
+ #include <QTimer>
+@@ -357,6 +358,7 @@ private:
+     int m_rightPadding;
+     double m_floatingness = 0.0;
+     QPropertyAnimation m_floatingnessAnimation;
++    QElapsedTimer m_lastDesktopSwitch;
+     int m_bottomFloatingPadding;
+     int m_topFloatingPadding;
+     int m_leftFloatingPadding;

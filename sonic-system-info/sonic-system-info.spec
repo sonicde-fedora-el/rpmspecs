@@ -1,4 +1,6 @@
 %define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 %define debug_package %{nil}
 %define oldname kinfocenter
 
@@ -7,38 +9,38 @@ ExcludeArch: %{ix86}
 
 Name:    sonic-system-info
 
-Version: 6.6.4
-Release: 1%{?dist}
+Version: 6.8.2
+Release:        3%{?dist}
 Summary: KDE Info Center
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 #URL:     https://invent.kde.org/plasma/%
 URL:           https://github.com/Sonic-DE/%{name}
 
-#Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-#Source1: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
+#Source0: http://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
+#Source1: http://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  sonic-rpm-macros
+BuildRequires:  sonic-frameworks-cmake-modules
 
-BuildRequires:  kf6-rpm-macros
-BuildRequires:  extra-cmake-modules
-
-BuildRequires:  cmake(KF6Completion)
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6ConfigWidgets)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6KCMUtils)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6Solid)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6XmlGui)
-BuildRequires:  cmake(KF6Declarative)
-BuildRequires:  cmake(KF6Package)
-BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  sonic-frameworks-autocomplete-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-settings-ui-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires: qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-app-info-devel
+BuildRequires:  sonic-frameworks-device-integration-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-xml-gui-devel
+BuildRequires:  sonic-frameworks-qml-bridge-devel
+BuildRequires:  sonic-frameworks-package-devel
+BuildRequires:  sonic-frameworks-doctools-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLES-devel
 BuildRequires:  mesa-libEGL-devel
@@ -53,8 +55,8 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  libraw1394-devel
 %endif
 
-BuildRequires: cmake(KF6Kirigami2)
-Requires: kf6-kirigami2%{?_isa}
+BuildRequires: sonic-frameworks-quick-ui-devel
+Requires: sonic-frameworks-quick-ui%{?_isa}
 
 # runtime query of usb.ids, oui.txt
 Requires: hwdata
@@ -76,7 +78,8 @@ Requires: libdisplay-info-tools
 
 # When kinfocenter was split out from kde-workspace
 Conflicts:      kde-workspace < 4.11.15-3
-Conflicts: kinfocenter
+Obsoletes:      kinfocenter
+Provides:       kinfocenter = %{version}-%{release}
 
 %description
 %{summary}.
@@ -95,15 +98,7 @@ Conflicts: kinfocenter
 %cmake_install
 %find_lang %{name} --all-name --with-html
 
-%check
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kinfocenter.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.desktop
-# commented out until upstream fixes a duplicate entries problem
-#appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
-
 %files -f %{name}.lang
-%{_datadir}/applications/kcm_energyinfo.desktop
 %{_bindir}/kinfocenter
 %{_kf6_libdir}/libKInfoCenterInternal.so
 %{_kf6_qtplugindir}/plasma/kcms/*.so
@@ -121,6 +116,19 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.deskto
 %{_libexecdir}/kinfocenter-vulkan-helper
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
+- Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

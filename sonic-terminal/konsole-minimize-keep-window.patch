@@ -1,0 +1,20 @@
+diff --git a/src/quick/WindowController.cpp b/src/quick/WindowController.cpp
+index ead31a4..b674315 100644
+--- a/src/quick/WindowController.cpp
++++ b/src/quick/WindowController.cpp
+@@ -576,9 +576,10 @@ void WindowController::followQmlWindowState()
+     if (_syncing || !_window || !_qmlWindow) {
+         return;
+     }
+-    // Maximized, full screen: saved with the compat window as before.
++    // Maximized, full screen: saved with the compat window as before. Never minimized: Qt
++    // hides a minimized widget (hiding this window) and maps it when restoring it.
+     _syncing = true;
+-    _window->setWindowState(_qmlWindow->windowStates());
++    _window->setWindowState(_qmlWindow->windowStates() & ~Qt::WindowMinimized);
+     _syncing = false;
+ }
+ 
+-- 
+2.52.0
+

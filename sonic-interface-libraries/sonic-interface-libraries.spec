@@ -2,9 +2,11 @@
 %define debug_package %{nil}
 
 #Name:    libplasma
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
 Name:    sonic-interface-libraries
-Version: 6.6.4
-Release: 2%{?dist}
+Version: 6.8.2
+Release:        4%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
@@ -12,76 +14,75 @@ License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-
 #URL:     https://invent.kde.org/plasma/libplasma
 URL:           https://github.com/Sonic-DE/%{name}
 
-#Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-#Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
+#Source0: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz
+#Source1: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{name}-%%{version}.tar.xz.sig
 Source0:     %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  extra-cmake-modules
+BuildRequires:  sonic-frameworks-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  kf6-rpm-macros
+BuildRequires:  sonic-rpm-macros
 
 # Qt
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6Gui)
-BuildRequires:  cmake(Qt6Qml)
-BuildRequires:  cmake(Qt6Svg)
-BuildRequires:  cmake(Qt6QuickControls2)
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6GuiPrivate)
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtsvg-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
 
 # KDE Frameworks
-BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6GlobalAccel)
-BuildRequires:  cmake(KF6DocTools)
-BuildRequires:  cmake(KF6GuiAddons)
-BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Package)
-BuildRequires:  cmake(KF6KirigamiPlatform)
-BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6ColorScheme)
-BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-keybind-devel
+BuildRequires:  sonic-frameworks-doctools-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-icon-themes-devel
+BuildRequires:  sonic-frameworks-io-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-notifications-devel
+BuildRequires:  sonic-frameworks-package-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+BuildRequires:  sonic-frameworks-svg-devel
+BuildRequires:  sonic-frameworks-color-scheme-devel
+BuildRequires:  sonic-frameworks-dbus-devel
 
 # Plasma
-BuildRequires:  cmake(PlasmaActivities)
+BuildRequires:  sonic-activities-devel
 
 # Wayland
-BuildRequires:  cmake(PlasmaWaylandProtocols)
-BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  plasma-wayland-protocols-devel >= 1.21.0
+BuildRequires:  qt6-qtwayland-devel >= 6.11
 BuildRequires:  pkgconfig(wayland-client)
 
 # autotests
-BuildRequires:  cmake(KF6Archive)
+BuildRequires:  sonic-frameworks-archive-devel
 
 # examples
-BuildRequires:  cmake(KF6Parts)
-BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  sonic-frameworks-ui-components-devel
+BuildRequires:  sonic-frameworks-widgets-addons-devel
 
-Requires:       kf6-filesystem
+Requires: kf6-filesystem >= 6.31
 
 # Renamed from kf6-plasma
 Obsoletes:      kf6-plasma < 1:%{version}-%{release}
 Provides:       kf6-plasma = 1:%{version}-%{release}
-Conflicts: libplasma
+Obsoletes:      libplasma
+Provides:       libplasma = %{version}-%{release}
 
 %description
 %{summary}.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt6Qml)
-Requires:       cmake(Qt6Gui)
-Requires:       cmake(KF6Package)
-Requires:       cmake(KF6KirigamiPlatform)
-Requires:       cmake(KF6WindowSystem)
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: qt6-qtdeclarative-devel >= 6.11
+Requires: qt6-qtbase-devel >= 6.11
+Requires: sonic-frameworks-package-devel
+Requires: sonic-frameworks-quick-ui-devel
+Requires: sonic-frameworks-windowsystem-devel
 Obsoletes:      kf6-plasma-devel < 1:%{version}-%{release}
 Provides:       kf6-plasma-devel = 1:%{version}-%{release}
-Conflicts: libplasma-devel
+Obsoletes:      libplasma-devel
+Provides:       libplasma-devel = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -89,7 +90,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
-Conflicts: libplasma-doc
+Obsoletes:      libplasma-doc
+Provides:       libplasma-doc = %{version}-%{release}
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -132,12 +134,25 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_libdir}/cmake/PlasmaQuick/
 %{_libdir}/libPlasma.so
 %{_libdir}/libPlasmaQuick.so
-%{_qt6_docdir}/*.tags
- 
+
 %files doc
-%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-4
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Pin Plasma cmake deps to SonicDE providers (Fedora libplasma 6.8.3 outranks ours)
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
+- Update to SonicDE 6.7.4 from the hard fork; build on Enterprise Linux 10 and Fedora
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

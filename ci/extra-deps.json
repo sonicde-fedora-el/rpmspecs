@@ -1,0 +1,10 @@
+{
+  "_comment": "Implicit dependency edges that BuildRequires cannot express. when_spec_uses_macro: add an edge to every package in `requires` for specs whose raw text uses the named macro. Used by generate-build-order.py so a tier never needs a package from its own tier.",
+  "implicit_deps": [
+    {
+      "when_spec_uses_macro": "%cmake_build_kf6",
+      "requires": ["qt6-qttools"],
+      "why": "%cmake_build_kf6 runs the qdoc targets (prepare_docs/generate_docs), which need qdoc from qt6-qttools at build time. sonic-rpm-macros pulls it in via Requires: cmake(Qt6ToolsTools), so every spec using the macro needs qt6-qttools in an EARLIER tier."
+    }
+  ]
+}

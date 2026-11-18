@@ -1,0 +1,220 @@
+# Generated for SonicDE from Fedora's plasma-oxygen.spec.
+# SonicDE is a hard fork of KDE Plasma; the sources come from the
+# https://github.com/Sonic-DE/sonic-oxygen fork, not from download.kde.org.
+%define _disable_source_fetch 0
+%global sonicde_frameworks_version 6.31.0
+%global sonicde_qt6_version 6.11.3
+%define debug_package %{nil}
+%global reponame sonic-oxygen
+# Upstream KDE project: oxygen
+%global oldname plasma-oxygen
+
+%global         base_name oxygen
+
+# Disable kf5 support for RHEL 10+
+%bcond kf5 %[%{undefined rhel} || 0%{?rhel} < 10]
+
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
+#Name:    plasma-%%{base_name}
+Name:           sonic-oxygen
+Version:        6.8.2
+Release:        4%{?dist}
+Summary: Plasma and Qt widget style and window decorations for Plasma
+
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
+#URL:     https://invent.kde.org/plasma/%%{base_name}
+URL:            https://github.com/Sonic-DE/%{reponame}
+
+#Source0: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{base_name}-%%{version}.tar.xz
+Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{reponame}-%{version}.tar.gz
+#Source1: https://download.kde.org/%%{stable_kf6}/plasma/%%{version}/%%{base_name}-%%{version}.tar.xz.sig
+
+
+# Misc
+BuildRequires:  sonic-frameworks-cmake-modules
+BuildRequires:  gettext
+BuildRequires:  libxcb-devel
+BuildRequires:  sonic-interface-libraries-devel
+
+%if %{with kf5}
+# Qt5
+BuildRequires:  kf5-rpm-macros
+BuildRequires:  cmake(KF5Completion)
+BuildRequires:  cmake(KF5Config)
+BuildRequires:  cmake(KF5FrameworkIntegration)
+BuildRequires:  cmake(KF5GuiAddons)
+BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5Service)
+BuildRequires:  cmake(KF5WidgetsAddons)
+BuildRequires:  cmake(KF5WindowSystem)
+
+BuildRequires:  cmake(Qt5DBus)
+BuildRequires:  cmake(Qt5Quick)
+BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt5X11Extras)
+
+Requires:       (%{name}-qt5 if qt5-qtbase-gui)
+%endif
+
+# Qt6
+BuildRequires:  sonic-rpm-macros
+BuildRequires:  sonic-decoration-devel
+BuildRequires:  sonic-frameworks-color-scheme-devel
+BuildRequires:  sonic-frameworks-autocomplete-devel
+BuildRequires:  sonic-frameworks-settings-devel
+BuildRequires:  sonic-frameworks-core-addons-devel
+BuildRequires:  sonic-frameworks-qt-integration-devel
+BuildRequires:  sonic-frameworks-gui-addons-devel
+BuildRequires:  sonic-frameworks-internationalization-devel
+BuildRequires:  sonic-frameworks-settings-utils-devel
+BuildRequires:  sonic-frameworks-windowsystem-devel
+BuildRequires:  sonic-frameworks-quick-ui-devel
+
+BuildRequires:  qt6-qtbase-devel >= 6.11
+BuildRequires:  qt6-qtdeclarative-devel >= 6.11
+BuildRequires:  qt6-qtbase-private-devel >= 6.11
+Requires: kf6-filesystem >= 6.31
+
+Requires: %{name}-qt6
+
+Requires: oxygen-cursor-themes >= %{version}
+Requires: oxygen-sound-theme
+# for oxygen look-and-feel
+Requires: sonic-oxygen-icons
+
+# kwin-oxygen was removed in 5.1.95
+Obsoletes:      kwin-oxygen < 5.1.95-1
+Obsoletes:      sonic-oxygen < 5.1.1-2
+Conflicts:      sonic-desktop-interface < 5.16.90
+
+Provides:       plasma-oxygen = %{version}-%{release}
+Provides:       plasma-oxygen%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-oxygen
+
+%description
+%{summary}.
+
+%if %{with kf5}
+%package        qt5
+Summary:        Oxygen widget style for Qt 5
+Obsoletes:      qt5-style-oxygen
+Provides:       qt5-style-oxygen = %{version}-%{release}
+Provides:       plasma-oxygen-qt5 = %{version}-%{release}
+Provides:       plasma-oxygen-qt5%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-oxygen-qt5
+
+%description    qt5
+%{summary}.
+%endif
+
+%package        qt6
+Summary:        Oxygen widget style for Qt 6
+Provides:       plasma-oxygen-qt6 = %{version}-%{release}
+Provides:       plasma-oxygen-qt6%{?_isa} = %{version}-%{release}
+Obsoletes:      plasma-oxygen-qt6
+
+%description    qt6
+%{summary}.
+
+%package -n     oxygen-cursor-themes
+Summary:        Oxygen cursor themes
+BuildArch:      noarch
+Obsoletes:      plasma-oxygen-common < 5.1.1-2
+%description -n oxygen-cursor-themes
+%{summary}.
+
+
+%prep
+%autosetup -p1 -n %{reponame}-%{version}
+
+
+%build
+mkdir -p qt6build
+pushd qt6build
+%cmake_kf6 -S .. -DBUILD_QT6=ON -DBUILD_QT5=OFF
+%cmake_build
+popd
+
+%if %{with kf5}
+mkdir -p qt5build
+pushd qt5build
+%cmake_kf5 -S .. -DBUILD_QT6=OFF -DBUILD_QT5=ON
+%cmake_build
+popd
+%endif
+
+%install
+pushd qt6build
+%cmake_install
+popd
+
+%if %{with kf5}
+pushd qt5build
+%cmake_install
+popd
+%endif
+
+%find_lang oxygen --with-qt --all-name
+
+
+%files -f oxygen.lang
+%license LICENSES/*
+%{_bindir}/oxygen-settings6
+%{_kf6_datadir}/applications/kcm_oxygendecoration.desktop
+%{_kf6_datadir}/color-schemes/Oxygen.colors
+%{_kf6_datadir}/color-schemes/OxygenCold.colors
+%{_kf6_datadir}/color-schemes/OxygenDark.colors
+%{_kf6_datadir}/icons/hicolor/*/apps/oxygen-settings.*
+%{_kf6_datadir}/kstyle/themes/oxygen.themerc
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.oxygen/
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.oxygenlight/
+%{_kf6_datadir}/plasma/desktoptheme/oxygen/
+%{_kf6_qtplugindir}/kstyle_config/kstyle_oxygen_config.so
+%{_kf6_qtplugindir}/org.kde.kdecoration3.kcm/kcm_oxygendecoration.so
+%{_kf6_qtplugindir}/org.kde.kdecoration3/org.kde.oxygen.so
+%{_kf6_datadir}/wallpapers/Horos/
+%{_kf6_datadir}/plasma/desktoptheme/air/
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.air/
+%{_kf6_datadir}/wallpapers/Air/
+
+%if %{with kf5}
+%files qt5
+%{_bindir}/oxygen-demo5
+%{_libdir}/liboxygenstyle5.so.*
+%{_libdir}/liboxygenstyleconfig5.so.*
+%{_kf5_qtplugindir}/styles/oxygen5.so
+%endif
+
+%files qt6
+%{_bindir}/oxygen-demo6
+%{_libdir}/liboxygenstyle6.so.*
+%{_libdir}/liboxygenstyleconfig6.so.*
+%{_kf6_qtplugindir}/styles/oxygen6.so
+
+%files -n   oxygen-cursor-themes
+%{_datadir}/icons/KDE_Classic/
+%{_datadir}/icons/Oxygen_Black/
+%{_datadir}/icons/Oxygen_Blue/
+%{_datadir}/icons/Oxygen_White/
+%{_datadir}/icons/Oxygen_Yellow/
+%{_datadir}/icons/Oxygen_Zion/
+
+%changelog
+* Tue Nov 17 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-4
+- Drop version bound on fork Obsoletes so distro packages
+  with a higher NVR (e.g. Fedora kf6-6.32) are replaced cleanly
+  instead of producing file conflicts.
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-3
+- Relax Qt6/KF6 version pins via %{_sonicde_qt6_eq}/%{_sonicde_kf6_eq}:
+  exact = on EL, >= floor on Fedora so the distro Qt6/KF6 stack
+  satisfies deps (soft transition, no forced downgrade)
+
+* Mon Nov 16 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.8.2-2
+- Pin cmake() BuildRequires to SonicDE package names so the
+  alma+epel-10 solver cannot pick EPEL's Qt 6.10-linked providers
+* Mon Aug 24 2026 Anders da Silva Rytter Hansen <andersrh@users.noreply.github.com> - 6.7.4-1
+- SonicDE hard fork build for Enterprise Linux 10 and Fedora
